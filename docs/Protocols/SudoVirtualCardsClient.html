@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SudoVirtualCardsClient Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Protocol/SudoVirtualCardsClient" class="dashAnchor"></a>
+
+    <a title="SudoVirtualCardsClient Protocol Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          SudoVirtualCards Docs
+        </a>
+        
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">SudoVirtualCards Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      SudoVirtualCardsClient Protocol Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DefaultSudoVirtualCardsClient.html">DefaultSudoVirtualCardsClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CachePolicy.html">CachePolicy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards15CancelCardErrorO">CancelCardError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18CardProvisionErrorO">CardProvisionError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FilterInput.html">FilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18FundingSourceErrorO">FundingSourceError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards12GetCardErrorO">GetCardError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards40GetFundingSourceClientConfigurationErrorO">GetFundingSourceClientConfigurationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PlatformSubscriptionStatus.html">PlatformSubscriptionStatus</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards14PublicKeyErrorO">PublicKeyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards16TransactionErrorO">TransactionError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards15UpdateCardErrorO">UpdateCardError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/AWSRegionType.html">AWSRegionType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/FundingSourceAuthorizationDelegate.html">FundingSourceAuthorizationDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/ProvisionCardObservable.html">ProvisionCardObservable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SudoVirtualCardsClient.html">SudoVirtualCardsClient</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AggregateError.html">AggregateError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/AnyError.html">AnyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Card.html">Card</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Card/State.html">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Card/BillingAddress.html">– BillingAddress</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Card/Expiry.html">– Expiry</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CreditCardFundingSourceInput.html">CreditCardFundingSourceInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CurrencyAmount.html">CurrencyAmount</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/FundingSource.html">FundingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/FundingSource.html#/s:16SudoVirtualCards13FundingSourceV5StateO">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/FundingSource.html#/s:16SudoVirtualCards13FundingSourceV7NetworkO">– Network</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GetCardsFilterInput.html">GetCardsFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GetProvisionalCardsFilterInput.html">GetProvisionalCardsFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/GetTransactionsFilterInput.html">GetTransactionsFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ListOutput.html">ListOutput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Owner.html">Owner</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ProvisionCardInput.html">ProvisionCardInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ProvisionalCard.html">ProvisionalCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ProvisionalCard.html#/s:16SudoVirtualCards15ProvisionalCardV5StateO">– State</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SealedExpiry.html">SealedExpiry</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/SudoVirtualCardsConfig.html">SudoVirtualCardsConfig</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Transaction.html#/s:16SudoVirtualCards11TransactionV0D4TypeO">– TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TransactionDetailChargeAttribute.html">TransactionDetailChargeAttribute</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/TransactionDetailChargeAttribute/Markup.html">– Markup</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/UpdateCardInput.html">UpdateCardInput</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>SudoVirtualCardsClient</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">SudoVirtualCardsClient</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Client used to interface with the Sudo Payment Platform service.</p>
+
+<p>It is recommended to code to this interface, rather than the implementation class (<code><a href="../Classes/DefaultSudoVirtualCardsClient.html">DefaultSudoVirtualCardsClient</a></code>) as
+the implementation class is only meant to be used for initializing an instance of the client.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP5resetyyKF"></a>
+                    <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP5resetyyKF">reset()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all keys associated with this client, resets any cached data, cleans up subscriptions, and purges any pending operations.</p>
+
+<p>It is important to note that this will clear ALL cached data related to all
+sudo services.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Mutations"></a>
+                <a name="//apple_ref/swift/Section/Mutations" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Mutations"></a>
+                  <h3 class="section-name"><p>Mutations</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP22provisionCardWithInput_10completion8observeryAA09ProvisionfH0V_ys6ResultOyAA011ProvisionalF0V5StateOs5Error_pGcAA0kF10Observable_pSgtF"></a>
+                    <a name="//apple_ref/swift/Method/provisionCardWithInput(_:completion:observer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP22provisionCardWithInput_10completion8observeryAA09ProvisionfH0V_ys6ResultOyAA011ProvisionalF0V5StateOs5Error_pGcAA0kF10Observable_pSgtF">provisionCardWithInput(_:completion:observer:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provision a card.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionCardWithInput</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProvisionCardInput.html">ProvisionCardInput</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="o">.</span><span class="kt">State</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">observer</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ProvisionCardObservable.html">ProvisionCardObservable</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><ul>
+<li>Success: A newly provisioned card information is returned.</li>
+<li>Failure:</li>
+<li>SudoPlatformError.</li>
+<li>CardProvisionError.</li>
+</ul></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP19createFundingSource19withCreditCardInput21authorizationDelegate10completionyAA0ijfgK0V_AA0fg13AuthorizationM0_pSgys6ResultOyAA0fG0Vs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/createFundingSource(withCreditCardInput:authorizationDelegate:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19createFundingSource19withCreditCardInput21authorizationDelegate10completionyAA0ijfgK0V_AA0fg13AuthorizationM0_pSgys6ResultOyAA0fG0Vs5Error_pGctF">createFundingSource(withCreditCardInput:authorizationDelegate:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a Funding Source using a Credit Card input.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">createFundingSource</span><span class="p">(</span><span class="n">withCreditCardInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/CreditCardFundingSourceInput.html">CreditCardFundingSourceInput</a></span><span class="p">,</span> <span class="nv">authorizationDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/FundingSourceAuthorizationDelegate.html">FundingSourceAuthorizationDelegate</a></span><span class="p">?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Credit card information.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>authorizationDelegate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code><a href="../Protocols/FundingSourceAuthorizationDelegate.html">FundingSourceAuthorizationDelegate</a></code> delegate to forward any UI hooks to stripe 3Ds with.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><ul>
+<li>Success: Newly created Funding Source with a credit card.</li>
+<li>Failure:</li>
+<li>SudoPlatformError.</li>
+<li>SudoVirtualCardsError.</li>
+<li>FundingSourceError.</li>
+</ul></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP25cancelFundingSourceWithId_10completionySS_ys6ResultOyAA0fG0Vs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/cancelFundingSourceWithId(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP25cancelFundingSourceWithId_10completionySS_ys6ResultOyAA0fG0Vs5Error_pGctF">cancelFundingSourceWithId(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancel a funding source.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cancelFundingSourceWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of the funding source to be deleted.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Funding source that was cancelled.</li>
+<li>Failure:</li>
+<li>SudoPlatformError.</li>
+<li>FundingSourceError.</li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP19updateCardWithInput_10completionyAA06UpdatefH0V_ys6ResultOyAA0F0Vs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/updateCardWithInput(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19updateCardWithInput_10completionyAA06UpdatefH0V_ys6ResultOyAA0F0Vs5Error_pGctF">updateCardWithInput(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update a card.</p>
+
+<p>It is important to note that when updating a card, all fields that should remain the same should include their
+original data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateCardWithInput</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/UpdateCardInput.html">UpdateCardInput</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Input fields for the card update.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><ul>
+<li>Success: Updated card.</li>
+<li>Failure:</li>
+<li>SudoPlatformError.</li>
+</ul></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Queries"></a>
+                <a name="//apple_ref/swift/Section/Queries" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Queries"></a>
+                  <h3 class="section-name"><p>Queries</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP24getProvisionalCardWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getProvisionalCardWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP24getProvisionalCardWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF">getProvisionalCardWithId(_:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a provisional card using the <code>id</code> parameter. If the card cannot be found, <code>nil</code> will be returned.</p>
+
+<ul>
+<li><p>Parameters</p>
+
+<ul>
+<li>id: ID of the card to be retrieved.</li>
+<li>cachePolicy: Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+           will only return cached results of similar exact API calls.</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getProvisionalCardWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Card associated with <code>id</code>, or <code>nil</code> if the card cannot be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP014getProvisionalC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfcH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F4CardVGs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getProvisionalCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP014getProvisionalC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfcH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F4CardVGs5Error_pGctF">getProvisionalCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of provisional cards. If no cards can be found, an empty list will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getProvisionalCardsWithFilter</span><span class="p">(</span><span class="n">_</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Structs/GetProvisionalCardsFilterInput.html">GetProvisionalCardsFilterInput</a></span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Filter to be applied to results of query.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of cards to return. If nil, the limit is 10.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Generated token by previous calls to <code>getCards</code>. This is used for pagination. This value should be
+                   pre-generated from a previous pagination call, otherwise it will throw an error.
+                   It is important to note that the same structured API call should be used if using a previously
+                   generated <code>nextToken</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+               will only return cached results of similar exact API calls.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Cards associated with user, or empty array if no card can be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP13getCardWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getCardWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP13getCardWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF">getCardWithId(_:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a card using the <code>id</code> parameter. If the card cannot be found, <code>nil</code> will be returned.</p>
+
+<ul>
+<li><p>Parameters</p>
+
+<ul>
+<li>filter: Filter to be applied to results of query.</li>
+<li>id: ID of the card to be retrieved.</li>
+<li>cachePolicy: Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+           will only return cached results of similar exact API calls.</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getCardWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Card associated with <code>id</code>, or <code>nil</code> if the card cannot be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP03getC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetcG5InputVSg_SiSgSSSgAA05CacheL0Oys6ResultOyAA10ListOutputVyAA4CardVGs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP03getC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetcG5InputVSg_SiSgSSSgAA05CacheL0Oys6ResultOyAA10ListOutputVyAA4CardVGs5Error_pGctF">getCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of cards. If no cards can be found, an empty list will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getCardsWithFilter</span><span class="p">(</span><span class="n">_</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Structs/GetCardsFilterInput.html">GetCardsFilterInput</a></span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Filter to be applied to results of query.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of cards to return. If nil, the limit is 10.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Generated token by previous calls to <code>getCards</code>. This is used for pagination. This value should be
+                   pre-generated from a previous pagination call, otherwise it will throw an error.
+                   It is important to note that the same structured API call should be used if using a previously
+                   generated <code>nextToken</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+                     will only return cached results of similar exact API calls.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Cards associated with user, or empty array if no card can be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP22getFundingSourceWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getFundingSourceWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP22getFundingSourceWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF">getFundingSourceWithId(_:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a funding source using the <code>id</code> parameter. If the funding source cannot be found, <code>nil</code> will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getFundingSourceWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of the funding source to be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+                     will only return cached results of similar exact API calls.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: <code><a href="../Structs/FundingSource.html">FundingSource</a></code> associated with <code>id</code>, or <code>nil</code> if the funding source cannot be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP26getFundingSourcesWithLimit_9nextToken11cachePolicy10completionySiSg_SSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F6SourceVGs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getFundingSourcesWithLimit(_:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP26getFundingSourcesWithLimit_9nextToken11cachePolicy10completionySiSg_SSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F6SourceVGs5Error_pGctF">getFundingSourcesWithLimit(_:nextToken:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of funding sources. If no funding sources can be found, an empty list will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getFundingSourcesWithLimit</span><span class="p">(</span><span class="n">_</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of funding sources to return. If <code>nil</code>, the limit is 10.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Generated token by previous calls to <code>getFundingSources</code>. This is used for pagination. This value should be
+                   pre-generated from a previous pagination call, otherwise it will throw an error.
+                   It is important to note that the same structured API call should be used if using a previously
+                   generated <code>nextToken</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+                     will only return cached results of similar exact API calls.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: <code><a href="../Structs/FundingSource.html">FundingSource</a></code> associated with <code>id</code>, or empty array if no card can be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Methods:%20Transactions"></a>
+                <a name="//apple_ref/swift/Section/Methods: Transactions" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Methods:%20Transactions"></a>
+                  <h3 class="section-name"><p>Methods: Transactions</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP20getTransactionWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getTransactionWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP20getTransactionWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF">getTransactionWithId(_:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a transaction using the <code>id</code> parameter. If the transaction cannot be found, <code>nil</code> will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getTransactionWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of the transaction to be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched. When using <code>useCache</code>, please be aware that this
+                     will only return cached results of similar exact API calls.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Transaction associated with <code>id</code>, or <code>nil</code> if the card cannot be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP25getTransactionsWithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA11TransactionVGs5Error_pGctF"></a>
+                    <a name="//apple_ref/swift/Method/getTransactionsWithFilter(_:limit:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP25getTransactionsWithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA11TransactionVGs5Error_pGctF">getTransactionsWithFilter(_:limit:nextToken:cachePolicy:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of transactions. If no transactions can be found, an empty list will be returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getTransactionsWithFilter</span><span class="p">(</span><span class="n">_</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Structs/GetTransactionsFilterInput.html">GetTransactionsFilterInput</a></span><span class="p">?,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span> <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Filter to be applied to results of query.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of transaction to return. If nil, the limit is 10.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Generated token by previous calls to <code>getTransactions</code>. This is used for pagination. This value should be
+                   pre-generated from a previous pagination call, otherwise it will throw an error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Transactions associated with user, or empty array if no transaction can be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Subscriptions"></a>
+                <a name="//apple_ref/swift/Section/Subscriptions" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Subscriptions"></a>
+                  <h3 class="section-name"><p>Subscriptions</p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK010AWSAppSync11Cancellable_pSgyAA26PlatformSubscriptionStatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribeToTransactionUpdates(statusChangeHandler:resultHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK010AWSAppSync11Cancellable_pSgyAA26PlatformSubscriptionStatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF">subscribeToTransactionUpdates(statusChangeHandler:resultHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Subscribe to transaction update events. This includes creation of new transactions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">func</span> <span class="nf">subscribeToTransactionUpdates</span><span class="p">(</span><span class="nv">statusChangeHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a></span><span class="p">?,</span> <span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Cancellable</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>statusChangeHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Connection status change.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resultHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Updated transaction event.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>Cancellable</code> object to cancel the subscription.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-04-29)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
