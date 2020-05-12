@@ -49,6 +49,9 @@
 		842E8BCA24247D7800B5B94E /* RefreshTokenOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8BC924247D7800B5B94E /* RefreshTokenOperation.swift */; };
 		842E8BD1242838A000B5B94E /* XCTestCase+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8BD0242838A000B5B94E /* XCTestCase+Utility.swift */; };
 		843064E7233C34E30083874D /* Date+MillisecondsSinceEpoch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843064E6233C34E30083874D /* Date+MillisecondsSinceEpoch.swift */; };
+		84309D652464FE6E00F48ECC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84309D672464FE6E00F48ECC /* Localizable.strings */; };
+		84309D6C246528DD00F48ECC /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84309D6B246528DD00F48ECC /* Strings.swift */; };
+		84309D6E24652E5E00F48ECC /* Bundle+Static.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84309D6D24652E5E00F48ECC /* Bundle+Static.swift */; };
 		843678BF2325D45C00007E05 /* SudoLogger+VirtualCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843678BE2325D45C00007E05 /* SudoLogger+VirtualCards.swift */; };
 		8436827D2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436827C2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift */; };
 		843682862320E3F7005F6D34 /* GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843682852320E3F7005F6D34 /* GraphQLAPI.swift */; };
@@ -66,7 +69,7 @@
 		845AABA3237E382C00E4A13C /* SudoLogger+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABA2237E382C00E4A13C /* SudoLogger+Tests.swift */; };
 		845AABB22382571600E4A13C /* AggregateError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABB12382571600E4A13C /* AggregateError.swift */; };
 		845AABBD2382B95800E4A13C /* MockSudoUserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABBC2382B95800E4A13C /* MockSudoUserClient.swift */; };
-		845AABC32383A42600E4A13C /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC22383A42600E4A13C /* APIError.swift */; };
+		845AABC32383A42600E4A13C /* SudoVirtualCardsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC22383A42600E4A13C /* SudoVirtualCardsError.swift */; };
 		845AABC72383AEF200E4A13C /* AggregateErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC62383AEF200E4A13C /* AggregateErrorTests.swift */; };
 		845AABC92383B33400E4A13C /* ProvisionCardOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC82383B33400E4A13C /* ProvisionCardOperationTests.swift */; };
 		845AABCD2383BC9C00E4A13C /* SignedInCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABCC2383BC9C00E4A13C /* SignedInCondition.swift */; };
@@ -131,7 +134,7 @@
 		84DDFF7B24480E7500EC8090 /* CreateCreditCardFundingSourceOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDFF7A24480E7500EC8090 /* CreateCreditCardFundingSourceOperation.swift */; };
 		84DF458523A735EE002ADC85 /* StripeDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458423A735EE002ADC85 /* StripeDataTests.swift */; };
 		84DF458A23A85855002ADC85 /* SudoPlatformErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458923A85855002ADC85 /* SudoPlatformErrorTests.swift */; };
-		84DF458C23A85E39002ADC85 /* APIErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458B23A85E39002ADC85 /* APIErrorTests.swift */; };
+		84DF458C23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458B23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift */; };
 		84E58D192429C6A400737763 /* PlatformKeyManagerMigrationIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E58D182429C6A400737763 /* PlatformKeyManagerMigrationIntegrationTests.swift */; };
 		84E58D1C2429CA8000737763 /* MockSudoUserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E58D1B2429CA8000737763 /* MockSudoUserClient.swift */; };
 		84FB5D59244D66D8006AB2B1 /* SetupFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D58244D66D8006AB2B1 /* SetupFundingSourceInput.swift */; };
@@ -215,6 +218,9 @@
 		842E8BC924247D7800B5B94E /* RefreshTokenOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenOperation.swift; sourceTree = "<group>"; };
 		842E8BD0242838A000B5B94E /* XCTestCase+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Utility.swift"; sourceTree = "<group>"; };
 		843064E6233C34E30083874D /* Date+MillisecondsSinceEpoch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+MillisecondsSinceEpoch.swift"; sourceTree = "<group>"; };
+		84309D662464FE6E00F48ECC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84309D6B246528DD00F48ECC /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		84309D6D24652E5E00F48ECC /* Bundle+Static.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Static.swift"; sourceTree = "<group>"; };
 		843678BE2325D45C00007E05 /* SudoLogger+VirtualCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SudoLogger+VirtualCards.swift"; sourceTree = "<group>"; };
 		8436827A2320D8A5005F6D34 /* SudoVirtualCardsIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoVirtualCardsIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8436827C2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsClientIntegrationTests.swift; sourceTree = "<group>"; };
@@ -234,7 +240,7 @@
 		845AABA2237E382C00E4A13C /* SudoLogger+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SudoLogger+Tests.swift"; sourceTree = "<group>"; };
 		845AABB12382571600E4A13C /* AggregateError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateError.swift; sourceTree = "<group>"; };
 		845AABBC2382B95800E4A13C /* MockSudoUserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoUserClient.swift; sourceTree = "<group>"; };
-		845AABC22383A42600E4A13C /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		845AABC22383A42600E4A13C /* SudoVirtualCardsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsError.swift; sourceTree = "<group>"; };
 		845AABC62383AEF200E4A13C /* AggregateErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateErrorTests.swift; sourceTree = "<group>"; };
 		845AABC82383B33400E4A13C /* ProvisionCardOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionCardOperationTests.swift; sourceTree = "<group>"; };
 		845AABCC2383BC9C00E4A13C /* SignedInCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInCondition.swift; sourceTree = "<group>"; };
@@ -303,7 +309,7 @@
 		84DDFF7A24480E7500EC8090 /* CreateCreditCardFundingSourceOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCreditCardFundingSourceOperation.swift; sourceTree = "<group>"; };
 		84DF458423A735EE002ADC85 /* StripeDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeDataTests.swift; sourceTree = "<group>"; };
 		84DF458923A85855002ADC85 /* SudoPlatformErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoPlatformErrorTests.swift; sourceTree = "<group>"; };
-		84DF458B23A85E39002ADC85 /* APIErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorTests.swift; sourceTree = "<group>"; };
+		84DF458B23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsErrorTests.swift; sourceTree = "<group>"; };
 		84E58D182429C6A400737763 /* PlatformKeyManagerMigrationIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformKeyManagerMigrationIntegrationTests.swift; sourceTree = "<group>"; };
 		84E58D1B2429CA8000737763 /* MockSudoUserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoUserClient.swift; sourceTree = "<group>"; };
 		84FB5D58244D66D8006AB2B1 /* SetupFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFundingSourceInput.swift; sourceTree = "<group>"; };
@@ -505,6 +511,22 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		84309D622464FE3400F48ECC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				84309D672464FE6E00F48ECC /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		84309D68246521D400F48ECC /* Swiftgen */ = {
+			isa = PBXGroup;
+			children = (
+				84309D6B246528DD00F48ECC /* Strings.swift */,
+			);
+			path = Swiftgen;
+			sourceTree = "<group>";
+		};
 		843678BD2325D44400007E05 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -514,6 +536,7 @@
 				8477EEE123963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift */,
 				8407BD1C23E135B90018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializable.swift */,
 				84B74C4223F0DD92001BEF7C /* SealedMarkup+GraphQLAPI.swift */,
+				84309D6D24652E5E00F48ECC /* Bundle+Static.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -627,7 +650,7 @@
 				847BDB8F239A2C2600293C1B /* CardProvisioningStateTests.swift */,
 				847BDB91239A2CC900293C1B /* ListOutputTests.swift */,
 				84DF458423A735EE002ADC85 /* StripeDataTests.swift */,
-				84DF458B23A85E39002ADC85 /* APIErrorTests.swift */,
+				84DF458B23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift */,
 				842C7F1A23DBB954002B70F2 /* FilterInputsTests.swift */,
 			);
 			path = Public;
@@ -708,6 +731,7 @@
 		84783B2C231C916200CCBC27 /* SudoVirtualCards */ = {
 			isa = PBXGroup;
 			children = (
+				84309D622464FE3400F48ECC /* Resources */,
 				84E89E962320D6B800AB34E3 /* Source */,
 				84783B2D231C916200CCBC27 /* SudoVirtualCards.h */,
 				84783B2E231C916200CCBC27 /* Info.plist */,
@@ -759,7 +783,7 @@
 		849CA2DB23221F180075EA21 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				845AABC22383A42600E4A13C /* APIError.swift */,
+				845AABC22383A42600E4A13C /* SudoVirtualCardsError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -848,6 +872,7 @@
 		84E89E962320D6B800AB34E3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				84309D68246521D400F48ECC /* Swiftgen */,
 				84E89E982320D6C700AB34E3 /* Public */,
 				84E89E972320D6C000AB34E3 /* Internal */,
 				844D903A23345FAF00AD343B /* Platform */,
@@ -989,7 +1014,7 @@
 				84783B26231C916200CCBC27 /* Sources */,
 				84783B27231C916200CCBC27 /* Frameworks */,
 				84783B28231C916200CCBC27 /* Resources */,
-				846891642378D2C8001FA865 /* ShellScript */,
+				846891642378D2C8001FA865 /* Swift Lint */,
 			);
 			buildRules = (
 			);
@@ -1095,6 +1120,7 @@
 				848ADAAE231CD56E0013F196 /* Gemfile.lock in Resources */,
 				848ADAAB231CD56E0013F196 /* Podfile in Resources */,
 				848ADAB1231CD56E0013F196 /* SudoVirtualCards.podspec in Resources */,
+				84309D652464FE6E00F48ECC /* Localizable.strings in Resources */,
 				848ADAAD231CD56E0013F196 /* README.md in Resources */,
 				848ADAAA231CD56E0013F196 /* Gemfile in Resources */,
 			);
@@ -1167,7 +1193,7 @@
 			shellPath = /bin/sh;
 			shellScript = "cp -f /var/anonyome_key/* \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f identity-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f identity-system-test-config/config.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n";
 		};
-		846891642378D2C8001FA865 /* ShellScript */ = {
+		846891642378D2C8001FA865 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1176,6 +1202,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Swift Lint";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1315,6 +1342,7 @@
 				844D90452334A21500AD343B /* ClientInputs.swift in Sources */,
 				8407BD1D23E135B90018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializable.swift in Sources */,
 				8477EEE02396386F006CE618 /* SealedCurrencyAmount+GraphQLAPI.swift in Sources */,
+				84309D6C246528DD00F48ECC /* Strings.swift in Sources */,
 				84FB5D59244D66D8006AB2B1 /* SetupFundingSourceInput.swift in Sources */,
 				84CA6BBF23D567070088677E /* SealedBillingAddress.swift in Sources */,
 				843064E7233C34E30083874D /* Date+MillisecondsSinceEpoch.swift in Sources */,
@@ -1340,13 +1368,14 @@
 				8409EC6F23D5192F00553022 /* SealedCurrencyAmount.swift in Sources */,
 				84DDFF7B24480E7500EC8090 /* CreateCreditCardFundingSourceOperation.swift in Sources */,
 				8409EC6423D02DC200553022 /* PlatformKeyManager.swift in Sources */,
+				84309D6E24652E5E00F48ECC /* Bundle+Static.swift in Sources */,
 				84CFC9DB23A9AA1300FDB032 /* ProvisionalCard.swift in Sources */,
 				8494E4E92458F237003FD52E /* GraphQLFilterable.swift in Sources */,
 				845AAB7D237CC8F200E4A13C /* ProvisionCardOperation.swift in Sources */,
 				84AC7A4A2457E4C300815DA9 /* CachePolicy.swift in Sources */,
 				845AABB22382571600E4A13C /* AggregateError.swift in Sources */,
 				84269C53233C61EC00BF13D6 /* SudoLogger+Platform.swift in Sources */,
-				845AABC32383A42600E4A13C /* APIError.swift in Sources */,
+				845AABC32383A42600E4A13C /* SudoVirtualCardsError.swift in Sources */,
 				8477EEE223963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift in Sources */,
 				842E8BCA24247D7800B5B94E /* RefreshTokenOperation.swift in Sources */,
 				84CA6BB723D53EF30088677E /* DecryptionWorker.swift in Sources */,
@@ -1375,7 +1404,7 @@
 				8409EC7923D538B100553022 /* UnsealerTests.swift in Sources */,
 				84CA6BBB23D555320088677E /* MockUnsealer.swift in Sources */,
 				8466257524492D9E006E10A0 /* CompleteFundingSourceOperationTests.swift in Sources */,
-				84DF458C23A85E39002ADC85 /* APIErrorTests.swift in Sources */,
+				84DF458C23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift in Sources */,
 				842E8BD1242838A000B5B94E /* XCTestCase+Utility.swift in Sources */,
 				84C9E3812449752B0067C9CF /* MockGetFundingSourceClientConfiguration.swift in Sources */,
 				84269C58233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift in Sources */,
@@ -1450,6 +1479,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		84309D672464FE6E00F48ECC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84309D662464FE6E00F48ECC /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1465,7 +1502,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.TestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1484,7 +1521,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.TestApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.TestApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1565,7 +1602,7 @@
 					"-framework",
 					"\"WebKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.SudoVirtualCardsIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoVirtualCardsIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1648,7 +1685,7 @@
 					"-framework",
 					"\"WebKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.SudoVirtualCardsIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoVirtualCardsIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -1798,7 +1835,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.SudoVirtualCards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.sudovirtualcards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1827,7 +1864,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.SudoVirtualCards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.sudovirtualcards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -1849,7 +1886,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.SudoVirtualCardsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoVirtualCardsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1871,7 +1908,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anonyome.SudoVirtualCardsTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sudoplatform.SudoVirtualCardsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;

@@ -60,11 +60,11 @@ class ProvisionCardOperation: PlatformGroupOperation {
     override func execute() {
         logger.debug("Provisioning card (clientRefId: \(clientRefId))")
         guard let ownershipProof = ownershipProof else {
-            finishWithError(CardProvisionError.noOwnershipProofAvailable)
+            finishWithError(SudoVirtualCardsError.noOwnershipProofAvailable)
             return
         }
         guard let keyRingId = publicKey?.keyRingId else {
-            finishWithError(CardProvisionError.localKeyPairFailure)
+            finishWithError(SudoVirtualCardsError.localKeyPairFailure)
             return
         }
 
@@ -104,7 +104,7 @@ class ProvisionCardOperation: PlatformGroupOperation {
             optimisticUpdate: optimisticUpdate,
             optimisticCleanup: optimisticCleanup,
             appSyncClient: appSyncClient,
-            serviceErrorTransformations: [CardProvisionError.init(_:)],
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             logger: logger)
 
         let completion = PlatformBlockOperation(logger: logger) { [weak self] in

@@ -81,7 +81,7 @@ class OperationFactory {
         logger: Logger
     ) -> PlatformMutationOperation<Mutation> {
         var serviceErrorTransformations = serviceErrorTransformations ?? []
-        serviceErrorTransformations.append(SudoVirtualCardsError.init(_:))
+        serviceErrorTransformations.append(SudoVirtualCardsError.init(graphQLError:))
 
         return PlatformMutationOperation(
             appSyncClient: appSyncClient,

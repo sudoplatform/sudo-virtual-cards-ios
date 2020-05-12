@@ -65,7 +65,7 @@ class GetFundingSourceClientConfigurationOperation: PlatformGroupOperation {
             let encodedDataString = operation.result?.getFundingSourceClientConfiguration.data,
             let encodedData = Data(base64Encoded: encodedDataString)
         else {
-            addErrorToAggregate(error: GetFundingSourceClientConfigurationError.getFailed)
+            addErrorToAggregate(error: SudoVirtualCardsError.getFailed)
             return
         }
         do {

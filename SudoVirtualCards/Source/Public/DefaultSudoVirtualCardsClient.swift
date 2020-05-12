@@ -181,12 +181,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             case .noUserId:
                 completion(.failure(SudoVirtualCardsError.notSignedIn))
             default:
+                let error = convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
             }
             return
         } catch {
             logger.error("Failed to get local current key pair: \(error)")
-            completion(.failure(CardProvisionError.localKeyPairFailure))
+            completion(.failure(SudoVirtualCardsError.localKeyPairFailure))
             return
         }
 
@@ -261,6 +262,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
                 self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
                 operations.forEach { $0.cancel() }
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -272,7 +274,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 self.logger.error("Unexpected error - no result or error received from ProvisionCardOperation")
                 self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
                 self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-                completion(.failure(CardProvisionError.provisionFailed))
+                completion(.failure(SudoVirtualCardsError.provisionFailed))
                 return
                 }
             completion(.success(state))
@@ -353,6 +355,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             logger: logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -373,7 +376,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         let operation = operationFactory.generateMutationOperation(
             mutation: mutation,
             appSyncClient: appSyncClient,
-            serviceErrorTransformations: [FundingSourceError.init(_:)],
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { [weak logger = self.logger] _, errors in
             if let error = errors.first {
@@ -381,13 +384,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
             }
             guard let result = operation.result else {
                 logger?.error("CancelFundingSource failed - no result returned")
-                completion(.failure(FundingSourceError.cancelFailed))
+                completion(.failure(SudoVirtualCardsError.cancelFailed))
                 return
             }
             let fundingSource = FundingSource(cancelFundingSource: result.cancelFundingSource)
@@ -411,11 +415,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             case .noUserId:
                 completion(.failure(SudoVirtualCardsError.notSignedIn))
             default:
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
             }
             return
         } catch {
             logger.error("Failed to get current key pair: \(error)")
+            let error = self.convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -450,13 +456,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
             }
             guard let result = operation.result else {
                 logger?.error("UpdateCard failed - no result returned")
-                completion(.failure(UpdateCardError.updateFailed))
+                completion(.failure(SudoVirtualCardsError.updateFailed))
                 return
             }
             do {
@@ -465,6 +472,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 return
             } catch {
                 self.logger.error("Failed to decrypt card: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -487,11 +495,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             case .noUserId:
                 completion(.failure(SudoVirtualCardsError.notSignedIn))
             default:
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
             }
             return
         } catch {
             logger.error("Failed to get current key pair: \(error)")
+            let error = self.convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -507,13 +517,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
             }
             guard let result = operation.result else {
                 logger?.error("cancelCard failed - no result returned")
-                completion(.failure(CancelCardError.cancelFailed))
+                completion(.failure(SudoVirtualCardsError.cancelFailed))
                 return
             }
             do {
@@ -522,6 +533,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 return
             } catch {
                 self.logger.error("Failed to decrypt card: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -540,6 +552,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -555,6 +568,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     card = try self.unsealer.unseal(resultCard)
                 } catch {
                     self.logger.error("Failed to unseal card: \(error)")
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                     return
                 }
@@ -589,6 +603,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -619,6 +634,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 completion(.success(ListOutput(items: provisionalCards, nextToken: nextToken)))
             } catch {
                 self.logger.error("Failed to Decrypt cards: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -641,11 +657,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             case .noUserId:
                 completion(.failure(SudoVirtualCardsError.notSignedIn))
             default:
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
             }
             return
         } catch {
             logger.error("Failed to get current key pair: \(error)")
+            let error = self.convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -657,6 +675,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -671,6 +690,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 return
             } catch {
                 self.logger.error("Failed to decrypt card: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -696,6 +716,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -711,6 +732,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 return
             } catch {
                 self.logger.error("Failed to decrypt cards: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -733,6 +755,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -767,6 +790,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -797,11 +821,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             case .noUserId:
                 completion(.failure(SudoVirtualCardsError.notSignedIn))
             default:
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
             }
             return
         } catch {
             logger.error("Failed to get current key pair: \(error)")
+            let error = self.convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -813,6 +839,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -828,6 +855,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 return
             } catch {
                 self.logger.error("failed to decode transaction: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -854,6 +882,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -867,6 +896,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 transactions = try listTransactions.items.map(self.unsealer.unseal(_:))
             } catch {
                 self.logger.error("failed to decode transactions: \(error)")
+                let error = self.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
@@ -966,6 +996,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -1004,6 +1035,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -1044,6 +1076,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -1088,6 +1121,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -1136,6 +1170,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                     case .conditionFailed = conditionError {
                     completion(.failure(SudoVirtualCardsError.notSignedIn))
                 } else {
+                    let error = self.convertToSudoVirtualCardsError(error)
                     completion(.failure(error))
                 }
                 return
@@ -1172,8 +1207,17 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             case let .success(tokens):
                 completion(.success(tokens))
             case let .failure(cause):
-                completion(.failure(cause))
+                let error = self.convertToSudoVirtualCardsError(cause)
+                completion(.failure(error))
             }
         })
+    }
+
+    /// Convert a error to a `SudoVirtualCardsError` if possible.
+    func convertToSudoVirtualCardsError(_ error: Error) -> Error {
+        guard let platformError = error as? SudoPlatformError else {
+            return error
+        }
+        return SudoVirtualCardsError(platformError: platformError)
     }
 }

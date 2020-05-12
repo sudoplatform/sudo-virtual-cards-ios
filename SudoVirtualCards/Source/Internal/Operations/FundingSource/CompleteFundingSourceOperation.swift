@@ -108,7 +108,7 @@ class CompleteFundingSourceOperation: PlatformGroupOperation {
         let operation = operationFactory.generateMutationOperation(
             mutation: mutation,
             appSyncClient: appSyncClient,
-            serviceErrorTransformations: [FundingSourceError.init(_:)],
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             logger: logger)
 
         addOperation(operation)
@@ -123,7 +123,7 @@ class CompleteFundingSourceOperation: PlatformGroupOperation {
             return
         }
         guard let result = operation.result else {
-            addErrorToAggregate(error: FundingSourceError.completionFailed)
+            addErrorToAggregate(error: SudoVirtualCardsError.completionFailed)
             return
         }
 

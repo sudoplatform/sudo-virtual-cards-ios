@@ -45,7 +45,7 @@ class SetupFundingSourceOperation: PlatformGroupOperation {
         let operation = operationFactory.generateMutationOperation(
             mutation: mutation,
             appSyncClient: appSyncClient,
-            serviceErrorTransformations: [FundingSourceError.init(_:)],
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             logger: logger)
         super.init(logger: logger, operations: [operation])
     }
@@ -60,7 +60,7 @@ class SetupFundingSourceOperation: PlatformGroupOperation {
             return
         }
         guard let result = operation.result else {
-            addErrorToAggregate(error: FundingSourceError.setupFailed)
+            addErrorToAggregate(error: SudoVirtualCardsError.setupFailed)
             return
         }
         do {
@@ -72,7 +72,7 @@ class SetupFundingSourceOperation: PlatformGroupOperation {
             resultObject = stripeSetup
         } catch {
             self.logger.error("Failed to decode stripe setup data: \(error)")
-            addErrorToAggregate(error: FundingSourceError.setupFailed)
+            addErrorToAggregate(error: SudoVirtualCardsError.setupFailed)
         }
     }
 }

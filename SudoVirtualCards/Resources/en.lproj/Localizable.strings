@@ -1,0 +1,53 @@
+/* 
+  Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+
+  SPDX-License-Identifier: Apache-2.0
+
+*/
+
+// MARK: - Errors: Client
+
+"virtual_cards.errors.invalidConfig" = "There was an issue with the configuration file. Please check that a valid configuration is included in the bundle";
+"virtual_cards.errors.notSignedIn" = "Not signed in";
+"virtual_cards.errors.fundingSourceCreationFailed" = "Failed to create a funding source";
+"virtual_cards.errors.localKeyPairFailure" = "Failed to access local key pair";
+"virtual_cards.errors.noOwnershipProofAvailable" = "No ownership proof is available";
+"virtual_cards.errors.provisionFailed" = "Failed to provision card";
+"virtual_cards.errors.setupFailed" = "Failed to setup a provisional funding source";
+"virtual_cards.errors.completionFailed" = "Failed to complete a provisional funding source";
+"virtual_cards.errors.cancelFailed" = "Failed to cancel";
+"virtual_cards.errors.updateFailed" = "Failed to update";
+"virtual_cards.errors.getFailed" = "Failed to get";
+
+// MARK: - Errors: ClientPublicKey
+
+"virtual_cards.errors.registerFailed" = "Failed to register public key";
+"virtual_cards.errors.deleteFailed" = "Failed to delete public key";
+"virtual_cards.errors.publicKeyNotFound" = "Public key not found";
+"virtual_cards.errors.keyRingGetFailed" = "Failed to get public key ring";
+
+// MARK: - Errors: Service
+
+"virtual_cards.errors.cardNotFound" = "Card not found";
+"virtual_cards.errors.cardStateError" = "Card in invalid state";
+"virtual_cards.errors.transactionNotFound" = "Transaction not found";
+"virtual_cards.errors.currencyMismatch" = "Mismatch in currencies";
+"virtual_cards.errors.velocityExceeded" = "Velocity exceeded";
+"virtual_cards.errors.entitlementExceeded" = "Entitlement exceeded";
+"virtual_cards.errors.provisionalFundingSourceNotFound" = "Provisional funding source not found";
+"virtual_cards.errors.fundingSourceNotFound" = "Funding source not found";
+"virtual_cards.errors.fundingSourceNotActive" = "Funding source not active";
+"virtual_cards.errors.unsupportedCurrency" = "Unsupported currency";
+"virtual_cards.errors.fundingSourceNotSetup" = "Funding source not setup";
+"virtual_cards.errors.fundingSourceCompletionDataInvalid" = "Funding source completion data is invalid";
+
+// MARK: - Errors: SudoPlatformError
+
+"virtual_cards.errors.serviceError" = "Service error has occurred";
+"virtual_cards.errors.decodingError" = "A decoding error has occurred";
+"virtual_cards.errors.environmentError" = "An environment error has occurred";
+"virtual_cards.errors.policyFailed" = "A policy has failed";
+"virtual_cards.errors.invalidTokenError" = "An invalid token error has occurred";
+"virtual_cards.errors.accountLockedError" = "Account is locked";
+"virtual_cards.errors.identityInsufficient" = "Identity is insufficient";
+"virtual_cards.errors.identityNotVerified" = "Identity is not verified";

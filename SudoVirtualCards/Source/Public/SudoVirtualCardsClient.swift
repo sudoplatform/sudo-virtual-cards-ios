@@ -8,7 +8,6 @@ import SudoUser
 import AWSAppSync
 import SudoLogging
 import SudoProfiles
-import SudoOperations
 
 /// Generic type associated with API completion/closures. Generic type O is the expected output result in a
 /// success case.
@@ -37,7 +36,7 @@ public protocol SudoVirtualCardsClient: class {
     ///   - Success: A newly provisioned card information is returned.
     ///   - Failure:
     ///     - SudoPlatformError.
-    ///     - CardProvisionError.
+    ///     - SudoVirtualCardsError.
     func provisionCardWithInput(
         _ input: ProvisionCardInput,
         completion: @escaping ClientCompletion<ProvisionalCard.State>,
@@ -54,7 +53,6 @@ public protocol SudoVirtualCardsClient: class {
     ///   - Failure:
     ///     - SudoPlatformError.
     ///     - SudoVirtualCardsError.
-    ///     - FundingSourceError.
     func createFundingSource(
         withCreditCardInput input: CreditCardFundingSourceInput,
         authorizationDelegate: FundingSourceAuthorizationDelegate?,
@@ -69,7 +67,7 @@ public protocol SudoVirtualCardsClient: class {
     ///   - Success: Funding source that was cancelled.
     ///   - Failure:
     ///     - SudoPlatformError.
-    ///     - FundingSourceError.
+    ///     - SudoVirtualCardsError.
     func cancelFundingSourceWithId(
         _ id: String,
         completion: @escaping ClientCompletion<FundingSource>

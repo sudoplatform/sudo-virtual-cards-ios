@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          SudoVirtualCards Docs
+          SudoVirtualCards 8.0.0 Docs
         </a>
         
       </p>
@@ -59,34 +59,16 @@
                 <a class="nav-group-task-link" href="Enums/CachePolicy.html">CachePolicy</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards15CancelCardErrorO">CancelCardError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards18CardProvisionErrorO">CardProvisionError</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/FilterInput.html">FilterInput</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards18FundingSourceErrorO">FundingSourceError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards12GetCardErrorO">GetCardError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards40GetFundingSourceClientConfigurationErrorO">GetFundingSourceClientConfigurationError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/PlatformSubscriptionStatus.html">PlatformSubscriptionStatus</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards14PublicKeyErrorO">PublicKeyError</a>
+                <a class="nav-group-task-link" href="Enums/PublicKeyError.html">PublicKeyError</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards16TransactionErrorO">TransactionError</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards15UpdateCardErrorO">UpdateCardError</a>
+                <a class="nav-group-task-link" href="Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
               </li>
             </ul>
           </li>
@@ -256,9 +238,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards18CardProvisionErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/CardProvisionError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards18CardProvisionErrorO">CardProvisionError</a>
+                    <a name="/s:16SudoVirtualCards0abC5ErrorO"></a>
+                    <a name="//apple_ref/swift/Enum/SudoVirtualCardsError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO">SudoVirtualCardsError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -266,194 +248,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Errors associated with the failure of a card provisioning event.</p>
+                        <p>Errors that occur in SudoVirtualCards.</p>
 
-<ul>
-<li>fundingSourceNotFound: The supplied fundingSourceId does not match any recorded funding source.</li>
-<li>fundingSourceNotActive: The funding source is not currently active and therefore unavailable to be used.</li>
-<li>provisionFailed: Failed to provision a card.</li>
-</ul>
-
+                        <a href="Enums/SudoVirtualCardsError.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CardProvisionError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards18FundingSourceErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/FundingSourceError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards18FundingSourceErrorO">FundingSourceError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors associated with the failure of a Funding Source provision event.</p>
-
-<ul>
-<li>setupFailed: Failed to setup a funding source.</li>
-<li>completionFailed: Failed to complete the funding source process.</li>
-<li>cancelFailed: Failed to cancel the funding source.</li>
-<li>unsupportedCurrency: Currency provided is not supported.</li>
-<li>provisionalFundingSourceNotFound: The provisional funding created during
-the setup funding source flow could not be found.</li>
-<li>fundingSourceNotSetup: The funding source cannot be completed as its setup has not completed successfully.</li>
-<li>fundingSourceCompletionDataInvalid: The funding source completion data is invalid.
-This can occur when there is a mismatch between the completion data and the recorded setup data.</li>
-</ul>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FundingSourceError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards15UpdateCardErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/UpdateCardError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards15UpdateCardErrorO">UpdateCardError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors associated with the update of a card.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">UpdateCardError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards15CancelCardErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/CancelCardError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards15CancelCardErrorO">CancelCardError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors associated with the cancellationg of a card.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CancelCardError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards12GetCardErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/GetCardError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards12GetCardErrorO">GetCardError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors associated with the retrieval of a card.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">GetCardError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards40GetFundingSourceClientConfigurationErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/GetFundingSourceClientConfigurationError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards40GetFundingSourceClientConfigurationErrorO">GetFundingSourceClientConfigurationError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors associated with the retrieval of Funding Source Client Configuration.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">GetFundingSourceClientConfigurationError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards16TransactionErrorO"></a>
-                    <a name="//apple_ref/swift/Enum/TransactionError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards16TransactionErrorO">TransactionError</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Errors associated with the retrieval of a transaction.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransactionError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SudoVirtualCardsError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -475,13 +278,7 @@ This can occur when there is a mismatch between the completion data and the reco
                       <div class="abstract">
                         <p>Errors associated with the failure of Public Key Registration Lifecycle events.</p>
 
-<ul>
-<li>registerFailed: Failed to register the Public Key to virtualcards service.</li>
-<li>deleteFailed: Failed to delete the Public Key from virtualcards service.</li>
-<li>publicKeyNotFound: The id associated with the key could not be found.</li>
-<li>keyRingGetFailed: Operation to access a keyring from the serviced failed.</li>
-</ul>
-
+                        <a href="Enums/PublicKeyError.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -561,8 +358,8 @@ the Virtual Cards Service.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-04-29)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-05-12)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

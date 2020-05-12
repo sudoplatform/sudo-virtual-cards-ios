@@ -747,8 +747,8 @@ class DefaultUnsealer: Unsealer {
     ///         - If The decrypted data cannot be decoded to a string.
     ///     - `KeyManagerError` if the data cannot be decrypted.
     func unsealExpiry(_ expiry: SealedExpiry, withKeyId keyId: String, algorithm: String) throws -> Card.Expiry {
-        let mm = try worker.unsealString(expiry.mm, withKeyId: keyId, algorithm: algorithm)
-        let yyyy = try worker.unsealString(expiry.yyyy, withKeyId: keyId, algorithm: algorithm)
+        let mm = try worker.unsealInt(expiry.mm, withKeyId: keyId, algorithm: algorithm)
+        let yyyy = try worker.unsealInt(expiry.yyyy, withKeyId: keyId, algorithm: algorithm)
         return Card.Expiry(mm: mm, yyyy: yyyy)
     }
 
