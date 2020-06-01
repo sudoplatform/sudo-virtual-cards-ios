@@ -11,9 +11,13 @@ import SudoOperations
 
 /// Operation to Register a Public Key to Virtual Cards service.
 ///
-/// This operation will first check the service to see if the key is already registered. If it is not,
+/// This operation will first check the service to see if the key is already registered and return the key. If it is not,
 /// it will register the key.
-class RegisterPublicKeyOperation: PlatformGroupOperation {
+class RegisterPublicKeyOperation: PlatformOperation {
+
+    // MARK: - Supplementary
+
+    typealias KeyRingQueryItem = GetKeyRingForVirtualCardsQuery.Data.GetKeyRingForVirtualCard.Item
 
     // MARK: - Properties
 
@@ -21,79 +25,54 @@ class RegisterPublicKeyOperation: PlatformGroupOperation {
 
     private let keyPair: KeyPair
 
-    private unowned let appSyncClient: AWSAppSyncClient
-
-    private let operationFactory: OperationFactory
+    private unowned let publicKeyService: PublicKeyService
 
     // MARK: - Lifecycle
 
-    init(keyPair: KeyPair, appSyncClient: AWSAppSyncClient, logger: Logger, operationFactory: OperationFactory = OperationFactory()) {
+    init(keyPair: KeyPair, publicKeyService: PublicKeyService, logger: Logger) {
         self.keyPair = keyPair
-        self.appSyncClient = appSyncClient
-        self.operationFactory = operationFactory
-        super.init(logger: logger, operations: [])
+        self.publicKeyService = publicKeyService
+        super.init(logger: logger)
     }
 
     // MARK: - Methods
 
     override func execute() {
-        let getKeyRingQuery = GetKeyRingForVirtualCardsQuery(keyRingId: keyPair.keyRingId)
-        let getKeyRingOperation = operationFactory.generateQueryOperation(
-            query: getKeyRingQuery,
-            appSyncClient: appSyncClient,
-            cachePolicy: .useOnline,
-            logger: logger)
-        let getKeyRingCompletion = PlatformBlockOperation(logger: logger) { [weak self] in
-            guard let self = self else {
+        publicKeyService.getKeyRing(forKeyRingId: keyPair.keyRingId, cachePolicy: .useOnline) { [weak self] result in
+            guard let weakSelf = self else { return }
+            let registeredKeys: [KeyRingQueryItem]
+            do {
+                registeredKeys = try result.get().getKeyRingForVirtualCards.items
+            } catch {
+                weakSelf.finishWithError(error)
                 return
             }
-            guard let result = getKeyRingOperation.result else {
-                // This should never occur.
+            if let graphQLPublicKey = weakSelf.findMatchingKey(inRegisteredKeys: registeredKeys, forKeyPair: weakSelf.keyPair) {
+                // Public key is already registered.
+                let publicKey = PublicKey(getKeyRingForVirtualCards: graphQLPublicKey)
+                weakSelf.result = publicKey
+                weakSelf.finish()
                 return
             }
-            let registeredKeys = result.getKeyRingForVirtualCards.items
-
-            if let graphQlPublicKey = registeredKeys.first(where: {
-               $0.keyId == self.keyPair.keyId && $0.keyRingId == self.keyPair.keyRingId
-            }) {
-                // Public Key is registered.
-                let publicKey = PublicKey(getKeyRingForVirtualCards: graphQlPublicKey)
-                self.result = publicKey
-                return
-            }
-
-            // Public key is not registered - register it.
-            let algorithm = "RSAEncryptionOAEPAESCBC"
-            let publicKeyString = self.keyPair.publicKey.base64EncodedString()
-            let input = CreatePublicKeyInput(
-                keyId: self.keyPair.keyId,
-                keyRingId: self.keyPair.keyRingId,
-                algorithm: algorithm,
-                publicKey: publicKeyString)
-            let mutation = CreatePublicKeyForVirtualCardsMutation(input: input)
-            let createPublicKeyOperation = self.operationFactory.generateMutationOperation(
-                mutation: mutation,
-                appSyncClient: self.appSyncClient,
-                logger: self.logger)
-            let completion = PlatformBlockOperation(logger: self.logger) { [weak self] in
-                guard let self = self else {
+            weakSelf.publicKeyService.create(withKeyPair: weakSelf.keyPair) { result in
+                switch result {
+                case let .success(publicKey):
+                    weakSelf.result = publicKey
+                    weakSelf.finish()
+                    return
+                case let .failure(error):
+                    weakSelf.finishWithError(error)
                     return
                 }
-                guard let result = createPublicKeyOperation.result else {
-                    // This should never occur.
-                    return
-                }
-
-                let publicKey = PublicKey(createPublicKeyForVirtualCards: result.createPublicKeyForVirtualCards)
-                self.result = publicKey
-                return
             }
-            completion.addDependency(createPublicKeyOperation)
-            self.addOperations([createPublicKeyOperation, completion])
         }
+    }
 
-        getKeyRingCompletion.addDependency(getKeyRingOperation)
-        self.addOperations([getKeyRingOperation, getKeyRingCompletion])
-        super.execute()
+    func findMatchingKey(inRegisteredKeys keys: [KeyRingQueryItem], forKeyPair keyPair: KeyPair) -> KeyRingQueryItem? {
+        return keys.first(where: { key in
+            let keyIdMatches = (key.keyId == keyPair.keyId)
+            let keyRingIdMatches = (key.keyRingId == keyPair.keyRingId)
+            return keyIdMatches && keyRingIdMatches
+        })
     }
 }

@@ -296,7 +296,7 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/DefaultSudoVirtualCardsClient.swift",
-      "line": 485,
+      "line": 389,
       "symbol": "DefaultSudoVirtualCardsClient.cancelCardWithId(_:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

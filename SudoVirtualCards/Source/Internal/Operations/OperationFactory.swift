@@ -30,33 +30,29 @@ class OperationFactory {
 
     func generateRegisterPublicKeyOperation(
         keyPair: KeyPair,
-        appSyncClient: AWSAppSyncClient,
+        publicKeyService: PublicKeyService,
         logger: Logger
     ) -> RegisterPublicKeyOperation {
         return RegisterPublicKeyOperation(
             keyPair: keyPair,
-            appSyncClient: appSyncClient,
-            logger: logger,
-            operationFactory: self)
+            publicKeyService: publicKeyService,
+            logger: logger)
     }
 
     func generateProvisionCardOperation(
         input: ProvisionCardInput,
-        publicKey: PublicKey? = nil,
-        ownershipProof: OwnershipProofJWT? = nil,
+        owner: String,
         clientRefId: String,
-        appSyncClient: AWSAppSyncClient,
-        userClient: SudoUserClient,
+        cardService: CardService,
         logger: Logger
     ) -> ProvisionCardOperation {
         return ProvisionCardOperation(
             input: input,
-            publicKey: publicKey,
-            ownershipProof: ownershipProof,
+            owner: owner,
             clientRefId: clientRefId,
-            appSyncClient: appSyncClient,
-            userClient: userClient,
-            logger: logger)
+            cardService: cardService,
+            logger: logger
+        )
     }
 
     func generateQueryOperation<Query: GraphQLQuery>(

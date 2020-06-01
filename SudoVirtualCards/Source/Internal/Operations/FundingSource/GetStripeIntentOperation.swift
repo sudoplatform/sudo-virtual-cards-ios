@@ -10,6 +10,11 @@ import AWSAppSync
 import Stripe
 import SudoLogging
 
+// swiftlint:disable type_name
+
+private typealias SetupOperation = SetupFundingSourceOperation
+private typealias ConfigurationOperation = GetFundingSourceClientConfigurationOperation
+
 /// Basic class with a shared instance to facilitate being able to mock a stripe API in unit tests
 class StripeAPIBuilder {
 
@@ -19,6 +24,59 @@ class StripeAPIBuilder {
     func build(withAPIKey key: String) -> STPAPIClient {
         return STPAPIClient(publishableKey: key)
     }
+}
+
+class GetStripeIntentOperationDependencyCondition: PlatformOperationCondition {
+
+    static var name: String = "GetStripeIntentOperationDependencyCondition"
+
+    func dependencyForOperation(_ operation: PlatformOperation) -> Operation? {
+        return nil
+    }
+
+    func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
+        guard let operation = operation as? GetStripeIntentOperation else {
+            let cause = "Only `GetStripeIntentOperation` can be assigned with a \(type(of: self).name) condition"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        guard let setupOperation = operation.dependencies.first(where: { $0 is SetupOperation }) as? SetupOperation else {
+            let cause = "Required `SetupFundingSourceOperation` dependency is missing"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        if let error = setupOperation.errors.first {
+            completion(.failure(error))
+            return
+        }
+        guard let clientSecret = setupOperation.resultObject?.clientSecret else {
+            let cause = "Unable to resolve `clientSecret` from `SetupFundingSourceOperation` dependency"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        guard let configurationOperation = operation.dependencies.first(where: { $0 is ConfigurationOperation }) as? ConfigurationOperation else {
+            let cause = "Required `GetFundingSourceConfigurationOperation` dependency is missing"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        if let error = configurationOperation.errors.first {
+            completion(.failure(error))
+            return
+        }
+        guard let apiKey = configurationOperation.resultObject?.fundingSourceTypes.first?.apiKey else {
+            let cause = "Unable to resolve `apiKey` from `GetFundingSourceConfigurationOperation` dependency"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        operation.injectables = GetStripeIntentOperation.Injectables(apiKey: apiKey, clientSecret: clientSecret)
+        completion(.success(()))
+    }
+
 }
 
 /// Operation that performs the Stripe Intents, and additional authorization if required.
@@ -34,9 +92,8 @@ class GetStripeIntentOperation: PlatformOperation, STPAuthenticationContext {
 
     // MARK: - Supplementary
 
-    /// Contains the values that **MUST** be injected into this operation. This occurs in the
-    /// `evaluateCustomConditions` method, and if not properly injected, will error with
-    /// `PlatformOperationError.conditionFailed`.
+    /// Contains the values that **MUST** be injected into this operation. This occurs in the `GetStripeIntentOperationDependencyCondition`, and if not properly
+    /// injected, will supply error.
     struct Injectables {
         /// The `StripeClientConfiguration.FundingSourceType.apiKey` object retrieved via
         /// the `GetFundingSourceClientConfigurationOperation` class.
@@ -46,15 +103,12 @@ class GetStripeIntentOperation: PlatformOperation, STPAuthenticationContext {
         let clientSecret: String
     }
 
-    private typealias SetupOperation = SetupFundingSourceOperation
-    private typealias ConfigurationOperation = GetFundingSourceClientConfigurationOperation
-
     // MARK: - Properties
 
     /// The payment method parameters to send to the stripe API
     let stripePaymentParameters: STPPaymentMethodParams
 
-    /// Any injected data retrieved during the `evaluateCustomConditions` call.
+    /// Any injected data.
     var injectables: Injectables!
 
     /// The intent object from the main operation.
@@ -95,36 +149,10 @@ class GetStripeIntentOperation: PlatformOperation, STPAuthenticationContext {
         stripePaymentParameters = STPPaymentMethodParams(card: cardParameters, billingDetails: billingDetails, metadata: nil)
         self.authorizationDelegate = authorizationDelegate
         super.init(logger: logger)
+        addCondition(GetStripeIntentOperationDependencyCondition())
     }
 
     // MARK: - Overrides
-
-    override func evaluateCustomConditions() -> Bool {
-        guard super.evaluateCustomConditions() else {
-            return false
-        }
-        guard let setupOperation = dependencies.first(where: { $0 is SetupOperation }) as? SetupOperation else {
-            logger.error("Required `SetupFundingSourceOperation` dependency is missing")
-            return false
-        }
-        guard let clientSecret = setupOperation.resultObject?.clientSecret else {
-            logger.error("Unable to resolve `clientSecret` from `SetupFundingSourceInput` dependency")
-            return false
-        }
-        guard let configurationOperation = dependencies.first(where: { $0 is ConfigurationOperation }) as? ConfigurationOperation else {
-            logger.error("Required `GetFundingSourceConfigurationOperation` dependency is missing")
-            return false
-        }
-        guard let apiKey = configurationOperation.resultObject?.fundingSourceTypes.first?.apiKey else {
-            logger.error(
-                "Unable to resolve `apiKey` from `GetFundingSourceConfigurationOperation` dependency"
-            )
-            return false
-        }
-
-        injectables = Injectables(apiKey: apiKey, clientSecret: clientSecret)
-        return true
-    }
 
     override func execute() {
         let stripeClient = StripeAPIBuilder.shared.build(withAPIKey: injectables.apiKey)

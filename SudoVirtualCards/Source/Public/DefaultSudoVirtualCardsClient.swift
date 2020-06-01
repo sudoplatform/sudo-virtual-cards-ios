@@ -14,6 +14,19 @@ import SudoOperations
 /// Default Client API Endpoint for interacting with the Virtual Cards Service.
 public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
+    // MARK: - Properties: - Services
+
+    var fundingSourceService: FundingSourceService
+
+    /// Abstraction of the SDKs capabilities surrounding `Card` access/manipulation with virtual cards service.
+    var cardService: CardService
+
+    /// Abstraction of the SDKs capabilities surrounding `Transaction` access/manipulation with virtual cards service.
+    var transactionService: TransactionService
+
+    /// Abstraction of the SDKs capabilities surrounding `PublicKey` access/manipulation with virtual cards service.
+    var publicKeyService: PublicKeyService
+
     // MARK: - Properties
 
     /// Operation Queue that all associated API operations are executed on.
@@ -37,22 +50,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     private let unsealer: Unsealer
 
     private let operationFactory: OperationFactory
-
-    struct WeakCancellable {
-        weak var value: Cancellable?
-    }
-
-    private var subscriptions: [WeakCancellable] = []
-
-    /// Dictionary of subscriber objects to cancel the subscription events created internally
-    /// while provisioning a card. The id is the generated `clientRefId`.
-    private var provisionSubscriptions: [String: Cancellable] = [:]
-
-    /// Timeout time for a provision card.
-    private let provisionTimeout: TimeInterval = 60.0
-
-    /// Dictionary of Timers used to cancel a provision card subscription if it times out.
-    private var provisionTimers: [String: Timer] = [:]
 
     /// Logging utility for debugging and diagnostics.
     private let logger: Logger
@@ -126,18 +123,33 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         self.unsealer = unsealer
         self.operationFactory = operationFactory
         self.logger = logger
+        self.fundingSourceService = FundingSourceService(appSyncClient: appSyncClient, operationFactory: operationFactory, logger: logger)
+        self.cardService = CardService(appSyncClient: appSyncClient, operationFactory: operationFactory, unsealer: unsealer, logger: logger)
+        self.transactionService = TransactionService(
+            userClient: userClient,
+            appSyncClient: appSyncClient,
+            unsealer: unsealer,
+            operationFactory: operationFactory,
+            logger: logger
+        )
+        self.publicKeyService = PublicKeyService(
+            appSyncClient: appSyncClient,
+            operationFactory: operationFactory,
+            platformKeyManager: platformKeyManager,
+            logger: logger
+        )
     }
 
     public func reset() throws {
         logger.info("Resetting client state.")
 
         try self.appSyncClient.clearCaches(options: .init(clearQueries: true, clearMutations: true, clearSubscriptions: true))
+        cardService.cancelAllOperations()
+        cardService.clearSubscriptions()
+        transactionService.clearSubscriptions()
+        transactionService.cancelAllOperations()
+        publicKeyService.cancelAllOperations()
         queue.cancelAllOperations()
-        subscriptions.forEach { $0.value?.cancel() }
-        subscriptions.removeAll()
-        provisionSubscriptions.forEach { $1.cancel() }
-        provisionSubscriptions.removeAll()
-
         try platformKeyManager.removeAllKeys()
     }
 
@@ -168,178 +180,61 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         completion: @escaping ClientCompletion<ProvisionalCard.State>,
         observer: ProvisionCardObservable?
     ) {
+        // Get keyPair or fail.
         let keyPair: KeyPair
         do {
-            if let currentKeyPair = try platformKeyManager.getCurrentKeyPair() {
-                keyPair = currentKeyPair
-            } else {
-                keyPair = try platformKeyManager.generateNewCurrentKeyPair()
-            }
-        } catch let error as DefaultPlatformKeyManager.PlatformKeyManagerError {
-            logger.error("Failed to get current key pair: \(error)")
-            switch error {
-            case .noUserId:
-                completion(.failure(SudoVirtualCardsError.notSignedIn))
-            default:
-                let error = convertToSudoVirtualCardsError(error)
-                completion(.failure(error))
-            }
-            return
+            let keyPairResult = publicKeyService.getCurrentKeyPair(generateKeyIfNotFound: true)
+            keyPair = try keyPairResult.get()
         } catch {
-            logger.error("Failed to get local current key pair: \(error)")
-            completion(.failure(SudoVirtualCardsError.localKeyPairFailure))
+            let error = convertToSudoVirtualCardsError(error)
+            completion(.failure(error))
+            return
+        }
+        // Get the owner identifier, or fail.
+         guard let owner = try? userClient.getSubject() else {
+            completion(.failure(SudoVirtualCardsError.notSignedIn))
             return
         }
 
-        var operations: [PlatformOperation] = []
-        let registerPublicKeyOperation: RegisterPublicKeyOperation
-        let getOwnershipProofOperation: GetOwnershipProofOperation
-        let sudoAdapterOperation: PlatformBlockOperation
-        let provisionCardOperation: ProvisionCardOperation
+        // Add observer, if it has been passed in.
+        if let observer = observer {
+            cardService.addProvisionObserver(observer, clientRefId: clientRefId)
+        }
 
-        registerPublicKeyOperation = operationFactory.generateRegisterPublicKeyOperation(
+        // Construct operations.
+        let registerPublicKeyOperation = operationFactory.generateRegisterPublicKeyOperation(
             keyPair: keyPair,
-            appSyncClient: appSyncClient,
-            logger: logger)
-
-        getOwnershipProofOperation = operationFactory.generateGetOwnershipProofOperation(
+            publicKeyService: publicKeyService,
+            logger: logger
+        )
+        let getOwnershipProofOperation = operationFactory.generateGetOwnershipProofOperation(
             sudoId: input.sudoId,
             profilesClient: profilesClient,
-            logger: logger)
-        provisionCardOperation = operationFactory.generateProvisionCardOperation(
+            logger: logger
+        )
+        let provisionCardOperation = operationFactory.generateProvisionCardOperation(
             input: input,
+            owner: owner,
             clientRefId: clientRefId,
-            appSyncClient: appSyncClient,
-            userClient: userClient,
-            logger: logger)
-        sudoAdapterOperation = PlatformBlockOperation(logger: logger) {
-            provisionCardOperation.publicKey = registerPublicKeyOperation.result
-            provisionCardOperation.ownershipProof = getOwnershipProofOperation.result
-        }
-        sudoAdapterOperation.addDependency(registerPublicKeyOperation)
-        sudoAdapterOperation.addDependency(getOwnershipProofOperation)
-        provisionCardOperation.addDependency(sudoAdapterOperation)
-        operations.append(contentsOf: [
-            registerPublicKeyOperation,
-            getOwnershipProofOperation,
-            provisionCardOperation,
-            sudoAdapterOperation
-        ])
+            cardService: cardService,
+            logger: logger
+        )
 
-        var allowIdentityRetry = true
-        var completionObserver: PlatformBlockObserver!
-        completionObserver = PlatformBlockObserver(finishHandler: { [weak self, clientRefId] operation, errors in
-            guard let self = self, !operation.isCancelled else {
-                return
-            }
-            if let error = errors.first {
-                if
-                    allowIdentityRetry,
-                    let validationError = error as? SudoPlatformError,
-                    validationError == .identityNotVerified
-                {
-                    self.logger.warning("Failed to provision card, not verified - retrying.")
-                    allowIdentityRetry = false
-                    let refreshTokenOperation = self.operationFactory.generateRefreshTokenOperation(
-                        userClient: self.userClient,
-                        logger: self.logger)
-                    let provisionCardOperation = self.operationFactory.generateProvisionCardOperation(
-                        input: input,
-                        publicKey: registerPublicKeyOperation.result,
-                        ownershipProof: getOwnershipProofOperation.result,
-                        clientRefId: clientRefId,
-                        appSyncClient: self.appSyncClient,
-                        userClient: self.userClient,
-                        logger: self.logger)
-                    provisionCardOperation.addDependency(refreshTokenOperation)
-                    refreshTokenOperation.addObserver(completionObserver)
-                    provisionCardOperation.addObserver(completionObserver)
+        // Add dependencies.
+        provisionCardOperation.addDependency(registerPublicKeyOperation)
+        provisionCardOperation.addDependency(getOwnershipProofOperation)
 
-                    self.queue.addOperations([refreshTokenOperation, provisionCardOperation], waitUntilFinished: false)
-                    return
-                }
-                self.logger.error("Failed to provision card: \(error)")
-                self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
-                self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-                operations.forEach { $0.cancel() }
-                let error = self.convertToSudoVirtualCardsError(error)
-                completion(.failure(error))
-                return
-            }
-            // All generic work done, check if provision card op or return
-            guard let operation = operation as? ProvisionCardOperation else {
-                return
-            }
-            guard let state = operation.result else {
-                self.logger.error("Unexpected error - no result or error received from ProvisionCardOperation")
-                self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
-                self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-                completion(.failure(SudoVirtualCardsError.provisionFailed))
-                return
-                }
-            completion(.success(state))
-        })
+        let provisionCardCompletion = generateProvisionCardCompletionObserver(
+            input: input,
+            owner: owner,
+            clientRefId: clientRefId,
+            registerPublicKeyOperation: registerPublicKeyOperation,
+            getOwnershipProofOperation: getOwnershipProofOperation,
+            completion: completion
+        )
+        provisionCardOperation.addObserver(provisionCardCompletion)
 
-        operations.forEach {
-            $0.addObserver(completionObserver)
-        }
-
-        if let observer = observer {
-            var previousState: ProvisionalCard.State = .unknown("unintialized")
-            let query = ListProvisionalCardsQuery(filter: .init(clientRefId: .init(eq: clientRefId)), limit: 100)
-            var discard: Cancellable?
-            discard = appSyncClient.sync(
-                baseQuery: query,
-                baseQueryResultHandler: { [clientRefId, weak self] (result, error) in
-                    guard let self = self else {
-                        return
-                    }
-                    if let error = error {
-                        self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
-                        self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-                        observer.errorOccurred(error)
-                        return
-                    }
-                    guard let result = result?.data?.listProvisionalCards?.items.first(where: {
-                        $0.clientRefId == clientRefId
-                    }) else {
-                        return
-                    }
-                    let newProvisionState = ProvisionalCard.State(result.provisioningState)
-                    if newProvisionState != previousState {
-                        previousState = newProvisionState
-                        if newProvisionState == .completed || newProvisionState == .failed {
-                            self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
-                            self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-                        }
-
-                        var card: Card?
-                        if let resultCard = result.card {
-                            do {
-                                card = try self.unsealer.unseal(resultCard)
-                            } catch {
-                                self.logger.error("Failed to unseal card: \(error)")
-                                self.provisionTimers.removeValue(forKey: clientRefId)?.invalidate()
-                                self.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-                                observer.errorOccurred(error)
-                                return
-                            }
-                        }
-                        observer.provisioningStateDidChange(newProvisionState, card: card)
-                }
-            }, callbackQueue: DefaultSudoVirtualCardsClient.dispatchQueue,
-               syncConfiguration: .init(baseRefreshIntervalInSeconds: 1))
-            guard let cancellable = discard else {
-                return
-            }
-            provisionSubscriptions[clientRefId] = cancellable
-            let timeout = Timer.scheduledTimer(withTimeInterval: provisionTimeout, repeats: false) { [weak self] _ in
-                self?.logger.error("Provision card (\(clientRefId)) timed out.")
-                self?.provisionSubscriptions.removeValue(forKey: clientRefId)?.cancel()
-            }
-            provisionTimers[clientRefId] = timeout
-        }
-        queue.addOperations(operations, waitUntilFinished: false)
+        queue.addOperations([registerPublicKeyOperation, getOwnershipProofOperation, provisionCardOperation], waitUntilFinished: false)
     }
 
     public func createFundingSource(
@@ -347,27 +242,48 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         authorizationDelegate: FundingSourceAuthorizationDelegate?,
         completion: @escaping ClientCompletion<FundingSource>
     ) {
-        let operation = CreateCreditCardFundingSourceOperation(
-            input: input,
-            authorizationDelegate: authorizationDelegate,
-            appSyncClient: appSyncClient,
-            operationFactory: operationFactory,
-            logger: logger)
-        let completionObserver = PlatformBlockObserver(finishHandler: { _, errors in
+        /// Create operations.
+        let getConfigOperation = GetFundingSourceClientConfigurationOperation(fundingSourceService: fundingSourceService, logger: logger)
+        let setupInput = SetupFundingSourceInput(type: .creditCard, currency: "USD")
+        let setupOperation = SetupFundingSourceOperation(input: setupInput, fundingSourceService: fundingSourceService, logger: logger)
+        let stripeIntentOperation = GetStripeIntentOperation(inputDetails: input, authorizationDelegate: authorizationDelegate, logger: logger)
+        let completeOperation = CompleteFundingSourceOperation(fundingSourceService: fundingSourceService, logger: logger)
+
+        /// Add signed in conditions to operations that have call out to virtual cards service.
+        let signedInCondition = SignedInCondition(userClient: userClient)
+        getConfigOperation.addCondition(signedInCondition)
+        setupOperation.addCondition(signedInCondition)
+        completeOperation.addCondition(signedInCondition)
+
+        /// Add inter-operation dependencies.
+        stripeIntentOperation.addDependency(getConfigOperation)
+        stripeIntentOperation.addDependency(setupOperation)
+        completeOperation.addDependency(setupOperation)
+        completeOperation.addDependency(stripeIntentOperation)
+
+        /// Build and attach completion observer to `completeOperation`.
+        let completionObserver = PlatformBlockObserver(finishHandler: { [weak self, weak completeOperation] _, errors in
+            guard let weakSelf = self, let operation = completeOperation else {
+                return
+            }
             if let error = errors.first {
-                let error = self.convertToSudoVirtualCardsError(error)
+                let error = weakSelf.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
             guard let result = operation.resultObject else {
-                completion(.failure(SudoVirtualCardsError.fundingSourceCreationFailed))
                 return
             }
             completion(.success(result))
         })
-        operation.addObserver(completionObserver)
-        operation.addCondition(SignedInCondition(userClient: userClient))
-        queue.addOperation(operation)
+        completeOperation.addObserver(completionObserver)
+
+        queue.addOperations([
+            getConfigOperation,
+            setupOperation,
+            stripeIntentOperation,
+            completeOperation
+        ], waitUntilFinished: false)
     }
 
     public func cancelFundingSourceWithId(_ id: String, completion: @escaping ClientCompletion<FundingSource>) {
@@ -403,25 +319,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func updateCardWithInput(_ input: UpdateCardInput, completion: @escaping ClientCompletion<Card>) {
+        let keyPairResult = publicKeyService.getCurrentKeyPair(generateKeyIfNotFound: true)
         let keyPair: KeyPair
-        do {
-            guard let kp = try platformKeyManager.getCurrentKeyPair() else {
-                throw PublicKeyError.publicKeyNotFound
-            }
+        switch keyPairResult {
+        case let .success(kp):
             keyPair = kp
-        } catch let error as DefaultPlatformKeyManager.PlatformKeyManagerError {
-            logger.error("Failed to get current key pair: \(error)")
-            switch error {
-            case .noUserId:
-                completion(.failure(SudoVirtualCardsError.notSignedIn))
-            default:
-                let error = self.convertToSudoVirtualCardsError(error)
-                completion(.failure(error))
-            }
-            return
-        } catch {
-            logger.error("Failed to get current key pair: \(error)")
-            let error = self.convertToSudoVirtualCardsError(error)
+        case let .failure(error):
+            let error = convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -485,23 +389,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func cancelCardWithId(_ id: String, completion: @escaping ClientCompletion<Card>) {
         let keyPair: KeyPair
         do {
-            guard let kp = try platformKeyManager.getCurrentKeyPair() else {
-                throw PublicKeyError.publicKeyNotFound
-            }
-            keyPair = kp
-        } catch let error as DefaultPlatformKeyManager.PlatformKeyManagerError {
-            logger.error("Failed to get current key pair: \(error)")
-            switch error {
-            case .noUserId:
-                completion(.failure(SudoVirtualCardsError.notSignedIn))
-            default:
-                let error = self.convertToSudoVirtualCardsError(error)
-                completion(.failure(error))
-            }
-            return
+            let keyPairResult = publicKeyService.getCurrentKeyPair(generateKeyIfNotFound: true)
+            keyPair = try keyPairResult.get()
         } catch {
-            logger.error("Failed to get current key pair: \(error)")
-            let error = self.convertToSudoVirtualCardsError(error)
+            let error = convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -647,23 +538,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func getCardWithId(_ id: String, cachePolicy: CachePolicy, completion: @escaping ClientCompletion<Card?>) {
         let keyPair: KeyPair
         do {
-            guard let kp = try platformKeyManager.getCurrentKeyPair() else {
-                throw PublicKeyError.publicKeyNotFound
-            }
-            keyPair = kp
-        } catch let error as DefaultPlatformKeyManager.PlatformKeyManagerError {
-            logger.error("Failed to get current key pair: \(error)")
-            switch error {
-            case .noUserId:
-                completion(.failure(SudoVirtualCardsError.notSignedIn))
-            default:
-                let error = self.convertToSudoVirtualCardsError(error)
-                completion(.failure(error))
-            }
-            return
+            let keyPairResult = publicKeyService.getCurrentKeyPair(generateKeyIfNotFound: true)
+            keyPair = try keyPairResult.get()
         } catch {
-            logger.error("Failed to get current key pair: \(error)")
-            let error = self.convertToSudoVirtualCardsError(error)
+            let error = convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
@@ -808,61 +686,27 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         queue.addOperation(operation)
     }
 
+    // MARK: - Transactions
+
     public func getTransactionWithId(_ id: String, cachePolicy: CachePolicy, completion: @escaping ClientCompletion<Transaction?>) {
         let keyPair: KeyPair
         do {
-            guard let kp = try platformKeyManager.getCurrentKeyPair() else {
-                throw PublicKeyError.publicKeyNotFound
-            }
-            keyPair = kp
-        } catch let error as DefaultPlatformKeyManager.PlatformKeyManagerError {
-            logger.error("Failed to get current key pair: \(error)")
-            switch error {
-            case .noUserId:
-                completion(.failure(SudoVirtualCardsError.notSignedIn))
-            default:
-                let error = self.convertToSudoVirtualCardsError(error)
-                completion(.failure(error))
-            }
-            return
+            let keyPairResult = publicKeyService.getCurrentKeyPair()
+            keyPair = try keyPairResult.get()
         } catch {
-            logger.error("Failed to get current key pair: \(error)")
-            let error = self.convertToSudoVirtualCardsError(error)
+            let error = convertToSudoVirtualCardsError(error)
             completion(.failure(error))
             return
         }
-        let query = GetTransactionQuery(id: id, keyId: keyPair.keyId)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
-        let observer = PlatformBlockObserver(finishHandler: { _, errors in
-            if let error = errors.first {
-                if let conditionError = error as? PlatformOperationErrors,
-                    case .conditionFailed = conditionError {
-                    completion(.failure(SudoVirtualCardsError.notSignedIn))
-                } else {
-                    let error = self.convertToSudoVirtualCardsError(error)
-                    completion(.failure(error))
-                }
-                return
-            }
-            guard let getTransaction = operation.result?.getTransaction else {
-                completion(.success(nil))
-                return
-            }
-
-            do {
-                let transaction = try self.unsealer.unseal(getTransaction)
-                completion(.success(transaction))
-                return
-            } catch {
-                self.logger.error("failed to decode transaction: \(error)")
-                let error = self.convertToSudoVirtualCardsError(error)
+        transactionService.get(withId: id, cachePolicy: cachePolicy, keyPair: keyPair) { [weak self] result in
+            guard let weakSelf = self else { return }
+            if var error = result.error {
+                error = weakSelf.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
-        })
-        operation.addObserver(observer)
-        operation.addCondition(SignedInCondition(userClient: userClient))
-        queue.addOperation(operation)
+            completion(result)
+        }
     }
 
     public func getTransactionsWithFilter(
@@ -872,45 +716,15 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         cachePolicy: CachePolicy,
         completion: @escaping ClientCompletion<ListOutput<Transaction>>
     ) {
-        // sequenceId has no affect on this, but we still want to honor other filters.
-        let graphQLFilter = filter?.toGraphQLFilter()
-        let query = ListTransactionsQuery(filter: graphQLFilter, limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
-        let observer = PlatformBlockObserver(finishHandler: { _, errors in
-            if let error = errors.first {
-                if let conditionError = error as? PlatformOperationErrors,
-                    case .conditionFailed = conditionError {
-                    completion(.failure(SudoVirtualCardsError.notSignedIn))
-                } else {
-                    let error = self.convertToSudoVirtualCardsError(error)
-                    completion(.failure(error))
-                }
-                return
-            }
-            guard let listTransactions = operation.result?.listTransactions else {
-                completion(.success(ListOutput.empty))
-                return
-            }
-            var transactions: [Transaction]
-            do {
-                transactions = try listTransactions.items.map(self.unsealer.unseal(_:))
-            } catch {
-                self.logger.error("failed to decode transactions: \(error)")
-                let error = self.convertToSudoVirtualCardsError(error)
+        transactionService.list(withFilter: filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy) { [weak self] result in
+            guard let weakSelf = self else { return }
+            if var error = result.error {
+                error = weakSelf.convertToSudoVirtualCardsError(error)
                 completion(.failure(error))
                 return
             }
-            if let sequenceIdFilter = filter?.sequenceId {
-                let localFilter = LocalTransactionFilter(filter: sequenceIdFilter, attribute: .sequenceId)
-                transactions = localFilter.execute(transactions)
-            }
-
-            let nextToken = listTransactions.nextToken
-            completion(.success(ListOutput(items: transactions, nextToken: nextToken)))
-        })
-        operation.addObserver(observer)
-        operation.addCondition(SignedInCondition(userClient: userClient))
-        queue.addOperation(operation)
+            completion(result)
+        }
     }
 
     @discardableResult
@@ -918,52 +732,18 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
     ) throws -> Cancellable? {
-        guard let owner = try? userClient.getSubject() else {
-            throw SudoVirtualCardsError.notSignedIn
-        }
-        let subscription = OnTransactionUpdateSubscription(owner: owner)
-
-        let discard = try? appSyncClient.subscribe(
-            subscription: subscription,
-            statusChangeHandler: { status in
-                let platformStatus = PlatformSubscriptionStatus(status: status)
-                statusChangeHandler?(platformStatus)
-            },
-            resultHandler: { (result, _, error) in
-                if let error = error {
+        return try transactionService.subscribe(
+            withStatusChangeHandler: statusChangeHandler,
+            resultHandler: { [weak self] result in
+                guard let weakSelf = self else { return }
+                if var error = result.error {
+                    error = weakSelf.convertToSudoVirtualCardsError(error)
                     resultHandler(.failure(error))
                     return
                 }
-                guard let result = result else {
-                    resultHandler(.failure(SudoPlatformError.internalError(cause: "Error and result cannot both be nil.")))
-                    return
-                }
-                if let errors = result.errors, let error = errors.first {
-                    resultHandler(.failure(SudoPlatformError(error)))
-                    return
-                }
-                guard let data = result.data else {
-                    resultHandler(.failure(SudoPlatformError.internalError(cause: "GraphQL error and data cannot be nil")))
-                    return
-                }
-                guard let onTransactionUpdate = data.onTransactionUpdate else {
-                    resultHandler(.failure(SudoPlatformError.internalError(cause: "Failed to get transaction.")))
-                    return
-                }
-                do {
-                    let transaction = try self.unsealer.unseal(onTransactionUpdate)
-                    resultHandler(.success(transaction))
-                } catch {
-                    self.logger.error("Failed to decode transaction: \(error)")
-                    resultHandler(.failure(error))
-                    return
-                }
-        })
-        guard let cancellable = discard else {
-            return nil
-        }
-        subscriptions.append(.init(value: cancellable))
-        return cancellable
+                resultHandler(result)
+            }
+        )
     }
 
     // MARK: Internal - Public Key Lifecycle
@@ -1219,5 +999,61 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             return error
         }
         return SudoVirtualCardsError(platformError: platformError)
+    }
+
+    func generateProvisionCardCompletionObserver(
+        input: ProvisionCardInput,
+        owner: String,
+        clientRefId: String,
+        registerPublicKeyOperation: RegisterPublicKeyOperation,
+        getOwnershipProofOperation: GetOwnershipProofOperation,
+        completion: @escaping ClientCompletion<ProvisionalCard.State>
+    ) -> PlatformBlockObserver {
+        /// Ocassionally, provision will fail the first time due to an identity not verified error, so we need to be able to refresh the token. This bool allows
+        /// for that.
+        var allowIdentityRetry = true
+        var observer: PlatformBlockObserver!
+        observer = PlatformBlockObserver(finishHandler: { [weak self] operation, errors in
+            guard let weakSelf = self, let operation = operation as? ProvisionCardOperation else {
+                return
+            }
+            if let error = errors.first {
+                if allowIdentityRetry, let validationError = error as? SudoPlatformError, validationError == .identityNotVerified {
+                    weakSelf.logger.warning("Failed to provision card, not verified - retrying.")
+                    allowIdentityRetry = false
+                    let refreshTokenOperation = weakSelf.operationFactory.generateRefreshTokenOperation(
+                        userClient: weakSelf.userClient,
+                        logger: weakSelf.logger
+                    )
+                    let provisionCardOperation = weakSelf.operationFactory.generateProvisionCardOperation(
+                        input: input,
+                        owner: owner,
+                        clientRefId: clientRefId,
+                        cardService: weakSelf.cardService,
+                        logger: weakSelf.logger
+                    )
+
+                    provisionCardOperation.addDependency(registerPublicKeyOperation)
+                    provisionCardOperation.addDependency(getOwnershipProofOperation)
+                    provisionCardOperation.addDependency(refreshTokenOperation)
+                    provisionCardOperation.addObserver(observer)
+                    weakSelf.queue.addOperations([refreshTokenOperation, provisionCardOperation], waitUntilFinished: false)
+                    return
+                }
+                weakSelf.logger.error("Failed to provision card: \(error)")
+                weakSelf.cardService.removeProvisionObserver(withClientRefId: clientRefId)
+                let error = weakSelf.convertToSudoVirtualCardsError(error)
+                completion(.failure(error))
+                return
+            }
+            guard let state = operation.result else {
+                weakSelf.logger.error("Unexpected error - no result or error received from ProvisionCardOperation")
+                weakSelf.cardService.removeProvisionObserver(withClientRefId: clientRefId)
+                completion(.failure(SudoVirtualCardsError.provisionFailed))
+                return
+            }
+            completion(.success(state))
+        })
+        return observer
     }
 }

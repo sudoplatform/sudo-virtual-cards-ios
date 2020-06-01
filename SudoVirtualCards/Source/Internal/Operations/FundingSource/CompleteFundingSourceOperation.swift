@@ -9,6 +9,64 @@ import SudoOperations
 import AWSAppSync
 import SudoLogging
 
+private typealias SetupOperation = SetupFundingSourceOperation
+private typealias StripeOperation = GetStripeIntentOperation
+
+/// Complete Funding Source Dependency Condition.
+///
+/// Ensures that dependencies are correctly evaluated and injects dependency data into the `CompleteFundingSourceOperation`.
+class CompleteFundingSourceDependencyCondition: PlatformOperationCondition {
+
+    static var name: String = "CompleteFundingSourceDependencyCondition"
+
+    func dependencyForOperation(_ operation: PlatformOperation) -> Operation? {
+        return nil
+    }
+
+    func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
+            guard let operation = operation as? CompleteFundingSourceOperation else {
+            let cause = "Only `CompleteFundingSourceOperation` can be assigned with a \(type(of: self).name) condition"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        guard let setupOperation = operation.dependencies.first(where: { $0 is SetupOperation }) as? SetupOperation else {
+            let cause = "Required `SetupFundingSourceOperation` dependency is missing"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        if let error = setupOperation.errors.first {
+            completion(.failure(error))
+            return
+        }
+        guard let clientId = setupOperation.resultObject?.id else {
+            let cause = "Unable to resolve `id` from `SetupFundingSourceOperation` dependency"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        guard let stripeOperation = operation.dependencies.first(where: { $0 is GetStripeIntentOperation }) as? GetStripeIntentOperation else {
+            let cause = "Required `GetStripeIntentOperation` dependency is missing"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        if let error = stripeOperation.errors.first {
+            completion(.failure(error))
+            return
+        }
+        guard let paymentMethodID = stripeOperation.resultObject?.paymentMethodID else {
+            let cause = "Unable to resolve `stripePaymentMethodID` from `GetStripeIntentOperation` dependency"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        operation.injectables = CompleteFundingSourceOperation.Injectables(clientId: clientId, paymentMethodId: paymentMethodID)
+        completion(.success(()))
+    }
+}
+
 /// Operation that performs the complete funding source operation from the Virtual Cards Service.
 ///
 /// This operation hits the service mutation GraphQL `completeFundingSource`.
@@ -20,13 +78,12 @@ import SudoLogging
 /// - `SetupFundingSourceOperation`
 /// - `GetStripeIntentOperation`
 ///
-class CompleteFundingSourceOperation: PlatformGroupOperation {
+class CompleteFundingSourceOperation: PlatformOperation {
 
     // MARK: - Supplementary
 
-    /// Contains the values that **MUST** be injected into this operation. This occurs in the
-    /// `evaluateCustomConditions` method, and if not properly injected, will error with
-    /// `PlatformOperationError.conditionFailed`.
+    /// Contains the values that **MUST** be injected into this operation. This occurs in the `CompleteFundingSourceDependencyCondition`, and if not properly
+    /// injected, will supply error.
     struct Injectables {
         /// The `StripeSetup.id` value retrieved via the `SetupFundingSourceOperation` class.
         let clientId: String
@@ -35,16 +92,10 @@ class CompleteFundingSourceOperation: PlatformGroupOperation {
         let paymentMethodId: String
     }
 
-    private typealias SetupOperation = SetupFundingSourceOperation
-    private typealias StripeOperation = GetStripeIntentOperation
-
     // MARK: - Properties
 
-    /// Operation factory used to generate the mutation operation.
-    unowned let operationFactory: OperationFactory
-
-    /// The appsync client used to call the service.
-    unowned let appSyncClient: AWSAppSyncClient
+    /// Funding source service used to complete the funding source.
+    unowned var fundingSourceService: FundingSourceService
 
     /// Result object of the operation. Returns a fully fledged `FundingSource` from the service.
     var resultObject: FundingSource?
@@ -56,78 +107,25 @@ class CompleteFundingSourceOperation: PlatformGroupOperation {
 
     /// Initalize a `CompleteFundingSourceOperation`.
     /// - Parameters:
-    ///   - operationFactory: Operation factory used to generate the mutation operation.
-    ///   - appSyncClient: The appsync client used to call the service.
-    ///   - logger: Logs errors and debugging information.
-    init(operationFactory: OperationFactory, appSyncClient: AWSAppSyncClient, logger: Logger) {
-        self.operationFactory = operationFactory
-        self.appSyncClient = appSyncClient
-
-        super.init(logger: logger, operations: [])
-    }
-
-    // MARK: - Overrides
-
-    override func evaluateCustomConditions() -> Bool {
-        guard super.evaluateCustomConditions() else {
-            return false
-        }
-        guard let setupOperation = dependencies.first(where: { $0 is SetupOperation }) as? SetupOperation else {
-            logger.error("Required `SetupFundingSourceOperation` dependency is missing")
-            return false
-        }
-        guard let clientId = setupOperation.resultObject?.id else {
-            logger.error("Unable to resolve `stripeID` from `GetStripeIntentOperation` dependency")
-            return false
-        }
-        guard let stripeOperation = dependencies.first(where: { $0 is GetStripeIntentOperation }) as? GetStripeIntentOperation else {
-            logger.error("Required `GetStripeIntentOperation` dependency is missing")
-            return false
-        }
-        guard let paymentMethodID = stripeOperation.resultObject?.paymentMethodID else {
-            logger.error("Unable to resolve `stripePaymentMethodID` from `GetStripeIntentOperation` dependency")
-            return false
-        }
-        injectables = Injectables(clientId: clientId, paymentMethodId: paymentMethodID)
-        return true
+    ///   - fundingSourceService: Funding source service used to complete the funding source.
+    init(fundingSourceService: FundingSourceService, logger: Logger) {
+        self.fundingSourceService = fundingSourceService
+        super.init(logger: logger)
+        addCondition(CompleteFundingSourceDependencyCondition())
     }
 
     override func execute() {
-        let completionData = StripeCompletionData(paymentMethod: injectables.paymentMethodId)
-        let encodedCompletionData: String
-        do {
-            let data = try JSONEncoder().encode(completionData)
-            encodedCompletionData = data.base64EncodedString()
-        } catch {
-            logger.error("Failed to encode completionData: \(error)")
-            finishWithError(error)
-            return
+        fundingSourceService.complete(clientId: injectables.clientId, paymentMethodId: injectables.paymentMethodId) { result in
+            switch result {
+            case let .success(fundingSource):
+                self.resultObject = fundingSource
+                self.finish()
+                return
+            case let .failure(error):
+                self.finishWithError(error)
+                return
+            }
         }
-        let input = CompleteFundingSourceRequest(id: injectables.clientId, completionData: encodedCompletionData)
-        let mutation = CompleteFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(
-            mutation: mutation,
-            appSyncClient: appSyncClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            logger: logger)
-
-        addOperation(operation)
-        super.execute()
     }
 
-    override func operationDidFinish(_ operation: Operation, withErrors errors: [Error]) {
-        guard let operation = operation as? PlatformMutationOperation<CompleteFundingSourceMutation> else {
-            let msg = "Finish handler operation observer MUST match operation"
-            logger.error(msg)
-            addErrorToAggregate(error: AnyError(msg))
-            return
-        }
-        guard let result = operation.result else {
-            addErrorToAggregate(error: SudoVirtualCardsError.completionFailed)
-            return
-        }
-
-        let fundingSource = FundingSource(completeFundingSource: result.completeFundingSource)
-        self.resultObject = fundingSource
-    }
 }

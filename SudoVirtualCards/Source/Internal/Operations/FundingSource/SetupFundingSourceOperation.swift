@@ -19,13 +19,18 @@ import SudoLogging
 ///
 /// *This method does not contain any prerequisites.*
 ///
-class SetupFundingSourceOperation: PlatformGroupOperation {
+class SetupFundingSourceOperation: PlatformOperation {
 
     // MARK: - Properties
 
     /// Result object of the operation. Returns the result of a `SetupFundingSource` mutation to the service.
     /// If this is nil, an issue has likely occurred while executing the operation.
     var resultObject: StripeSetup?
+
+    var input: SetupFundingSourceInput
+
+    /// Funding source service used to setup the provisional funding source.
+    var fundingSourceService: FundingSourceService
 
     // MARK: - Lifecycle
 
@@ -36,43 +41,26 @@ class SetupFundingSourceOperation: PlatformGroupOperation {
     ///
     /// - Parameters:
     ///   - input: Information necessary to perform the operation.
-    ///   - appSyncClient: The appsync client used to call the service.
-    ///   - operationFactory: Operation factory to generate the mutation operation to call the service for configuration.
+    ///   - fundingSourceService: Funding source service used to setup the provisional funding source.
     ///   - logger: Logs errors and debugging information.
-    init(input: SetupFundingSourceInput, appSyncClient: AWSAppSyncClient, operationFactory: OperationFactory, logger: Logger) {
-        let input = SetupFundingSourceRequest(type: input.type.fundingSourceType, currency: input.currency)
-        let mutation = SetupFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(
-            mutation: mutation,
-            appSyncClient: appSyncClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            logger: logger)
-        super.init(logger: logger, operations: [operation])
+    init(input: SetupFundingSourceInput, fundingSourceService: FundingSourceService, logger: Logger) {
+        self.input = input
+        self.fundingSourceService = fundingSourceService
+        super.init(logger: logger)
     }
 
     // MARK: - Overrides
 
-    override func operationDidFinish(_ operation: Operation, withErrors errors: [Error]) {
-        guard let operation = operation as? PlatformMutationOperation<SetupFundingSourceMutation> else {
-            let msg = "Finish handler operation observer MUST match operation"
-            logger.error(msg)
-            addErrorToAggregate(error: AnyError(msg))
-            return
-        }
-        guard let result = operation.result else {
-            addErrorToAggregate(error: SudoVirtualCardsError.setupFailed)
-            return
-        }
-        do {
-            guard let base64Data = Data(base64Encoded: result.setupFundingSource.provisioningData) else {
-                throw AnyError("Provisioning Data not base64 string")
+    override func execute() {
+        fundingSourceService.setup(input: input) { [weak self] result in
+            switch result {
+            case let .success(setup):
+                self?.resultObject = setup
+                self?.finish()
+            case let .failure(error):
+                self?.finishWithError(error)
             }
-            let stripeSetupData = try JSONDecoder().decode(StripeSetup.Data.self, from: base64Data)
-            let stripeSetup = StripeSetup(id: result.setupFundingSource.id, data: stripeSetupData)
-            resultObject = stripeSetup
-        } catch {
-            self.logger.error("Failed to decode stripe setup data: \(error)")
-            addErrorToAggregate(error: SudoVirtualCardsError.setupFailed)
         }
     }
+
 }

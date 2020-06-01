@@ -11,157 +11,137 @@ import SudoProfiles
 import SudoUser
 import SudoOperations
 
-class ProvisionCardOperation: PlatformGroupOperation {
+/// Provision Card Dependency Condition.
+///
+/// Ensures that dependencies are correctly evaluated and injects dependency data into the `ProvisionCardOperation`.
+class ProvisionCardDependencyCondition: PlatformOperationCondition {
 
-    // MARK: - Properties: Input
+    static var name: String = "ProvisionCardDependencyCondition"
 
-    var ownershipProof: OwnershipProofJWT?
+    func dependencyForOperation(_ operation: PlatformOperation) -> Operation? {
+        return nil
+    }
 
-    var publicKey: PublicKey?
+    func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
+        guard let operation = operation as? ProvisionCardOperation else {
+            let cause = "Only `ProvisionCardOperation` can be assigned with a \(type(of: self).name) condition"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        guard let registerPublicKeyOperation = operation.dependencies.first(where: { $0 is RegisterPublicKeyOperation }) as? RegisterPublicKeyOperation else {
+            let cause = "Required `RegisterPublicKeyOperation` dependency is missing"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        if let error = registerPublicKeyOperation.errors.first {
+            completion(.failure(error))
+            return
+        }
+        guard let publicKey = registerPublicKeyOperation.result else {
+            let cause = "Unable to resolve `publicKey` from `RegisterPublicKeyOperation` dependency"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        guard let getOwnershipProofOperation = operation.dependencies.first(where: { $0 is GetOwnershipProofOperation}) as? GetOwnershipProofOperation else {
+            let cause = "Required `GetOwnershipProofOperation` dependency is missing"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        if let error = getOwnershipProofOperation.errors.first {
+            completion(.failure(error))
+            return
+        }
+        guard let ownershipProof = getOwnershipProofOperation.result else {
+            let cause = "Unable to resolve `ownershipProof` from `GetOwnershipProofOperation` dependency"
+            let error = SudoVirtualCardsError.internalError(cause: cause)
+            completion(.failure(error))
+            return
+        }
+        operation.injectables = ProvisionCardOperation.Injectables(publicKey: publicKey, ownershipProof: ownershipProof)
+        completion(.success(()))
+    }
 
-    private let input: ProvisionCardInput
+}
 
-    // MARK: - Properties: Output
+/// Provision a card. Calls the card service class to create a card, and returns either the success state, or fails.
+///
+/// This operation has the following dependencies:
+///  - `RegisterPublicKeyOperation`: Injects the public key needed create a card.
+///  - `GetOwnershipProofOperation`: Injects the ownership proof needed to create a card.
+class ProvisionCardOperation: PlatformOperation {
 
+    // MARK: - Supplementary
+
+    /// Injectable data from the dependencies of the operation.
+    struct Injectables {
+        /// Registed public key from `RegisterPublicKeyOperation`.
+        let publicKey: PublicKey
+        /// Ownership proof from `GetOwnershipProofOperation`.
+        let ownershipProof: OwnershipProofJWT
+    }
+
+    // MARK: - Properties: Result
+
+    /// Result of the operation. Card state from the call to `CardService.create()`.
     var result: ProvisionalCard.State?
 
-    // MARK: - Properties: Private
+    // MARK: - Properties: Inputs
 
-    private let clientRefId: String
+    /// Input information from the user used to create a card.
+    var input: ProvisionCardInput
 
-    private unowned let appSyncClient: AWSAppSyncClient
+    /// Owner identifier for the card. This is the account identifer of the user.
+    var owner: String
 
-    private unowned let userClient: SudoUserClient
+    /// Client reference identifier, generated from `DefaultSudoVirtualCardsClient`. This is used to identify the transaction of the provision card event.
+    var clientRefId: String
 
-    private let operationFactory: OperationFactory
+    /// Injectable data from the dependencies of the operation.
+    var injectables: Injectables!
+
+    /// Card service used to create the card.
+    unowned var cardService: CardService
 
     // MARK: - Lifecycle
 
+    /// Initialize an instance of the `ProvisionCardOperation`.
     init(
         input: ProvisionCardInput,
-        publicKey: PublicKey? = nil,
-        ownershipProof: OwnershipProofJWT? = nil,
+        owner: String,
         clientRefId: String,
-        appSyncClient: AWSAppSyncClient,
-        userClient: SudoUserClient,
-        logger: Logger,
-        operationFactory: OperationFactory = OperationFactory()
+        cardService: CardService,
+        logger: Logger
     ) {
         self.input = input
-        self.publicKey = publicKey
-        self.ownershipProof = ownershipProof
+        self.owner = owner
         self.clientRefId = clientRefId
-        self.appSyncClient = appSyncClient
-        self.userClient = userClient
-        self.operationFactory = operationFactory
-        super.init(logger: logger, operations: [])
+        self.cardService = cardService
+        super.init(logger: logger)
+        addCondition(ProvisionCardDependencyCondition())
     }
+
+    // MARK: - PlatformOperation
 
     override func execute() {
-        logger.debug("Provisioning card (clientRefId: \(clientRefId))")
-        guard let ownershipProof = ownershipProof else {
-            finishWithError(SudoVirtualCardsError.noOwnershipProofAvailable)
-            return
-        }
-        guard let keyRingId = publicKey?.keyRingId else {
-            finishWithError(SudoVirtualCardsError.localKeyPairFailure)
-            return
-        }
-
-        guard let owner = try? userClient.getSubject() else {
-            finishWithError(SudoVirtualCardsError.notSignedIn)
-            return
-        }
-
-        // Create GraphQL Mutation Input
-        // Deals with the weird null vs undefined of js.
-        let billingAddressInput: AddressInput??
-        if let address = input.billingAddress {
-            billingAddressInput = AddressInput(
-                addressLine1: address.addressLine1,
-                addressLine2: address.addressLine2,
-                city: address.city,
-                state: address.state,
-                postalCode: address.postalCode,
-                country: address.country)
-        } else {
-            billingAddressInput = Optional(nil)
-        }
-        let mutationInput = CardProvisionRequest(
-            clientRefId: clientRefId,
-            ownerProofs: [ownershipProof],
-            keyRingId: keyRingId,
-            fundingSourceId: input.fundingSourceId,
-            cardHolder: input.cardHolder,
-            alias: input.alias,
-            billingAddress: billingAddressInput,
-            currency: input.currency)
-        let provisionCardMutation = CardProvisionMutation(input: mutationInput)
-        let (optimisticUpdate, optimisticCleanup) = generateOptimisticBlocks(owner: owner)
-
-        let mutationOperation = operationFactory.generateMutationOperation(
-            mutation: provisionCardMutation,
-            optimisticUpdate: optimisticUpdate,
-            optimisticCleanup: optimisticCleanup,
-            appSyncClient: appSyncClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            logger: logger)
-
-        let completion = PlatformBlockOperation(logger: logger) { [weak self] in
-            guard let self = self else {
+        cardService.create(
+            withInput: input,
+            publicKey: injectables.publicKey,
+            owner: owner,
+            ownershipProof: injectables.ownershipProof,
+            clientRefId: clientRefId
+        ) { result in
+            switch result {
+            case let .success(state):
+                self.result = state
+                self.finish()
                 return
-            }
-            guard let result = mutationOperation.result else {
-                return
-            }
-            let graphQlState = result.cardProvision.provisioningState
-            self.result = ProvisionalCard.State(graphQlState)
-        }
-
-        completion.addDependency(mutationOperation)
-        addOperations([mutationOperation, completion])
-        super.execute()
-    }
-
-    /// Generates a `OptimisticResponseBlock` and `OptimisticCleanupBlock`.
-    ///
-    /// These blocks are used by the `PlatformMutationOperation` to perform a write to the store before the network call (for offline redundancy) and remove the
-    /// write after a successful server mutation result.
-    /// - Parameter owner: Owner ID associated with the user - retrieved from Sudo User service.
-    func generateOptimisticBlocks(owner: String) -> (update: OptimisticResponseBlock, cleanup: OptimisticCleanupBlock) {
-        let optimisticId = UUID().uuidString
-        let update: OptimisticResponseBlock = { transaction in
-            let query = ListProvisionalCardsQuery()
-            do {
-                try transaction?.update(
-                    query: query, { (data: inout ListProvisionalCardsQuery.Data) in
-                        let nowSinceEpochMs = Date().millisecondsSince1970
-                        let newItem = ListProvisionalCardsQuery.Data.ListProvisionalCard.Item(
-                            id: optimisticId,
-                            owner: owner,
-                            version: 1,
-                            createdAtEpochMs: nowSinceEpochMs,
-                            updatedAtEpochMs: nowSinceEpochMs,
-                            clientRefId: self.clientRefId,
-                            provisioningState: .provisioning)
-                        data.listProvisionalCards?.items.append(newItem)
-                    }
-                )
-            } catch {
-                self.logger.error("failed to optimistically write record to cache: \(error)")
+            case let .failure(error):
+                self.finishWithError(error)
             }
         }
-        let cleanup: OptimisticCleanupBlock = { transaction in
-            let query = ListProvisionalCardsQuery()
-            try transaction.update(query: query) { (data: inout ListProvisionalCardsQuery.Data) in
-                guard let items = data.listProvisionalCards?.items else {
-                    return
-                }
-                if let optimisticIndex = items.firstIndex(where: { $0.id == optimisticId }) {
-                    data.listProvisionalCards?.items.remove(at: optimisticIndex)
-                }
-            }
-        }
-        return (update, cleanup)
     }
 }
