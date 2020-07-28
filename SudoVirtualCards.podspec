@@ -1,7 +1,7 @@
 #
 Pod::Spec.new do |spec|
   spec.name                  = 'SudoVirtualCards'
-  spec.version               = '8.1.0'
+  spec.version               = '8.2.0'
   spec.author                = { 'Sudo Platform Engineering' => 'sudoplatform-engineering@anonyome.com' }
   spec.homepage              = 'https://sudoplatform.com'
 
@@ -20,6 +20,6 @@ Pod::Spec.new do |spec|
   spec.dependency 'SudoProfiles', '~> 5.4'
   spec.dependency 'SudoLogging', '~> 0.2'
   spec.dependency 'SudoKeyManager', '~> 1.0'
-  spec.dependency 'SudoOperations', '~> 2.0'
+  spec.dependency 'SudoOperations', '~> 3.0'
   spec.dependency 'SudoApiClient', '~> 1.3'
 end

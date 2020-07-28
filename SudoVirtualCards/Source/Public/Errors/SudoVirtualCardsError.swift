@@ -10,7 +10,6 @@ import AWSAppSync
 
 /// Errors that occur in SudoVirtualCards.
 public enum SudoVirtualCardsError: Error, Equatable {
-
     // MARK: - Client
 
     /// Configuration supplied to `DefaultSudoVirtualCardsClient` is invalid.
@@ -64,7 +63,13 @@ public enum SudoVirtualCardsError: Error, Equatable {
     ///
     /// This can occur when there is a mismatch between the completion data and the recorded setup data.
     case fundingSourceCompletionDataInvalid
-
+    /// The funding source or provisional funding source is in an invalid state for the requested operation
+    case fundingSourceStateError
+    /// The funding source failed attempts to validate e.g. as determined when making an initial
+    /// authorization. Reasons for being unacceptable include insufficient funds if a preauthorization is
+    /// performed, the funding source is high risk and other reasons.
+    case unacceptableFundingSource
+    
     // MARK: - SudoPlatformError
 
     /**
@@ -111,10 +116,18 @@ public enum SudoVirtualCardsError: Error, Equatable {
             self = .fundingSourceNotActive
         case "sudoplatform.virtual-cards.UnsupportedCurrencyError":
             self = .unsupportedCurrency
+        /// Service is currently incorrectly generating this error with a Code suffix.
+        /// Prepare for that to be fixed
+        case "sudoplatform.virtual-cards.FundingSourceNotSetupError":
+            self = .fundingSourceNotSetup
         case "sudoplatform.virtual-cards.FundingSourceNotSetupErrorCode":
             self = .fundingSourceNotSetup
         case "sudoplatform.virtual-cards.FundingSourceCompletionDataInvalidError":
             self = .fundingSourceCompletionDataInvalid
+        case "sudoplatform.virtual-cards.FundingSourceStateError":
+            self = .fundingSourceStateError
+        case "sudoplatform.virtual-cards.UnacceptableFundingSourceError":
+            self = .unacceptableFundingSource
         default:
             return nil
         }
@@ -194,6 +207,10 @@ public enum SudoVirtualCardsError: Error, Equatable {
             return L10n.VirtualCards.Errors.fundingSourceNotSetup
         case .fundingSourceCompletionDataInvalid:
             return L10n.VirtualCards.Errors.fundingSourceCompletionDataInvalid
+        case .fundingSourceStateError:
+            return L10n.VirtualCards.Errors.fundingSourceStateError
+        case .unacceptableFundingSource:
+            return L10n.VirtualCards.Errors.unacceptableFundingSource
         case .serviceError:
             return L10n.VirtualCards.Errors.serviceError
         case .decodingError:
