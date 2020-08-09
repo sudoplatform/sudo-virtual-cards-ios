@@ -545,6 +545,13 @@
       "symbol": "Transaction.TransactionType.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction.swift",
+      "line": 38,
+      "symbol": "Transaction.DeclineReason",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh"

@@ -478,7 +478,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         queue.addOperation(operation)
     }
 
-    public func getProvisionalCardsWithFilter(
+    public func listProvisionalCardsWithFilter(
         _ filter: GetProvisionalCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -578,7 +578,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         queue.addOperation(operation)
     }
 
-    public func getCardsWithFilter(
+    public func listCardsWithFilter(
         _ filter: GetCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -650,7 +650,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         queue.addOperation(operation)
     }
 
-    public func getFundingSourcesWithLimit(
+    public func listFundingSourcesWithLimit(
         _ limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy,
@@ -709,7 +709,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
     }
 
-    public func getTransactionsWithFilter(
+    public func listTransactionsWithFilter(
         _ filter: GetTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -841,7 +841,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     /// Get the public key associated with the registered public key on the virtual cards service.
     ///
     /// - Parameter id: Id associated with the public key.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey` associated with `id`, or `nil` if the public key cannot be found.
@@ -881,7 +881,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///                        otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey`s associated with the user, or empty array if no public keys can be found.
@@ -929,7 +929,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///                        otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey`s associated with the `keyRingId`, or empty array if no public keys can be found.

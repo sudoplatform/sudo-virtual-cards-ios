@@ -51,7 +51,7 @@ class GetFundingSourceClientConfigurationOperation: PlatformOperation {
 
     override func execute() {
         // We always want to get the latest configuration, so use online
-        fundingSourceService.getConfig(cachePolicy: .useOnline) { result in
+        fundingSourceService.getConfig(cachePolicy: .remoteOnly) { result in
             switch result {
             case let .success(config):
                 self.resultObject = config

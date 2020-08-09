@@ -133,7 +133,7 @@ extension FilterInput where T == Card.State {
 
 // MARK: - Concrete Filter Inputs
 
-/// Filter input for `SudoVirtualCardsClient.getProvisionalCardsWithFilter(_:`
+/// Filter input for `SudoVirtualCardsClient.listProvisionalCardsWithFilter(_:`
 public struct GetProvisionalCardsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Properties
@@ -161,7 +161,7 @@ public struct GetProvisionalCardsFilterInput: GraphQLFilterable, Equatable {
 }
 
 /// Kept for future use.
-/// Filter input for `SudoVirtualCardsClient.getCardsWithFilter(_:`
+/// Filter input for `SudoVirtualCardsClient.listCardsWithFilter(_:`
 public struct GetCardsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Properties
@@ -190,7 +190,7 @@ public struct GetCardsFilterInput: GraphQLFilterable, Equatable {
     }
 }
 
-/// Filter input for `SudoVirtualCardsClient.getTransactionsWithFilter(_:`
+/// Filter input for `SudoVirtualCardsClient.listTransactionsWithFilter(_:`
 public struct GetTransactionsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Properties

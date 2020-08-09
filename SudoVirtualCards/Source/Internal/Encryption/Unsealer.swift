@@ -660,9 +660,10 @@ class DefaultUnsealer: Unsealer {
         let billedAmount = try unsealCurrencyAmount(billedAmount, withKeyId: keyId, algorithm: algorithm)
         let transactedAmount = try unsealCurrencyAmount(transactedAmount, withKeyId: keyId, algorithm: algorithm)
         let description = try worker.unsealString(description, withKeyId: keyId, algorithm: algorithm)
-        let optionalDeclineReason: String?
+        let optionalDeclineReason: Transaction.DeclineReason?
         if let declineReason = declineReason {
-            optionalDeclineReason = try worker.unsealString(declineReason, withKeyId: keyId, algorithm: algorithm)
+            let declineReasonString = try worker.unsealString(declineReason, withKeyId: keyId, algorithm: algorithm)
+            optionalDeclineReason = Transaction.DeclineReason(string: declineReasonString)
         } else {
             optionalDeclineReason = nil
         }

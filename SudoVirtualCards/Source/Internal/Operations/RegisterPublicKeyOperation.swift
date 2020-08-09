@@ -38,7 +38,7 @@ class RegisterPublicKeyOperation: PlatformOperation {
     // MARK: - Methods
 
     override func execute() {
-        publicKeyService.getKeyRing(forKeyRingId: keyPair.keyRingId, cachePolicy: .useOnline) { [weak self] result in
+        publicKeyService.getKeyRing(forKeyRingId: keyPair.keyRingId, cachePolicy: .remoteOnly) { [weak self] result in
             guard let weakSelf = self else { return }
             let registeredKeys: [KeyRingQueryItem]
             do {

@@ -69,7 +69,7 @@ public enum SudoVirtualCardsError: Error, Equatable {
     /// authorization. Reasons for being unacceptable include insufficient funds if a preauthorization is
     /// performed, the funding source is high risk and other reasons.
     case unacceptableFundingSource
-    
+
     // MARK: - SudoPlatformError
 
     /**

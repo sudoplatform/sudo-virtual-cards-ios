@@ -82,7 +82,7 @@ class TransactionService {
     ///
     /// - Parameters:
     ///   - id: ID of the transaction to be retrieved.
-    ///   - cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this will only return cached results of similar exact
+    ///   - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this will only return cached results of similar exact
     ///         API calls.
     ///   - keyPair: Key used to decrypt the payload.
     /// - Returns:

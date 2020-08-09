@@ -99,7 +99,7 @@ public protocol SudoVirtualCardsClient: class {
     ///
     /// - Parameters
     ///     - id: ID of the card to be retrieved.
-    ///     - cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -120,14 +120,14 @@ public protocol SudoVirtualCardsClient: class {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
     ///    - Success: Cards associated with user, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getProvisionalCardsWithFilter(
+    func listProvisionalCardsWithFilter(
         _ filter: GetProvisionalCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -140,7 +140,7 @@ public protocol SudoVirtualCardsClient: class {
     /// - Parameters
     ///     - filter: Filter to be applied to results of query.
     ///     - id: ID of the card to be retrieved.
-    ///     - cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -161,14 +161,14 @@ public protocol SudoVirtualCardsClient: class {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
     ///    - Success: Cards associated with user, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getCardsWithFilter(
+    func listCardsWithFilter(
         _ filter: GetCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -179,7 +179,7 @@ public protocol SudoVirtualCardsClient: class {
     /// Get a funding source using the `id` parameter. If the funding source cannot be found, `nil` will be returned.
     ///
     /// - Parameter id: ID of the funding source to be retrieved.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -199,14 +199,14 @@ public protocol SudoVirtualCardsClient: class {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
     ///     - Success: `FundingSource` associated with `id`, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getFundingSourcesWithLimit(
+    func listFundingSourcesWithLimit(
         _ limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy,
@@ -218,7 +218,7 @@ public protocol SudoVirtualCardsClient: class {
     /// Get a transaction using the `id` parameter. If the transaction cannot be found, `nil` will be returned.
     ///
     /// - Parameter id: ID of the transaction to be retrieved.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -243,7 +243,7 @@ public protocol SudoVirtualCardsClient: class {
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getTransactionsWithFilter(
+    func listTransactionsWithFilter(
         _ filter: GetTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -263,4 +263,50 @@ public protocol SudoVirtualCardsClient: class {
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
     ) throws -> Cancellable?
+}
+
+extension SudoVirtualCardsClient {
+
+    @available(*, deprecated, renamed: "listProvisionalCardsWithFilter")
+    func getProvisionalCardsWithFilter(
+        _ filter: GetProvisionalCardsFilterInput?,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<ProvisionalCard>>
+    ) {
+        listProvisionalCardsWithFilter(filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
+    }
+
+    @available(*, deprecated, renamed: "listCardsWithFilter")
+    func getCardsWithFilter(
+        _ filter: GetCardsFilterInput?,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<Card>>
+    ) {
+        listCardsWithFilter(filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
+    }
+
+    @available(*, deprecated, renamed: "listFundingSourcesWithLimit")
+    func getFundingSourcesWithLimit(
+        _ limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<FundingSource>>
+    ) {
+        listFundingSourcesWithLimit(limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
+    }
+
+    @available(*, deprecated, renamed: "listTransactionsWithFilter")
+    func getTransactionsWithFilter(
+        _ filter: GetTransactionsFilterInput?,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<Transaction>>
+    ) {
+        listTransactionsWithFilter(filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
+    }
 }

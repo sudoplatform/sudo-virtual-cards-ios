@@ -34,8 +34,6 @@
 		841E5CB923418ABD004219B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841E5CB723418ABD004219B9 /* Main.storyboard */; };
 		841E5CBB23418ABF004219B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841E5CBA23418ABF004219B9 /* Assets.xcassets */; };
 		841E5CBE23418ABF004219B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841E5CBC23418ABF004219B9 /* LaunchScreen.storyboard */; };
-		841E5CC623418F81004219B9 /* TestKeyAuthenticationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E5CC523418F81004219B9 /* TestKeyAuthenticationInfo.swift */; };
-		841E5CC82341902F004219B9 /* TestKeyAuthenticationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E5CC72341902F004219B9 /* TestKeyAuthenticationProvider.swift */; };
 		841E5CCB2342D464004219B9 /* AWSRegionType+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E5CCA2342D464004219B9 /* AWSRegionType+Decodable.swift */; };
 		841F01E323A7101C008DED82 /* FundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F01E223A7101C008DED82 /* FundingSource.swift */; };
 		841F01E523A71438008DED82 /* StripeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F01E423A71438008DED82 /* StripeData.swift */; };
@@ -158,7 +156,6 @@
 		84FB5D59244D66D8006AB2B1 /* SetupFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D58244D66D8006AB2B1 /* SetupFundingSourceInput.swift */; };
 		84FB5D5C244E650A006AB2B1 /* FundingSourceTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D5B244E650A006AB2B1 /* FundingSourceTestData.swift */; };
 		84FB5D60244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D5F244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift */; };
-		84FB5D62244E872F006AB2B1 /* SSMParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D61244E872F006AB2B1 /* SSMParameters.swift */; };
 		84FB5D64244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */; };
 		84FB5D66244EA062006AB2B1 /* String+Last4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D65244EA062006AB2B1 /* String+Last4.swift */; };
 		84FB5D68244EA27A006AB2B1 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D67244EA27A006AB2B1 /* Result+Convenience.swift */; };
@@ -222,8 +219,6 @@
 		841E5CBA23418ABF004219B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		841E5CBD23418ABF004219B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		841E5CBF23418ABF004219B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		841E5CC523418F81004219B9 /* TestKeyAuthenticationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationInfo.swift; sourceTree = "<group>"; };
-		841E5CC72341902F004219B9 /* TestKeyAuthenticationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeyAuthenticationProvider.swift; sourceTree = "<group>"; };
 		841E5CCA2342D464004219B9 /* AWSRegionType+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSRegionType+Decodable.swift"; sourceTree = "<group>"; };
 		841F01E223A7101C008DED82 /* FundingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSource.swift; sourceTree = "<group>"; };
 		841F01E423A71438008DED82 /* StripeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeData.swift; sourceTree = "<group>"; };
@@ -351,7 +346,6 @@
 		84FB5D58244D66D8006AB2B1 /* SetupFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFundingSourceInput.swift; sourceTree = "<group>"; };
 		84FB5D5B244E650A006AB2B1 /* FundingSourceTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceTestData.swift; sourceTree = "<group>"; };
 		84FB5D5F244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsClientIntegrationTestCase.swift; sourceTree = "<group>"; };
-		84FB5D61244E872F006AB2B1 /* SSMParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSMParameters.swift; sourceTree = "<group>"; };
 		84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFundingSourceForCreditCardIntegrationTests.swift; sourceTree = "<group>"; };
 		84FB5D65244EA062006AB2B1 /* String+Last4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Last4.swift"; sourceTree = "<group>"; };
 		84FB5D67244EA27A006AB2B1 /* Result+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
@@ -1058,9 +1052,6 @@
 			children = (
 				84043C44244FBBAD00BA3EF4 /* BlockProvisionCardObserver.swift */,
 				84FB5D5B244E650A006AB2B1 /* FundingSourceTestData.swift */,
-				84FB5D61244E872F006AB2B1 /* SSMParameters.swift */,
-				841E5CC523418F81004219B9 /* TestKeyAuthenticationInfo.swift */,
-				841E5CC72341902F004219B9 /* TestKeyAuthenticationProvider.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1325,7 +1316,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp -f /var/anonyome_key/* \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f identity-system-test-config/anonyome_ssm_parameter_register_key.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f identity-system-test-config/config.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n";
+			shellScript = "cp -f /var/anonyome_key/* \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f config/register_key.private \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f config/register_key.id \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\ncp -f config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\" || :\n";
 		};
 		846891642378D2C8001FA865 /* Swift Lint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1361,7 +1352,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncp -f identity-system-test-config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncp -f config/sudoplatformconfig.json \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/\"\nls ${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\n";
 		};
 		A01EE7303133F798BC0E6D61 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1451,11 +1442,8 @@
 				8439546323FCB7FA00A52CE0 /* ConfigFIleDecodable.swift in Sources */,
 				84FB5D66244EA062006AB2B1 /* String+Last4.swift in Sources */,
 				8439545F23FA1C8F00A52CE0 /* XCTestCase+Utility.swift in Sources */,
-				841E5CC623418F81004219B9 /* TestKeyAuthenticationInfo.swift in Sources */,
 				84043C43244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift in Sources */,
 				84FB5D68244EA27A006AB2B1 /* Result+Convenience.swift in Sources */,
-				84FB5D62244E872F006AB2B1 /* SSMParameters.swift in Sources */,
-				841E5CC82341902F004219B9 /* TestKeyAuthenticationProvider.swift in Sources */,
 				8436827D2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift in Sources */,
 				8407BD1823E114E40018ABEA /* DecryptionWorkerIntegrationTests.swift in Sources */,
 			);
