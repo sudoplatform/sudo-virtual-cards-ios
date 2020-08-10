@@ -365,6 +365,34 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/SudoVirtualCardsClient.swift",
+      "line": 271,
+      "symbol": "SudoVirtualCardsClient.getProvisionalCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/SudoVirtualCardsClient.swift",
+      "line": 282,
+      "symbol": "SudoVirtualCardsClient.getCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/SudoVirtualCardsClient.swift",
+      "line": 293,
+      "symbol": "SudoVirtualCardsClient.getFundingSourcesWithLimit(_:nextToken:cachePolicy:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/SudoVirtualCardsClient.swift",
+      "line": 303,
+      "symbol": "SudoVirtualCardsClient.getTransactionsWithFilter(_:limit:nextToken:cachePolicy:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Card.swift",
       "line": 21,
       "symbol": "Card.State.issued",

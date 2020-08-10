@@ -268,7 +268,7 @@ public protocol SudoVirtualCardsClient: class {
 extension SudoVirtualCardsClient {
 
     @available(*, deprecated, renamed: "listProvisionalCardsWithFilter")
-    func getProvisionalCardsWithFilter(
+    public func getProvisionalCardsWithFilter(
         _ filter: GetProvisionalCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -279,7 +279,7 @@ extension SudoVirtualCardsClient {
     }
 
     @available(*, deprecated, renamed: "listCardsWithFilter")
-    func getCardsWithFilter(
+    public func getCardsWithFilter(
         _ filter: GetCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
@@ -290,7 +290,7 @@ extension SudoVirtualCardsClient {
     }
 
     @available(*, deprecated, renamed: "listFundingSourcesWithLimit")
-    func getFundingSourcesWithLimit(
+    public func getFundingSourcesWithLimit(
         _ limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy,
@@ -300,7 +300,7 @@ extension SudoVirtualCardsClient {
     }
 
     @available(*, deprecated, renamed: "listTransactionsWithFilter")
-    func getTransactionsWithFilter(
+    public func getTransactionsWithFilter(
         _ filter: GetTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
