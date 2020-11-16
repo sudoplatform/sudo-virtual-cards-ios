@@ -5,7 +5,6 @@
 //
 
 import SudoUser
-import AWSAppSync
 import SudoLogging
 import SudoProfiles
 
@@ -258,11 +257,11 @@ public protocol SudoVirtualCardsClient: class {
     /// - Parameter statusChangeHandler: Connection status change.
     /// - Parameter resultHandler: Updated transaction event.
     ///
-    /// - Returns: `Cancellable` object to cancel the subscription.
+    /// - Returns: `SubscriptionToken` object to cancel the subscription.
     @discardableResult func subscribeToTransactionUpdates(
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
-    ) throws -> Cancellable?
+    ) throws -> SubscriptionToken?
 }
 
 extension SudoVirtualCardsClient {

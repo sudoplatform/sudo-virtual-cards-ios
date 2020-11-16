@@ -37,13 +37,13 @@ class GetStripeIntentOperationDependencyCondition: PlatformOperationCondition {
     func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
         guard let operation = operation as? GetStripeIntentOperation else {
             let cause = "Only `GetStripeIntentOperation` can be assigned with a \(type(of: self).name) condition"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
         guard let setupOperation = operation.dependencies.first(where: { $0 is SetupOperation }) as? SetupOperation else {
             let cause = "Required `SetupFundingSourceOperation` dependency is missing"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
@@ -53,13 +53,13 @@ class GetStripeIntentOperationDependencyCondition: PlatformOperationCondition {
         }
         guard let clientSecret = setupOperation.resultObject?.clientSecret else {
             let cause = "Unable to resolve `clientSecret` from `SetupFundingSourceOperation` dependency"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
         guard let configurationOperation = operation.dependencies.first(where: { $0 is ConfigurationOperation }) as? ConfigurationOperation else {
             let cause = "Required `GetFundingSourceConfigurationOperation` dependency is missing"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
@@ -69,7 +69,7 @@ class GetStripeIntentOperationDependencyCondition: PlatformOperationCondition {
         }
         guard let apiKey = configurationOperation.resultObject?.fundingSourceTypes.first?.apiKey else {
             let cause = "Unable to resolve `apiKey` from `GetFundingSourceConfigurationOperation` dependency"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }

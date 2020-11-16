@@ -26,13 +26,13 @@ class CompleteFundingSourceDependencyCondition: PlatformOperationCondition {
     func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
             guard let operation = operation as? CompleteFundingSourceOperation else {
             let cause = "Only `CompleteFundingSourceOperation` can be assigned with a \(type(of: self).name) condition"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
         guard let setupOperation = operation.dependencies.first(where: { $0 is SetupOperation }) as? SetupOperation else {
             let cause = "Required `SetupFundingSourceOperation` dependency is missing"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
@@ -42,13 +42,13 @@ class CompleteFundingSourceDependencyCondition: PlatformOperationCondition {
         }
         guard let clientId = setupOperation.resultObject?.id else {
             let cause = "Unable to resolve `id` from `SetupFundingSourceOperation` dependency"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
         guard let stripeOperation = operation.dependencies.first(where: { $0 is GetStripeIntentOperation }) as? GetStripeIntentOperation else {
             let cause = "Required `GetStripeIntentOperation` dependency is missing"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
@@ -58,7 +58,7 @@ class CompleteFundingSourceDependencyCondition: PlatformOperationCondition {
         }
         guard let paymentMethodID = stripeOperation.resultObject?.paymentMethodID else {
             let cause = "Unable to resolve `stripePaymentMethodID` from `GetStripeIntentOperation` dependency"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }

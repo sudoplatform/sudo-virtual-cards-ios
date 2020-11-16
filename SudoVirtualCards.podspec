@@ -1,7 +1,7 @@
 #
 Pod::Spec.new do |spec|
   spec.name                  = 'SudoVirtualCards'
-  spec.version               = '9.0.1'
+  spec.version               = '9.1.0'
   spec.author                = { 'Sudo Platform Engineering' => 'sudoplatform-engineering@anonyome.com' }
   spec.homepage              = 'https://sudoplatform.com'
 
@@ -10,16 +10,16 @@ Pod::Spec.new do |spec|
 
   spec.source                = { :git => 'https://github.com/sudoplatform/sudo-virtual-cards-ios.git', :tag => "v#{spec.version}" }
   spec.source_files          = 'SudoVirtualCards/**/*.swift'
-  spec.ios.deployment_target = '11.0'
+  spec.ios.deployment_target = '13.0'
   spec.requires_arc          = true
   spec.swift_version         = '5.0'
 
   spec.dependency 'AWSAppSync', '~> 3.1'
-  spec.dependency 'Stripe', '~> 19.1'
-  spec.dependency 'SudoUser', '~> 7.9'
-  spec.dependency 'SudoProfiles', '~> 5.4'
-  spec.dependency 'SudoLogging', '~> 0.2'
-  spec.dependency 'SudoKeyManager', '~> 1.0'
-  spec.dependency 'SudoOperations', '~> 3.1'
-  spec.dependency 'SudoApiClient', '~> 1.3'
+  spec.dependency 'Stripe', '~> 19.4'
+  spec.dependency 'SudoUser', '~> 7.14'
+  spec.dependency 'SudoProfiles', '~> 5.6'
+  spec.dependency 'SudoLogging', '~> 0.3'
+  spec.dependency 'SudoKeyManager', '~> 1.2'
+  spec.dependency 'SudoOperations', '~> 3.3'
+  spec.dependency 'SudoApiClient', '~> 1.4'
 end

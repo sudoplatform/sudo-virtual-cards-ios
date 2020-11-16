@@ -153,7 +153,7 @@ class TransactionService {
                     return
                 }
                 guard let result = result else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError(cause: "Error and result cannot both be nil.")))
+                    resultHandler(.failure(SudoVirtualCardsError.internalError("Error and result cannot both be nil.")))
                     return
                 }
                 if let errors = result.errors, let error = errors.first {
@@ -161,11 +161,11 @@ class TransactionService {
                     return
                 }
                 guard let data = result.data else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError(cause: "GraphQL error and data cannot be nil")))
+                    resultHandler(.failure(SudoVirtualCardsError.internalError("GraphQL error and data cannot be nil")))
                     return
                 }
                 guard let onTransactionUpdate = data.onTransactionUpdate else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError(cause: "Failed to get transaction.")))
+                    resultHandler(.failure(SudoVirtualCardsError.internalError("Failed to get transaction.")))
                     return
                 }
                 do {
@@ -192,7 +192,7 @@ class TransactionService {
             guard let weakSelf = self else { return }
             guard let operation = operation as? GetOperation else {
                 let error = SudoVirtualCardsError.internalError(
-                    cause: "generateGetCompletionObserver should only be used with PlatformQueryOperation<GetTransactionQuery>"
+                    "generateGetCompletionObserver should only be used with PlatformQueryOperation<GetTransactionQuery>"
                 )
                 completion(.failure(error))
                 return
@@ -223,7 +223,7 @@ class TransactionService {
             guard let weakSelf = self else { return }
             guard let operation = operation as? ListOperation else {
                 let error = SudoVirtualCardsError.internalError(
-                    cause: "generateGetCompletionObserver should only be used with PlatformQueryOperation<GetTransactionQuery>"
+                    "generateGetCompletionObserver should only be used with PlatformQueryOperation<GetTransactionQuery>"
                 )
                 completion(.failure(error))
                 return

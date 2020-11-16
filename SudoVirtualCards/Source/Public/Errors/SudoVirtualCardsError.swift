@@ -9,7 +9,7 @@ import SudoOperations
 import AWSAppSync
 
 /// Errors that occur in SudoVirtualCards.
-public enum SudoVirtualCardsError: Error, Equatable {
+public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     // MARK: - Client
 
     /// Configuration supplied to `DefaultSudoVirtualCardsClient` is invalid.
@@ -84,7 +84,9 @@ public enum SudoVirtualCardsError: Error, Equatable {
     case accountLockedError
     case identityInsufficient
     case identityNotVerified
-    case internalError(cause: String?)
+    case unknownTimezone
+    case internalError(_ cause: String?)
+    case invalidArgument(_ msg: String?)
 
     // MARK: - Lifecycle
 
@@ -152,14 +154,18 @@ public enum SudoVirtualCardsError: Error, Equatable {
             self = .identityInsufficient
         case .identityNotVerified:
             self = .identityNotVerified
+        case .unknownTimezone:
+            self = .unknownTimezone
         case let .internalError(cause):
-            self = .internalError(cause: cause)
+            self = .internalError(cause)
+        case let .invalidArgument(msg):
+            self = .invalidArgument(msg)
         }
     }
 
-    // MARK: - Conformance: Error
+    // MARK: - Conformance: LocalizedError
 
-    var localizedDescription: String {
+    public var errorDescription: String? {
         switch self {
         case .invalidConfig:
             return L10n.VirtualCards.Errors.invalidConfig
@@ -229,6 +235,10 @@ public enum SudoVirtualCardsError: Error, Equatable {
             return L10n.VirtualCards.Errors.identityNotVerified
         case let .internalError(cause):
             return cause ?? "Unknown error"
+        case .unknownTimezone:
+            return L10n.VirtualCards.Errors.unknownTimezone
+        case let .invalidArgument(msg):
+            return msg ?? L10n.VirtualCards.Errors.invalidArgument
         }
     }
 }

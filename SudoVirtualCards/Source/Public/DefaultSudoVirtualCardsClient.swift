@@ -54,20 +54,23 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     /// Logging utility for debugging and diagnostics.
     private let logger: Logger
 
+    /// Utility class to manage subscriptions.
+    let subscriptionManager: SubscriptionManager
+
     // MARK: - Lifecycle
 
     /// Initialize a `DefaultSudoVirtualCardsClient` instance. It uses configuration parameters defined in
     /// `sudoplatformconfig.json` file located in the app bundle.
     ///
     /// - Parameters:
-    ///   - keyNamespace: Namespace to use for the keys and passwords. Typically this should be the application name.
+    ///   - keyNamespace: Namespace to use for the keys and passwords. This should be left as the default property
     ///   - config: Optional configuration to override AWS endpoint. It is recommended that this be left `nil`.
     ///   - userClient: SudoUserClient instance used for authentication.
     ///   - profilesClient: SudoProfilesClient instance used for creating and deleting sudo resource references.
     /// Throws:
     ///     - `SudoVirtualCardsError` if invalid config.
     public convenience init(
-        keyNamespace: String,
+        keyNamespace: String = "com.sudoplatform.virtualcards",
         config: SudoVirtualCardsConfig? = nil,
         userClient: SudoUserClient,
         profilesClient: SudoProfilesClient
@@ -87,17 +90,20 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             }
             appSyncClient = asClient
         }
-        let platformKeyManager = DefaultPlatformKeyManager(keyNamespace: keyNamespace,
-                                                            keyRingServiceName: "sudo-virtual-cards",
-                                                            userClient: userClient,
-                                                            logger: Logger.platformUtilitySDK)
+        let platformKeyManager = DefaultPlatformKeyManager(
+            keyNamespace: keyNamespace,
+            keyRingServiceName: "sudo-virtual-cards",
+            userClient: userClient,
+            logger: Logger.platformUtilitySDK
+        )
         let unsealer = DefaultUnsealer(platformKeyManager: platformKeyManager)
         self.init(
             profilesClient: profilesClient,
             userClient: userClient,
             appSyncClient: appSyncClient,
             platformKeyManager: platformKeyManager,
-            unsealer: unsealer)
+            unsealer: unsealer
+        )
     }
 
     /// Initialize a `DefaultSudoVirtualCardsClient` instance.
@@ -114,6 +120,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         platformKeyManager: PlatformKeyManager,
         unsealer: Unsealer,
         operationFactory: OperationFactory = OperationFactory(),
+        subscriptionManager: SubscriptionManager = DefaultSubscriptionManager(),
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
         self.profilesClient = profilesClient
@@ -121,6 +128,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         self.appSyncClient = appSyncClient
         self.platformKeyManager = platformKeyManager
         self.unsealer = unsealer
+        self.subscriptionManager = subscriptionManager
         self.operationFactory = operationFactory
         self.logger = logger
         self.fundingSourceService = FundingSourceService(appSyncClient: appSyncClient, operationFactory: operationFactory, logger: logger)
@@ -151,6 +159,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         publicKeyService.cancelAllOperations()
         queue.cancelAllOperations()
         try platformKeyManager.removeAllKeys()
+        subscriptionManager.removeAllSubscriptions()
     }
 
     // MARK: - Methods
@@ -731,9 +740,18 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func subscribeToTransactionUpdates(
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
-    ) throws -> Cancellable? {
-        return try transactionService.subscribe(
-            withStatusChangeHandler: statusChangeHandler,
+    ) throws -> SubscriptionToken? {
+        let subscriptionId = UUID().uuidString
+        let c = try transactionService.subscribe(
+            withStatusChangeHandler: { [weak self] status in
+                switch status {
+                case .disconnected:
+                    self?.subscriptionManager.removeSubscription(withId: subscriptionId)
+                    fallthrough
+                default:
+                    statusChangeHandler?(status)
+                }
+            },
             resultHandler: { [weak self] result in
                 guard let weakSelf = self else { return }
                 if var error = result.error {
@@ -744,6 +762,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 resultHandler(result)
             }
         )
+        guard let cancellable = c else {
+            return nil
+        }
+        return VirtualCardsSubscriptionToken(id: subscriptionId, cancellable: cancellable, manager: subscriptionManager)
     }
 
     // MARK: Internal - Public Key Lifecycle

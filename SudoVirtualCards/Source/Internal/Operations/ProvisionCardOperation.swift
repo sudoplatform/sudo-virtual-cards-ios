@@ -25,13 +25,13 @@ class ProvisionCardDependencyCondition: PlatformOperationCondition {
     func evaluateForOperation(_ operation: PlatformOperation, completion: (PlatformOperationConditionResult) -> Void) {
         guard let operation = operation as? ProvisionCardOperation else {
             let cause = "Only `ProvisionCardOperation` can be assigned with a \(type(of: self).name) condition"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
         guard let registerPublicKeyOperation = operation.dependencies.first(where: { $0 is RegisterPublicKeyOperation }) as? RegisterPublicKeyOperation else {
             let cause = "Required `RegisterPublicKeyOperation` dependency is missing"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
@@ -41,13 +41,13 @@ class ProvisionCardDependencyCondition: PlatformOperationCondition {
         }
         guard let publicKey = registerPublicKeyOperation.result else {
             let cause = "Unable to resolve `publicKey` from `RegisterPublicKeyOperation` dependency"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
         guard let getOwnershipProofOperation = operation.dependencies.first(where: { $0 is GetOwnershipProofOperation}) as? GetOwnershipProofOperation else {
             let cause = "Required `GetOwnershipProofOperation` dependency is missing"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }
@@ -57,7 +57,7 @@ class ProvisionCardDependencyCondition: PlatformOperationCondition {
         }
         guard let ownershipProof = getOwnershipProofOperation.result else {
             let cause = "Unable to resolve `ownershipProof` from `GetOwnershipProofOperation` dependency"
-            let error = SudoVirtualCardsError.internalError(cause: cause)
+            let error = SudoVirtualCardsError.internalError(cause)
             completion(.failure(error))
             return
         }

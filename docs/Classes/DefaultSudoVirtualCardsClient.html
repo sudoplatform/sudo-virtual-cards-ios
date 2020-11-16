@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 9.0.1 Docs
+          SudoVirtualCards 9.1.0 Docs
         </a>
         
       </p>
@@ -88,6 +88,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ProvisionCardObservable.html">ProvisionCardObservable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/SubscriptionToken.html">SubscriptionToken</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SudoVirtualCardsClient.html">SudoVirtualCardsClient</a>
@@ -244,7 +247,7 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span>
-    <span class="nv">keyNamespace</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">keyNamespace</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"com.sudoplatform.virtualcards"</span><span class="p">,</span>
     <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Structs/SudoVirtualCardsConfig.html">SudoVirtualCardsConfig</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">userClient</span><span class="p">:</span> <span class="kt">SudoUserClient</span><span class="p">,</span>
     <span class="nv">profilesClient</span><span class="p">:</span> <span class="kt">SudoProfilesClient</span>
@@ -264,7 +267,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Namespace to use for the keys and passwords. Typically this should be the application name.</p>
+                                  <p>Namespace to use for the keys and passwords. This should be left as the default property</p>
                                 </div>
                               </td>
                             </tr>
@@ -709,9 +712,9 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK010AWSAppSync11Cancellable_pSgyAA26PlatformSubscriptionStatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF"></a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF"></a>
                     <a name="//apple_ref/swift/Method/subscribeToTransactionUpdates(statusChangeHandler:resultHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK010AWSAppSync11Cancellable_pSgyAA26PlatformSubscriptionStatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF">subscribeToTransactionUpdates(statusChangeHandler:<wbr>resultHandler:<wbr>)</a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF">subscribeToTransactionUpdates(statusChangeHandler:<wbr>resultHandler:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -729,7 +732,7 @@ Throws:</p>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribeToTransactionUpdates</span><span class="p">(</span>
     <span class="nv">statusChangeHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a></span><span class="p">?,</span>
     <span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Cancellable</span><span class="p">?</span></code></pre>
+<span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -744,7 +747,7 @@ Throws:</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-08-10)</p>
+      <p>&copy; 2020 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2020-11-16)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
