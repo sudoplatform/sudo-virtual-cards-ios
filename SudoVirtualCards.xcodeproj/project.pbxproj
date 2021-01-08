@@ -85,7 +85,6 @@
 		845AAB9C237E2D7600E4A13C /* MockAWSNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AAB9B237E2D7600E4A13C /* MockAWSNetworkTransport.swift */; };
 		845AABA3237E382C00E4A13C /* SudoLogger+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABA2237E382C00E4A13C /* SudoLogger+Tests.swift */; };
 		845AABB22382571600E4A13C /* AggregateError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABB12382571600E4A13C /* AggregateError.swift */; };
-		845AABBD2382B95800E4A13C /* MockSudoUserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABBC2382B95800E4A13C /* MockSudoUserClient.swift */; };
 		845AABC32383A42600E4A13C /* SudoVirtualCardsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC22383A42600E4A13C /* SudoVirtualCardsError.swift */; };
 		845AABC72383AEF200E4A13C /* AggregateErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC62383AEF200E4A13C /* AggregateErrorTests.swift */; };
 		845AABC92383B33400E4A13C /* ProvisionCardOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABC82383B33400E4A13C /* ProvisionCardOperationTests.swift */; };
@@ -155,7 +154,6 @@
 		84DF458523A735EE002ADC85 /* StripeDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458423A735EE002ADC85 /* StripeDataTests.swift */; };
 		84DF458A23A85855002ADC85 /* SudoPlatformErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458923A85855002ADC85 /* SudoPlatformErrorTests.swift */; };
 		84DF458C23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458B23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift */; };
-		84E58D1C2429CA8000737763 /* MockSudoUserClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E58D1B2429CA8000737763 /* MockSudoUserClient.swift */; };
 		84FB5D59244D66D8006AB2B1 /* SetupFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D58244D66D8006AB2B1 /* SetupFundingSourceInput.swift */; };
 		84FB5D5C244E650A006AB2B1 /* FundingSourceTestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D5B244E650A006AB2B1 /* FundingSourceTestData.swift */; };
 		84FB5D60244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D5F244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift */; };
@@ -278,7 +276,6 @@
 		845AAB9B237E2D7600E4A13C /* MockAWSNetworkTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAWSNetworkTransport.swift; sourceTree = "<group>"; };
 		845AABA2237E382C00E4A13C /* SudoLogger+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SudoLogger+Tests.swift"; sourceTree = "<group>"; };
 		845AABB12382571600E4A13C /* AggregateError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateError.swift; sourceTree = "<group>"; };
-		845AABBC2382B95800E4A13C /* MockSudoUserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoUserClient.swift; sourceTree = "<group>"; };
 		845AABC22383A42600E4A13C /* SudoVirtualCardsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsError.swift; sourceTree = "<group>"; };
 		845AABC62383AEF200E4A13C /* AggregateErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateErrorTests.swift; sourceTree = "<group>"; };
 		845AABC82383B33400E4A13C /* ProvisionCardOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionCardOperationTests.swift; sourceTree = "<group>"; };
@@ -352,7 +349,6 @@
 		84DF458423A735EE002ADC85 /* StripeDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeDataTests.swift; sourceTree = "<group>"; };
 		84DF458923A85855002ADC85 /* SudoPlatformErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoPlatformErrorTests.swift; sourceTree = "<group>"; };
 		84DF458B23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsErrorTests.swift; sourceTree = "<group>"; };
-		84E58D1B2429CA8000737763 /* MockSudoUserClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSudoUserClient.swift; sourceTree = "<group>"; };
 		84FB5D58244D66D8006AB2B1 /* SetupFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFundingSourceInput.swift; sourceTree = "<group>"; };
 		84FB5D5B244E650A006AB2B1 /* FundingSourceTestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceTestData.swift; sourceTree = "<group>"; };
 		84FB5D5F244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsClientIntegrationTestCase.swift; sourceTree = "<group>"; };
@@ -521,7 +517,6 @@
 				84C9E384244977660067C9CF /* MockStripe.swift */,
 				84C9E3862449783F0067C9CF /* MockStripeAPIBuilder.swift */,
 				845AAB7E237CCBB600E4A13C /* MockSudoProfilesClient.swift */,
-				845AABBC2382B95800E4A13C /* MockSudoUserClient.swift */,
 				84DE497D246BC7B9009A93AC /* MockTransactionService.swift */,
 				84CA6BBA23D555320088677E /* MockUnsealer.swift */,
 			);
@@ -617,7 +612,6 @@
 			isa = PBXGroup;
 			children = (
 				841E5CA5233DB4EC004219B9 /* Extensions */,
-				84E58D1A2429CA6E00737763 /* Mocks */,
 				84FB5D5E244E7FF1006AB2B1 /* SudoVirtualCardsClient */,
 				84FB5D5A244E64F6006AB2B1 /* Utilities */,
 				8439546223FCB7FA00A52CE0 /* ConfigFIleDecodable.swift */,
@@ -1011,14 +1005,6 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
-		84E58D1A2429CA6E00737763 /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				84E58D1B2429CA8000737763 /* MockSudoUserClient.swift */,
-			);
-			path = Mocks;
-			sourceTree = "<group>";
-		};
 		84E89E962320D6B800AB34E3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -1202,7 +1188,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Anonyome Labs";
 				TargetAttributes = {
 					841E5CB023418ABC004219B9 = {
@@ -1462,7 +1448,6 @@
 				8407BD1823E114E40018ABEA /* DecryptionWorkerIntegrationTests.swift in Sources */,
 				845AABD6238490EB00E4A13C /* Error+Equality.swift in Sources */,
 				84FB5D5C244E650A006AB2B1 /* FundingSourceTestData.swift in Sources */,
-				84E58D1C2429CA8000737763 /* MockSudoUserClient.swift in Sources */,
 				84043C43244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift in Sources */,
 				84FB5D68244EA27A006AB2B1 /* Result+Convenience.swift in Sources */,
 				841E5CA7233DB504004219B9 /* String+DataFromHex.swift in Sources */,
@@ -1586,7 +1571,6 @@
 				84C9E385244977660067C9CF /* MockStripe.swift in Sources */,
 				84C9E3872449783F0067C9CF /* MockStripeAPIBuilder.swift in Sources */,
 				845AAB7F237CCBB700E4A13C /* MockSudoProfilesClient.swift in Sources */,
-				845AABBD2382B95800E4A13C /* MockSudoUserClient.swift in Sources */,
 				84DE497E246BC7B9009A93AC /* MockTransactionService.swift in Sources */,
 				84CA6BBB23D555320088677E /* MockUnsealer.swift in Sources */,
 				8409EC7423D51E4700553022 /* PlatformKeyManagerTests.swift in Sources */,
@@ -1888,6 +1872,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1952,6 +1937,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

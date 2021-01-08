@@ -85,6 +85,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case identityInsufficient
     case identityNotVerified
     case unknownTimezone
+    case insufficientEntitlements
+    case noEntitlements
     case internalError(_ cause: String?)
     case invalidArgument(_ msg: String?)
 
@@ -156,6 +158,10 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             self = .identityNotVerified
         case .unknownTimezone:
             self = .unknownTimezone
+        case .insufficientEntitlementsError:
+            self = .insufficientEntitlements
+        case .noEntitlementsError:
+            self = .noEntitlements
         case let .internalError(cause):
             self = .internalError(cause)
         case let .invalidArgument(msg):
@@ -233,6 +239,10 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.identityInsufficient
         case .identityNotVerified:
             return L10n.VirtualCards.Errors.identityNotVerified
+        case .noEntitlements:
+            return L10n.VirtualCards.Errors.noEntitlementsError
+        case .insufficientEntitlements:
+            return L10n.VirtualCards.Errors.insufficientEntitlementsError
         case let .internalError(cause):
             return cause ?? "Unknown error"
         case .unknownTimezone:
