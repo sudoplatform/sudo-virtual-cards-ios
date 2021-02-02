@@ -45,6 +45,7 @@ public struct Transaction: Hashable {
         case merchantCountryBlocked
         case avsCheckFailed
         case cscCheckFailed
+        case expiryCheckFailed
         case processingError
         case declined
         case velocityExceeded
@@ -72,6 +73,8 @@ public struct Transaction: Hashable {
                 self = .avsCheckFailed
             case "CSC_CHECK_FAILED":
                 self = .cscCheckFailed
+            case "EXPIRY_CHECK_FAILED":
+                self = .expiryCheckFailed
             case "PROCESSING_ERROR":
                 self = .processingError
             case "DECLINED":

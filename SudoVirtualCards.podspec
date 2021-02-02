@@ -1,7 +1,7 @@
 #
 Pod::Spec.new do |spec|
   spec.name                  = 'SudoVirtualCards'
-  spec.version               = '9.2.0'
+  spec.version               = '10.0.0'
   spec.author                = { 'Sudo Platform Engineering' => 'sudoplatform-engineering@anonyome.com' }
   spec.homepage              = 'https://sudoplatform.com'
 
@@ -16,10 +16,10 @@ Pod::Spec.new do |spec|
 
   spec.dependency 'AWSAppSync', '~> 3.1'
   spec.dependency 'Stripe', '~> 20.1'
-  spec.dependency 'SudoUser', '~> 8.0'
-  spec.dependency 'SudoProfiles', '~> 7.1'
+  spec.dependency 'SudoUser', '~> 10.1'
+  spec.dependency 'SudoProfiles', '~> 9.0'
   spec.dependency 'SudoLogging', '~> 0.3'
   spec.dependency 'SudoKeyManager', '~> 1.2'
   spec.dependency 'SudoOperations', '~> 4.0'
-  spec.dependency 'SudoApiClient', '~> 2.0'
+  spec.dependency 'SudoApiClient', '~> 3.0'
 end

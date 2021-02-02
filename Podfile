@@ -26,8 +26,8 @@ target 'SudoVirtualCards' do
 
   target 'SudoVirtualCardsIntegrationTests' do
     podspec :name => 'SudoVirtualCards'
-    pod 'SudoIdentityVerification', '~> 5.0'
-    pod 'SudoVirtualCardsSimulator', '~> 3.3'
+    pod 'SudoIdentityVerification', '~> 6.0'
+    pod 'SudoVirtualCardsSimulator', '~> 4.0'
   end
 
 end
