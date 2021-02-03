@@ -166,7 +166,7 @@ class GetStripeIntentOperation: PlatformOperation, STPAuthenticationContext {
                 return
             }
             DispatchQueue.main.async {
-                STPPaymentHandler.shared().confirmSetupIntent(withParams: intentParameters, authenticationContext: self) { status, intent, error in
+                STPPaymentHandler.shared().confirmSetupIntent(intentParameters, with: self) { status, intent, error in
                     var setupIntent: STPSetupIntent?
                     var error: Error? = error
                     switch status {
