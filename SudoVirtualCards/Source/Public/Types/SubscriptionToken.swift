@@ -7,7 +7,7 @@
 /// Represents a subscription. When this object is released, the subscription is cancelled.
 ///
 /// If reference is lost to this token, the subscription will be automatically cancelled on cleanup.
-public protocol SubscriptionToken: class {
+public protocol SubscriptionToken: AnyObject {
     /// Cancel the subscription.
     func cancel()
 }

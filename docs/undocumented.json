@@ -254,7 +254,7 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Extensions/AWSRegionType+Decodable.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "AWSRegionType.init(string:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -296,91 +296,70 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/DefaultSudoVirtualCardsClient.swift",
-      "line": 398,
+      "line": 404,
       "symbol": "DefaultSudoVirtualCardsClient.cancelCardWithId(_:completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 80,
-      "symbol": "SudoVirtualCardsError.decodingError",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 81,
+      "line": 174,
       "symbol": "SudoVirtualCardsError.environmentError",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 82,
+      "line": 175,
       "symbol": "SudoVirtualCardsError.policyFailed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 83,
+      "line": 176,
       "symbol": "SudoVirtualCardsError.invalidTokenError",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 84,
-      "symbol": "SudoVirtualCardsError.accountLockedError",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 85,
+      "line": 177,
       "symbol": "SudoVirtualCardsError.identityInsufficient",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 86,
+      "line": 178,
       "symbol": "SudoVirtualCardsError.identityNotVerified",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 87,
+      "line": 179,
       "symbol": "SudoVirtualCardsError.unknownTimezone",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 88,
-      "symbol": "SudoVirtualCardsError.insufficientEntitlements",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 89,
+      "line": 180,
       "symbol": "SudoVirtualCardsError.noEntitlements",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 90,
+      "line": 181,
       "symbol": "SudoVirtualCardsError.internalError(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 91,
+      "line": 182,
       "symbol": "SudoVirtualCardsError.invalidArgument(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"

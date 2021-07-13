@@ -10,7 +10,7 @@ import Foundation
 ///
 /// This delegate is passed to a funding source creation method to ensure that further required authentication
 /// can be served to the user.
-public protocol FundingSourceAuthorizationDelegate: class {
+public protocol FundingSourceAuthorizationDelegate: AnyObject {
 
     /// Optional return URL to provide to any supported web hooks so they can automatically handle UI flows via `openURL` etc.
     /// Sample: "<your-app>://some/url"

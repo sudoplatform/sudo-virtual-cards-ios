@@ -8,6 +8,7 @@ import Foundation
 import SudoLogging
 import AWSAppSync
 import SudoOperations
+import SudoApiClient
 
 /// Abstraction of the SDKs capabilities surrounding `PublicKey` access/manipulation with virtual cards service.
 ///
@@ -40,7 +41,7 @@ class PublicKeyService {
     // MARK: - Properties
 
     /// App Sync Client used to interact with the GraphQL endpoint of the virtual cards service.
-    unowned var appSyncClient: AWSAppSyncClient
+    unowned var graphQLClient: SudoApiClient
 
     /// Operation factory used to generate operations.
     unowned var operationFactory: OperationFactory
@@ -58,12 +59,12 @@ class PublicKeyService {
 
     /// Initialize an instance of `PublicKeyService`.
     init(
-        appSyncClient: AWSAppSyncClient,
+        graphQLClient: SudoApiClient,
         operationFactory: OperationFactory,
         platformKeyManager: PlatformKeyManager,
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
-        self.appSyncClient = appSyncClient
+        self.graphQLClient = graphQLClient
         self.operationFactory = operationFactory
         self.platformKeyManager = platformKeyManager
         self.logger = logger
@@ -107,7 +108,7 @@ class PublicKeyService {
     /// Get the key ring.
     func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy, completion: @escaping ClientCompletion<GetKeyRingQuery.Data>) {
         let query = GetKeyRingQuery(keyRingId: keyRingId)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
             if let error = errors.first {
                 completion(.failure(error))
@@ -129,7 +130,7 @@ class PublicKeyService {
         let publicKeyString = keyPair.publicKey.base64EncodedString()
         let input = CreatePublicKeyInput(keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, algorithm: Defaults.algorithm, publicKey: publicKeyString)
         let mutation = CreatePublicKeyMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, appSyncClient: appSyncClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
             if let error = errors.first {
                 completion(.failure(error))

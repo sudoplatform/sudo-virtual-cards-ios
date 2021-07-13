@@ -22,7 +22,7 @@ enum UnsealingError: Error, Equatable {
 }
 
 /// Works in conjunction with `DecryptionWorker` to unseal any attributes incoming from GraphQL API.
-protocol Unsealer: class {
+protocol Unsealer: AnyObject {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `Unsealer`.

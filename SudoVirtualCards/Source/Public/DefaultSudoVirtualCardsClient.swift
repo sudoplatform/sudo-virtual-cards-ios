@@ -33,7 +33,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     var queue = PlatformOperationQueue()
 
     /// Used to make GraphQL requests to AWS. Injected into operations to delegate the calls.
-    let appSyncClient: AWSAppSyncClient
+    let graphQLClient: SudoApiClient
 
     private static let dispatchQueue = DispatchQueue(label: "com.sudoplatform.sudo-virtual-cards-graphQL-result-handler")
 
@@ -75,7 +75,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         userClient: SudoUserClient,
         profilesClient: SudoProfilesClient
     ) throws {
-        let appSyncClient: AWSAppSyncClient
+        let graphQLClient: SudoApiClient
         if let config = config {
             let authProvider = GraphQLAuthProvider(client: userClient)
             let cacheConfiguration = try AWSAppSyncCacheConfiguration()
@@ -83,12 +83,18 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 appSyncServiceConfig: config,
                 userPoolsAuthProvider: authProvider,
                 cacheConfiguration: cacheConfiguration)
-            appSyncClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
+            let appSyncClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
+            try graphQLClient = SudoApiClient(
+                configProvider: config,
+                sudoUserClient: userClient,
+                logger: Logger.sudoApiClientLogger,
+                appSyncClient: appSyncClient
+            )
         } else {
-            guard let asClient = try ApiClientManager.instance?.getClient(sudoUserClient: userClient) else {
+            guard let asClient = try SudoApiClientManager.instance?.getClient(sudoUserClient: userClient) else {
                 throw SudoVirtualCardsError.invalidConfig
             }
-            appSyncClient = asClient
+            graphQLClient = asClient
         }
         let platformKeyManager = DefaultPlatformKeyManager(
             keyNamespace: keyNamespace,
@@ -100,7 +106,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         self.init(
             profilesClient: profilesClient,
             userClient: userClient,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             platformKeyManager: platformKeyManager,
             unsealer: unsealer
         )
@@ -111,12 +117,12 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     /// This is used both internally as the 'true' init, as well as for injecting mock objects.
     ///
     /// - Parameters:
-    ///   - appSyncClient: Client used to interface with the virtualCards app sync service.
+    ///   - graphQLClient: Client used to interface with the virtualCards app sync service.
     ///   - logger: Logging object.
     internal init(
         profilesClient: SudoProfilesClient,
         userClient: SudoUserClient,
-        appSyncClient: AWSAppSyncClient,
+        graphQLClient: SudoApiClient,
         platformKeyManager: PlatformKeyManager,
         unsealer: Unsealer,
         operationFactory: OperationFactory = OperationFactory(),
@@ -125,23 +131,23 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ) {
         self.profilesClient = profilesClient
         self.userClient = userClient
-        self.appSyncClient = appSyncClient
+        self.graphQLClient = graphQLClient
         self.platformKeyManager = platformKeyManager
         self.unsealer = unsealer
         self.subscriptionManager = subscriptionManager
         self.operationFactory = operationFactory
         self.logger = logger
-        self.fundingSourceService = FundingSourceService(appSyncClient: appSyncClient, operationFactory: operationFactory, logger: logger)
-        self.cardService = CardService(appSyncClient: appSyncClient, operationFactory: operationFactory, unsealer: unsealer, logger: logger)
+        self.fundingSourceService = FundingSourceService(graphQLClient: graphQLClient, operationFactory: operationFactory, logger: logger)
+        self.cardService = CardService(graphQLClient: graphQLClient, operationFactory: operationFactory, unsealer: unsealer, logger: logger)
         self.transactionService = TransactionService(
             userClient: userClient,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             unsealer: unsealer,
             operationFactory: operationFactory,
             logger: logger
         )
         self.publicKeyService = PublicKeyService(
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             operationFactory: operationFactory,
             platformKeyManager: platformKeyManager,
             logger: logger
@@ -151,7 +157,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func reset() throws {
         logger.info("Resetting client state.")
 
-        try self.appSyncClient.clearCaches(options: .init(clearQueries: true, clearMutations: true, clearSubscriptions: true))
+        try self.graphQLClient.clearCaches(options: .init(clearQueries: true, clearMutations: true, clearSubscriptions: true))
         cardService.cancelAllOperations()
         cardService.clearSubscriptions()
         transactionService.clearSubscriptions()
@@ -300,7 +306,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         let mutation = CancelFundingSourceMutation(input: mutationInput)
         let operation = operationFactory.generateMutationOperation(
             mutation: mutation,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { [weak logger = self.logger] _, errors in
@@ -361,7 +367,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
         let operation = operationFactory.generateMutationOperation(
             mutation: mutation,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { [weak logger = self.logger] _, errors in
             if let error = errors.first {
@@ -409,7 +415,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         let mutation = CancelCardMutation(input: input)
         let operation = operationFactory.generateMutationOperation(
             mutation: mutation,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { [weak logger = self.logger] _, errors in
             if let error = errors.first {
@@ -445,7 +451,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     public func getProvisionalCardWithId(_ id: String, cachePolicy: CachePolicy, completion: @escaping ClientCompletion<ProvisionalCard?>) {
         let query = GetProvisionalCardQuery(id: id)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -496,7 +502,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ) {
         let filter = filter?.toGraphQLFilter()
         let query = ListProvisionalCardsQuery(filter: filter, limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -555,7 +561,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             return
         }
         let query = GetCardQuery(id: id, keyId: keyPair.keyId)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -596,7 +602,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ) {
         let filter = filter?.toGraphQLFilter()
         let query = ListCardsQuery(filter: filter, limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -633,7 +639,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         let query = GetFundingSourceQuery(id: id)
         let operation = operationFactory.generateQueryOperation(
             query: query,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             cachePolicy: cachePolicy,
             logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
@@ -668,7 +674,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         let query = ListFundingSourcesQuery(limit: limit, nextToken: nextToken)
         let operation = operationFactory.generateQueryOperation(
             query: query,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             cachePolicy: cachePolicy,
             logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
@@ -791,7 +797,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             algorithm: input.algorithm,
             publicKey: input.publicKey)
         let mutation = CreatePublicKeyForVirtualCardsMutation(input: mutationInput)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, appSyncClient: appSyncClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { [weak logger = self.logger] _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -830,7 +836,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     func deletePublicKeyWithId(_ id: String, completion: @escaping ClientCompletion<PublicKey>) {
         let mutationInput = DeletePublicKeyInput(keyId: id)
         let mutation = DeletePublicKeyForVirtualCardsMutation(input: mutationInput)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, appSyncClient: appSyncClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: {[weak logger = self.logger] _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -871,7 +877,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///         - SudoPlatformError.
     func getPublicKeyWithId(_ id: String, cachePolicy: CachePolicy, completion: @escaping ClientCompletion<PublicKey?>) {
         let query = GetPublicKeyForVirtualCardsQuery(keyId: id)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -916,7 +922,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         completion: @escaping ClientCompletion<ListOutput<PublicKey>>
     ) {
         let query = GetPublicKeysForVirtualCardsQuery(limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -965,7 +971,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         completion: @escaping ClientCompletion<ListOutput<PublicKey>>
     ) {
         let query = GetKeyRingForVirtualCardsQuery(keyRingId: keyRingId, limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = PlatformBlockObserver(finishHandler: { _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,
@@ -1017,10 +1023,15 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     /// Convert a error to a `SudoVirtualCardsError` if possible.
     func convertToSudoVirtualCardsError(_ error: Error) -> Error {
-        guard let platformError = error as? SudoPlatformError else {
-            return error
+        if let apiOperationError = error as? ApiOperationError {
+            return SudoVirtualCardsError.fromApiOperationError(error: apiOperationError)
         }
-        return SudoVirtualCardsError(platformError: platformError)
+
+        if let platformError = error as? SudoPlatformError {
+            return SudoVirtualCardsError(platformError: platformError)
+        }
+
+        return error
     }
 
     func generateProvisionCardCompletionObserver(

@@ -19,7 +19,7 @@ public typealias SudoSubscriptionStatusChangeHandler = (PlatformSubscriptionStat
 ///
 /// It is recommended to code to this interface, rather than the implementation class (`DefaultSudoVirtualCardsClient`) as
 /// the implementation class is only meant to be used for initializing an instance of the client.
-public protocol SudoVirtualCardsClient: class {
+public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Removes all keys associated with this client, resets any cached data, cleans up subscriptions, and purges any pending operations.
     ///

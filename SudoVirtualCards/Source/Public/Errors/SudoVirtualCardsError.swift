@@ -6,10 +6,69 @@
 
 import Foundation
 import SudoOperations
+import SudoApiClient
 import AWSAppSync
 
 /// Errors that occur in SudoVirtualCards.
 public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
+
+    public static func == (lhs: SudoVirtualCardsError, rhs: SudoVirtualCardsError) -> Bool {
+        switch (lhs, rhs) {
+        case (.requestFailed(let lhsResponse, let lhsCause), requestFailed(let rhsResponse, let rhsCause)):
+            if let lhsResponse = lhsResponse, let rhsResponse = rhsResponse {
+                return lhsResponse.statusCode == rhsResponse.statusCode
+            }
+            return type(of: lhsCause) == type(of: rhsCause)
+        case (.invalidConfig, .invalidConfig),
+             (.notSignedIn, .notSignedIn),
+             (.fundingSourceCreationFailed, .fundingSourceCreationFailed),
+             (.localKeyPairFailure, .localKeyPairFailure),
+             (.noOwnershipProofAvailable, .noOwnershipProofAvailable),
+             (.provisionFailed, .provisionFailed),
+             (.setupFailed, .setupFailed),
+             (.completionFailed, .completionFailed),
+             (.cancelFailed, .cancelFailed),
+             (.updateFailed, .updateFailed),
+             (.getFailed, .getFailed),
+             (.cardNotFound, .cardNotFound),
+             (.cardStateError, .cardStateError),
+             (.transactionNotFound, .transactionNotFound),
+             (.currencyMismatch, .currencyMismatch),
+             (.velocityExceeded, .velocityExceeded),
+             (.entitlementExceeded, .entitlementExceeded),
+             (.provisionalFundingSourceNotFound, .provisionalFundingSourceNotFound),
+             (.fundingSourceNotFound, .fundingSourceNotFound),
+             (.fundingSourceNotActive, .fundingSourceNotActive),
+             (.unsupportedCurrency, .unsupportedCurrency),
+             (.fundingSourceNotSetup, .fundingSourceNotSetup),
+             (.fundingSourceCompletionDataInvalid, .fundingSourceCompletionDataInvalid),
+             (.fundingSourceStateError, .fundingSourceStateError),
+             (.unacceptableFundingSource, .unacceptableFundingSource),
+             (.accountLocked, .accountLocked),
+             (.notAuthorized, .notAuthorized),
+             (.limitExceeded, .limitExceeded),
+             (.insufficientEntitlements, .insufficientEntitlements),
+             (.versionMismatch, .versionMismatch),
+             (.serviceError, .serviceError),
+             (.rateLimitExceeded, .rateLimitExceeded),
+             (.graphQLError, .graphQLError),
+             (.fatalError, .fatalError),
+             (.decodingError, .decodingError),
+             (.environmentError, .environmentError),
+             (.policyFailed, .policyFailed),
+             (.invalidTokenError, .invalidTokenError),
+             (.identityInsufficient, .identityInsufficient),
+             (.identityNotVerified, .identityNotVerified),
+             (.unknownTimezone, .unknownTimezone),
+             (.noEntitlements, .noEntitlements),
+             (.internalError, internalError),
+             (.invalidArgument, .invalidArgument):
+            return true
+        default:
+            return false
+        }
+    }
+
     // MARK: - Client
 
     /// Configuration supplied to `DefaultSudoVirtualCardsClient` is invalid.
@@ -70,22 +129,54 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// performed, the funding source is high risk and other reasons.
     case unacceptableFundingSource
 
+    /// Indicates the requested operation failed because the user account is locked.
+    case accountLocked
+
+    /// Indicates that the request operation failed due to authorization error. This maybe due to the authentication
+    /// token being invalid or other security controls that prevent the user from accessing the API.
+    case notAuthorized
+
+    /// Indicates API call  failed due to it exceeding some limits imposed for the API. For example, this error
+    /// can occur if the vault size was too big.
+    case limitExceeded
+
+    /// Indicates that the user does not have sufficient entitlements to perform the requested operation.
+    case insufficientEntitlements
+
+    /// Indicates the version of the vault that is getting updated does not match the current version of the vault stored
+    /// in the backend. The caller should retrieve the current version of the vault and reconcile the difference.
+    case versionMismatch
+
+    /// Indicates that an internal server error caused the operation to fail. The error is possibly transient and
+    /// retrying at a later time may cause the operation to complete successfully
+    case serviceError
+
+    /// Indicates that the request failed due to connectivity, availability or access error.
+    case requestFailed(response: HTTPURLResponse?, cause: Error?)
+
+    /// Indicates that there were too many attempts at sending API requests within a short period of time.
+    case rateLimitExceeded
+
+    /// Indicates that a GraphQL error was returned by the backend.
+    case graphQLError(description: String)
+
+    /// Indicates that a fatal error occurred. This could be due to coding error, out-of-memory condition or other
+    /// conditions that is beyond control of `SudoIdentityVerificationClient` implementation.
+    case fatalError(description: String)
+
     // MARK: - SudoPlatformError
 
     /**
       * This section contains wrapped erros from `SudoPlatformError`.
      */
 
-    case serviceError
     case decodingError
     case environmentError
     case policyFailed
     case invalidTokenError
-    case accountLockedError
     case identityInsufficient
     case identityNotVerified
     case unknownTimezone
-    case insufficientEntitlements
     case noEntitlements
     case internalError(_ cause: String?)
     case invalidArgument(_ msg: String?)
@@ -151,7 +242,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
         case .invalidTokenError:
             self = .invalidTokenError
         case .accountLockedError:
-            self = .accountLockedError
+            self = .accountLocked
         case .identityInsufficient:
             self = .identityInsufficient
         case .identityNotVerified:
@@ -233,8 +324,6 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.policyFailed
         case .invalidTokenError:
             return L10n.VirtualCards.Errors.invalidTokenError
-        case .accountLockedError:
-            return L10n.VirtualCards.Errors.accountLockedError
         case .identityInsufficient:
             return L10n.VirtualCards.Errors.identityInsufficient
         case .identityNotVerified:
@@ -249,8 +338,59 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.unknownTimezone
         case let .invalidArgument(msg):
             return msg ?? L10n.VirtualCards.Errors.invalidArgument
+        case .accountLocked:
+            return L10n.VirtualCards.Errors.accountLockedError
+        case .notAuthorized:
+            return L10n.VirtualCards.Errors.notAuthorized
+        case .limitExceeded:
+            return L10n.VirtualCards.Errors.limitExceeded
+        case .versionMismatch:
+            return L10n.VirtualCards.Errors.versionMismatch
+        case .requestFailed:
+            return L10n.VirtualCards.Errors.requestFailed
+        case .rateLimitExceeded:
+            return L10n.VirtualCards.Errors.rateLimitExceeded
+        case .graphQLError:
+            return L10n.VirtualCards.Errors.graphQLError
+        case .fatalError:
+            return L10n.VirtualCards.Errors.fatalError
         }
     }
+}
+
+extension SudoVirtualCardsError {
+
+    struct Constants {
+        static let errorType = "errorType"
+    }
+
+    static func fromApiOperationError(error: Error) -> SudoVirtualCardsError {
+        switch error {
+        case ApiOperationError.accountLocked:
+            return .accountLocked
+        case ApiOperationError.notSignedIn:
+            return .notSignedIn
+        case ApiOperationError.notAuthorized:
+            return .notAuthorized
+        case ApiOperationError.limitExceeded:
+            return .limitExceeded
+        case ApiOperationError.insufficientEntitlements:
+            return .insufficientEntitlements
+        case ApiOperationError.serviceError:
+            return .serviceError
+        case ApiOperationError.versionMismatch:
+            return .versionMismatch
+        case ApiOperationError.rateLimitExceeded:
+            return .rateLimitExceeded
+        case ApiOperationError.graphQLError(let cause):
+            return .graphQLError(description: "Unexpected GraphQL error: \(cause)")
+        case ApiOperationError.requestFailed(let response, let cause):
+            return .requestFailed(response: response, cause: cause)
+        default:
+            return .fatalError(description: "Unexpected API operation error: \(error)")
+        }
+    }
+
 }
 
 /// Errors associated with the failure of Public Key Registration Lifecycle events.

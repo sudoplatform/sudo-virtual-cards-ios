@@ -10,6 +10,7 @@ import SudoUser
 import SudoLogging
 import AWSAppSync
 import SudoOperations
+import SudoApiClient
 
 class OperationFactory {
 
@@ -57,12 +58,12 @@ class OperationFactory {
 
     func generateQueryOperation<Query: GraphQLQuery>(
         query: Query,
-        appSyncClient: AWSAppSyncClient,
+        graphQLClient: SudoApiClient,
         cachePolicy: CachePolicy,
         logger: Logger
     ) -> PlatformQueryOperation<Query> {
         return PlatformQueryOperation(
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             query: query,
             cachePolicy: cachePolicy.toSudoOperationsCachePolicy(),
             logger: logger)
@@ -72,7 +73,7 @@ class OperationFactory {
         mutation: Mutation,
         optimisticUpdate: OptimisticResponseBlock? = nil,
         optimisticCleanup: OptimisticCleanupBlock? = nil,
-        appSyncClient: AWSAppSyncClient,
+        graphQLClient: SudoApiClient,
         serviceErrorTransformations: [ServiceErrorTransformationCompletion]? = nil,
         logger: Logger
     ) -> PlatformMutationOperation<Mutation> {
@@ -80,7 +81,7 @@ class OperationFactory {
         serviceErrorTransformations.append(SudoVirtualCardsError.init(graphQLError:))
 
         return PlatformMutationOperation(
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             serviceErrorTransformations: serviceErrorTransformations,
             mutation: mutation,
             optimisticUpdate: optimisticUpdate,

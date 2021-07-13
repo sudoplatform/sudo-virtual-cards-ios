@@ -55,6 +55,13 @@ internal enum L10n {
         internal static let unsupportedCurrency = L10n.tr("Localizable", "virtual_cards.errors.unsupportedCurrency")
         internal static let updateFailed = L10n.tr("Localizable", "virtual_cards.errors.updateFailed")
         internal static let velocityExceeded = L10n.tr("Localizable", "virtual_cards.errors.velocityExceeded")
+        internal static let limitExceeded = L10n.tr("Localizable", "virtual_cards.errors.limitExceeded")
+        internal static let notAuthorized = L10n.tr("Localizable", "virtual_cards.errors.notAuthorized")
+        internal static let versionMismatch = L10n.tr("Localizable", "virtual_cards.errors.versionMismatch")
+        internal static let requestFailed = L10n.tr("Localizable", "virtual_cards.errors.requestFailed")
+        internal static let rateLimitExceeded = L10n.tr("Localizable", "virtual_cards.errors.rateLimitExceeded")
+        internal static let graphQLError = L10n.tr("Localizable", "virtual_cards.errors.graphQLError")
+        internal static let fatalError = L10n.tr("Localizable", "virtual_cards.errors.fatalError")
       }
     }
 }

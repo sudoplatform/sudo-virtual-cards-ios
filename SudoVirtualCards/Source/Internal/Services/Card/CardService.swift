@@ -9,6 +9,7 @@ import AWSAppSync
 import SudoUser
 import SudoOperations
 import SudoLogging
+import SudoApiClient
 
 /// Abstraction of the SDKs capabilities surrounding `Card` access/manipulation with virtual cards service.
 class CardService {
@@ -29,7 +30,7 @@ class CardService {
     // MARK: - Properties
 
     /// App Sync Client used to interact with the GraphQL endpoint of the virtual cards service.
-    unowned var appSyncClient: AWSAppSyncClient
+    unowned var graphQLClient: SudoApiClient
 
     /// Operation factory used to generate operations.
     unowned var operationFactory: OperationFactory
@@ -53,8 +54,8 @@ class CardService {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `CardService`.
-    init(appSyncClient: AWSAppSyncClient, operationFactory: OperationFactory, unsealer: Unsealer, logger: Logger = .virtualCardsSDKLogger) {
-        self.appSyncClient = appSyncClient
+    init(graphQLClient: SudoApiClient, operationFactory: OperationFactory, unsealer: Unsealer, logger: Logger = .virtualCardsSDKLogger) {
+        self.graphQLClient = graphQLClient
         self.operationFactory = operationFactory
         self.unsealer = unsealer
         self.logger = logger
@@ -102,7 +103,7 @@ class CardService {
             mutation: mutation,
             optimisticUpdate: optimisticUpdate,
             optimisticCleanup: optimisticCleanup,
-            appSyncClient: appSyncClient,
+            graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             logger: logger
         )
@@ -130,7 +131,7 @@ class CardService {
         let filter = ProvisionalCardFilterInput(clientRefId: .init(eq: clientRefId))
         let query = ListProvisionalCardsQuery(filter: filter, limit: Defaults.provisionalCardListLimit)
         var discard: Cancellable?
-        discard = appSyncClient.sync(
+        discard = graphQLClient.getAppSyncClient().sync(
             baseQuery: query,
             baseQueryResultHandler: { [ clientRefId, weak self, weak observer] result, error in
                 guard

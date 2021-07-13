@@ -57,3 +57,10 @@
 "virtual_cards.errors.unknownTimezone" = "Time zone is not known";
 "virtual_cards.errors.insufficientEntitlementsError" = "Insufficient entitlements for requested operation";
 "virtual_cards.errors.noEntitlementsError" = "User has no entitlements associated with them";
+"virtual_cards.errors.limitExceeded" = "API limit exceeded";
+"virtual_cards.errors.notAuthorized" = "User is not authorized to perform the requested operation";
+"virtual_cards.errors.versionMismatch" = "The version of the resource being updated does not match the current version";
+"virtual_cards.errors.requestFailed" = "The request failed due to connectivity or server error";
+"virtual_cards.errors.rateLimitExceeded" = "API rate limit exceeded";
+"virtual_cards.errors.graphQLError" = "Unknown GraphQL error was returned";
+"virtual_cards.errors.fatalError" = "Unexpected fatal error occurred";

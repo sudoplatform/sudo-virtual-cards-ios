@@ -9,6 +9,7 @@ import AWSAppSync
 import SudoUser
 import SudoOperations
 import SudoLogging
+import SudoApiClient
 
 /// Abstraction of the SDKs capabilities surrounding `Transaction` access/manipulation with virtual cards service.
 class TransactionService {
@@ -31,7 +32,7 @@ class TransactionService {
     unowned let userClient: SudoUserClient
 
     /// Used to make GraphQL requests to AWS. Injected into operations to delegate the calls.
-    unowned let appSyncClient: AWSAppSyncClient
+    unowned let graphQLClient: SudoApiClient
 
     /// Used to generate operations.
     unowned let operationFactory: OperationFactory
@@ -53,13 +54,13 @@ class TransactionService {
     /// Initialize an instance of `TransactionService`.
     init(
         userClient: SudoUserClient,
-        appSyncClient: AWSAppSyncClient,
+        graphQLClient: SudoApiClient,
         unsealer: Unsealer,
         operationFactory: OperationFactory,
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
         self.userClient = userClient
-        self.appSyncClient = appSyncClient
+        self.graphQLClient = graphQLClient
         self.unsealer = unsealer
         self.operationFactory = operationFactory
         self.logger = logger
@@ -90,7 +91,7 @@ class TransactionService {
     ///    - Failure: `Error` that occurred.
     func get(withId id: String, cachePolicy: CachePolicy, keyPair: KeyPair, completion: @escaping ClientCompletion<Transaction?>) {
         let query = GetTransactionQuery(id: id, keyId: keyPair.keyId)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = generateGetCompletionObserver(completion: completion)
         operation.addObserver(observer)
         operation.addCondition(SignedInCondition(userClient: userClient))
@@ -119,7 +120,7 @@ class TransactionService {
         // sequenceId has no affect on this, but we still want to honor other filters.
         let graphQLFilter = filter?.toGraphQLFilter()
         let query = ListTransactionsQuery(filter: graphQLFilter, limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let observer = generateListCompletionObserver(filter: filter, completion: completion)
         operation.addObserver(observer)
         operation.addCondition(SignedInCondition(userClient: userClient))
@@ -141,7 +142,7 @@ class TransactionService {
         }
         let subscription = OnTransactionUpdateSubscription(owner: owner)
 
-        let discard = try? appSyncClient.subscribe(
+        let discard = try? graphQLClient.subscribe(
             subscription: subscription,
             statusChangeHandler: { status in
                 let platformStatus = PlatformSubscriptionStatus(status: status)

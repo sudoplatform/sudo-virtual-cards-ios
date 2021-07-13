@@ -7,7 +7,7 @@
 import Foundation
 
 /// Observable to define behavior for Provision Card API events.
-public protocol ProvisionCardObservable: class {
+public protocol ProvisionCardObservable: AnyObject {
 
     /// Card Provision state has changed.
     func provisioningStateDidChange(_ state: ProvisionalCard.State, card: Card?)

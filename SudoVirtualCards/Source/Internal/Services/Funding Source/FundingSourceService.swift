@@ -7,6 +7,7 @@
 import Foundation
 import SudoLogging
 import AWSAppSync
+import SudoApiClient
 import SudoOperations
 
 /// Abstraction of the SDKs capabilities surrounding `FundingSource` access/manipulation with virtual cards service.
@@ -15,7 +16,7 @@ class FundingSourceService {
     // MARK: - Properties
 
     /// Used to make GraphQL requests to AWS. Injected into operations to delegate the calls.
-    unowned var appSyncClient: AWSAppSyncClient
+    unowned var graphQLClient: SudoApiClient
 
     /// Used to generate operations.
     unowned var operationFactory: OperationFactory
@@ -35,8 +36,8 @@ class FundingSourceService {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `FundingSourceService`.
-    init(appSyncClient: AWSAppSyncClient, operationFactory: OperationFactory, logger: Logger) {
-        self.appSyncClient = appSyncClient
+    init(graphQLClient: SudoApiClient, operationFactory: OperationFactory, logger: Logger) {
+        self.graphQLClient = graphQLClient
         self.operationFactory = operationFactory
         self.logger = logger
     }
@@ -53,7 +54,7 @@ class FundingSourceService {
     func setup(input: SetupFundingSourceInput, completion: @escaping ClientCompletion<StripeSetup>) {
         let input = SetupFundingSourceRequest(type: input.type.fundingSourceType, currency: input.currency)
         let mutation = SetupFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, appSyncClient: appSyncClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation, weak self] _, errors in
             guard let weakSelf = self else { return }
             if let error = errors.first {
@@ -101,7 +102,7 @@ class FundingSourceService {
         }
         let input = CompleteFundingSourceRequest(id: clientId, completionData: encodedCompletionString)
         let mutation = CompleteFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, appSyncClient: appSyncClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
             if let error = errors.first {
                 completion(.failure(error))
@@ -127,7 +128,7 @@ class FundingSourceService {
     ///     - Failure: `Error` that occurred.
     func getConfig(cachePolicy: CachePolicy, completion: @escaping ClientCompletion<StripeClientConfiguration>) {
         let query = GetFundingSourceClientConfigurationQuery()
-        let operation = operationFactory.generateQueryOperation(query: query, appSyncClient: appSyncClient, cachePolicy: cachePolicy, logger: logger)
+        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation, weak self] _, errors in
             guard let weakSelf = self else { return }
             if let error = errors.first {
