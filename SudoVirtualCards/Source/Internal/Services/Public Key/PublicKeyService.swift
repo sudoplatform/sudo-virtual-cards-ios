@@ -130,7 +130,11 @@ class PublicKeyService {
         let publicKeyString = keyPair.publicKey.base64EncodedString()
         let input = CreatePublicKeyInput(keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, algorithm: Defaults.algorithm, publicKey: publicKeyString)
         let mutation = CreatePublicKeyMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(
+            mutation: mutation,
+            graphQLClient: graphQLClient,
+            logger: logger
+        )
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
             if let error = errors.first {
                 completion(.failure(error))

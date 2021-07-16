@@ -308,7 +308,8 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             mutation: mutation,
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            logger: logger)
+            logger: logger
+        )
         let observer = PlatformBlockObserver(finishHandler: { [weak logger = self.logger] _, errors in
             if let error = errors.first {
                 if let conditionError = error as? PlatformOperationErrors,

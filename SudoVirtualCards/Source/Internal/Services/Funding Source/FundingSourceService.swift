@@ -54,7 +54,12 @@ class FundingSourceService {
     func setup(input: SetupFundingSourceInput, completion: @escaping ClientCompletion<StripeSetup>) {
         let input = SetupFundingSourceRequest(type: input.type.fundingSourceType, currency: input.currency)
         let mutation = SetupFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(
+            mutation: mutation,
+            graphQLClient: graphQLClient,
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            logger: logger
+        )
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation, weak self] _, errors in
             guard let weakSelf = self else { return }
             if let error = errors.first {
@@ -102,7 +107,12 @@ class FundingSourceService {
         }
         let input = CompleteFundingSourceRequest(id: clientId, completionData: encodedCompletionString)
         let mutation = CompleteFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(mutation: mutation, graphQLClient: graphQLClient, logger: logger)
+        let operation = operationFactory.generateMutationOperation(
+            mutation: mutation,
+            graphQLClient: graphQLClient,
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            logger: logger
+        )
         let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
             if let error = errors.first {
                 completion(.failure(error))

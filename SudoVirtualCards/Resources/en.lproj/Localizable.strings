@@ -37,6 +37,7 @@
 "virtual_cards.errors.provisionalFundingSourceNotFound" = "Provisional funding source not found";
 "virtual_cards.errors.fundingSourceNotFound" = "Funding source not found";
 "virtual_cards.errors.fundingSourceNotActive" = "Funding source not active";
+"virtual_cards.errors.duplicateFundingSource" = "Funding source being created is a duplicate of an active funding source";
 "virtual_cards.errors.unsupportedCurrency" = "Unsupported currency";
 "virtual_cards.errors.fundingSourceNotSetup" = "Funding source not setup";
 "virtual_cards.errors.fundingSourceCompletionDataInvalid" = "Funding source completion data is invalid";

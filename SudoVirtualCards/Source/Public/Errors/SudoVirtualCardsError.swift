@@ -12,63 +12,6 @@ import AWSAppSync
 /// Errors that occur in SudoVirtualCards.
 public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
 
-    public static func == (lhs: SudoVirtualCardsError, rhs: SudoVirtualCardsError) -> Bool {
-        switch (lhs, rhs) {
-        case (.requestFailed(let lhsResponse, let lhsCause), requestFailed(let rhsResponse, let rhsCause)):
-            if let lhsResponse = lhsResponse, let rhsResponse = rhsResponse {
-                return lhsResponse.statusCode == rhsResponse.statusCode
-            }
-            return type(of: lhsCause) == type(of: rhsCause)
-        case (.invalidConfig, .invalidConfig),
-             (.notSignedIn, .notSignedIn),
-             (.fundingSourceCreationFailed, .fundingSourceCreationFailed),
-             (.localKeyPairFailure, .localKeyPairFailure),
-             (.noOwnershipProofAvailable, .noOwnershipProofAvailable),
-             (.provisionFailed, .provisionFailed),
-             (.setupFailed, .setupFailed),
-             (.completionFailed, .completionFailed),
-             (.cancelFailed, .cancelFailed),
-             (.updateFailed, .updateFailed),
-             (.getFailed, .getFailed),
-             (.cardNotFound, .cardNotFound),
-             (.cardStateError, .cardStateError),
-             (.transactionNotFound, .transactionNotFound),
-             (.currencyMismatch, .currencyMismatch),
-             (.velocityExceeded, .velocityExceeded),
-             (.entitlementExceeded, .entitlementExceeded),
-             (.provisionalFundingSourceNotFound, .provisionalFundingSourceNotFound),
-             (.fundingSourceNotFound, .fundingSourceNotFound),
-             (.fundingSourceNotActive, .fundingSourceNotActive),
-             (.unsupportedCurrency, .unsupportedCurrency),
-             (.fundingSourceNotSetup, .fundingSourceNotSetup),
-             (.fundingSourceCompletionDataInvalid, .fundingSourceCompletionDataInvalid),
-             (.fundingSourceStateError, .fundingSourceStateError),
-             (.unacceptableFundingSource, .unacceptableFundingSource),
-             (.accountLocked, .accountLocked),
-             (.notAuthorized, .notAuthorized),
-             (.limitExceeded, .limitExceeded),
-             (.insufficientEntitlements, .insufficientEntitlements),
-             (.versionMismatch, .versionMismatch),
-             (.serviceError, .serviceError),
-             (.rateLimitExceeded, .rateLimitExceeded),
-             (.graphQLError, .graphQLError),
-             (.fatalError, .fatalError),
-             (.decodingError, .decodingError),
-             (.environmentError, .environmentError),
-             (.policyFailed, .policyFailed),
-             (.invalidTokenError, .invalidTokenError),
-             (.identityInsufficient, .identityInsufficient),
-             (.identityNotVerified, .identityNotVerified),
-             (.unknownTimezone, .unknownTimezone),
-             (.noEntitlements, .noEntitlements),
-             (.internalError, internalError),
-             (.invalidArgument, .invalidArgument):
-            return true
-        default:
-            return false
-        }
-    }
-
     // MARK: - Client
 
     /// Configuration supplied to `DefaultSudoVirtualCardsClient` is invalid.
@@ -114,6 +57,9 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case fundingSourceNotFound
     /// The funding source is not currently active and therefore unavailable to be used.
     case fundingSourceNotActive
+    /// A new funding source was requested to be created but it is using the same credit card
+    /// (same card number) as an existing active funding source.
+    case duplicateFundingSource
     /// Currency provided is not supported.
     case unsupportedCurrency
     /// The funding source cannot be completed as its setup has not completed successfully.
@@ -209,6 +155,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             self = .fundingSourceNotFound
         case "sudoplatform.virtual-cards.FundingSourceNotActiveError":
             self = .fundingSourceNotActive
+        case "sudoplatform.virtual-cards.DuplicateFundingSourceError":
+            self = .duplicateFundingSource
         case "sudoplatform.virtual-cards.UnsupportedCurrencyError":
             self = .unsupportedCurrency
         /// Service is currently incorrectly generating this error with a Code suffix.
@@ -260,6 +208,66 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
         }
     }
 
+    // MARK: - Conformance: Equatable
+
+    public static func == (lhs: SudoVirtualCardsError, rhs: SudoVirtualCardsError) -> Bool {
+        switch (lhs, rhs) {
+        case (.requestFailed(let lhsResponse, let lhsCause), requestFailed(let rhsResponse, let rhsCause)):
+            if let lhsResponse = lhsResponse, let rhsResponse = rhsResponse {
+                return lhsResponse.statusCode == rhsResponse.statusCode
+            }
+            return type(of: lhsCause) == type(of: rhsCause)
+        case (.invalidConfig, .invalidConfig),
+             (.notSignedIn, .notSignedIn),
+             (.fundingSourceCreationFailed, .fundingSourceCreationFailed),
+             (.localKeyPairFailure, .localKeyPairFailure),
+             (.noOwnershipProofAvailable, .noOwnershipProofAvailable),
+             (.provisionFailed, .provisionFailed),
+             (.setupFailed, .setupFailed),
+             (.completionFailed, .completionFailed),
+             (.cancelFailed, .cancelFailed),
+             (.updateFailed, .updateFailed),
+             (.getFailed, .getFailed),
+             (.cardNotFound, .cardNotFound),
+             (.cardStateError, .cardStateError),
+             (.transactionNotFound, .transactionNotFound),
+             (.currencyMismatch, .currencyMismatch),
+             (.velocityExceeded, .velocityExceeded),
+             (.entitlementExceeded, .entitlementExceeded),
+             (.provisionalFundingSourceNotFound, .provisionalFundingSourceNotFound),
+             (.fundingSourceNotFound, .fundingSourceNotFound),
+             (.fundingSourceNotActive, .fundingSourceNotActive),
+             (.duplicateFundingSource, .duplicateFundingSource),
+             (.unsupportedCurrency, .unsupportedCurrency),
+             (.fundingSourceNotSetup, .fundingSourceNotSetup),
+             (.fundingSourceCompletionDataInvalid, .fundingSourceCompletionDataInvalid),
+             (.fundingSourceStateError, .fundingSourceStateError),
+             (.unacceptableFundingSource, .unacceptableFundingSource),
+             (.accountLocked, .accountLocked),
+             (.notAuthorized, .notAuthorized),
+             (.limitExceeded, .limitExceeded),
+             (.insufficientEntitlements, .insufficientEntitlements),
+             (.versionMismatch, .versionMismatch),
+             (.serviceError, .serviceError),
+             (.rateLimitExceeded, .rateLimitExceeded),
+             (.graphQLError, .graphQLError),
+             (.fatalError, .fatalError),
+             (.decodingError, .decodingError),
+             (.environmentError, .environmentError),
+             (.policyFailed, .policyFailed),
+             (.invalidTokenError, .invalidTokenError),
+             (.identityInsufficient, .identityInsufficient),
+             (.identityNotVerified, .identityNotVerified),
+             (.unknownTimezone, .unknownTimezone),
+             (.noEntitlements, .noEntitlements),
+             (.internalError, internalError),
+             (.invalidArgument, .invalidArgument):
+            return true
+        default:
+            return false
+        }
+    }
+
     // MARK: - Conformance: LocalizedError
 
     public var errorDescription: String? {
@@ -304,6 +312,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.fundingSourceNotFound
         case .fundingSourceNotActive:
             return L10n.VirtualCards.Errors.fundingSourceNotActive
+        case .duplicateFundingSource:
+            return L10n.VirtualCards.Errors.duplicateFundingSource
         case .unsupportedCurrency:
             return L10n.VirtualCards.Errors.unsupportedCurrency
         case .fundingSourceNotSetup:

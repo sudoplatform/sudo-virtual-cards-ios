@@ -27,6 +27,7 @@ internal enum L10n {
         internal static let fundingSourceCompletionDataInvalid = L10n.tr("Localizable", "virtual_cards.errors.fundingSourceCompletionDataInvalid")
         internal static let fundingSourceCreationFailed = L10n.tr("Localizable", "virtual_cards.errors.fundingSourceCreationFailed")
         internal static let fundingSourceNotActive = L10n.tr("Localizable", "virtual_cards.errors.fundingSourceNotActive")
+        internal static let duplicateFundingSource = L10n.tr("Localizable", "virtual_cards.errors.duplicateFundingSource")
         internal static let fundingSourceNotFound = L10n.tr("Localizable", "virtual_cards.errors.fundingSourceNotFound")
         internal static let fundingSourceNotSetup = L10n.tr("Localizable", "virtual_cards.errors.fundingSourceNotSetup")
         internal static let fundingSourceStateError = L10n.tr("Localizable", "virtual_cards.errors.fundingSourceStateError")
