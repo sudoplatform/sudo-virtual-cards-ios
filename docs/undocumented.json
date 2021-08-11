@@ -303,20 +303,6 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 120,
-      "symbol": "SudoVirtualCardsError.environmentError",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
-      "line": 121,
-      "symbol": "SudoVirtualCardsError.policyFailed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Errors/SudoVirtualCardsError.swift",
       "line": 122,
       "symbol": "SudoVirtualCardsError.invalidTokenError",
       "symbol_kind": "source.lang.swift.decl.enumelement",

@@ -50,8 +50,6 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// The velocity for the card is exceeded.
     case velocityExceeded
     /// The entitlement for the card is exceeded.
-    case entitlementExceeded
-    /// The provisional funding created during the setup funding source flow could not be found.
     case provisionalFundingSourceNotFound
     /// The supplied fundingSourceId does not match any recorded funding source.
     case fundingSourceNotFound
@@ -97,11 +95,15 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// retrying at a later time may cause the operation to complete successfully
     case serviceError
 
-    /// Indicates that the request failed due to connectivity, availability or access error.
-    case requestFailed(response: HTTPURLResponse?, cause: Error?)
-
     /// Indicates that there were too many attempts at sending API requests within a short period of time.
     case rateLimitExceeded
+
+    /// Operation failed due to an invalid request. This maybe due to the version mismatch between the
+    /// client and the backend.
+    case invalidRequest
+
+    /// Indicates that the request failed due to connectivity, availability or access error.
+    case requestFailed(response: HTTPURLResponse?, cause: Error?)
 
     /// Indicates that a GraphQL error was returned by the backend.
     case graphQLError(description: String)
@@ -116,9 +118,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
       * This section contains wrapped erros from `SudoPlatformError`.
      */
 
-    case decodingError
     case environmentError
-    case policyFailed
     case invalidTokenError
     case identityInsufficient
     case identityNotVerified
@@ -148,7 +148,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
         case "sudoplatform.virtual-cards.VelocityExceededError":
             self = .velocityExceeded
         case "sudoplatform.virtual-cards.EntitlementExceededError":
-            self = .entitlementExceeded
+            self = .insufficientEntitlements
         case "sudoplatform.virtual-cards.ProvisionalFundingSourceNotFoundError":
             self = .provisionalFundingSourceNotFound
         case "sudoplatform.virtual-cards.FundingSourceNotFoundError":
@@ -179,32 +179,32 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// Initialize a `SudoVirtualCardsError` from a `SudoPlatformError`.
     init(platformError error: SudoPlatformError) {
         switch error {
-        case .serviceError:
-            self = .serviceError
-        case .decodingError:
-            self = .decodingError
-        case .environmentError:
-            self = .environmentError
-        case .policyFailed:
-            self = .policyFailed
-        case .invalidTokenError:
-            self = .invalidTokenError
         case .accountLockedError:
             self = .accountLocked
+        case .decodingError:
+            self = .invalidRequest
+        case .environmentError:
+            self = .environmentError
         case .identityInsufficient:
             self = .identityInsufficient
         case .identityNotVerified:
             self = .identityNotVerified
-        case .unknownTimezone:
-            self = .unknownTimezone
         case .insufficientEntitlementsError:
             self = .insufficientEntitlements
-        case .noEntitlementsError:
-            self = .noEntitlements
         case let .internalError(cause):
             self = .internalError(cause)
         case let .invalidArgument(msg):
             self = .invalidArgument(msg)
+        case .invalidTokenError:
+            self = .invalidTokenError
+        case .noEntitlementsError:
+            self = .noEntitlements
+        case .policyFailed:
+            self = .insufficientEntitlements
+        case .serviceError:
+            self = .serviceError
+        case .unknownTimezone:
+            self = .unknownTimezone
         }
     }
 
@@ -217,51 +217,49 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
                 return lhsResponse.statusCode == rhsResponse.statusCode
             }
             return type(of: lhsCause) == type(of: rhsCause)
-        case (.invalidConfig, .invalidConfig),
-             (.notSignedIn, .notSignedIn),
-             (.fundingSourceCreationFailed, .fundingSourceCreationFailed),
-             (.localKeyPairFailure, .localKeyPairFailure),
-             (.noOwnershipProofAvailable, .noOwnershipProofAvailable),
-             (.provisionFailed, .provisionFailed),
-             (.setupFailed, .setupFailed),
-             (.completionFailed, .completionFailed),
+        case (.accountLocked, .accountLocked),
              (.cancelFailed, .cancelFailed),
-             (.updateFailed, .updateFailed),
-             (.getFailed, .getFailed),
              (.cardNotFound, .cardNotFound),
              (.cardStateError, .cardStateError),
-             (.transactionNotFound, .transactionNotFound),
+             (.completionFailed, .completionFailed),
              (.currencyMismatch, .currencyMismatch),
-             (.velocityExceeded, .velocityExceeded),
-             (.entitlementExceeded, .entitlementExceeded),
-             (.provisionalFundingSourceNotFound, .provisionalFundingSourceNotFound),
-             (.fundingSourceNotFound, .fundingSourceNotFound),
-             (.fundingSourceNotActive, .fundingSourceNotActive),
              (.duplicateFundingSource, .duplicateFundingSource),
-             (.unsupportedCurrency, .unsupportedCurrency),
-             (.fundingSourceNotSetup, .fundingSourceNotSetup),
-             (.fundingSourceCompletionDataInvalid, .fundingSourceCompletionDataInvalid),
-             (.fundingSourceStateError, .fundingSourceStateError),
-             (.unacceptableFundingSource, .unacceptableFundingSource),
-             (.accountLocked, .accountLocked),
-             (.notAuthorized, .notAuthorized),
-             (.limitExceeded, .limitExceeded),
-             (.insufficientEntitlements, .insufficientEntitlements),
-             (.versionMismatch, .versionMismatch),
-             (.serviceError, .serviceError),
-             (.rateLimitExceeded, .rateLimitExceeded),
-             (.graphQLError, .graphQLError),
-             (.fatalError, .fatalError),
-             (.decodingError, .decodingError),
              (.environmentError, .environmentError),
-             (.policyFailed, .policyFailed),
-             (.invalidTokenError, .invalidTokenError),
+             (.fatalError, .fatalError),
+             (.fundingSourceCompletionDataInvalid, .fundingSourceCompletionDataInvalid),
+             (.fundingSourceCreationFailed, .fundingSourceCreationFailed),
+             (.fundingSourceNotActive, .fundingSourceNotActive),
+             (.fundingSourceNotFound, .fundingSourceNotFound),
+             (.fundingSourceNotSetup, .fundingSourceNotSetup),
+             (.fundingSourceStateError, .fundingSourceStateError),
+             (.getFailed, .getFailed),
+             (.graphQLError, .graphQLError),
              (.identityInsufficient, .identityInsufficient),
              (.identityNotVerified, .identityNotVerified),
-             (.unknownTimezone, .unknownTimezone),
-             (.noEntitlements, .noEntitlements),
+             (.insufficientEntitlements, .insufficientEntitlements),
              (.internalError, internalError),
-             (.invalidArgument, .invalidArgument):
+             (.invalidArgument, .invalidArgument),
+             (.invalidConfig, .invalidConfig),
+             (.invalidRequest, .invalidRequest),
+             (.invalidTokenError, .invalidTokenError),
+             (.limitExceeded, .limitExceeded),
+             (.localKeyPairFailure, .localKeyPairFailure),
+             (.noEntitlements, .noEntitlements),
+             (.noOwnershipProofAvailable, .noOwnershipProofAvailable),
+             (.notAuthorized, .notAuthorized),
+             (.notSignedIn, .notSignedIn),
+             (.provisionalFundingSourceNotFound, .provisionalFundingSourceNotFound),
+             (.provisionFailed, .provisionFailed),
+             (.rateLimitExceeded, .rateLimitExceeded),
+             (.serviceError, .serviceError),
+             (.setupFailed, .setupFailed),
+             (.transactionNotFound, .transactionNotFound),
+             (.unacceptableFundingSource, .unacceptableFundingSource),
+             (.unknownTimezone, .unknownTimezone),
+             (.unsupportedCurrency, .unsupportedCurrency),
+             (.updateFailed, .updateFailed),
+             (.velocityExceeded, .velocityExceeded),
+             (.versionMismatch, .versionMismatch):
             return true
         default:
             return false
@@ -272,66 +270,64 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
 
     public var errorDescription: String? {
         switch self {
-        case .invalidConfig:
-            return L10n.VirtualCards.Errors.invalidConfig
-        case .notSignedIn:
-            return L10n.VirtualCards.Errors.notSignedIn
-        case .fundingSourceCreationFailed:
-            return L10n.VirtualCards.Errors.fundingSourceCreationFailed
-        case .localKeyPairFailure:
-            return L10n.VirtualCards.Errors.localKeyPairFailure
-        case .noOwnershipProofAvailable:
-            return L10n.VirtualCards.Errors.noOwnershipProofAvailable
-        case .provisionFailed:
-            return L10n.VirtualCards.Errors.provisionFailed
-        case .setupFailed:
-            return L10n.VirtualCards.Errors.setupFailed
-        case .completionFailed:
-            return L10n.VirtualCards.Errors.completionFailed
+        case .accountLocked:
+            return L10n.VirtualCards.Errors.accountLockedError
         case .cancelFailed:
             return L10n.VirtualCards.Errors.cancelFailed
-        case .updateFailed:
-            return L10n.VirtualCards.Errors.updateFailed
-        case .getFailed:
-            return L10n.VirtualCards.Errors.getFailed
         case .cardNotFound:
             return L10n.VirtualCards.Errors.cardNotFound
         case .cardStateError:
             return L10n.VirtualCards.Errors.cardStateError
-        case .transactionNotFound:
-            return L10n.VirtualCards.Errors.transactionNotFound
+        case .completionFailed:
+            return L10n.VirtualCards.Errors.completionFailed
         case .currencyMismatch:
             return L10n.VirtualCards.Errors.currencyMismatch
-        case .velocityExceeded:
-            return L10n.VirtualCards.Errors.velocityExceeded
-        case .entitlementExceeded:
-            return L10n.VirtualCards.Errors.entitlementExceeded
-        case .provisionalFundingSourceNotFound:
-            return L10n.VirtualCards.Errors.provisionalFundingSourceNotFound
-        case .fundingSourceNotFound:
-            return L10n.VirtualCards.Errors.fundingSourceNotFound
-        case .fundingSourceNotActive:
-            return L10n.VirtualCards.Errors.fundingSourceNotActive
         case .duplicateFundingSource:
             return L10n.VirtualCards.Errors.duplicateFundingSource
-        case .unsupportedCurrency:
-            return L10n.VirtualCards.Errors.unsupportedCurrency
-        case .fundingSourceNotSetup:
-            return L10n.VirtualCards.Errors.fundingSourceNotSetup
+        case .environmentError:
+            return L10n.VirtualCards.Errors.environmentError
         case .fundingSourceCompletionDataInvalid:
             return L10n.VirtualCards.Errors.fundingSourceCompletionDataInvalid
+        case .fundingSourceCreationFailed:
+            return L10n.VirtualCards.Errors.fundingSourceCreationFailed
+        case .fundingSourceNotActive:
+            return L10n.VirtualCards.Errors.fundingSourceNotActive
+        case .fundingSourceNotFound:
+            return L10n.VirtualCards.Errors.fundingSourceNotFound
+        case .fundingSourceNotSetup:
+            return L10n.VirtualCards.Errors.fundingSourceNotSetup
         case .fundingSourceStateError:
             return L10n.VirtualCards.Errors.fundingSourceStateError
+        case .getFailed:
+            return L10n.VirtualCards.Errors.getFailed
+        case .invalidConfig:
+            return L10n.VirtualCards.Errors.invalidConfig
+        case .invalidRequest:
+            return L10n.VirtualCards.Errors.invalidRequest
+        case .localKeyPairFailure:
+            return L10n.VirtualCards.Errors.localKeyPairFailure
+        case .noOwnershipProofAvailable:
+            return L10n.VirtualCards.Errors.noOwnershipProofAvailable
+        case .notSignedIn:
+            return L10n.VirtualCards.Errors.notSignedIn
+        case .provisionFailed:
+            return L10n.VirtualCards.Errors.provisionFailed
+        case .provisionalFundingSourceNotFound:
+            return L10n.VirtualCards.Errors.provisionalFundingSourceNotFound
+        case .setupFailed:
+            return L10n.VirtualCards.Errors.setupFailed
+        case .transactionNotFound:
+            return L10n.VirtualCards.Errors.transactionNotFound
+        case .unsupportedCurrency:
+            return L10n.VirtualCards.Errors.unsupportedCurrency
+        case .updateFailed:
+            return L10n.VirtualCards.Errors.updateFailed
+        case .velocityExceeded:
+            return L10n.VirtualCards.Errors.velocityExceeded
         case .unacceptableFundingSource:
             return L10n.VirtualCards.Errors.unacceptableFundingSource
         case .serviceError:
             return L10n.VirtualCards.Errors.serviceError
-        case .decodingError:
-            return L10n.VirtualCards.Errors.decodingError
-        case .environmentError:
-            return L10n.VirtualCards.Errors.environmentError
-        case .policyFailed:
-            return L10n.VirtualCards.Errors.policyFailed
         case .invalidTokenError:
             return L10n.VirtualCards.Errors.invalidTokenError
         case .identityInsufficient:
@@ -348,8 +344,6 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.unknownTimezone
         case let .invalidArgument(msg):
             return msg ?? L10n.VirtualCards.Errors.invalidArgument
-        case .accountLocked:
-            return L10n.VirtualCards.Errors.accountLockedError
         case .notAuthorized:
             return L10n.VirtualCards.Errors.notAuthorized
         case .limitExceeded:
@@ -378,6 +372,8 @@ extension SudoVirtualCardsError {
         switch error {
         case ApiOperationError.accountLocked:
             return .accountLocked
+        case ApiOperationError.invalidRequest:
+            return .invalidRequest
         case ApiOperationError.notSignedIn:
             return .notSignedIn
         case ApiOperationError.notAuthorized:

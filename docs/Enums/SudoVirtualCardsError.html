@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 12.0.1 Docs
+          SudoVirtualCards 13.0.0 Docs
         </a>
         
       </p>
@@ -673,33 +673,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC5ErrorO19entitlementExceededyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/entitlementExceeded" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO19entitlementExceededyA2CmF">entitlementExceeded</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The entitlement for the card is exceeded.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">entitlementExceeded</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:16SudoVirtualCards0abC5ErrorO32provisionalFundingSourceNotFoundyA2CmF"></a>
                     <a name="//apple_ref/swift/Element/provisionalFundingSourceNotFound" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO32provisionalFundingSourceNotFoundyA2CmF">provisionalFundingSourceNotFound</a>
@@ -710,7 +683,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The provisional funding created during the setup funding source flow could not be found.</p>
+                        <p>The entitlement for the card is exceeded.</p>
 
                       </div>
                       <div class="declaration">
@@ -1114,33 +1087,6 @@ retrying at a later time may cause the operation to complete successfully</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC5ErrorO13requestFailedyACSo17NSHTTPURLResponseCSg_s0D0_pSgtcACmF"></a>
-                    <a name="//apple_ref/swift/Element/requestFailed(response:cause:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO13requestFailedyACSo17NSHTTPURLResponseCSg_s0D0_pSgtcACmF">requestFailed(response:<wbr>cause:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Indicates that the request failed due to connectivity, availability or access error.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">requestFailed</span><span class="p">(</span><span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">?,</span> <span class="nv">cause</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:16SudoVirtualCards0abC5ErrorO17rateLimitExceededyA2CmF"></a>
                     <a name="//apple_ref/swift/Element/rateLimitExceeded" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO17rateLimitExceededyA2CmF">rateLimitExceeded</a>
@@ -1159,6 +1105,61 @@ retrying at a later time may cause the operation to complete successfully</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="k">case</span> <span class="n">rateLimitExceeded</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC5ErrorO14invalidRequestyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/invalidRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO14invalidRequestyA2CmF">invalidRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Operation failed due to an invalid request. This maybe due to the version mismatch between the
+client and the backend.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">invalidRequest</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC5ErrorO13requestFailedyACSo17NSHTTPURLResponseCSg_s0D0_pSgtcACmF"></a>
+                    <a name="//apple_ref/swift/Element/requestFailed(response:cause:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO13requestFailedyACSo17NSHTTPURLResponseCSg_s0D0_pSgtcACmF">requestFailed(response:<wbr>cause:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates that the request failed due to connectivity, availability or access error.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">requestFailed</span><span class="p">(</span><span class="nv">response</span><span class="p">:</span> <span class="kt">HTTPURLResponse</span><span class="p">?,</span> <span class="nv">cause</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
@@ -1236,9 +1237,9 @@ conditions that is beyond control of <code>SudoIdentityVerificationClient</code>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC5ErrorO08decodingD0yA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/decodingError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO08decodingD0yA2CmF">decodingError</a>
+                    <a name="/s:16SudoVirtualCards0abC5ErrorO011environmentD0yA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/environmentError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC5ErrorO011environmentD0yA2CmF">environmentError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1253,7 +1254,7 @@ conditions that is beyond control of <code>SudoIdentityVerificationClient</code>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">decodingError</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">environmentError</span></code></pre>
 
                         </div>
                       </div>
@@ -1346,7 +1347,7 @@ conditions that is beyond control of <code>SudoIdentityVerificationClient</code>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2021-07-16)</p>
+      <p>&copy; 2021 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2021-08-11)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

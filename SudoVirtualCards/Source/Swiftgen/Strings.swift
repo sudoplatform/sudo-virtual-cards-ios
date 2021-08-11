@@ -37,6 +37,7 @@ internal enum L10n {
         internal static let insufficientEntitlementsError = L10n.tr("Localizable", "virtual_cards.errors.insufficientEntitlementsError")
         internal static let invalidArgument = L10n.tr("Localizable", "virtual_cards.errors.invalidArgument")
         internal static let invalidConfig = L10n.tr("Localizable", "virtual_cards.errors.invalidConfig")
+        internal static let invalidRequest = L10n.tr("Localizable", "virtual_cards.errors.invalidRequest")
         internal static let invalidTokenError = L10n.tr("Localizable", "virtual_cards.errors.invalidTokenError")
         internal static let keyRingGetFailed = L10n.tr("Localizable", "virtual_cards.errors.keyRingGetFailed")
         internal static let localKeyPairFailure = L10n.tr("Localizable", "virtual_cards.errors.localKeyPairFailure")

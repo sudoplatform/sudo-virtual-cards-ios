@@ -57,6 +57,7 @@
 "virtual_cards.errors.identityNotVerified" = "Identity is not verified";
 "virtual_cards.errors.unknownTimezone" = "Time zone is not known";
 "virtual_cards.errors.insufficientEntitlementsError" = "Insufficient entitlements for requested operation";
+"virtual_cards.errors.invalidRequest" = "The request sent to the service was was not valid";
 "virtual_cards.errors.noEntitlementsError" = "User has no entitlements associated with them";
 "virtual_cards.errors.limitExceeded" = "API limit exceeded";
 "virtual_cards.errors.notAuthorized" = "User is not authorized to perform the requested operation";
