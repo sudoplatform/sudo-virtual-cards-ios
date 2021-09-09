@@ -236,6 +236,7 @@ class CardService {
             do {
                 try transaction?.update(
                     query: query, { (data: inout ListProvisionalCardsQuery.Data) in
+                        var listProvisionalCards = data.listProvisionalCards ?? ListProvisionalCardsQuery.Data.ListProvisionalCard(items: [])
                         let nowSinceEpochMs = Date().millisecondsSince1970
                         let newItem = ListProvisionalCardsQuery.Data.ListProvisionalCard.Item(
                             id: optimisticId,
@@ -245,7 +246,8 @@ class CardService {
                             updatedAtEpochMs: nowSinceEpochMs,
                             clientRefId: clientRefId,
                             provisioningState: .provisioning)
-                        data.listProvisionalCards?.items.append(newItem)
+                        listProvisionalCards.items.append(newItem)
+                        data.listProvisionalCards = listProvisionalCards
                     }
                 )
             } catch {
@@ -259,7 +261,7 @@ class CardService {
                     return
                 }
                 if let optimisticIndex = items.firstIndex(where: { $0.id == optimisticId }) {
-                    data.listProvisionalCards?.items.remove(at: optimisticIndex)
+                    //data.listProvisionalCards?.items.remove(at: optimisticIndex)
                 }
             }
         }
