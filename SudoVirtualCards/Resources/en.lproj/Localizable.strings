@@ -49,7 +49,6 @@
 "virtual_cards.errors.serviceError" = "Service error has occurred";
 "virtual_cards.errors.decodingError" = "A decoding error has occurred";
 "virtual_cards.errors.environmentError" = "An environment error has occurred";
-"virtual_cards.errors.policyFailed" = "A policy has failed";
 "virtual_cards.errors.invalidArgument" = "An invalid argument has been provided";
 "virtual_cards.errors.invalidTokenError" = "An invalid token error has occurred";
 "virtual_cards.errors.accountLockedError" = "Account is locked";

@@ -7,7 +7,6 @@
 import Foundation
 import SudoLogging
 import AWSAppSync
-import SudoOperations
 import SudoApiClient
 
 /// Abstraction of the SDKs capabilities surrounding `PublicKey` access/manipulation with virtual cards service.
@@ -23,15 +22,6 @@ class PublicKeyService {
     /// Typealias for the GraphQL query type for accessing the key ring.
     typealias GetKeyRingQuery = GetKeyRingForVirtualCardsQuery
 
-    /// Typealias for the operation used for accessing the key ring.
-    private typealias GetKeyRingOperation = PlatformQueryOperation<GetKeyRingQuery>
-
-    /// Typealias for the GraphQL mutation used for creating/registering public keys.
-    private typealias CreatePublicKeyMutation = CreatePublicKeyForVirtualCardsMutation
-
-    /// Typealias for the operation used for creating/registering public keys.
-    private typealias CreatePublicKeyOperation = PlatformMutationOperation<CreatePublicKeyMutation>
-
     /// Default values used in `CardService`.
     enum Defaults {
         /// algorithm used when creating/registering public keys.
@@ -43,36 +33,23 @@ class PublicKeyService {
     /// App Sync Client used to interact with the GraphQL endpoint of the virtual cards service.
     unowned var graphQLClient: SudoApiClient
 
-    /// Operation factory used to generate operations.
-    unowned var operationFactory: OperationFactory
-
     /// Platform key manager used to access the iOS keychain for mainpulating and accessing key data.
     unowned var platformKeyManager: PlatformKeyManager
 
     /// Logs errors and diagnostic information.
     var logger: Logger
 
-    /// Operation queue used by the `PublicKeyService`.
-    var queue = PlatformOperationQueue()
-
     // MARK: - Lifecycle
 
     /// Initialize an instance of `PublicKeyService`.
     init(
         graphQLClient: SudoApiClient,
-        operationFactory: OperationFactory,
         platformKeyManager: PlatformKeyManager,
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
         self.graphQLClient = graphQLClient
-        self.operationFactory = operationFactory
         self.platformKeyManager = platformKeyManager
         self.logger = logger
-    }
-
-    /// Cancel all operations on the `PublicKeyService` operation queue.
-    func cancelAllOperations() {
-        queue.cancelAllOperations()
     }
 
     // MARK: - PublicKeyService
@@ -106,47 +83,24 @@ class PublicKeyService {
     }
 
     /// Get the key ring.
-    func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy, completion: @escaping ClientCompletion<GetKeyRingQuery.Data>) {
+    func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy) async throws -> GetKeyRingQuery.Data {
         let query = GetKeyRingQuery(keyRingId: keyRingId)
-        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
-        let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard let result = operation?.result else {
-                return
-            }
-            completion(.success(result))
-        })
-        operation.addObserver(completionObserver)
-        queue.addOperation(operation)
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        guard let result = data else {
+            logger.error("Failed to get key ring")
+            throw SudoVirtualCardsError.getFailed
+        }
+        return result
     }
 
     /// Create/Register a new public key.
     ///
     /// Although a keypair is passed in, only the public key is sent external to the device. **Private keys remain on the device only**.
-    func create(withKeyPair keyPair: KeyPair, completion: @escaping ClientCompletion<PublicKey>) {
+    func create(withKeyPair keyPair: KeyPair) async throws -> PublicKey {
         let publicKeyString = keyPair.publicKey.base64EncodedString()
         let input = CreatePublicKeyInput(keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, algorithm: Defaults.algorithm, publicKey: publicKeyString)
-        let mutation = CreatePublicKeyMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(
-            mutation: mutation,
-            graphQLClient: graphQLClient,
-            logger: logger
-        )
-        let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard let result = operation?.result else {
-                return
-            }
-            let publicKey = PublicKey(createPublicKeyForVirtualCards: result.createPublicKeyForVirtualCards)
-            completion(.success(publicKey))
-        })
-        operation.addObserver(completionObserver)
-        queue.addOperation(operation)
+        let mutation = CreatePublicKeyForVirtualCardsMutation(input: input)
+        let data = try await GraphQLHelper.performMutation(graphQLClient: graphQLClient, mutation: mutation, logger: logger)
+        return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
     }
 }

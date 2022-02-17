@@ -8,7 +8,6 @@ import Foundation
 import SudoLogging
 import AWSAppSync
 import SudoApiClient
-import SudoOperations
 
 /// Abstraction of the SDKs capabilities surrounding `FundingSource` access/manipulation with virtual cards service.
 class FundingSourceService {
@@ -18,14 +17,8 @@ class FundingSourceService {
     /// Used to make GraphQL requests to AWS. Injected into operations to delegate the calls.
     unowned var graphQLClient: SudoApiClient
 
-    /// Used to generate operations.
-    unowned var operationFactory: OperationFactory
-
     /// Logs errors and diagnostic information.
     var logger: Logger
-
-    /// Operation queue used by the `FundingSourceService`.
-    var queue: PlatformOperationQueue = PlatformOperationQueue()
 
     /// Used to decode JSON data.
     var decoder: JSONDecoder = JSONDecoder()
@@ -36,9 +29,8 @@ class FundingSourceService {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `FundingSourceService`.
-    init(graphQLClient: SudoApiClient, operationFactory: OperationFactory, logger: Logger) {
+    init(graphQLClient: SudoApiClient, logger: Logger) {
         self.graphQLClient = graphQLClient
-        self.operationFactory = operationFactory
         self.logger = logger
     }
 
@@ -51,39 +43,24 @@ class FundingSourceService {
     /// - Returns:
     ///     - Success: Setup/Provisional information from the service.
     ///     - Failure: `Error` that occurred.
-    func setup(input: SetupFundingSourceInput, completion: @escaping ClientCompletion<StripeSetup>) {
+    func setup(input: SetupFundingSourceInput) async throws -> StripeSetup {
         let input = SetupFundingSourceRequest(type: input.type.fundingSourceType, currency: input.currency)
         let mutation = SetupFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(
-            mutation: mutation,
+        let data = try await GraphQLHelper.performMutation(
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            mutation: mutation,
             logger: logger
         )
-        let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation, weak self] _, errors in
-            guard let weakSelf = self else { return }
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard
-                let result = operation?.result?.setupFundingSource,
-                let encodedProvisioningData = Data(base64Encoded: result.provisioningData)
-            else {
-                completion(.failure(SudoVirtualCardsError.setupFailed))
-                return
-            }
-            do {
-                let stripeSetupData = try weakSelf.decoder.decode(StripeSetup.Data.self, from: encodedProvisioningData)
-                let stripeSetup = StripeSetup(id: result.id, data: stripeSetupData)
-                completion(.success(stripeSetup))
-            } catch {
-                self?.logger.error("Failed to decode stripe setup data: \(error)")
-                completion(.failure(SudoVirtualCardsError.setupFailed))
-            }
-        })
-        operation.addObserver(completionObserver)
-        queue.addOperation(operation)
+        guard let encodedProvisioningData = Data(base64Encoded: data.setupFundingSource.provisioningData) else {
+            logger.error("Data received for setupFundingSource is not base64 encoded")
+            throw SudoVirtualCardsError.internalError("Data received for setupFundingSource is not base64 encoded")
+        }
+        let stripeSetupData = try self.decoder.decode(StripeSetup.Data.self, from: encodedProvisioningData)
+        return StripeSetup(
+            id: data.setupFundingSource.id,
+            data: stripeSetupData
+        )
     }
 
     /// Complete a provisional funding source.
@@ -94,39 +71,24 @@ class FundingSourceService {
     /// - Returns:
     ///     - Success: Provisioned funding source, ready to be used.
     ///     - Failure: `Error` that occurred.
-    func complete(clientId: String, paymentMethodId: String, completion: @escaping ClientCompletion<FundingSource>) {
+    func complete(clientId: String, paymentMethodId: String) async throws -> FundingSource {
         let completionData = StripeCompletionData(paymentMethod: paymentMethodId)
         let encodedCompletionString: String
         do {
             let data = try encoder.encode(completionData)
             encodedCompletionString = data.base64EncodedString()
         } catch {
-            logger.error("Failed to encode completionData: \(error)")
-            completion(.failure(SudoVirtualCardsError.completionFailed))
-            return
+            throw SudoVirtualCardsError.completionFailed
         }
         let input = CompleteFundingSourceRequest(id: clientId, completionData: encodedCompletionString)
         let mutation = CompleteFundingSourceMutation(input: input)
-        let operation = operationFactory.generateMutationOperation(
-            mutation: mutation,
+        let data = try await GraphQLHelper.performMutation(
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            mutation: mutation,
             logger: logger
         )
-        let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation] _, errors in
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard let result = operation?.result?.completeFundingSource else {
-                completion(.failure(SudoVirtualCardsError.completionFailed))
-                return
-            }
-            let fundingSource = FundingSource(completeFundingSource: result)
-            completion(.success(fundingSource))
-        })
-        operation.addObserver(completionObserver)
-        queue.addOperation(operation)
+        return FundingSource(completeFundingSource: data.completeFundingSource)
     }
 
     /// Get the client configuration for interacting with 3rd party partner authorization.
@@ -136,30 +98,38 @@ class FundingSourceService {
     /// - Returns:
     ///     - Success: Configuration.
     ///     - Failure: `Error` that occurred.
-    func getConfig(cachePolicy: CachePolicy, completion: @escaping ClientCompletion<StripeClientConfiguration>) {
+    func getConfig(cachePolicy: CachePolicy) async throws -> StripeClientConfiguration {
         let query = GetFundingSourceClientConfigurationQuery()
-        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
-        let completionObserver = PlatformBlockObserver(finishHandler: { [weak operation, weak self] _, errors in
-            guard let weakSelf = self else { return }
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard
-                let encodedDataString = operation?.result?.getFundingSourceClientConfiguration.data,
-                let encodedData = Data(base64Encoded: encodedDataString)
-            else {
-                completion(.failure(SudoVirtualCardsError.getFailed))
-                return
-            }
-            do {
-                let configuration = try weakSelf.decoder.decode(StripeClientConfiguration.self, from: encodedData)
-                completion(.success(configuration))
-            } catch {
-                completion(.failure(SudoVirtualCardsError.getFailed))
-            }
-        })
-        operation.addObserver(completionObserver)
-        queue.addOperation(operation)
+        let data = try await GraphQLHelper.performQuery(
+            graphQLClient: graphQLClient,
+            query: query,
+            cachePolicy: cachePolicy,
+            logger: logger
+        )
+        guard
+            let encodedDataString = data?.getFundingSourceClientConfiguration.data,
+            let encodedData = Data(base64Encoded: encodedDataString)
+        else {
+            throw SudoVirtualCardsError.getFailed
+        }
+        do {
+            let configuration = try decoder.decode(StripeClientConfiguration.self, from: encodedData)
+            return configuration
+        } catch {
+            logger.error("Error occurred while decoding data: \(error.localizedDescription)")
+            throw SudoVirtualCardsError.getFailed
+        }
+    }
+
+    func cancel(id: String) async throws -> FundingSource {
+        let mutationInput = IdInput(id: id)
+        let mutation = CancelFundingSourceMutation(input: mutationInput)
+        let data = try await GraphQLHelper.performMutation(
+            graphQLClient: graphQLClient,
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            mutation: mutation,
+            logger: logger
+        )
+        return FundingSource(cancelFundingSource: data.cancelFundingSource)
     }
 }

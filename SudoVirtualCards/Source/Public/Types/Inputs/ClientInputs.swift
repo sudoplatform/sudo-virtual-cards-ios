@@ -9,9 +9,6 @@ public struct ProvisionCardInput: Equatable {
 
     // MARK: - Properties
 
-    /// Identifier of the sudo to provision a card for.
-    public let sudoId: String
-
     /// identifier of the funding source to use to fund the provisioned virtual card.
     public let fundingSourceId: String
 
@@ -27,24 +24,29 @@ public struct ProvisionCardInput: Equatable {
 
     /// Currency to provision the card with.
     public let currency: String
+    
+    /// Proof of Sudo ownership for provisioning cards. The ownership proof must
+    /// contain an audience of "sudoplatform.virtual-cards.virtual-card" and can be
+    /// obtained from SudoProfiles SDK via getOwnershipProof API.
+    public let ownershipProof: String
 
     // MARK: - Lifecycle
 
     /// Initialize an instance of `ProvisionCardInput`.
     public init(
-        sudoId: String,
         fundingSourceId: String,
         cardHolder: String,
         alias: String,
         billingAddress: Address?,
-        currency: String
+        currency: String,
+        ownershipProof: String
     ) {
-        self.sudoId = sudoId
         self.fundingSourceId = fundingSourceId
         self.cardHolder = cardHolder
         self.alias = alias
         self.billingAddress = billingAddress
         self.currency = currency
+        self.ownershipProof = ownershipProof
     }
 }
 

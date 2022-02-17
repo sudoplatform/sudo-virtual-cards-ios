@@ -1,7 +1,7 @@
 #
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '13.0'
+platform :ios, '14.0'
 
 workspace 'SudoVirtualCards'
 use_frameworks!
@@ -26,9 +26,10 @@ target 'SudoVirtualCards' do
 
   target 'SudoVirtualCardsIntegrationTests' do
     podspec :name => 'SudoVirtualCards'
-    pod 'SudoEntitlements', '~> 5.0'
-    pod 'SudoIdentityVerification', '~> 9.0'
-    pod 'SudoVirtualCardsSimulator', '~> 7.0'
+    pod 'SudoProfiles', '~> 15.0'
+    pod 'SudoEntitlements', '~> 6.0'
+    pod 'SudoIdentityVerification', '~> 10.0'
+    pod 'SudoVirtualCardsSimulator', '~> 8.0'
   end
 
 end

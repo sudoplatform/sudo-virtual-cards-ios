@@ -145,8 +145,8 @@ struct StripeClientConfiguration: Decodable, Hashable {
     // MARK: - Supplementary
 
     struct FundingSourceType: Decodable, Hashable {
-        let type: String = StripeDefaults.configurationType
-        let version: Int = StripeDefaults.version
+        var type: String = StripeDefaults.configurationType
+        var version: Int = StripeDefaults.version
         let apiKey: String
 
         init(apiKey: String) {

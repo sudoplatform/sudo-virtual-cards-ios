@@ -21,23 +21,23 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 14.0.0 Docs
+          SudoVirtualCards 15.0.0 Docs
         </a>
         
       </p>
     
-      <p class="header-col--secondary">
+      <div class="header-col--secondary">
         <form role="search" action="../search.json">
           <input type="text" placeholder="Search documentation" data-typeahead>
         </form>
-      </p>
+      </div>
     
     
     </header>
 
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoVirtualCards Reference</a>
-      <img class="carat" src="../img/carat.png" />
+      <img class="carat" src="../img/carat.png" alt=""/>
       DefaultSudoVirtualCardsClient Class Reference
     </p>
 
@@ -203,6 +203,7 @@
             <h1>DefaultSudoVirtualCardsClient</h1>
               <div class="declaration">
                 <div class="language">
+                  
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DefaultSudoVirtualCardsClient</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/SudoVirtualCardsClient.html">SudoVirtualCardsClient</a></span></code></pre>
 
                 </div>
@@ -220,7 +221,7 @@
                 <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
                 <div class="section-name-container">
                   <a class="section-name-link" href="#/Lifecycle"></a>
-                  <h3 class="section-name"><p>Lifecycle</p>
+                  <h3 class="section-name"><span>Lifecycle</span>
 </h3>
                 </div>
               </div>
@@ -228,9 +229,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards07DefaultabC6ClientC12keyNamespace6config04userE008profilesE0ACSS_AA0abC6ConfigVSg0A4User0alE0_p0A8Profiles0amE0_ptKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(keyNamespace:config:userClient:profilesClient:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards07DefaultabC6ClientC12keyNamespace6config04userE008profilesE0ACSS_AA0abC6ConfigVSg0A4User0alE0_p0A8Profiles0amE0_ptKcfc">init(keyNamespace:<wbr>config:<wbr>userClient:<wbr>profilesClient:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards07DefaultabC6ClientC12keyNamespace6config04userE0ACSS_AA0abC6ConfigVSg0A4User0akE0_ptKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(keyNamespace:config:userClient:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards07DefaultabC6ClientC12keyNamespace6config04userE0ACSS_AA0abC6ConfigVSg0A4User0akE0_ptKcfc">init(keyNamespace:<wbr>config:<wbr>userClient:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -246,11 +247,10 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">convenience</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">keyNamespace</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"com.sudoplatform.virtualcards"</span><span class="p">,</span>
     <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Structs/SudoVirtualCardsConfig.html">SudoVirtualCardsConfig</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-    <span class="nv">userClient</span><span class="p">:</span> <span class="kt">SudoUserClient</span><span class="p">,</span>
-    <span class="nv">profilesClient</span><span class="p">:</span> <span class="kt">SudoProfilesClient</span>
+    <span class="nv">userClient</span><span class="p">:</span> <span class="kt">SudoUserClient</span>
 <span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
@@ -291,19 +291,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>SudoUserClient instance used for authentication.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>profilesClient</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>SudoProfilesClient instance used for creating and deleting sudo resource references.
+                                  <p>SudoUserClient instance used for authentication.
 Throws:</p>
                                 </div>
                               </td>
@@ -348,7 +336,7 @@ Throws:</p>
                 <a name="//apple_ref/swift/Section/Methods" class="dashAnchor"></a>
                 <div class="section-name-container">
                   <a class="section-name-link" href="#/Methods"></a>
-                  <h3 class="section-name"><p>Methods</p>
+                  <h3 class="section-name"><span>Methods</span>
 </h3>
                 </div>
               </div>
@@ -356,10 +344,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP22provisionCardWithInput_10completion8observeryAA09ProvisionfH0V_ys6ResultOyAA011ProvisionalF0V5StateOs5Error_pGcAA0kF10Observable_pSgtF"></a>
-                    <a name="//apple_ref/swift/Method/provisionCardWithInput(_:completion:observer:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP22provisionCardWithInput_10completion8observeryAA09ProvisionfH0V_ys6ResultOyAA011ProvisionalF0V5StateOs5Error_pGcAA0kF10Observable_pSgtF">provisionCardWithInput(_:<wbr>completion:<wbr>observer:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP22provisionCardWithInput_8observerAA011ProvisionalF0V5StateOAA09ProvisionfH0V_AA0lF10Observable_pSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/provisionCardWithInput(_:observer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP22provisionCardWithInput_8observerAA011ProvisionalF0V5StateOAA09ProvisionfH0V_AA0lF10Observable_pSgtYaKF">provisionCardWithInput(_:<wbr>observer:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -374,9 +365,8 @@ Throws:</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">provisionCardWithInput</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProvisionCardInput.html">ProvisionCardInput</a></span><span class="p">,</span>
-    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="o">.</span><span class="kt">State</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="nv">observer</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ProvisionCardObservable.html">ProvisionCardObservable</a></span><span class="p">?</span>
-<span class="p">)</span></code></pre>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="o">.</span><span class="kt">State</span></code></pre>
 
                         </div>
                       </div>
@@ -386,10 +376,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP19createFundingSource19withCreditCardInput21authorizationDelegate10completionyAA0ijfgK0V_AA0fg13AuthorizationM0_pSgys6ResultOyAA0fG0Vs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/createFundingSource(withCreditCardInput:authorizationDelegate:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19createFundingSource19withCreditCardInput21authorizationDelegate10completionyAA0ijfgK0V_AA0fg13AuthorizationM0_pSgys6ResultOyAA0fG0Vs5Error_pGctF">createFundingSource(withCreditCardInput:<wbr>authorizationDelegate:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP19createFundingSource19withCreditCardInput21authorizationDelegateAA0fG0VAA0ijfgK0V_AA0fg13AuthorizationM0_pSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/createFundingSource(withCreditCardInput:authorizationDelegate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19createFundingSource19withCreditCardInput21authorizationDelegateAA0fG0VAA0ijfgK0V_AA0fg13AuthorizationM0_pSgtYaKF">createFundingSource(withCreditCardInput:<wbr>authorizationDelegate:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -404,9 +397,8 @@ Throws:</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createFundingSource</span><span class="p">(</span>
     <span class="n">withCreditCardInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/CreditCardFundingSourceInput.html">CreditCardFundingSourceInput</a></span><span class="p">,</span>
-    <span class="nv">authorizationDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/FundingSourceAuthorizationDelegate.html">FundingSourceAuthorizationDelegate</a></span><span class="p">?,</span>
-    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span>
-<span class="p">)</span></code></pre>
+    <span class="nv">authorizationDelegate</span><span class="p">:</span> <span class="kt"><a href="../Protocols/FundingSourceAuthorizationDelegate.html">FundingSourceAuthorizationDelegate</a></span><span class="p">?</span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span></code></pre>
 
                         </div>
                       </div>
@@ -416,10 +408,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP25cancelFundingSourceWithId_10completionySS_ys6ResultOyAA0fG0Vs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/cancelFundingSourceWithId(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP25cancelFundingSourceWithId_10completionySS_ys6ResultOyAA0fG0Vs5Error_pGctF">cancelFundingSourceWithId(_:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP25cancelFundingSourceWithIdyAA0fG0VSSYaKF"></a>
+                    <a name="//apple_ref/swift/Method/cancelFundingSourceWithId(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP25cancelFundingSourceWithIdyAA0fG0VSSYaKF">cancelFundingSourceWithId(_:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -432,7 +427,7 @@ Throws:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancelFundingSourceWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancelFundingSourceWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span></code></pre>
 
                         </div>
                       </div>
@@ -442,10 +437,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP19updateCardWithInput_10completionyAA06UpdatefH0V_ys6ResultOyAA0F0Vs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/updateCardWithInput(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19updateCardWithInput_10completionyAA06UpdatefH0V_ys6ResultOyAA0F0Vs5Error_pGctF">updateCardWithInput(_:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP19updateCardWithInputyAA0F0VAA06UpdatefH0VYaKF"></a>
+                    <a name="//apple_ref/swift/Method/updateCardWithInput(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19updateCardWithInputyAA0F0VAA06UpdatefH0VYaKF">updateCardWithInput(_:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -458,7 +456,7 @@ Throws:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateCardWithInput</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/UpdateCardInput.html">UpdateCardInput</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateCardWithInput</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/UpdateCardInput.html">UpdateCardInput</a></span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Card.html">Card</a></span></code></pre>
 
                         </div>
                       </div>
@@ -468,10 +466,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP24getProvisionalCardWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/getProvisionalCardWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP24getProvisionalCardWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF">getProvisionalCardWithId(_:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP24getProvisionalCardWithId_11cachePolicyAA0fG0VSgSS_AA05CacheK0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getProvisionalCardWithId(_:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP24getProvisionalCardWithId_11cachePolicyAA0fG0VSgSS_AA05CacheK0OtYaKF">getProvisionalCardWithId(_:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -484,7 +485,7 @@ Throws:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getProvisionalCardWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getProvisionalCardWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -494,10 +495,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP015listProvisionalC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfcH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F4CardVGs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/listProvisionalCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP015listProvisionalC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfcH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F4CardVGs5Error_pGctF">listProvisionalCardsWithFilter(_:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP015listProvisionalC10WithFilter_5limit9nextToken11cachePolicyAA10ListOutputVyAA0F4CardVGAA03GetfcH5InputVSg_SiSgSSSgAA05CacheM0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listProvisionalCardsWithFilter(_:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP015listProvisionalC10WithFilter_5limit9nextToken11cachePolicyAA10ListOutputVyAA0F4CardVGAA03GetfcH5InputVSg_SiSgSSSgAA05CacheM0OtYaKF">listProvisionalCardsWithFilter(_:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -514,9 +518,8 @@ Throws:</p>
     <span class="n">_</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Structs/GetProvisionalCardsFilterInput.html">GetProvisionalCardsFilterInput</a></span><span class="p">?,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span>
-    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="o">&gt;&gt;</span>
-<span class="p">)</span></code></pre>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -526,10 +529,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP13getCardWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/getCardWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP13getCardWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF">getCardWithId(_:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP13getCardWithId_11cachePolicyAA0F0VSgSS_AA05CacheJ0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getCardWithId(_:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP13getCardWithId_11cachePolicyAA0F0VSgSS_AA05CacheJ0OtYaKF">getCardWithId(_:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -542,7 +548,7 @@ Throws:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCardWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCardWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -552,10 +558,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP04listC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetcG5InputVSg_SiSgSSSgAA05CacheL0Oys6ResultOyAA10ListOutputVyAA4CardVGs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/listCardsWithFilter(_:limit:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP04listC10WithFilter_5limit9nextToken11cachePolicy10completionyAA03GetcG5InputVSg_SiSgSSSgAA05CacheL0Oys6ResultOyAA10ListOutputVyAA4CardVGs5Error_pGctF">listCardsWithFilter(_:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP04listC10WithFilter_5limit9nextToken11cachePolicyAA10ListOutputVyAA4CardVGAA03GetcG5InputVSg_SiSgSSSgAA05CacheL0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listCardsWithFilter(_:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP04listC10WithFilter_5limit9nextToken11cachePolicyAA10ListOutputVyAA4CardVGAA03GetcG5InputVSg_SiSgSSSgAA05CacheL0OtYaKF">listCardsWithFilter(_:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -572,9 +581,8 @@ Throws:</p>
     <span class="n">_</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Structs/GetCardsFilterInput.html">GetCardsFilterInput</a></span><span class="p">?,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span>
-    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="o">&gt;&gt;</span>
-<span class="p">)</span></code></pre>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Card.html">Card</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -584,10 +592,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP22getFundingSourceWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/getFundingSourceWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP22getFundingSourceWithId_11cachePolicy10completionySS_AA05CacheK0Oys6ResultOyAA0fG0VSgs5Error_pGctF">getFundingSourceWithId(_:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP22getFundingSourceWithId_11cachePolicyAA0fG0VSgSS_AA05CacheK0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getFundingSourceWithId(_:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP22getFundingSourceWithId_11cachePolicyAA0fG0VSgSS_AA05CacheK0OtYaKF">getFundingSourceWithId(_:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -600,7 +611,7 @@ Throws:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getFundingSourceWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getFundingSourceWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -610,10 +621,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP27listFundingSourcesWithLimit_9nextToken11cachePolicy10completionySiSg_SSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F6SourceVGs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/listFundingSourcesWithLimit(_:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP27listFundingSourcesWithLimit_9nextToken11cachePolicy10completionySiSg_SSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA0F6SourceVGs5Error_pGctF">listFundingSourcesWithLimit(_:<wbr>nextToken:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP27listFundingSourcesWithLimit_9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceVGSiSg_SSSgAA05CacheM0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listFundingSourcesWithLimit(_:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP27listFundingSourcesWithLimit_9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceVGSiSg_SSSgAA05CacheM0OtYaKF">listFundingSourcesWithLimit(_:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -629,9 +643,8 @@ Throws:</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">listFundingSourcesWithLimit</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span>
-    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;&gt;</span>
-<span class="p">)</span></code></pre>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -646,7 +659,7 @@ Throws:</p>
                 <a name="//apple_ref/swift/Section/Transactions" class="dashAnchor"></a>
                 <div class="section-name-container">
                   <a class="section-name-link" href="#/Transactions"></a>
-                  <h3 class="section-name"><p>Transactions</p>
+                  <h3 class="section-name"><span>Transactions</span>
 </h3>
                 </div>
               </div>
@@ -654,10 +667,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP20getTransactionWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/getTransactionWithId(_:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP20getTransactionWithId_11cachePolicy10completionySS_AA05CacheJ0Oys6ResultOyAA0F0VSgs5Error_pGctF">getTransactionWithId(_:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP20getTransactionWithId_11cachePolicyAA0F0VSgSS_AA05CacheJ0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getTransactionWithId(_:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP20getTransactionWithId_11cachePolicyAA0F0VSgSS_AA05CacheJ0OtYaKF">getTransactionWithId(_:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -670,7 +686,7 @@ Throws:</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getTransactionWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getTransactionWithId</span><span class="p">(</span><span class="n">_</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -680,10 +696,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP26listTransactionsWithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA11TransactionVGs5Error_pGctF"></a>
-                    <a name="//apple_ref/swift/Method/listTransactionsWithFilter(_:limit:nextToken:cachePolicy:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP26listTransactionsWithFilter_5limit9nextToken11cachePolicy10completionyAA03GetfH5InputVSg_SiSgSSSgAA05CacheM0Oys6ResultOyAA10ListOutputVyAA11TransactionVGs5Error_pGctF">listTransactionsWithFilter(_:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>completion:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP26listTransactionsWithFilter_5limit9nextToken11cachePolicyAA10ListOutputVyAA11TransactionVGAA03GetfH5InputVSg_SiSgSSSgAA05CacheM0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listTransactionsWithFilter(_:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP26listTransactionsWithFilter_5limit9nextToken11cachePolicyAA10ListOutputVyAA11TransactionVGAA03GetfH5InputVSg_SiSgSSSgAA05CacheM0OtYaKF">listTransactionsWithFilter(_:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -700,9 +719,8 @@ Throws:</p>
     <span class="n">_</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Structs/GetTransactionsFilterInput.html">GetTransactionsFilterInput</a></span><span class="p">?,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">,</span>
-    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;&gt;</span>
-<span class="p">)</span></code></pre>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -712,10 +730,13 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF"></a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctYaKF"></a>
                     <a name="//apple_ref/swift/Method/subscribeToTransactionUpdates(statusChangeHandler:resultHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctKF">subscribeToTransactionUpdates(statusChangeHandler:<wbr>resultHandler:<wbr>)</a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdates19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctYaKF">subscribeToTransactionUpdates(statusChangeHandler:<wbr>resultHandler:<wbr>)</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -732,7 +753,7 @@ Throws:</p>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">subscribeToTransactionUpdates</span><span class="p">(</span>
     <span class="nv">statusChangeHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a></span><span class="p">?,</span>
     <span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span><span class="p">?</span></code></pre>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -747,9 +768,8 @@ Throws:</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2021 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2021-09-10)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-02-18)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
-</div>
 </html>

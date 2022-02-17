@@ -6,7 +6,6 @@
 
 import SudoUser
 import SudoLogging
-import SudoProfiles
 
 /// Generic type associated with API completion/closures. Generic type O is the expected output result in a
 /// success case.
@@ -38,9 +37,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - SudoVirtualCardsError.
     func provisionCardWithInput(
         _ input: ProvisionCardInput,
-        completion: @escaping ClientCompletion<ProvisionalCard.State>,
         observer: ProvisionCardObservable?
-    )
+    ) async throws -> ProvisionalCard.State
 
     /// Creates a Funding Source using a Credit Card input.
     ///
@@ -54,9 +52,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - SudoVirtualCardsError.
     func createFundingSource(
         withCreditCardInput input: CreditCardFundingSourceInput,
-        authorizationDelegate: FundingSourceAuthorizationDelegate?,
-        completion: @escaping ClientCompletion<FundingSource>
-    )
+        authorizationDelegate: FundingSourceAuthorizationDelegate?
+    ) async throws -> FundingSource
 
     /// Cancel a funding source.
     ///
@@ -68,9 +65,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - SudoPlatformError.
     ///     - SudoVirtualCardsError.
     func cancelFundingSourceWithId(
-        _ id: String,
-        completion: @escaping ClientCompletion<FundingSource>
-    )
+        _ id: String
+    ) async throws -> FundingSource
 
     /// Update a card.
     ///
@@ -83,14 +79,12 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - Failure:
     ///     - SudoPlatformError.
     func updateCardWithInput(
-        _ input: UpdateCardInput,
-        completion: @escaping ClientCompletion<Card>
-    )
+        _ input: UpdateCardInput
+    ) async throws -> Card
 
     func cancelCardWithId(
-        _ id: String,
-        completion: @escaping ClientCompletion<Card>
-    )
+        _ id: String
+    ) async throws -> Card
 
     // MARK: - Queries
 
@@ -107,9 +101,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getProvisionalCardWithId(
         _ id: String,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ProvisionalCard?>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> ProvisionalCard?
 
     /// Get a list of provisional cards. If no cards can be found, an empty list will be returned.
     ///
@@ -130,9 +123,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
         _ filter: GetProvisionalCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<ProvisionalCard>>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> ListOutput<ProvisionalCard>
 
     /// Get a card using the `id` parameter. If the card cannot be found, `nil` will be returned.
     ///
@@ -148,9 +140,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getCardWithId(
         _ id: String,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<Card?>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> Card?
 
     /// Get a list of cards. If no cards can be found, an empty list will be returned.
     ///
@@ -171,9 +162,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
         _ filter: GetCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<Card>>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> ListOutput<Card>
 
     /// Get a funding source using the `id` parameter. If the funding source cannot be found, `nil` will be returned.
     ///
@@ -187,9 +177,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getFundingSourceWithId(
         _ id: String,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<FundingSource?>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> FundingSource?
 
     /// Get a list of funding sources. If no funding sources can be found, an empty list will be returned.
     ///
@@ -208,9 +197,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     func listFundingSourcesWithLimit(
         _ limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<FundingSource>>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> ListOutput<FundingSource>
 
     // MARK: - Methods: Transactions
 
@@ -226,9 +214,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getTransactionWithId(
         _ id: String,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<Transaction?>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> Transaction?
 
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
     ///
@@ -246,9 +233,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
         _ filter: GetTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<Transaction>>
-    )
+        cachePolicy: CachePolicy
+    ) async throws -> ListOutput<Transaction>
 
     // MARK: - Subscriptions
 
@@ -261,51 +247,5 @@ public protocol SudoVirtualCardsClient: AnyObject {
     @discardableResult func subscribeToTransactionUpdates(
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
-    ) throws -> SubscriptionToken?
-}
-
-extension SudoVirtualCardsClient {
-
-    @available(*, deprecated, renamed: "listProvisionalCardsWithFilter")
-    public func getProvisionalCardsWithFilter(
-        _ filter: GetProvisionalCardsFilterInput?,
-        limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<ProvisionalCard>>
-    ) {
-        listProvisionalCardsWithFilter(filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
-    }
-
-    @available(*, deprecated, renamed: "listCardsWithFilter")
-    public func getCardsWithFilter(
-        _ filter: GetCardsFilterInput?,
-        limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<Card>>
-    ) {
-        listCardsWithFilter(filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
-    }
-
-    @available(*, deprecated, renamed: "listFundingSourcesWithLimit")
-    public func getFundingSourcesWithLimit(
-        _ limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<FundingSource>>
-    ) {
-        listFundingSourcesWithLimit(limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
-    }
-
-    @available(*, deprecated, renamed: "listTransactionsWithFilter")
-    public func getTransactionsWithFilter(
-        _ filter: GetTransactionsFilterInput?,
-        limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<ListOutput<Transaction>>
-    ) {
-        listTransactionsWithFilter(filter, limit: limit, nextToken: nextToken, cachePolicy: cachePolicy, completion: completion)
-    }
+    ) async throws -> SubscriptionToken?
 }

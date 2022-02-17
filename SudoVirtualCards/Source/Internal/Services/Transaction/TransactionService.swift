@@ -7,7 +7,6 @@
 import Foundation
 import AWSAppSync
 import SudoUser
-import SudoOperations
 import SudoLogging
 import SudoApiClient
 
@@ -19,12 +18,6 @@ class TransactionService {
     /// Typealias for a `ListOutput` for `Transactions`.
     typealias TransactionList = ListOutput<Transaction>
 
-    /// Typealias for a `PlatformQueryOperation` that is using a `GetTransactionQuery` as its query.
-    typealias GetOperation = PlatformQueryOperation<GetTransactionQuery>
-
-    /// Typealias for a `PlatformQueryOperation` that is using a `ListTransactionsQuery` as its query.
-    typealias ListOperation = PlatformQueryOperation<ListTransactionsQuery>
-
     // MARK: - Properties
 
     /// Used to determine if the user is signed in and access the user owner ID.
@@ -34,17 +27,11 @@ class TransactionService {
     /// Used to make GraphQL requests to AWS. Injected into operations to delegate the calls.
     unowned let graphQLClient: SudoApiClient
 
-    /// Used to generate operations.
-    unowned let operationFactory: OperationFactory
-
     /// Used to unseal incoming transactions.
     unowned let unsealer: Unsealer
 
     /// Logs errors and diagnostic information.
     let logger: Logger
-
-    /// Operation queue used by the `TransactionService`.
-    var queue = PlatformOperationQueue()
 
     /// Weak reference to existing subscriptions.
     var subscriptions: [WeakCancellable] = []
@@ -56,19 +43,12 @@ class TransactionService {
         userClient: SudoUserClient,
         graphQLClient: SudoApiClient,
         unsealer: Unsealer,
-        operationFactory: OperationFactory,
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
         self.userClient = userClient
         self.graphQLClient = graphQLClient
         self.unsealer = unsealer
-        self.operationFactory = operationFactory
         self.logger = logger
-    }
-
-    /// Cancel all operations on the `TransactionService` operation queue.
-    func cancelAllOperations() {
-        queue.cancelAllOperations()
     }
 
     /// Clear all existing subscriptions created by `subscribe(withStatusChangeHandler:resultHandler:)`.
@@ -89,13 +69,18 @@ class TransactionService {
     /// - Returns:
     ///    - Success: Transaction associated with `id`, or `nil` if the card cannot be found.
     ///    - Failure: `Error` that occurred.
-    func get(withId id: String, cachePolicy: CachePolicy, keyPair: KeyPair, completion: @escaping ClientCompletion<Transaction?>) {
+    func get(withId id: String, cachePolicy: CachePolicy, keyPair: KeyPair) async throws -> Transaction? {
         let query = GetTransactionQuery(id: id, keyId: keyPair.keyId)
-        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
-        let observer = generateGetCompletionObserver(completion: completion)
-        operation.addObserver(observer)
-        operation.addCondition(SignedInCondition(userClient: userClient))
-        queue.addOperation(operation)
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        guard let result = data?.getTransaction else {
+            return nil
+        }
+        do {
+            return try unsealer.unseal(result)
+        } catch {
+            logger.error("failed to decode transaction: \(error)")
+            throw error
+        }
     }
 
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
@@ -114,17 +99,28 @@ class TransactionService {
         withFilter filter: GetTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy,
-        completion: @escaping ClientCompletion<TransactionList>
-    ) {
+        cachePolicy: CachePolicy
+    ) async throws -> TransactionList {
         // sequenceId has no affect on this, but we still want to honor other filters.
         let graphQLFilter = filter?.toGraphQLFilter()
         let query = ListTransactionsQuery(filter: graphQLFilter, limit: limit, nextToken: nextToken)
-        let operation = operationFactory.generateQueryOperation(query: query, graphQLClient: graphQLClient, cachePolicy: cachePolicy, logger: logger)
-        let observer = generateListCompletionObserver(filter: filter, completion: completion)
-        operation.addObserver(observer)
-        operation.addCondition(SignedInCondition(userClient: userClient))
-        queue.addOperation(operation)
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        guard let listTransactions = data?.listTransactions else {
+            return TransactionList.empty
+        }
+        var transactions: [Transaction]
+        do {
+            transactions = try listTransactions.items.map(unsealer.unseal(_:))
+        } catch {
+            logger.error("Failed to decode transactions: \(error)")
+            throw error
+        }
+        if let sequenceIdFilter = filter?.sequenceId {
+            let localFilter = LocalTransactionFilter(filter: sequenceIdFilter, attribute: .sequenceId)
+            transactions = localFilter.execute(transactions)
+        }
+        let nextToken = listTransactions.nextToken
+        return TransactionList(items: transactions, nextToken: nextToken)
     }
 
     /// Subscribe to transaction update events. This includes creation of new transactions.
@@ -136,13 +132,13 @@ class TransactionService {
     func subscribe(
         withStatusChangeHandler statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
-    ) throws -> Cancellable? {
+    ) async throws -> Cancellable? {
         guard let owner = try? userClient.getSubject() else {
             throw SudoVirtualCardsError.notSignedIn
         }
         let subscription = OnTransactionUpdateSubscription(owner: owner)
 
-        let discard = try? graphQLClient.subscribe(
+        let discard = try? await graphQLClient.subscribe(
             subscription: subscription,
             statusChangeHandler: { status in
                 let platformStatus = PlatformSubscriptionStatus(status: status)
@@ -158,7 +154,7 @@ class TransactionService {
                     return
                 }
                 if let errors = result.errors, let error = errors.first {
-                    resultHandler(.failure(SudoPlatformError(error)))
+                    resultHandler(.failure(SudoVirtualCardsError(graphQLError: error)))
                     return
                 }
                 guard let data = result.data else {
@@ -185,72 +181,4 @@ class TransactionService {
         return cancellable
     }
 
-    // MARK: - Helpers
-
-    /// Generates a `PlatformBlockObserver` that handles the result of a `GetTransactionQuery`.
-    func generateGetCompletionObserver(completion: @escaping ClientCompletion<Transaction?>) -> PlatformBlockObserver {
-        return PlatformBlockObserver(finishHandler: { [weak self] operation, errors in
-            guard let weakSelf = self else { return }
-            guard let operation = operation as? GetOperation else {
-                let error = SudoVirtualCardsError.internalError(
-                    "generateGetCompletionObserver should only be used with PlatformQueryOperation<GetTransactionQuery>"
-                )
-                completion(.failure(error))
-                return
-            }
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard let getTransaction = operation.result?.getTransaction else {
-                completion(.success(nil))
-                return
-            }
-            do {
-                let transaction = try weakSelf.unsealer.unseal(getTransaction)
-                completion(.success(transaction))
-                return
-            } catch {
-                weakSelf.logger.error("failed to decode transaction: \(error)")
-                completion(.failure(error))
-                return
-            }
-        })
-    }
-
-    /// Generates a `PlatformBlockObserver` that handles the result of a `ListTransactionQuery`.
-    func generateListCompletionObserver(filter: GetTransactionsFilterInput?, completion: @escaping ClientCompletion<TransactionList>) -> PlatformBlockObserver {
-        return PlatformBlockObserver(finishHandler: { [weak self] operation, errors in
-            guard let weakSelf = self else { return }
-            guard let operation = operation as? ListOperation else {
-                let error = SudoVirtualCardsError.internalError(
-                    "generateGetCompletionObserver should only be used with PlatformQueryOperation<GetTransactionQuery>"
-                )
-                completion(.failure(error))
-                return
-            }
-            if let error = errors.first {
-                completion(.failure(error))
-                return
-            }
-            guard let listTransactions = operation.result?.listTransactions else {
-                completion(.success(TransactionList.empty))
-                return
-            }
-            var transactions: [Transaction]
-            do {
-                transactions = try listTransactions.items.map(weakSelf.unsealer.unseal(_:))
-            } catch {
-                weakSelf.logger.error("failed to decode transactions: \(error)")
-                completion(.failure(error))
-                return
-            }
-            if let sequenceIdFilter = filter?.sequenceId {
-                let localFilter = LocalTransactionFilter(filter: sequenceIdFilter, attribute: .sequenceId)
-                transactions = localFilter.execute(transactions)
-            }
-            let nextToken = listTransactions.nextToken
-            completion(.success(TransactionList(items: transactions, nextToken: nextToken)))
-        })
-    }
 }

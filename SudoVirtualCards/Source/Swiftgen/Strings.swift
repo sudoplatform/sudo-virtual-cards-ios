@@ -44,7 +44,6 @@ internal enum L10n {
         internal static let noEntitlementsError = L10n.tr("Localizable", "virtual_cards.errors.noEntitlementsError")
         internal static let noOwnershipProofAvailable = L10n.tr("Localizable", "virtual_cards.errors.noOwnershipProofAvailable")
         internal static let notSignedIn = L10n.tr("Localizable", "virtual_cards.errors.notSignedIn")
-        internal static let policyFailed = L10n.tr("Localizable", "virtual_cards.errors.policyFailed")
         internal static let provisionalFundingSourceNotFound = L10n.tr("Localizable", "virtual_cards.errors.provisionalFundingSourceNotFound")
         internal static let provisionFailed = L10n.tr("Localizable", "virtual_cards.errors.provisionFailed")
         internal static let publicKeyNotFound = L10n.tr("Localizable", "virtual_cards.errors.publicKeyNotFound")

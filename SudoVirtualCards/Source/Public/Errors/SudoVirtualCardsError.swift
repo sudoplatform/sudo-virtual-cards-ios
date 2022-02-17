@@ -5,7 +5,6 @@
 //
 
 import Foundation
-import SudoOperations
 import SudoApiClient
 import AWSAppSync
 
@@ -112,29 +111,46 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// conditions that is beyond control of `SudoIdentityVerificationClient` implementation.
     case fatalError(description: String)
 
-    // MARK: - SudoPlatformError
-
-    /**
-      * This section contains wrapped erros from `SudoPlatformError`.
-     */
-
+    /// Backend environment error occurred.
     case environmentError
-    case invalidTokenError
+    
+    /// Returned when JSON web tokens submitted are rejected because they:
+    ///     1. fail signature verification
+    ///     2. is not an appropriate token for the invoker user to be submitting (e.g. user id doesn't match)
+    ///     3. is a resource reference token for resource type unrecognized by the service
+    ///        to which the token has been submitted
+    case invalidToken
+    
+    /// Returned when an operation fails because the user's level of identity verification is insufficient.
     case identityInsufficient
+    
+    /// Returned when an operation fails due to lack of verification.
     case identityNotVerified
+    
+    /// Returned if specified time zone is not recognized.
     case unknownTimezone
+    
+    /// Returned when the user has no entitlements associated with them
     case noEntitlements
+    
+    /// An internal error has occurred and will need to be resolved by Anonyome.
     case internalError(_ cause: String?)
+    
+    /// Returned if an API argument is not valid or inconsistent with other arguments.
     case invalidArgument(_ msg: String?)
+    
+    /// Returned when the input was not in the expected format.
+    case decodingError
 
     // MARK: - Lifecycle
 
     /// Initialize a `SudoVirtualCardsError` from a `GraphQLError`.
     ///
     /// If the GraphQLError is unsupported, `nil` will be returned instead.
-    init?(graphQLError error: GraphQLError) {
+    init(graphQLError error: GraphQLError) {
         guard let errorType = error["errorType"] as? String else {
-            return nil
+            self = .internalError(error.message)
+            return
         }
         switch errorType {
         case "sudoplatform.virtual-cards.CardNotFoundError":
@@ -171,40 +187,31 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             self = .fundingSourceStateError
         case "sudoplatform.virtual-cards.UnacceptableFundingSourceError":
             self = .unacceptableFundingSource
-        default:
-            return nil
-        }
-    }
-
-    /// Initialize a `SudoVirtualCardsError` from a `SudoPlatformError`.
-    init(platformError error: SudoPlatformError) {
-        switch error {
-        case .accountLockedError:
+        case "sudoplatform.AccountLockedError":
             self = .accountLocked
-        case .decodingError:
-            self = .invalidRequest
-        case .environmentError:
+        case "sudoplatform.DecodingError":
+            self = .decodingError
+        case "sudoplatform.EnvironmentError":
             self = .environmentError
-        case .identityInsufficient:
+        case "sudoplatform.IdentityVerificationInsufficientError":
             self = .identityInsufficient
-        case .identityNotVerified:
+        case "sudoplatform.IdentityVerificationNotVerifiedError":
             self = .identityNotVerified
-        case .insufficientEntitlementsError:
+        case "sudoplatform.InsufficientEntitlementsError":
             self = .insufficientEntitlements
-        case let .internalError(cause):
-            self = .internalError(cause)
-        case let .invalidArgument(msg):
+        case "sudoplatform.InvalidArgumentError":
+            let msg = error.message.isEmpty ? nil : error.message
             self = .invalidArgument(msg)
-        case .invalidTokenError:
-            self = .invalidTokenError
-        case .noEntitlementsError:
+        case "sudoplatform.InvalidTokenError":
+            self = .invalidToken
+        case "sudoplatform.NoEntitlementsError":
             self = .noEntitlements
-        case .policyFailed:
-            self = .insufficientEntitlements
-        case .serviceError:
+        case "sudoplatform.ServiceError":
             self = .serviceError
-        case .unknownTimezone:
+        case "sudoplatform.UnknownTimezoneError":
             self = .unknownTimezone
+        default:
+            self = .internalError("\(errorType) - \(error.message)")
         }
     }
 
@@ -241,7 +248,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
              (.invalidArgument, .invalidArgument),
              (.invalidConfig, .invalidConfig),
              (.invalidRequest, .invalidRequest),
-             (.invalidTokenError, .invalidTokenError),
+             (.invalidToken, .invalidToken),
              (.limitExceeded, .limitExceeded),
              (.localKeyPairFailure, .localKeyPairFailure),
              (.noEntitlements, .noEntitlements),
@@ -328,7 +335,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.unacceptableFundingSource
         case .serviceError:
             return L10n.VirtualCards.Errors.serviceError
-        case .invalidTokenError:
+        case .invalidToken:
             return L10n.VirtualCards.Errors.invalidTokenError
         case .identityInsufficient:
             return L10n.VirtualCards.Errors.identityInsufficient
@@ -358,6 +365,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.graphQLError
         case .fatalError:
             return L10n.VirtualCards.Errors.fatalError
+        case .decodingError:
+            return L10n.VirtualCards.Errors.decodingError
         }
     }
 }
