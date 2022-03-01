@@ -43,7 +43,7 @@ class FundingSourceService {
     /// - Returns:
     ///     - Success: Setup/Provisional information from the service.
     ///     - Failure: `Error` that occurred.
-    func setup(input: SetupFundingSourceInput) async throws -> StripeSetup {
+    func setup(input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
         let input = SetupFundingSourceRequest(type: input.type.fundingSourceType, currency: input.currency)
         let mutation = SetupFundingSourceMutation(input: input)
         let data = try await GraphQLHelper.performMutation(
@@ -57,9 +57,17 @@ class FundingSourceService {
             throw SudoVirtualCardsError.internalError("Data received for setupFundingSource is not base64 encoded")
         }
         let stripeSetupData = try self.decoder.decode(StripeSetup.Data.self, from: encodedProvisioningData)
-        return StripeSetup(
+        return ProvisionalFundingSource(
             id: data.setupFundingSource.id,
-            data: stripeSetupData
+            owner: data.setupFundingSource.owner,
+            version: data.setupFundingSource.version,
+            createdAt: Date(millisecondsSince1970: data.setupFundingSource.createdAtEpochMs),
+            updatedAt: Date(millisecondsSince1970: data.setupFundingSource.updatedAtEpochMs),
+            provisioningData: ProvisioningData(
+                version: stripeSetupData.version,
+                clientSecret: stripeSetupData.clientSecret,
+                intent: stripeSetupData.intent
+            )
         )
     }
 
@@ -71,8 +79,7 @@ class FundingSourceService {
     /// - Returns:
     ///     - Success: Provisioned funding source, ready to be used.
     ///     - Failure: `Error` that occurred.
-    func complete(clientId: String, paymentMethodId: String) async throws -> FundingSource {
-        let completionData = StripeCompletionData(paymentMethod: paymentMethodId)
+    func complete(clientId: String, completionData: FundingSourceCompletionData) async throws -> FundingSource {
         let encodedCompletionString: String
         do {
             let data = try encoder.encode(completionData)

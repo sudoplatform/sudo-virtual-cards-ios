@@ -113,32 +113,32 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
 
     /// Backend environment error occurred.
     case environmentError
-    
+
     /// Returned when JSON web tokens submitted are rejected because they:
     ///     1. fail signature verification
     ///     2. is not an appropriate token for the invoker user to be submitting (e.g. user id doesn't match)
     ///     3. is a resource reference token for resource type unrecognized by the service
     ///        to which the token has been submitted
     case invalidToken
-    
+
     /// Returned when an operation fails because the user's level of identity verification is insufficient.
     case identityInsufficient
-    
+
     /// Returned when an operation fails due to lack of verification.
     case identityNotVerified
-    
+
     /// Returned if specified time zone is not recognized.
     case unknownTimezone
-    
+
     /// Returned when the user has no entitlements associated with them
     case noEntitlements
-    
+
     /// An internal error has occurred and will need to be resolved by Anonyome.
     case internalError(_ cause: String?)
-    
+
     /// Returned if an API argument is not valid or inconsistent with other arguments.
     case invalidArgument(_ msg: String?)
-    
+
     /// Returned when the input was not in the expected format.
     case decodingError
 
@@ -147,7 +147,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// Initialize a `SudoVirtualCardsError` from a `GraphQLError`.
     ///
     /// If the GraphQLError is unsupported, `nil` will be returned instead.
-    init(graphQLError error: GraphQLError) {
+    init(graphQLError error: GraphQLError) { // swiftlint:disable:this cyclomatic_complexity
         guard let errorType = error["errorType"] as? String else {
             self = .internalError(error.message)
             return

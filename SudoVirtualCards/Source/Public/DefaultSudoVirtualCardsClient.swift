@@ -5,7 +5,6 @@
 //
 
 import AWSAppSync
-import Stripe
 import SudoUser
 import SudoLogging
 import SudoApiClient
@@ -46,9 +45,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     /// Utility class to manage subscriptions.
     let subscriptionManager: SubscriptionManager
-    
-    /// Stripe client.
-    let stripeClient: STPAPIClient
 
     // MARK: - Lifecycle
 
@@ -115,7 +111,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         platformKeyManager: PlatformKeyManager,
         unsealer: Unsealer,
         subscriptionManager: SubscriptionManager = DefaultSubscriptionManager(),
-        stripeClient: STPAPIClient = STPAPIClient(publishableKey: ""),
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
         self.userClient = userClient
@@ -123,7 +118,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         self.platformKeyManager = platformKeyManager
         self.unsealer = unsealer
         self.subscriptionManager = subscriptionManager
-        self.stripeClient = stripeClient
         self.logger = logger
         self.fundingSourceService = FundingSourceService(graphQLClient: graphQLClient, logger: logger)
         self.cardService = CardService(graphQLClient: graphQLClient, unsealer: unsealer, logger: logger)
@@ -151,6 +145,23 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     // MARK: - Methods
+
+    public func setupFundingSource(withInput input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
+        try checkUserSignedIn()
+        return try await fundingSourceService.setup(input: input)
+    }
+
+    public func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource {
+        try checkUserSignedIn()
+        return try await fundingSourceService.complete(
+            clientId: input.id,
+            completionData: FundingSourceCompletionData(
+                paymentMethod: input.completionData.paymentMethodId,
+                provider: input.completionData.provider,
+                version: input.completionData.version
+            )
+        )
+    }
 
     public func provisionCardWithInput(
         _ input: ProvisionCardInput,
@@ -242,32 +253,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
     }
 
-    public func createFundingSource(
-        withCreditCardInput input: CreditCardFundingSourceInput,
-        authorizationDelegate: FundingSourceAuthorizationDelegate?
-    ) async throws -> FundingSource {
-        /// Add signed in conditions to operations that have call out to virtual cards service.
-        try checkUserSignedIn()
-
-        let configs = try await fundingSourceService.getConfig(cachePolicy: .remoteOnly)
-        guard let apiKey = configs.fundingSourceTypes.first?.apiKey else {
-            throw SudoVirtualCardsError.internalError("Failed to retrieve funding source config")
-        }
-        
-        self.stripeClient.publishableKey = apiKey
-        
-        let setupInput = SetupFundingSourceInput(type: .creditCard, currency: "USD")
-        let setupResult = try await fundingSourceService.setup(input: setupInput)
-        let stripeWorker = StripeIntentWorker(
-            fromInputDetails: input,
-            clientSecret: setupResult.clientSecret,
-            stripeClient: self.stripeClient,
-            authorizationDelegate: authorizationDelegate
-        )
-        let paymentMethodId = try await stripeWorker.confirmSetupIntent()
-        return try await fundingSourceService.complete(clientId: setupResult.id, paymentMethodId: paymentMethodId)
-    }
-
     public func cancelFundingSourceWithId(_ id: String) async throws -> FundingSource {
         try checkUserSignedIn()
         return try await fundingSourceService.cancel(id: id)
@@ -332,6 +317,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             logger: logger
         )
         return try unsealer.unseal(data.cancelCard)
+    }
+
+    public func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration] {
+        let result = try await fundingSourceService.getConfig(cachePolicy: .remoteOnly)
+        guard let config = result.fundingSourceTypes.first else {
+            throw SudoVirtualCardsError.internalError("No configuration found")
+        }
+        return [FundingSourceClientConfiguration(version: config.version, apiKey: config.apiKey)]
     }
 
     public func getProvisionalCardWithId(_ id: String, cachePolicy: CachePolicy) async throws -> ProvisionalCard? {

@@ -28,6 +28,29 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     // MARK: - Mutations
 
+    /// Setup a funding source.
+    /// - Parameters:
+    ///   - input: Funding Source input information.
+    /// - Returns:
+    ///   - Success: The provisional Funding Source.
+    ///   - Failure:
+    ///     - InsufficientEntitlements.
+    ///     - VelocityExceeded.
+    func setupFundingSource(withInput input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource
+
+    /// Complete a provisional funding source.
+    /// - Parameters:
+    ///   - input: Parameters used to complete the funding source.
+    /// - Returns:
+    ///   - Success: The provisioned Funding Source.
+    ///   - Failure:
+    ///     - DuplicateFundingSource.
+    ///     - FundingSourceCompletionDataInvalid.
+    ///     - IdentityNotVerified.
+    ///     - ProvisionalFundingSourceNotFound.
+    ///     - UnacceptableFundingSource.
+    func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource
+
     /// Provision a card.
     ///
     /// - Returns:
@@ -39,21 +62,6 @@ public protocol SudoVirtualCardsClient: AnyObject {
         _ input: ProvisionCardInput,
         observer: ProvisionCardObservable?
     ) async throws -> ProvisionalCard.State
-
-    /// Creates a Funding Source using a Credit Card input.
-    ///
-    /// - Parameters:
-    ///   - input: Credit card information.
-    ///   - authorizationDelegate: `FundingSourceAuthorizationDelegate` delegate to forward any UI hooks to stripe 3Ds with.
-    /// - Returns:
-    ///   - Success: Newly created Funding Source with a credit card.
-    ///   - Failure:
-    ///     - SudoPlatformError.
-    ///     - SudoVirtualCardsError.
-    func createFundingSource(
-        withCreditCardInput input: CreditCardFundingSourceInput,
-        authorizationDelegate: FundingSourceAuthorizationDelegate?
-    ) async throws -> FundingSource
 
     /// Cancel a funding source.
     ///
@@ -87,6 +95,10 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ) async throws -> Card
 
     // MARK: - Queries
+
+    /// Get the funding source client configuration.
+    /// Returns: The configuration of the client funding source data.
+    func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration]
 
     /// Get a provisional card using the `id` parameter. If the card cannot be found, `nil` will be returned.
     ///
