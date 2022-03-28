@@ -108,16 +108,16 @@ public struct Card: Hashable {
 
         // MARK: - Properties
 
-        /// Month specifier, in format MM. e.g. (7 == July).
-        public let mm: Int
+        /// Month specifier, in format MM. e.g. (07 == July).
+        public let mm: String
 
         /// Year specifier, in format YYYY. e.g. (2020 == Year 2020).
-        public let yyyy: Int
+        public let yyyy: String
 
         // MARK: - Lifecycle
 
         /// Initialize an instance of `Expiry`.
-        public init(mm: Int, yyyy: Int) {
+        public init(mm: String, yyyy: String) {
             self.mm = mm
             self.yyyy = yyyy
         }

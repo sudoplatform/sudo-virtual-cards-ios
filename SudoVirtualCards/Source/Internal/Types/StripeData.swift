@@ -108,7 +108,7 @@ struct StripeSetup: StripeData, Hashable {
 }
 
 /// Data received from stripe to complete provisioning a funding source.
-struct FundingSourceCompletionData: StripeData, Encodable, Hashable {
+struct StripeCompletionData: StripeData, Encodable, Hashable {
 
     let provider: String
 
@@ -117,9 +117,9 @@ struct FundingSourceCompletionData: StripeData, Encodable, Hashable {
     /// Specifies payment method bound to confirmed SetupIntent.
     var paymentMethod: String
 
-    init(paymentMethod: String, provider: String, version: Int) {
-        self.provider = provider
-        self.version = version
+    init(paymentMethod: String) {
+        self.provider = StripeDefaults.provider
+        self.version = StripeDefaults.version
         self.paymentMethod = paymentMethod
     }
 
@@ -145,8 +145,8 @@ struct StripeClientConfiguration: Decodable, Hashable {
     // MARK: - Supplementary
 
     struct FundingSourceType: Decodable, Hashable {
-        var type: String = StripeDefaults.configurationType
-        var version: Int = StripeDefaults.version
+        let type: String = StripeDefaults.configurationType
+        let version: Int = StripeDefaults.version
         let apiKey: String
 
         init(apiKey: String) {

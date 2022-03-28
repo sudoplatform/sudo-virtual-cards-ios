@@ -22,7 +22,7 @@ enum UnsealingError: Error, Equatable {
 }
 
 /// Works in conjunction with `DecryptionWorker` to unseal any attributes incoming from GraphQL API.
-protocol Unsealer: AnyObject {
+protocol Unsealer: class {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `Unsealer`.
@@ -660,10 +660,9 @@ class DefaultUnsealer: Unsealer {
         let billedAmount = try unsealCurrencyAmount(billedAmount, withKeyId: keyId, algorithm: algorithm)
         let transactedAmount = try unsealCurrencyAmount(transactedAmount, withKeyId: keyId, algorithm: algorithm)
         let description = try worker.unsealString(description, withKeyId: keyId, algorithm: algorithm)
-        let optionalDeclineReason: Transaction.DeclineReason?
+        let optionalDeclineReason: String?
         if let declineReason = declineReason {
-            let declineReasonString = try worker.unsealString(declineReason, withKeyId: keyId, algorithm: algorithm)
-            optionalDeclineReason = Transaction.DeclineReason(string: declineReasonString)
+            optionalDeclineReason = try worker.unsealString(declineReason, withKeyId: keyId, algorithm: algorithm)
         } else {
             optionalDeclineReason = nil
         }
@@ -748,8 +747,8 @@ class DefaultUnsealer: Unsealer {
     ///         - If The decrypted data cannot be decoded to a string.
     ///     - `KeyManagerError` if the data cannot be decrypted.
     func unsealExpiry(_ expiry: SealedExpiry, withKeyId keyId: String, algorithm: String) throws -> Card.Expiry {
-        let mm = try worker.unsealInt(expiry.mm, withKeyId: keyId, algorithm: algorithm)
-        let yyyy = try worker.unsealInt(expiry.yyyy, withKeyId: keyId, algorithm: algorithm)
+        let mm = try worker.unsealString(expiry.mm, withKeyId: keyId, algorithm: algorithm)
+        let yyyy = try worker.unsealString(expiry.yyyy, withKeyId: keyId, algorithm: algorithm)
         return Card.Expiry(mm: mm, yyyy: yyyy)
     }
 

@@ -9,6 +9,9 @@ public struct ProvisionCardInput: Equatable {
 
     // MARK: - Properties
 
+    /// Identifier of the sudo to provision a card for.
+    public let sudoId: String
+
     /// identifier of the funding source to use to fund the provisioned virtual card.
     public let fundingSourceId: String
 
@@ -25,28 +28,23 @@ public struct ProvisionCardInput: Equatable {
     /// Currency to provision the card with.
     public let currency: String
 
-    /// Proof of Sudo ownership for provisioning cards. The ownership proof must
-    /// contain an audience of "sudoplatform.virtual-cards.virtual-card" and can be
-    /// obtained from SudoProfiles SDK via getOwnershipProof API.
-    public let ownershipProof: String
-
     // MARK: - Lifecycle
 
     /// Initialize an instance of `ProvisionCardInput`.
     public init(
+        sudoId: String,
         fundingSourceId: String,
         cardHolder: String,
         alias: String,
         billingAddress: Address?,
-        currency: String,
-        ownershipProof: String
+        currency: String
     ) {
+        self.sudoId = sudoId
         self.fundingSourceId = fundingSourceId
         self.cardHolder = cardHolder
         self.alias = alias
         self.billingAddress = billingAddress
         self.currency = currency
-        self.ownershipProof = ownershipProof
     }
 }
 
@@ -75,88 +73,6 @@ public struct UpdateCardInput: Equatable {
         self.cardHolder = cardHolder
         self.alias = alias
         self.billingAddress = billingAddress
-    }
-}
-
-/// Input object holding information for Funding Source Setup, using `SudoVirtualCardsClient`.
-public struct SetupFundingSourceInput: Equatable {
-
-    // MARK: - Supplementary
-
-    public enum SetupFundingSourceType: Equatable {
-        case creditCard
-        case unknown(String)
-
-        init(_ type: FundingSourceType) {
-            switch type {
-            case .creditCard:
-                self = .creditCard
-            case let .unknown(type):
-                self = .unknown(type)
-            }
-        }
-
-        var fundingSourceType: FundingSourceType {
-            switch self {
-            case .creditCard:
-                return .creditCard
-            case let .unknown(type):
-                return .unknown(type)
-            }
-        }
-    }
-
-    // MARK: - Properties
-
-    public let type: SetupFundingSourceType
-    public let currency: String
-
-    // MARK: - Lifecycle
-
-    public init(type: SetupFundingSourceType, currency: String) {
-        self.type = type
-        self.currency = currency
-    }
-}
-
-/// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct StripeCompletionDataInput: Equatable {
-
-    // MARK: - Properties
-
-    /// Identifier of the Payment Method used.
-    public let paymentMethodId: String
-
-    /// Provider used to save the funding source information.
-    public let provider: String = "stripe"
-
-    public let version: Int = 1
-
-    // MARK: - Lifecycle
-
-    public init(paymentMethodId: String) {
-        self.paymentMethodId = paymentMethodId
-    }
-}
-
-public typealias CompletionDataInput = StripeCompletionDataInput
-
-/// Input for SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct CompleteFundingSourceInput: Equatable {
-
-    // MARK: - Properties
-
-    /// Identifier of the provisional funding source to be completed and provisioned.
-    public let id: String
-
-    /// JSON string of the completion data to be passed back to the service.
-    public let completionData: CompletionDataInput
-
-    // MARK: - Lifecycle
-
-    public init(id: String, completionData: CompletionDataInput) {
-        self.id = id
-        self.completionData = completionData
     }
 }
 

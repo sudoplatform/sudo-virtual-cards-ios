@@ -5,7 +5,10 @@
 //
 
 import SudoUser
+import AWSAppSync
 import SudoLogging
+import SudoProfiles
+import SudoOperations
 
 /// Generic type associated with API completion/closures. Generic type O is the expected output result in a
 /// success case.
@@ -18,7 +21,7 @@ public typealias SudoSubscriptionStatusChangeHandler = (PlatformSubscriptionStat
 ///
 /// It is recommended to code to this interface, rather than the implementation class (`DefaultSudoVirtualCardsClient`) as
 /// the implementation class is only meant to be used for initializing an instance of the client.
-public protocol SudoVirtualCardsClient: AnyObject {
+public protocol SudoVirtualCardsClient: class {
 
     /// Removes all keys associated with this client, resets any cached data, cleans up subscriptions, and purges any pending operations.
     ///
@@ -28,40 +31,35 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     // MARK: - Mutations
 
-    /// Setup a funding source.
-    /// - Parameters:
-    ///   - input: Funding Source input information.
-    /// - Returns:
-    ///   - Success: The provisional Funding Source.
-    ///   - Failure:
-    ///     - InsufficientEntitlements.
-    ///     - VelocityExceeded.
-    func setupFundingSource(withInput input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource
-
-    /// Complete a provisional funding source.
-    /// - Parameters:
-    ///   - input: Parameters used to complete the funding source.
-    /// - Returns:
-    ///   - Success: The provisioned Funding Source.
-    ///   - Failure:
-    ///     - DuplicateFundingSource.
-    ///     - FundingSourceCompletionDataInvalid.
-    ///     - IdentityNotVerified.
-    ///     - ProvisionalFundingSourceNotFound.
-    ///     - UnacceptableFundingSource.
-    func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource
-
     /// Provision a card.
     ///
     /// - Returns:
     ///   - Success: A newly provisioned card information is returned.
     ///   - Failure:
     ///     - SudoPlatformError.
-    ///     - SudoVirtualCardsError.
+    ///     - CardProvisionError.
     func provisionCardWithInput(
         _ input: ProvisionCardInput,
+        completion: @escaping ClientCompletion<ProvisionalCard.State>,
         observer: ProvisionCardObservable?
-    ) async throws -> ProvisionalCard.State
+    )
+
+    /// Creates a Funding Source using a Credit Card input.
+    ///
+    /// - Parameters:
+    ///   - input: Credit card information.
+    ///   - authorizationDelegate: `FundingSourceAuthorizationDelegate` delegate to forward any UI hooks to stripe 3Ds with.
+    /// - Returns:
+    ///   - Success: Newly created Funding Source with a credit card.
+    ///   - Failure:
+    ///     - SudoPlatformError.
+    ///     - SudoVirtualCardsError.
+    ///     - FundingSourceError.
+    func createFundingSource(
+        withCreditCardInput input: CreditCardFundingSourceInput,
+        authorizationDelegate: FundingSourceAuthorizationDelegate?,
+        completion: @escaping ClientCompletion<FundingSource>
+    )
 
     /// Cancel a funding source.
     ///
@@ -71,10 +69,11 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - Success: Funding source that was cancelled.
     ///   - Failure:
     ///     - SudoPlatformError.
-    ///     - SudoVirtualCardsError.
+    ///     - FundingSourceError.
     func cancelFundingSourceWithId(
-        _ id: String
-    ) async throws -> FundingSource
+        _ id: String,
+        completion: @escaping ClientCompletion<FundingSource>
+    )
 
     /// Update a card.
     ///
@@ -87,24 +86,22 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - Failure:
     ///     - SudoPlatformError.
     func updateCardWithInput(
-        _ input: UpdateCardInput
-    ) async throws -> Card
+        _ input: UpdateCardInput,
+        completion: @escaping ClientCompletion<Card>
+    )
 
     func cancelCardWithId(
-        _ id: String
-    ) async throws -> Card
+        _ id: String,
+        completion: @escaping ClientCompletion<Card>
+    )
 
     // MARK: - Queries
-
-    /// Get the funding source client configuration.
-    /// Returns: The configuration of the client funding source data.
-    func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration]
 
     /// Get a provisional card using the `id` parameter. If the card cannot be found, `nil` will be returned.
     ///
     /// - Parameters
     ///     - id: ID of the card to be retrieved.
-    ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///     - cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -113,8 +110,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getProvisionalCardWithId(
         _ id: String,
-        cachePolicy: CachePolicy
-    ) async throws -> ProvisionalCard?
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ProvisionalCard?>
+    )
 
     /// Get a list of provisional cards. If no cards can be found, an empty list will be returned.
     ///
@@ -124,26 +122,27 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
     ///    - Success: Cards associated with user, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listProvisionalCardsWithFilter(
+    func getProvisionalCardsWithFilter(
         _ filter: GetProvisionalCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy
-    ) async throws -> ListOutput<ProvisionalCard>
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<ProvisionalCard>>
+    )
 
     /// Get a card using the `id` parameter. If the card cannot be found, `nil` will be returned.
     ///
     /// - Parameters
     ///     - filter: Filter to be applied to results of query.
     ///     - id: ID of the card to be retrieved.
-    ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///     - cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -152,8 +151,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getCardWithId(
         _ id: String,
-        cachePolicy: CachePolicy
-    ) async throws -> Card?
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<Card?>
+    )
 
     /// Get a list of cards. If no cards can be found, an empty list will be returned.
     ///
@@ -163,24 +163,25 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
     ///    - Success: Cards associated with user, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listCardsWithFilter(
+    func getCardsWithFilter(
         _ filter: GetCardsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy
-    ) async throws -> ListOutput<Card>
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<Card>>
+    )
 
     /// Get a funding source using the `id` parameter. If the funding source cannot be found, `nil` will be returned.
     ///
     /// - Parameter id: ID of the funding source to be retrieved.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -189,8 +190,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getFundingSourceWithId(
         _ id: String,
-        cachePolicy: CachePolicy
-    ) async throws -> FundingSource?
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<FundingSource?>
+    )
 
     /// Get a list of funding sources. If no funding sources can be found, an empty list will be returned.
     ///
@@ -199,25 +201,26 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
     ///     - Success: `FundingSource` associated with `id`, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listFundingSourcesWithLimit(
+    func getFundingSourcesWithLimit(
         _ limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy
-    ) async throws -> ListOutput<FundingSource>
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<FundingSource>>
+    )
 
     // MARK: - Methods: Transactions
 
     /// Get a transaction using the `id` parameter. If the transaction cannot be found, `nil` will be returned.
     ///
     /// - Parameter id: ID of the transaction to be retrieved.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `useCache`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
     /// - Returns:
@@ -226,8 +229,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///      - SudoPlatformError.
     func getTransactionWithId(
         _ id: String,
-        cachePolicy: CachePolicy
-    ) async throws -> Transaction?
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<Transaction?>
+    )
 
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
     ///
@@ -241,12 +245,13 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listTransactionsWithFilter(
+    func getTransactionsWithFilter(
         _ filter: GetTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
-        cachePolicy: CachePolicy
-    ) async throws -> ListOutput<Transaction>
+        cachePolicy: CachePolicy,
+        completion: @escaping ClientCompletion<ListOutput<Transaction>>
+    )
 
     // MARK: - Subscriptions
 
@@ -255,9 +260,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter statusChangeHandler: Connection status change.
     /// - Parameter resultHandler: Updated transaction event.
     ///
-    /// - Returns: `SubscriptionToken` object to cancel the subscription.
+    /// - Returns: `Cancellable` object to cancel the subscription.
     @discardableResult func subscribeToTransactionUpdates(
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
-    ) async throws -> SubscriptionToken?
+    ) throws -> Cancellable?
 }
