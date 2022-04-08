@@ -23,3 +23,33 @@ extension OnTransactionUpdateSubscription.Data.OnTransactionUpdate.TransactedAmo
 extension OnTransactionUpdateSubscription.Data.OnTransactionUpdate.Detail.VirtualCardAmount: _SealedCurrencyAmount {}
 extension OnTransactionUpdateSubscription.Data.OnTransactionUpdate.Detail.MarkupAmount: _SealedCurrencyAmount {}
 extension OnTransactionUpdateSubscription.Data.OnTransactionUpdate.Detail.FundingSourceAmount: _SealedCurrencyAmount {}
+
+extension OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card.LastTransaction.BilledAmount: _SealedCurrencyAmount {}
+extension OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card.LastTransaction.TransactedAmount: _SealedCurrencyAmount {}
+extension OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card.LastTransaction.Detail.VirtualCardAmount: _SealedCurrencyAmount {}
+extension OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card.LastTransaction.Detail.MarkupAmount: _SealedCurrencyAmount {}
+extension OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card.LastTransaction.Detail.FundingSourceAmount: _SealedCurrencyAmount {}
+
+extension ListCardsQuery.Data.ListCard.Item.LastTransaction.BilledAmount: _SealedCurrencyAmount {}
+extension ListCardsQuery.Data.ListCard.Item.LastTransaction.TransactedAmount: _SealedCurrencyAmount {}
+extension ListCardsQuery.Data.ListCard.Item.LastTransaction.Detail.VirtualCardAmount: _SealedCurrencyAmount {}
+extension ListCardsQuery.Data.ListCard.Item.LastTransaction.Detail.MarkupAmount: _SealedCurrencyAmount {}
+extension ListCardsQuery.Data.ListCard.Item.LastTransaction.Detail.FundingSourceAmount: _SealedCurrencyAmount {}
+
+extension GetCardQuery.Data.GetCard.LastTransaction.BilledAmount: _SealedCurrencyAmount {}
+extension GetCardQuery.Data.GetCard.LastTransaction.TransactedAmount: _SealedCurrencyAmount {}
+extension GetCardQuery.Data.GetCard.LastTransaction.Detail.VirtualCardAmount: _SealedCurrencyAmount {}
+extension GetCardQuery.Data.GetCard.LastTransaction.Detail.MarkupAmount: _SealedCurrencyAmount {}
+extension GetCardQuery.Data.GetCard.LastTransaction.Detail.FundingSourceAmount: _SealedCurrencyAmount {}
+
+extension UpdateCardMutation.Data.UpdateCard.LastTransaction.BilledAmount: _SealedCurrencyAmount {}
+extension UpdateCardMutation.Data.UpdateCard.LastTransaction.TransactedAmount: _SealedCurrencyAmount {}
+extension UpdateCardMutation.Data.UpdateCard.LastTransaction.Detail.VirtualCardAmount: _SealedCurrencyAmount {}
+extension UpdateCardMutation.Data.UpdateCard.LastTransaction.Detail.MarkupAmount: _SealedCurrencyAmount {}
+extension UpdateCardMutation.Data.UpdateCard.LastTransaction.Detail.FundingSourceAmount: _SealedCurrencyAmount {}
+
+extension CancelCardMutation.Data.CancelCard.LastTransaction.BilledAmount: _SealedCurrencyAmount {}
+extension CancelCardMutation.Data.CancelCard.LastTransaction.TransactedAmount: _SealedCurrencyAmount {}
+extension CancelCardMutation.Data.CancelCard.LastTransaction.Detail.VirtualCardAmount: _SealedCurrencyAmount {}
+extension CancelCardMutation.Data.CancelCard.LastTransaction.Detail.MarkupAmount: _SealedCurrencyAmount {}
+extension CancelCardMutation.Data.CancelCard.LastTransaction.Detail.FundingSourceAmount: _SealedCurrencyAmount {}

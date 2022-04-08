@@ -88,7 +88,7 @@ extension FilterInput where T == String {
     }
 }
 
-extension FilterInput where T == Card.State {
+extension FilterInput where T == VirtualCard.State {
 
     // MARK: - GraphQL Translation
 
@@ -133,8 +133,8 @@ extension FilterInput where T == Card.State {
 
 // MARK: - Concrete Filter Inputs
 
-/// Filter input for `SudoVirtualCardsClient.getProvisionalCardsWithFilter(_:`
-public struct GetProvisionalCardsFilterInput: GraphQLFilterable, Equatable {
+/// Filter input for `SudoVirtualCardsClient.listProvisionalCards(withFilter:)`
+public struct ListProvisionalCardsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Properties
 
@@ -143,7 +143,7 @@ public struct GetProvisionalCardsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Lifecycle
 
-    /// Initialize an instance of `GetProvisionalCardsFilterInput`.
+    /// Initialize an instance of `ListProvisionalCardsFilterInput`.
     public init(clientRefId: FilterInput<String>? = nil) {
         self.clientRefId = clientRefId
     }
@@ -161,18 +161,18 @@ public struct GetProvisionalCardsFilterInput: GraphQLFilterable, Equatable {
 }
 
 /// Kept for future use.
-/// Filter input for `SudoVirtualCardsClient.getCardsWithFilter(_:`
-public struct GetCardsFilterInput: GraphQLFilterable, Equatable {
+/// Filter input for `SudoVirtualCardsClient.listVirtualCards(_:)`
+public struct ListVirtualCardsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Properties
 
     /// Filter input for the `state` property.
-    public let state: FilterInput<Card.State>?
+    public let state: FilterInput<VirtualCard.State>?
 
     // MARK: - Lifecycle
 
     /// Initialize an instance of `GetCardsFilterInput`.
-    public init(state: FilterInput<Card.State>? = nil) {
+    public init(state: FilterInput<VirtualCard.State>? = nil) {
         self.state = state
     }
 
@@ -190,8 +190,8 @@ public struct GetCardsFilterInput: GraphQLFilterable, Equatable {
     }
 }
 
-/// Filter input for `SudoVirtualCardsClient.getTransactionsWithFilter(_:`
-public struct GetTransactionsFilterInput: GraphQLFilterable, Equatable {
+/// Filter input for `SudoVirtualCardsClient.listTransactions(_:)`
+public struct ListTransactionsFilterInput: GraphQLFilterable, Equatable {
 
     // MARK: - Properties
 

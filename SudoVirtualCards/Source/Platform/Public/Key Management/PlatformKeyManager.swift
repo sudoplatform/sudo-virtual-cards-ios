@@ -12,7 +12,7 @@ import SudoLogging
 /// Responsible for Managing the lifecycle of key pairs associated with a service.
 /// Controls the generation of a fixed key pair per its initialized `keyRingServiceName` and `userId`.
 /// The `appName` is used to control the key namespace to allow for exportable app keys.
-protocol PlatformKeyManager: class {
+protocol PlatformKeyManager: AnyObject {
 
     // MARK: - Lifecycle
 

@@ -96,7 +96,7 @@ class TransactionService {
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure: `Error` that occurred.
     func list(
-        withFilter filter: GetTransactionsFilterInput?,
+        withFilter filter: ListTransactionsFilterInput?,
         limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy

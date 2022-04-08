@@ -6,14 +6,6 @@
 
 import Foundation
 
-/// The Sudo Platform SDK representation of an enumeration depicting the provisional funding source state.
-public enum ProvisionalFundingSourceState {
-    case completed
-    case failed
-    case pending
-    case provisioning
-}
-
 /// The Sudo Platform SDK representation of an enumeration depicting the provisional funding source state reason.
 public enum StateReason {
     case admin
@@ -57,6 +49,16 @@ public typealias ProvisioningData = StripeProvisioningData
 
 /// The Sudo Platform SDK representation of a funding source.
 public struct ProvisionalFundingSource: Equatable {
+
+    // MARK: - Supplementary
+
+    /// The Sudo Platform SDK representation of an enumeration depicting the provisional funding source state.
+    public enum State {
+        case completed
+        case failed
+        case pending
+        case provisioning
+    }
 
     // MARK: - Properties
 

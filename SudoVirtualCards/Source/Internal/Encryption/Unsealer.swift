@@ -22,7 +22,7 @@ enum UnsealingError: Error, Equatable {
 }
 
 /// Works in conjunction with `DecryptionWorker` to unseal any attributes incoming from GraphQL API.
-protocol Unsealer: class {
+protocol Unsealer: AnyObject {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `Unsealer`.
@@ -36,7 +36,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ card: OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card) throws -> Card
+    func unseal(_ card: OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card) throws -> VirtualCard
 
     /// Attempt to unseal a card received from a `CancelCardMutation`.
     ///
@@ -44,7 +44,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ card: CancelCardMutation.Data.CancelCard) throws -> Card
+    func unseal(_ card: CancelCardMutation.Data.CancelCard) throws -> VirtualCard
 
     /// Attempt to unseal a card received from a `UpdateCardMutation`.
     ///
@@ -52,7 +52,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ card: UpdateCardMutation.Data.UpdateCard) throws -> Card
+    func unseal(_ card: UpdateCardMutation.Data.UpdateCard) throws -> VirtualCard
 
     /// Attempt to unseal a card received from a `GetCardQuery`.
     ///
@@ -60,7 +60,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ card: GetCardQuery.Data.GetCard) throws -> Card
+    func unseal(_ card: GetCardQuery.Data.GetCard) throws -> VirtualCard
 
     /// Attempt to unseal a card received from a `ListCardsQuery`.
     ///
@@ -68,7 +68,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ card: ListCardsQuery.Data.ListCard.Item) throws -> Card
+    func unseal(_ card: ListCardsQuery.Data.ListCard.Item) throws -> VirtualCard
 
     /// Attempt to unseal a card received from a `GetProvisionalCardQuery`.
     ///
@@ -76,7 +76,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ cards: [GetProvisionalCardQuery.Data.GetProvisionalCard.Card]) throws -> Card
+    func unseal(_ cards: [GetProvisionalCardQuery.Data.GetProvisionalCard.Card]) throws -> VirtualCard
 
     /// Attempt to unseal a card received from a `ListProvisionalCardsQuery`.
     ///
@@ -84,7 +84,7 @@ protocol Unsealer: class {
     /// Throws:
     ///     - UnsealingError.
     ///     - KeyManagerError.
-    func unseal(_ cards: [ListProvisionalCardsQuery.Data.ListProvisionalCard.Item.Card]) throws -> Card
+    func unseal(_ cards: [ListProvisionalCardsQuery.Data.ListProvisionalCard.Item.Card]) throws -> VirtualCard
 
     // MARK: - Methods: Unseal Transactions
 
@@ -138,8 +138,8 @@ class DefaultUnsealer: Unsealer {
 
     // MARK: Methods - Cards
 
-    func unseal(_ card: OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card) throws -> Card {
-        let state = Card.State(card.state)
+    func unseal(_ card: OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card) throws -> VirtualCard {
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -152,23 +152,29 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
+
+        var lastTransaction: Transaction?
+        if let lt = card.lastTransaction {
+            lastTransaction = try unseal(lt)
+        }
 
         return try unsealCard(
             id: card.id,
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            lastTransaction: lastTransaction,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -179,8 +185,8 @@ class DefaultUnsealer: Unsealer {
             algorithm: card.algorithm)
     }
 
-    func unseal(_ card: CancelCardMutation.Data.CancelCard) throws -> Card {
-        let state = Card.State(card.state)
+    func unseal(_ card: CancelCardMutation.Data.CancelCard) throws -> VirtualCard {
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -193,23 +199,29 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
+
+        var lastTransaction: Transaction?
+        if let lt = card.lastTransaction {
+            lastTransaction = try unseal(lt)
+        }
 
         return try unsealCard(
             id: card.id,
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            lastTransaction: lastTransaction,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -220,8 +232,8 @@ class DefaultUnsealer: Unsealer {
             algorithm: card.algorithm)
     }
 
-    func unseal(_ card: UpdateCardMutation.Data.UpdateCard) throws -> Card {
-        let state = Card.State(card.state)
+    func unseal(_ card: UpdateCardMutation.Data.UpdateCard) throws -> VirtualCard {
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -234,23 +246,29 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
+
+        var lastTransaction: Transaction?
+        if let lt = card.lastTransaction {
+            lastTransaction = try unseal(lt)
+        }
 
         return try unsealCard(
             id: card.id,
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            lastTransaction: lastTransaction,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -261,8 +279,8 @@ class DefaultUnsealer: Unsealer {
             algorithm: card.algorithm)
     }
 
-    func unseal(_ card: GetCardQuery.Data.GetCard) throws -> Card {
-        let state = Card.State(card.state)
+    func unseal(_ card: GetCardQuery.Data.GetCard) throws -> VirtualCard {
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -275,23 +293,29 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
+
+        var lastTransaction: Transaction?
+        if let lt = card.lastTransaction {
+            lastTransaction = try unseal(lt)
+        }
 
         return try unsealCard(
             id: card.id,
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            lastTransaction: lastTransaction,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -302,8 +326,8 @@ class DefaultUnsealer: Unsealer {
             algorithm: card.algorithm)
     }
 
-    func unseal(_ card: ListCardsQuery.Data.ListCard.Item) throws -> Card {
-        let state = Card.State(card.state)
+    func unseal(_ card: ListCardsQuery.Data.ListCard.Item) throws -> VirtualCard {
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -316,23 +340,29 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
+
+        var lastTransaction: Transaction?
+        if let lt = card.lastTransaction {
+            lastTransaction = try unseal(lt)
+        }
 
         return try unsealCard(
             id: card.id,
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            lastTransaction: lastTransaction,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -343,13 +373,13 @@ class DefaultUnsealer: Unsealer {
             algorithm: card.algorithm)
     }
 
-    func unseal(_ cards: [GetProvisionalCardQuery.Data.GetProvisionalCard.Card]) throws -> Card {
+    func unseal(_ cards: [GetProvisionalCardQuery.Data.GetProvisionalCard.Card]) throws -> VirtualCard {
         guard let card = try cards.first(where: {
             try platformKeyManager.getKeyPairWithId($0.keyId) != nil
         }) else {
             throw UnsealingError.keyNotFound
         }
-        let state = Card.State(card.state)
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -362,8 +392,8 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
 
         return try unsealCard(
@@ -371,14 +401,16 @@ class DefaultUnsealer: Unsealer {
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            // Always will be nil as provisional cards shouldn't have transactions - if you are using this to get fully fledged cards, please use get card API.
+            lastTransaction: nil,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -389,14 +421,14 @@ class DefaultUnsealer: Unsealer {
             algorithm: card.algorithm)
     }
 
-    func unseal(_ cards: [ListProvisionalCardsQuery.Data.ListProvisionalCard.Item.Card]) throws -> Card {
+    func unseal(_ cards: [ListProvisionalCardsQuery.Data.ListProvisionalCard.Item.Card]) throws -> VirtualCard {
         guard let card = try cards.first(where: {
             try platformKeyManager.getKeyPairWithId($0.keyId) != nil
         }) else {
             throw UnsealingError.keyNotFound
         }
 
-        let state = Card.State(card.state)
+        let state = VirtualCard.State(card.state)
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress {
             billingAddress = SealedBillingAddress(address)
@@ -409,8 +441,8 @@ class DefaultUnsealer: Unsealer {
         if let cancelledAtEpochMs = card.cancelledAtEpochMs {
             cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
         }
-        let created = Date(millisecondsSince1970: card.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
 
         return try unsealCard(
@@ -418,14 +450,16 @@ class DefaultUnsealer: Unsealer {
             owner: card.owner,
             owners: owners,
             version: card.version,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             fundingSourceId: card.fundingSourceId,
             currency: card.currency,
             state: state,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
             last4: card.last4,
+            // Always will be nil as provisional cards shouldn't have transactions - if you are using this to get fully fledged cards, please use get card API.
+            lastTransaction: nil,
             cardHolder: card.cardHolder,
             alias: card.alias,
             pan: card.pan,
@@ -440,8 +474,8 @@ class DefaultUnsealer: Unsealer {
 
     func unseal(_ transaction: GetTransactionQuery.Data.GetTransaction) throws -> Transaction {
         let type = Transaction.TransactionType(type: transaction.type)
-        let created = Date(millisecondsSince1970: transaction.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: transaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
         let billedAmount = SealedCurrencyAmount(transaction.billedAmount)
         let transactedAmount = SealedCurrencyAmount(transaction.transactedAmount)
         var detail: [SealedTransactionDetailChargeAttribute] = []
@@ -460,8 +494,8 @@ class DefaultUnsealer: Unsealer {
             id: transaction.id,
             cardId: transaction.cardId,
             sequenceId: transaction.sequenceId,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             type: type,
             transactedAEpochMs: transaction.transactedAtEpochMs,
             billedAmount: billedAmount,
@@ -475,8 +509,8 @@ class DefaultUnsealer: Unsealer {
 
     func unseal(_ transaction: ListTransactionsQuery.Data.ListTransaction.Item) throws -> Transaction {
         let type = Transaction.TransactionType(type: transaction.type)
-        let created = Date(millisecondsSince1970: transaction.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: transaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
         let billedAmount = SealedCurrencyAmount(transaction.billedAmount)
         let transactedAmount = SealedCurrencyAmount(transaction.transactedAmount)
         var detail: [SealedTransactionDetailChargeAttribute] = []
@@ -495,8 +529,8 @@ class DefaultUnsealer: Unsealer {
             id: transaction.id,
             cardId: transaction.cardId,
             sequenceId: transaction.sequenceId,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             type: type,
             transactedAEpochMs: transaction.transactedAtEpochMs,
             billedAmount: billedAmount,
@@ -510,8 +544,8 @@ class DefaultUnsealer: Unsealer {
 
     func unseal(_ transaction: OnTransactionUpdateSubscription.Data.OnTransactionUpdate) throws -> Transaction {
         let type = Transaction.TransactionType(type: transaction.type)
-        let created = Date(millisecondsSince1970: transaction.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
+        let createdAt = Date(millisecondsSince1970: transaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
         let billedAmount = SealedCurrencyAmount(transaction.billedAmount)
         let transactedAmount = SealedCurrencyAmount(transaction.transactedAmount)
         var detail: [SealedTransactionDetailChargeAttribute] = []
@@ -530,8 +564,8 @@ class DefaultUnsealer: Unsealer {
             id: transaction.id,
             cardId: transaction.cardId,
             sequenceId: transaction.sequenceId,
-            created: created,
-            updated: updated,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
             type: type,
             transactedAEpochMs: transaction.transactedAtEpochMs,
             billedAmount: billedAmount,
@@ -553,8 +587,8 @@ class DefaultUnsealer: Unsealer {
     /// - Parameter owner: Owner of the card. NOT SEALED.
     /// - Parameter owners: List of owners of the card. NOT SEALED.
     /// - Parameter version: Version of the card. NOT SEALED.
-    /// - Parameter created: Created date of the card. NOT SEALED.
-    /// - Parameter updated: Updated date of the card. NOT SEALED.
+    /// - Parameter createdAt: Created date of the card. NOT SEALED.
+    /// - Parameter updatedAt: Updated date of the card. NOT SEALED.
     /// - Parameter fundingSourceId: Funding source id of the card. NOT SEALED.
     /// - Parameter currency: Currency ISO code of the card. NOT SEALED.
     /// - Parameter state: State of the card. NOT SEALED.
@@ -574,35 +608,39 @@ class DefaultUnsealer: Unsealer {
         owner: String,
         owners: [Owner],
         version: Int,
-        created: Date,
-        updated: Date,
+        createdAt: Date,
+        updatedAt: Date,
         fundingSourceId: String,
         currency: String,
-        state: Card.State,
+        state: VirtualCard.State,
         activeTo: Date,
         cancelledAt: Date?,
         last4: String,
+        lastTransaction: Transaction?,
         cardHolder: SealedString,
-        alias: SealedString,
+        alias: SealedString?,
         pan: SealedString,
         csc: SealedString,
         billingAddress: SealedBillingAddress?,
         expiry: SealedExpiry,
         withKeyId keyId: String,
         algorithm: String
-    ) throws -> Card {
+    ) throws -> VirtualCard {
         let cardHolder = try worker.unsealString(cardHolder, withKeyId: keyId, algorithm: algorithm)
-        let alias = try worker.unsealString(alias, withKeyId: keyId, algorithm: algorithm)
+        var optionalAlias: String?
+        if let alias = alias {
+            optionalAlias = try worker.unsealString(alias, withKeyId: keyId, algorithm: algorithm)
+        }
         let pan = try worker.unsealString(pan, withKeyId: keyId, algorithm: algorithm)
         let csc = try worker.unsealString(csc, withKeyId: keyId, algorithm: algorithm)
-        let optionalBillingAddress: Card.BillingAddress?
+        let optionalBillingAddress: VirtualCard.BillingAddress?
         if let billingAddress = billingAddress {
             optionalBillingAddress = try unsealBillingAddress(billingAddress, withKeyId: keyId, algorithm: algorithm)
         } else {
             optionalBillingAddress = nil
         }
         let expiry = try unsealExpiry(expiry, withKeyId: keyId, algorithm: algorithm)
-        return Card(
+        return VirtualCard(
             id: id,
             owners: owners,
             owner: owner,
@@ -610,7 +648,7 @@ class DefaultUnsealer: Unsealer {
             fundingSourceId: fundingSourceId,
             state: state,
             cardHolder: cardHolder,
-            alias: alias,
+            alias: optionalAlias,
             last4: last4,
             pan: pan,
             csc: csc,
@@ -619,8 +657,10 @@ class DefaultUnsealer: Unsealer {
             currency: currency,
             activeTo: activeTo,
             cancelledAt: cancelledAt,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            lastTransaction: lastTransaction
+        )
     }
 
     /// Unseal a transaction, using its `keyId`.
@@ -630,8 +670,8 @@ class DefaultUnsealer: Unsealer {
     /// - Parameter id: Id of the transaction. NOT SEALED.
     /// - Parameter cardId: Card Id of the transaction. NOT SEALED.
     /// - Parameter sequenceId: sequence ID of the transaction. NOT SEALED.
-    /// - Parameter created: Created date of the transaction. NOT SEALED.
-    /// - Parameter updated: Updated date of the transaction. NOT SEALED.
+    /// - Parameter createdAt: Created date of the transaction. NOT SEALED.
+    /// - Parameter updatedAt: Updated date of the transaction. NOT SEALED.
     /// - Parameter type: Type of the transaction. NOT SEALED.
     /// - Parameter transactedAEpochMs: Transaction time in milliseconds to be unsealed.
     /// - Parameter billedAmount: Amount that is billed to be unsealed.
@@ -644,8 +684,8 @@ class DefaultUnsealer: Unsealer {
         id: String,
         cardId: String,
         sequenceId: String,
-        created: Date,
-        updated: Date,
+        createdAt: Date,
+        updatedAt: Date,
         type: Transaction.TransactionType,
         transactedAEpochMs: SealedDate,
         billedAmount: SealedCurrencyAmount,
@@ -660,9 +700,10 @@ class DefaultUnsealer: Unsealer {
         let billedAmount = try unsealCurrencyAmount(billedAmount, withKeyId: keyId, algorithm: algorithm)
         let transactedAmount = try unsealCurrencyAmount(transactedAmount, withKeyId: keyId, algorithm: algorithm)
         let description = try worker.unsealString(description, withKeyId: keyId, algorithm: algorithm)
-        let optionalDeclineReason: String?
+        let optionalDeclineReason: Transaction.DeclineReason?
         if let declineReason = declineReason {
-            optionalDeclineReason = try worker.unsealString(declineReason, withKeyId: keyId, algorithm: algorithm)
+            let declineReasonString = try worker.unsealString(declineReason, withKeyId: keyId, algorithm: algorithm)
+            optionalDeclineReason = Transaction.DeclineReason(string: declineReasonString)
         } else {
             optionalDeclineReason = nil
         }
@@ -684,8 +725,8 @@ class DefaultUnsealer: Unsealer {
             description: description,
             declineReason: optionalDeclineReason,
             detail: detail,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt)
     }
 
     /// Unseal a sealed currency amount property.
@@ -714,7 +755,7 @@ class DefaultUnsealer: Unsealer {
     ///         - If the input data cannot be encoded to a base 64 data object.
     ///         - If The decrypted data cannot be decoded to a string.
     ///     - `KeyManagerError` if the data cannot be decrypted.
-    func unsealBillingAddress(_ billingAddress: SealedBillingAddress, withKeyId keyId: String, algorithm: String) throws -> Card.BillingAddress {
+    func unsealBillingAddress(_ billingAddress: SealedBillingAddress, withKeyId keyId: String, algorithm: String) throws -> VirtualCard.BillingAddress {
         let addressLine1 = try worker.unsealString(billingAddress.addressLine1, withKeyId: keyId, algorithm: algorithm)
         let addressLine2: String?
         if let al2 = billingAddress.addressLine2 {
@@ -727,7 +768,7 @@ class DefaultUnsealer: Unsealer {
         let postalCode = try worker.unsealString(billingAddress.postalCode, withKeyId: keyId, algorithm: algorithm)
         let country = try worker.unsealString(billingAddress.country, withKeyId: keyId, algorithm: algorithm)
 
-        return Card.BillingAddress(
+        return VirtualCard.BillingAddress(
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             city: city,
@@ -746,10 +787,10 @@ class DefaultUnsealer: Unsealer {
     ///         - If the input data cannot be encoded to a base 64 data object.
     ///         - If The decrypted data cannot be decoded to a string.
     ///     - `KeyManagerError` if the data cannot be decrypted.
-    func unsealExpiry(_ expiry: SealedExpiry, withKeyId keyId: String, algorithm: String) throws -> Card.Expiry {
-        let mm = try worker.unsealString(expiry.mm, withKeyId: keyId, algorithm: algorithm)
-        let yyyy = try worker.unsealString(expiry.yyyy, withKeyId: keyId, algorithm: algorithm)
-        return Card.Expiry(mm: mm, yyyy: yyyy)
+    func unsealExpiry(_ expiry: SealedExpiry, withKeyId keyId: String, algorithm: String) throws -> VirtualCard.Expiry {
+        let mm = try worker.unsealInt(expiry.mm, withKeyId: keyId, algorithm: algorithm)
+        let yyyy = try worker.unsealInt(expiry.yyyy, withKeyId: keyId, algorithm: algorithm)
+        return VirtualCard.Expiry(mm: mm, yyyy: yyyy)
     }
 
     /// Unseal a transaction detail charge attribute.
@@ -800,4 +841,187 @@ class DefaultUnsealer: Unsealer {
         }
         return .init(percent: percent, flat: flat, minCharge: minCharge)
     }
+
+    // MARK: - Helpers: Unseal Last Transactions
+
+    func unseal(_ lastTransaction: OnUpdateCardProvisionStateSubscription.Data.OnUpdateCardProvisionState.Card.LastTransaction) throws -> Transaction {
+        let type = Transaction.TransactionType(type: lastTransaction.type)
+        let createdAt = Date(millisecondsSince1970: lastTransaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: lastTransaction.updatedAtEpochMs)
+        let billedAmount = SealedCurrencyAmount(lastTransaction.billedAmount)
+        let transactedAmount = SealedCurrencyAmount(lastTransaction.transactedAmount)
+        var detail: [SealedTransactionDetailChargeAttribute] = []
+        if let gqlDetail = lastTransaction.detail {
+            detail = gqlDetail.map {
+                return SealedTransactionDetailChargeAttribute(
+                    fundingSourceId: $0.fundingSourceId,
+                    virtualCardAmount: $0.virtualCardAmount,
+                    markup: $0.markup,
+                    markupAmount: $0.markupAmount,
+                    fundingSourceAmount: $0.fundingSourceAmount,
+                    description: $0.description)
+            }
+        }
+        return try unsealTransaction(
+            id: lastTransaction.id,
+            cardId: lastTransaction.cardId,
+            sequenceId: lastTransaction.sequenceId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            type: type,
+            transactedAEpochMs: lastTransaction.transactedAtEpochMs,
+            billedAmount: billedAmount,
+            transactedAmount: transactedAmount,
+            description: lastTransaction.description,
+            declineReason: lastTransaction.declineReason,
+            detail: detail,
+            withKeyId: lastTransaction.keyId,
+            algorithm: lastTransaction.algorithm
+        )
+    }
+
+    func unseal(_ lastTransaction: ListCardsQuery.Data.ListCard.Item.LastTransaction) throws -> Transaction {
+        let type = Transaction.TransactionType(type: lastTransaction.type)
+        let createdAt = Date(millisecondsSince1970: lastTransaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: lastTransaction.updatedAtEpochMs)
+        let billedAmount = SealedCurrencyAmount(lastTransaction.billedAmount)
+        let transactedAmount = SealedCurrencyAmount(lastTransaction.transactedAmount)
+        var detail: [SealedTransactionDetailChargeAttribute] = []
+        if let gqlDetail = lastTransaction.detail {
+            detail = gqlDetail.map {
+                return SealedTransactionDetailChargeAttribute(
+                    fundingSourceId: $0.fundingSourceId,
+                    virtualCardAmount: $0.virtualCardAmount,
+                    markup: $0.markup,
+                    markupAmount: $0.markupAmount,
+                    fundingSourceAmount: $0.fundingSourceAmount,
+                    description: $0.description)
+            }
+        }
+        return try unsealTransaction(
+            id: lastTransaction.id,
+            cardId: lastTransaction.cardId,
+            sequenceId: lastTransaction.sequenceId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            type: type,
+            transactedAEpochMs: lastTransaction.transactedAtEpochMs,
+            billedAmount: billedAmount,
+            transactedAmount: transactedAmount,
+            description: lastTransaction.description,
+            declineReason: lastTransaction.declineReason,
+            detail: detail,
+            withKeyId: lastTransaction.keyId,
+            algorithm: lastTransaction.algorithm
+        )
+    }
+
+    func unseal(_ lastTransaction: GetCardQuery.Data.GetCard.LastTransaction) throws -> Transaction {
+        let type = Transaction.TransactionType(type: lastTransaction.type)
+        let createdAt = Date(millisecondsSince1970: lastTransaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: lastTransaction.updatedAtEpochMs)
+        let billedAmount = SealedCurrencyAmount(lastTransaction.billedAmount)
+        let transactedAmount = SealedCurrencyAmount(lastTransaction.transactedAmount)
+        var detail: [SealedTransactionDetailChargeAttribute] = []
+        if let gqlDetail = lastTransaction.detail {
+            detail = gqlDetail.map {
+                return SealedTransactionDetailChargeAttribute(
+                    fundingSourceId: $0.fundingSourceId,
+                    virtualCardAmount: $0.virtualCardAmount,
+                    markup: $0.markup,
+                    markupAmount: $0.markupAmount,
+                    fundingSourceAmount: $0.fundingSourceAmount,
+                    description: $0.description)
+            }
+        }
+        return try unsealTransaction(
+            id: lastTransaction.id,
+            cardId: lastTransaction.cardId,
+            sequenceId: lastTransaction.sequenceId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            type: type,
+            transactedAEpochMs: lastTransaction.transactedAtEpochMs,
+            billedAmount: billedAmount,
+            transactedAmount: transactedAmount,
+            description: lastTransaction.description,
+            declineReason: lastTransaction.declineReason,
+            detail: detail,
+            withKeyId: lastTransaction.keyId,
+            algorithm: lastTransaction.algorithm
+        )
+    }
+
+    func unseal(_ lastTransaction: UpdateCardMutation.Data.UpdateCard.LastTransaction) throws -> Transaction {
+        let type = Transaction.TransactionType(type: lastTransaction.type)
+        let createdAt = Date(millisecondsSince1970: lastTransaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: lastTransaction.updatedAtEpochMs)
+        let billedAmount = SealedCurrencyAmount(lastTransaction.billedAmount)
+        let transactedAmount = SealedCurrencyAmount(lastTransaction.transactedAmount)
+        var detail: [SealedTransactionDetailChargeAttribute] = []
+        if let gqlDetail = lastTransaction.detail {
+            detail = gqlDetail.map {
+                return SealedTransactionDetailChargeAttribute(
+                    fundingSourceId: $0.fundingSourceId,
+                    virtualCardAmount: $0.virtualCardAmount,
+                    markup: $0.markup,
+                    markupAmount: $0.markupAmount,
+                    fundingSourceAmount: $0.fundingSourceAmount,
+                    description: $0.description)
+            }
+        }
+        return try unsealTransaction(
+            id: lastTransaction.id,
+            cardId: lastTransaction.cardId,
+            sequenceId: lastTransaction.sequenceId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            type: type,
+            transactedAEpochMs: lastTransaction.transactedAtEpochMs,
+            billedAmount: billedAmount,
+            transactedAmount: transactedAmount,
+            description: lastTransaction.description,
+            declineReason: lastTransaction.declineReason,
+            detail: detail,
+            withKeyId: lastTransaction.keyId,
+            algorithm: lastTransaction.algorithm
+        )
+    }
+
+    func unseal(_ lastTransaction: CancelCardMutation.Data.CancelCard.LastTransaction) throws -> Transaction {
+        let type = Transaction.TransactionType(type: lastTransaction.type)
+        let createdAt = Date(millisecondsSince1970: lastTransaction.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: lastTransaction.updatedAtEpochMs)
+        let billedAmount = SealedCurrencyAmount(lastTransaction.billedAmount)
+        let transactedAmount = SealedCurrencyAmount(lastTransaction.transactedAmount)
+        var detail: [SealedTransactionDetailChargeAttribute] = []
+        if let gqlDetail = lastTransaction.detail {
+            detail = gqlDetail.map {
+                return SealedTransactionDetailChargeAttribute(
+                    fundingSourceId: $0.fundingSourceId,
+                    virtualCardAmount: $0.virtualCardAmount,
+                    markup: $0.markup,
+                    markupAmount: $0.markupAmount,
+                    fundingSourceAmount: $0.fundingSourceAmount,
+                    description: $0.description)
+            }
+        }
+        return try unsealTransaction(
+            id: lastTransaction.id,
+            cardId: lastTransaction.cardId,
+            sequenceId: lastTransaction.sequenceId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            type: type,
+            transactedAEpochMs: lastTransaction.transactedAtEpochMs,
+            billedAmount: billedAmount,
+            transactedAmount: transactedAmount,
+            description: lastTransaction.description,
+            declineReason: lastTransaction.declineReason,
+            detail: detail,
+            withKeyId: lastTransaction.keyId,
+            algorithm: lastTransaction.algorithm
+        )
+    }
+
 }

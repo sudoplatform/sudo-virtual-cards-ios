@@ -84,7 +84,7 @@ class PublicKeyService {
 
     /// Get the key ring.
     func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy) async throws -> GetKeyRingQuery.Data {
-        let query = GetKeyRingQuery(keyRingId: keyRingId)
+        let query = GetKeyRingQuery(keyRingId: keyRingId, keyFormats: nil)
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
         guard let result = data else {
             logger.error("Failed to get key ring")
