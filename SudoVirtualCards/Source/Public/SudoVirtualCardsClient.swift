@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -26,6 +26,13 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// sudo services.
     func reset() throws
 
+    /// Create key pair and secret key for use by the Virtual Cards Client if they have not already been created.
+    ///
+    /// The key pair is used to register a public key with the service for the encryption of virtual card and transaction details.
+    ///
+    /// The secret key is used for client side encryption of user specific card metadata.
+    func createKeysIfAbsent() async throws -> CreateKeysIfAbsentResult
+
     // MARK: - Mutations
 
     /// Setup a funding source.
@@ -51,17 +58,14 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - UnacceptableFundingSource.
     func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource
 
-    /// Provision a card.
+    /// Provision a virtual card.
     ///
     /// - Returns:
     ///   - Success: A newly provisioned card information is returned.
     ///   - Failure:
     ///     - SudoPlatformError.
     ///     - SudoVirtualCardsError.
-    func provisionCardWithInput(
-        _ input: ProvisionCardInput,
-        observer: ProvisionCardObservable?
-    ) async throws -> ProvisionalCard.State
+    func provisionVirtualCard(withInput input: ProvisionVirtualCardInput, observer: ProvisionVirtualCardObservable?) async throws -> ProvisionalCardState
 
     /// Cancel a funding source.
     ///
@@ -72,11 +76,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - Failure:
     ///     - SudoPlatformError.
     ///     - SudoVirtualCardsError.
-    func cancelFundingSourceWithId(
-        _ id: String
-    ) async throws -> FundingSource
+    func cancelFundingSource(withId id: String) async throws -> FundingSource
 
-    /// Update a card.
+    /// Update a virtual card.
     ///
     /// It is important to note that when updating a card, all fields that should remain the same should include their
     /// original data.
@@ -86,13 +88,14 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - Success: Updated card.
     ///   - Failure:
     ///     - SudoPlatformError.
-    func updateCardWithInput(
-        _ input: UpdateCardInput
-    ) async throws -> Card
+    func updateVirtualCard(withInput input: UpdateVirtualCardInput) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard>
 
-    func cancelCardWithId(
-        _ id: String
-    ) async throws -> Card
+    /// Cancel a virtual card.
+    ///
+    /// - Parameter id: ID of the card to cancel.
+    ///
+    /// - Returns: Record of Virtual Card that was canceled.
+    func cancelVirtualCard(withId id: String) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard>
 
     // MARK: - Queries
 
@@ -111,16 +114,12 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Card associated with `id`, or `nil` if the card cannot be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getProvisionalCardWithId(
-        _ id: String,
-        cachePolicy: CachePolicy
-    ) async throws -> ProvisionalCard?
+    func getProvisionalCard(withId id: String, cachePolicy: CachePolicy) async throws -> ProvisionalCard?
 
     /// Get a list of provisional cards. If no cards can be found, an empty list will be returned.
     ///
-    /// - Parameter filter: Filter to be applied to results of query.
     /// - Parameter limit: Number of cards to return. If nil, the limit is 10.
-    /// - Parameter nextToken: Generated token by previous calls to `getCards`. This is used for pagination. This value should be
+    /// - Parameter nextToken: Generated token by previous calls to `listProvisionalCards`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
@@ -131,17 +130,15 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Cards associated with user, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listProvisionalCardsWithFilter(
-        _ filter: GetProvisionalCardsFilterInput?,
-        limit: Int?,
+    func listProvisionalCards(
+        withLimit limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
-    ) async throws -> ListOutput<ProvisionalCard>
+    ) async throws -> ListAPIResult<ProvisionalCard, PartialProvisionalCard>
 
     /// Get a card using the `id` parameter. If the card cannot be found, `nil` will be returned.
     ///
     /// - Parameters
-    ///     - filter: Filter to be applied to results of query.
     ///     - id: ID of the card to be retrieved.
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
@@ -150,14 +147,13 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Card associated with `id`, or `nil` if the card cannot be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getCardWithId(
-        _ id: String,
+    func getVirtualCard(
+        withId id: String,
         cachePolicy: CachePolicy
-    ) async throws -> Card?
+    ) async throws -> VirtualCard?
 
     /// Get a list of cards. If no cards can be found, an empty list will be returned.
     ///
-    /// - Parameter filter: Filter to be applied to results of query.
     /// - Parameter limit: Number of cards to return. If nil, the limit is 10.
     /// - Parameter nextToken: Generated token by previous calls to `getCards`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
@@ -170,12 +166,11 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Cards associated with user, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listCardsWithFilter(
-        _ filter: GetCardsFilterInput?,
-        limit: Int?,
+    func listVirtualCards(
+        withLimit limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
-    ) async throws -> ListOutput<Card>
+    ) async throws -> ListAPIResult<VirtualCard, PartialVirtualCard>
 
     /// Get a funding source using the `id` parameter. If the funding source cannot be found, `nil` will be returned.
     ///
@@ -187,8 +182,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - Success: `FundingSource` associated with `id`, or `nil` if the funding source cannot be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getFundingSourceWithId(
-        _ id: String,
+    func getFundingSource(
+        withId id: String,
         cachePolicy: CachePolicy
     ) async throws -> FundingSource?
 
@@ -206,8 +201,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - Success: `FundingSource` associated with `id`, or empty array if no card can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listFundingSourcesWithLimit(
-        _ limit: Int?,
+    func listFundingSources(
+        withLimit limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
     ) async throws -> ListOutput<FundingSource>
@@ -224,14 +219,36 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Transaction associated with `id`, or `nil` if the card cannot be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func getTransactionWithId(
-        _ id: String,
+    func getTransaction(
+        withId id: String,
         cachePolicy: CachePolicy
     ) async throws -> Transaction?
 
+    /// Get a list of transactions by card id. If no transactions can be found, an empty list will be returned.
+    ///
+    /// - Parameter cardId: Identifier of the card to search associated transactions for.
+    /// - Parameter limit: Number of transaction to return. If nil, the limit is up to 1MB of data returned from the service.
+    /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
+    ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
+    /// - Parameter dateRange: Range of upper and lower date limits for records.
+    /// - Parameter sortOrder: Order in which records are returned (based on date).
+    /// - Parameter cachePolicy: Determines how the data is fetched.
+    ///
+    /// - Returns:
+    ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///    - Failure:
+    ///      - SudoPlatformError.
+    func listTransactions(
+        withCardId cardId: String,
+        limit: Int?,
+        nextToken: String?,
+        dateRange: DateRangeInput?,
+        sortOrder: SortOrderInput?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListAPIResult<Transaction, PartialTransaction>
+
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
     ///
-    /// - Parameter filter: Filter to be applied to results of query.
     /// - Parameter limit: Number of transaction to return. If nil, the limit is 10.
     /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
@@ -241,12 +258,11 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure:
     ///      - SudoPlatformError.
-    func listTransactionsWithFilter(
-        _ filter: GetTransactionsFilterInput?,
-        limit: Int?,
+    func listTransactions(
+        withLimit limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
-    ) async throws -> ListOutput<Transaction>
+    ) async throws -> ListAPIResult<Transaction, PartialTransaction>
 
     // MARK: - Subscriptions
 
@@ -256,7 +272,18 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter resultHandler: Updated transaction event.
     ///
     /// - Returns: `SubscriptionToken` object to cancel the subscription.
-    @discardableResult func subscribeToTransactionUpdates(
+    @discardableResult func subscribeToTransactionUpdated(
+        statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
+        resultHandler: @escaping ClientCompletion<Transaction>
+    ) async throws -> SubscriptionToken?
+
+    /// Subscribe to transaction delete events. This includes creation of new transactions.
+    ///
+    /// - Parameter statusChangeHandler: Connection status change.
+    /// - Parameter resultHandler: Deleted transaction event.
+    ///
+    /// - Returns: `SubscriptionToken` object to cancel the subscription.
+    @discardableResult func subscribeToTransactionDeleted(
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
     ) async throws -> SubscriptionToken?

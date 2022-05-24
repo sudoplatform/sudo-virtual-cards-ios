@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -44,8 +44,8 @@ class FundingSourceService {
     ///     - Success: Setup/Provisional information from the service.
     ///     - Failure: `Error` that occurred.
     func setup(input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
-        let input = SetupFundingSourceRequest(type: input.type.fundingSourceType, currency: input.currency)
-        let mutation = SetupFundingSourceMutation(input: input)
+        let input = GraphQL.SetupFundingSourceRequest(currency: input.currency, type: input.type.fundingSourceType)
+        let mutation = GraphQL.SetupFundingSourceMutation(input: input)
         let data = try await GraphQLHelper.performMutation(
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
@@ -87,15 +87,15 @@ class FundingSourceService {
         } catch {
             throw SudoVirtualCardsError.completionFailed
         }
-        let input = CompleteFundingSourceRequest(id: clientId, completionData: encodedCompletionString)
-        let mutation = CompleteFundingSourceMutation(input: input)
+        let input = GraphQL.CompleteFundingSourceRequest(completionData: encodedCompletionString, id: clientId)
+        let mutation = GraphQL.CompleteFundingSourceMutation(input: input)
         let data = try await GraphQLHelper.performMutation(
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             mutation: mutation,
             logger: logger
         )
-        return FundingSource(completeFundingSource: data.completeFundingSource)
+        return FundingSource(fragment: data.completeFundingSource.fragments.fundingSource)
     }
 
     /// Get the client configuration for interacting with 3rd party partner authorization.
@@ -106,7 +106,7 @@ class FundingSourceService {
     ///     - Success: Configuration.
     ///     - Failure: `Error` that occurred.
     func getConfig(cachePolicy: CachePolicy) async throws -> StripeClientConfiguration {
-        let query = GetFundingSourceClientConfigurationQuery()
+        let query = GraphQL.GetFundingSourceClientConfigurationQuery()
         let data = try await GraphQLHelper.performQuery(
             graphQLClient: graphQLClient,
             query: query,
@@ -129,14 +129,14 @@ class FundingSourceService {
     }
 
     func cancel(id: String) async throws -> FundingSource {
-        let mutationInput = IdInput(id: id)
-        let mutation = CancelFundingSourceMutation(input: mutationInput)
+        let mutationInput = GraphQL.IdInput(id: id)
+        let mutation = GraphQL.CancelFundingSourceMutation(input: mutationInput)
         let data = try await GraphQLHelper.performMutation(
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
             mutation: mutation,
             logger: logger
         )
-        return FundingSource(cancelFundingSource: data.cancelFundingSource)
+        return FundingSource(fragment: data.cancelFundingSource.fragments.fundingSource)
     }
 }

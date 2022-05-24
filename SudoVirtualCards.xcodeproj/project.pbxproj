@@ -48,8 +48,7 @@
 		84269C49233C4EC300BF13D6 /* MockGraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84269C48233C4EC300BF13D6 /* MockGraphQL.swift */; };
 		84269C53233C61EC00BF13D6 /* SudoLogger+Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84269C52233C61EC00BF13D6 /* SudoLogger+Platform.swift */; };
 		84269C58233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84269C57233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift */; };
-		842C7F1923DADA76002B70F2 /* SequenceIdFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C7F1823DADA76002B70F2 /* SequenceIdFilter.swift */; };
-		842C7F1B23DBB954002B70F2 /* FilterInputsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C7F1A23DBB954002B70F2 /* FilterInputsTests.swift */; };
+		842E856F282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E856E282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift */; };
 		842E8BD1242838A000B5B94E /* XCTestCase+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E8BD0242838A000B5B94E /* XCTestCase+Utility.swift */; };
 		843064E7233C34E30083874D /* Date+MillisecondsSinceEpoch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843064E6233C34E30083874D /* Date+MillisecondsSinceEpoch.swift */; };
 		84309D652464FE6E00F48ECC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84309D672464FE6E00F48ECC /* Localizable.strings */; };
@@ -60,7 +59,6 @@
 		84309DA2246BA08500F48ECC /* Result+ConvenienceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84309DA1246BA08500F48ECC /* Result+ConvenienceTests.swift */; };
 		84309DA4246BA4A500F48ECC /* WeakCancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84309DA3246BA4A500F48ECC /* WeakCancellable.swift */; };
 		843678BF2325D45C00007E05 /* SudoLogger+VirtualCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843678BE2325D45C00007E05 /* SudoLogger+VirtualCards.swift */; };
-		8436827D2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8436827C2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift */; };
 		843682862320E3F7005F6D34 /* GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843682852320E3F7005F6D34 /* GraphQLAPI.swift */; };
 		8438829C27C4A37A00FC7577 /* ProvisionalFundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438829B27C4A37A00FC7577 /* ProvisionalFundingSource.swift */; };
 		8438829E27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8438829D27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift */; };
@@ -78,16 +76,26 @@
 		844673F8247CB11A0016FA56 /* FundingSourceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844673F7247CB11A0016FA56 /* FundingSourceServiceTests.swift */; };
 		844673FA247CB28D0016FA56 /* MockJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844673F9247CB28D0016FA56 /* MockJSONDecoder.swift */; };
 		844673FC247CB2A90016FA56 /* MockJSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844673FB247CB2A90016FA56 /* MockJSONEncoder.swift */; };
+		844BB6342818C960006F588A /* VirtualCardAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6332818C960006F588A /* VirtualCardAttributes.swift */; };
+		844BB6362818C97B006F588A /* VirtualCardSealedAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6352818C97B006F588A /* VirtualCardSealedAttributes.swift */; };
+		844BB63B2818C9E9006F588A /* TransactionAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB63A2818C9E9006F588A /* TransactionAttributes.swift */; };
+		844BB63D2818C9F1006F588A /* TransactionSealedAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB63C2818C9F1006F588A /* TransactionSealedAttributes.swift */; };
+		844BB6412818CCAF006F588A /* ProvisionalCardAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6402818CCAF006F588A /* ProvisionalCardAttributes.swift */; };
+		844BB6432818CCBA006F588A /* ProvisionalCardSealedAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6422818CCBA006F588A /* ProvisionalCardSealedAttributes.swift */; };
+		844BB6452818D535006F588A /* PartialResult+ProvisionalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6442818D535006F588A /* PartialResult+ProvisionalCard.swift */; };
+		844BB6472818D59A006F588A /* PartialResult+VirtualCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6462818D59A006F588A /* PartialResult+VirtualCard.swift */; };
+		844BB6492818F0F1006F588A /* PartialResult+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB6482818F0F1006F588A /* PartialResult+Transaction.swift */; };
+		844BB64B28191BC4006F588A /* SealedMarkup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB64A28191BC4006F588A /* SealedMarkup.swift */; };
+		844BB64F281A0A04006F588A /* DataFactoryNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844BB64E281A0A04006F588A /* DataFactoryNamespace.swift */; };
 		844D903F2334943E00AD343B /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D903E2334943E00AD343B /* Address.swift */; };
-		844D90412334945E00AD343B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D90402334945E00AD343B /* Card.swift */; };
-		844D90452334A21500AD343B /* ClientInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D90442334A21500AD343B /* ClientInputs.swift */; };
+		844D90412334945E00AD343B /* VirtualCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D90402334945E00AD343B /* VirtualCard.swift */; };
 		844F870027A8EE88000069B5 /* GraphQLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844F86FF27A8EE88000069B5 /* GraphQLHelper.swift */; };
-		845A8B3C2473977700FAFB42 /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B3B2473977700FAFB42 /* CardService.swift */; };
+		845A8B3C2473977700FAFB42 /* VirtualCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B3B2473977700FAFB42 /* VirtualCardService.swift */; };
 		845A8B3F24739E6900FAFB42 /* PublicKeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B3E24739E6900FAFB42 /* PublicKeyService.swift */; };
 		845A8B412474A0FC00FAFB42 /* MockPublicKeyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B402474A0FC00FAFB42 /* MockPublicKeyService.swift */; };
 		845A8B442474AF3500FAFB42 /* PublicKeyServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B432474AF3500FAFB42 /* PublicKeyServiceTests.swift */; };
 		845A8B4924776C6600FAFB42 /* MockCardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B4824776C6600FAFB42 /* MockCardService.swift */; };
-		845A8B4E24779D9B00FAFB42 /* CardServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B4D24779D9B00FAFB42 /* CardServiceTests.swift */; };
+		845A8B4E24779D9B00FAFB42 /* VirtualCardServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B4D24779D9B00FAFB42 /* VirtualCardServiceTests.swift */; };
 		845A8B512477A12E00FAFB42 /* FundingSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A8B502477A12E00FAFB42 /* FundingSourceService.swift */; };
 		845AAB93237E292A00E4A13C /* PlatformSubscriptionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AAB92237E292A00E4A13C /* PlatformSubscriptionStatus.swift */; };
 		845AAB9C237E2D7600E4A13C /* MockAWSNetworkTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AAB9B237E2D7600E4A13C /* MockAWSNetworkTransport.swift */; };
@@ -98,14 +106,29 @@
 		845AABD423848B7D00E4A13C /* Error+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABD323848B7D00E4A13C /* Error+Equality.swift */; };
 		845AABD6238490EB00E4A13C /* Error+Equality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845AABD5238490EB00E4A13C /* Error+Equality.swift */; };
 		845C4CD62372345E00AC8B99 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4CD52372345E00AC8B99 /* Transaction.swift */; };
-		845C4CDA2373C46800AC8B99 /* ListOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C4CD92373C46800AC8B99 /* ListOutput.swift */; };
 		8460A32C23D97655004AB5A9 /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8460A32B23D97655004AB5A9 /* Owner.swift */; };
 		8462FFB82338466000D1A68E /* SudoVirtualCardsClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8462FFB72338466000D1A68E /* SudoVirtualCardsClientTests.swift */; };
-		8476888D2398746D0067D2DD /* ProvisionCardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476888C2398746D0067D2DD /* ProvisionCardObservable.swift */; };
-		8477EEE02396386F006CE618 /* SealedCurrencyAmount+GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477EEDF2396386F006CE618 /* SealedCurrencyAmount+GraphQLAPI.swift */; };
-		8477EEE223963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477EEE123963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift */; };
+		8467C2C727FA7E9B007BB525 /* JSONValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467C2C627FA7E9B007BB525 /* JSONValue.swift */; };
+		8467C2C927FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467C2C827FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift */; };
+		846B27572804F26A00273801 /* CreateKeysIfAbsentResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B27562804F26A00273801 /* CreateKeysIfAbsentResult.swift */; };
+		846B275C280541DF00273801 /* CreateKeysIfAbsentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B275B280541DF00273801 /* CreateKeysIfAbsentUseCase.swift */; };
+		846B276928054C2700273801 /* SudoVirtualCardsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B276828054C2700273801 /* SudoVirtualCardsOperation.swift */; };
+		846B276C280640A500273801 /* SudoVirtualCardsOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846B276B280640A500273801 /* SudoVirtualCardsOperationQueue.swift */; };
+		8472908A2828CF31000C3169 /* ProvisionVirtualCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847290892828CF31000C3169 /* ProvisionVirtualCardIntegrationTests.swift */; };
+		8472908C2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472908B2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift */; };
+		8472908E2828E276000C3169 /* UpdateVirtualCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8472908D2828E276000C3169 /* UpdateVirtualCardIntegrationTests.swift */; };
+		8476888D2398746D0067D2DD /* ProvisionVirtualCardObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8476888C2398746D0067D2DD /* ProvisionVirtualCardObservable.swift */; };
 		84783B34231C916200CCBC27 /* SudoVirtualCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84783B2A231C916200CCBC27 /* SudoVirtualCards.framework */; };
 		84783B3B231C916200CCBC27 /* SudoVirtualCards.h in Headers */ = {isa = PBXBuildFile; fileRef = 84783B2D231C916200CCBC27 /* SudoVirtualCards.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8478C2A3281A3B2F00F7E334 /* DataFactory+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A2281A3B2F00F7E334 /* DataFactory+API.swift */; };
+		8478C2A5281A3E4900F7E334 /* DataFactory+GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A4281A3E4900F7E334 /* DataFactory+GraphQL.swift */; };
+		8478C2A8281A50EF00F7E334 /* FundingSource+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A7281A50EF00F7E334 /* FundingSource+Transformer.swift */; };
+		8478C2AA281B81C500F7E334 /* ProvisionVirtualCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A9281B81C500F7E334 /* ProvisionVirtualCardInput.swift */; };
+		8478C2AC281B81DB00F7E334 /* UpdateVirtualCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2AB281B81DB00F7E334 /* UpdateVirtualCardInput.swift */; };
+		8478C2AE281B81FA00F7E334 /* SetupFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2AD281B81FA00F7E334 /* SetupFundingSourceInput.swift */; };
+		8478C2B0281B824300F7E334 /* CompleteFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2AF281B824300F7E334 /* CompleteFundingSourceInput.swift */; };
+		8478C2B3281B827700F7E334 /* DateRangeInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2B2281B827700F7E334 /* DateRangeInput.swift */; };
+		8478C2B5281B82A400F7E334 /* SortOrderInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2B4281B82A400F7E334 /* SortOrderInput.swift */; };
 		847BDB8E239A2A0B00293C1B /* PlatformSubscriptionStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BDB8D239A2A0B00293C1B /* PlatformSubscriptionStatusTests.swift */; };
 		847BDB90239A2C2600293C1B /* CardProvisioningStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BDB8F239A2C2600293C1B /* CardProvisioningStateTests.swift */; };
 		847BDB92239A2CC900293C1B /* ListOutputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847BDB91239A2CC900293C1B /* ListOutputTests.swift */; };
@@ -119,9 +142,26 @@
 		848ADAB9231F744B0013F196 /* SudoVirtualCardsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848ADAB8231F744B0013F196 /* SudoVirtualCardsClient.swift */; };
 		8494E4E92458F237003FD52E /* GraphQLFilterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8494E4E82458F237003FD52E /* GraphQLFilterable.swift */; };
 		849CA2E023221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849CA2DF23221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift */; };
+		84A043F1280F8FA600D84039 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A043F0280F8FA600D84039 /* APIResult.swift */; };
+		84A043F32810DE0D00D84039 /* Partiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A043F22810DE0D00D84039 /* Partiable.swift */; };
+		84A043F52810DEB800D84039 /* Partiable+Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A043F42810DEB800D84039 /* Partiable+Types.swift */; };
+		84A043FB2811043900D84039 /* ListAPIResult+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A043FA2811043900D84039 /* ListAPIResult+Empty.swift */; };
+		84A043FF281111C700D84039 /* APIResult+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A043FE281111C700D84039 /* APIResult+Hashable.swift */; };
+		84A0440128112E0400D84039 /* ListOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0440028112E0400D84039 /* ListOutput.swift */; };
+		84A044032812252500D84039 /* Nullish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044022812252500D84039 /* Nullish.swift */; };
+		84A044062817A5DD00D84039 /* VirtualCardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044052817A5DD00D84039 /* VirtualCardState.swift */; };
+		84A044082817A5F400D84039 /* VirtualCardBillingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044072817A5F400D84039 /* VirtualCardBillingAddress.swift */; };
+		84A0440A2817A60E00D84039 /* VirtualCardExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044092817A60E00D84039 /* VirtualCardExpiry.swift */; };
+		84A0440C2817A68700D84039 /* PartialVirtualCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0440B2817A68700D84039 /* PartialVirtualCard.swift */; };
+		84A0440F2817A87000D84039 /* ProvisionalCardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0440E2817A87000D84039 /* ProvisionalCardState.swift */; };
+		84A044112817A8A700D84039 /* PartialProvisionalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044102817A8A700D84039 /* PartialProvisionalCard.swift */; };
+		84A044142817AA1100D84039 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044132817AA1100D84039 /* TransactionType.swift */; };
+		84A044162817AA2900D84039 /* TransactionDeclineReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044152817AA2900D84039 /* TransactionDeclineReason.swift */; };
+		84A044182817AA5800D84039 /* TransactionDetailChargeAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044172817AA5800D84039 /* TransactionDetailChargeAttribute.swift */; };
+		84A0441A2817AA9200D84039 /* PartialTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A044192817AA9200D84039 /* PartialTransaction.swift */; };
+		84A0441C2817AB3700D84039 /* CurrencyAmount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0441B2817AB3700D84039 /* CurrencyAmount.swift */; };
 		84AC7A4A2457E4C300815DA9 /* CachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC7A492457E4C300815DA9 /* CachePolicy.swift */; };
 		84B74C4123F0D94D001BEF7C /* SealedTransactionDetailChargeAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B74C4023F0D94D001BEF7C /* SealedTransactionDetailChargeAttribute.swift */; };
-		84B74C4323F0DD92001BEF7C /* SealedMarkup+GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B74C4223F0DD92001BEF7C /* SealedMarkup+GraphQLAPI.swift */; };
 		84BE4F3524E2306400EE75AB /* SubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE4F3424E2306400EE75AB /* SubscriptionToken.swift */; };
 		84BE4F3824E2310300EE75AB /* VirtualCardsSubscriptionToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE4F3724E2310300EE75AB /* VirtualCardsSubscriptionToken.swift */; };
 		84BE4F3A24E2313900EE75AB /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE4F3924E2313900EE75AB /* SubscriptionManager.swift */; };
@@ -133,7 +173,6 @@
 		84CA6BBF23D567070088677E /* SealedBillingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA6BBE23D567070088677E /* SealedBillingAddress.swift */; };
 		84CA6BC123D5673F0088677E /* SealedExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CA6BC023D5673F0088677E /* SealedExpiry.swift */; };
 		84CFC9DB23A9AA1300FDB032 /* ProvisionalCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFC9DA23A9AA1300FDB032 /* ProvisionalCard.swift */; };
-		84CFF8C823D8186000C6BC46 /* FilterInputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CFF8C723D8186000C6BC46 /* FilterInputs.swift */; };
 		84DE4979246BAC53009A93AC /* TransactionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE4978246BAC53009A93AC /* TransactionServiceTests.swift */; };
 		84DE497E246BC7B9009A93AC /* MockTransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DE497D246BC7B9009A93AC /* MockTransactionService.swift */; };
 		84DF458523A735EE002ADC85 /* StripeDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF458423A735EE002ADC85 /* StripeDataTests.swift */; };
@@ -143,6 +182,15 @@
 		84FB5D64244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */; };
 		84FB5D66244EA062006AB2B1 /* String+Last4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D65244EA062006AB2B1 /* String+Last4.swift */; };
 		84FB5D68244EA27A006AB2B1 /* Result+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB5D67244EA27A006AB2B1 /* Result+Convenience.swift */; };
+		84FD6EFC2829E7440006D91F /* CancelVirtualCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6EFB2829E7430006D91F /* CancelVirtualCardIntegrationTests.swift */; };
+		84FD6EFE282A193A0006D91F /* GetVirtualCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6EFD282A193A0006D91F /* GetVirtualCardIntegrationTests.swift */; };
+		84FD6F00282A330D0006D91F /* ListVirtualCardsIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6EFF282A330D0006D91F /* ListVirtualCardsIntegrationTests.swift */; };
+		84FD6F03282A42A30006D91F /* GetProvisionalCardIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F02282A42A30006D91F /* GetProvisionalCardIntegrationTests.swift */; };
+		84FD6F05282A42B10006D91F /* ListProvisionalCardsIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F04282A42B10006D91F /* ListProvisionalCardsIntegrationTests.swift */; };
+		84FD6F09282A437E0006D91F /* ListFundingSourceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F08282A437E0006D91F /* ListFundingSourceIntegrationTests.swift */; };
+		84FD6F0C282A44FE0006D91F /* GetTransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F0B282A44FE0006D91F /* GetTransactionIntegrationTests.swift */; };
+		84FD6F0E282A45080006D91F /* ListTransactionsIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F0D282A45080006D91F /* ListTransactionsIntegrationTests.swift */; };
+		84FD6F12282A47680006D91F /* PublicKeyIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F11282A47680006D91F /* PublicKeyIntegrationTests.swift */; };
 		D9EE6F6427B24D5D00BFC149 /* Data+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE6F6327B24D5D00BFC149 /* Data+Utility.swift */; };
 		F0D8CBFD61A6300779621610 /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C5B2EE21A31BC2A81B5822F /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework */; };
 /* End PBXBuildFile section */
@@ -221,8 +269,7 @@
 		84269C48233C4EC300BF13D6 /* MockGraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGraphQL.swift; sourceTree = "<group>"; };
 		84269C52233C61EC00BF13D6 /* SudoLogger+Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SudoLogger+Platform.swift"; sourceTree = "<group>"; };
 		84269C57233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+MillisecondsSinceEpochTests.swift"; sourceTree = "<group>"; };
-		842C7F1823DADA76002B70F2 /* SequenceIdFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceIdFilter.swift; sourceTree = "<group>"; };
-		842C7F1A23DBB954002B70F2 /* FilterInputsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInputsTests.swift; sourceTree = "<group>"; };
+		842E856E282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFundingSourceIntegrationTests.swift; sourceTree = "<group>"; };
 		842E8BD0242838A000B5B94E /* XCTestCase+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Utility.swift"; sourceTree = "<group>"; };
 		843064E6233C34E30083874D /* Date+MillisecondsSinceEpoch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+MillisecondsSinceEpoch.swift"; sourceTree = "<group>"; };
 		84309D662464FE6E00F48ECC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -234,7 +281,6 @@
 		84309DA3246BA4A500F48ECC /* WeakCancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakCancellable.swift; sourceTree = "<group>"; };
 		843678BE2325D45C00007E05 /* SudoLogger+VirtualCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SudoLogger+VirtualCards.swift"; sourceTree = "<group>"; };
 		8436827A2320D8A5005F6D34 /* SudoVirtualCardsIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoVirtualCardsIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8436827C2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsClientIntegrationTests.swift; sourceTree = "<group>"; };
 		8436827E2320D8A5005F6D34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843682852320E3F7005F6D34 /* GraphQLAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLAPI.swift; sourceTree = "<group>"; };
 		8438829B27C4A37A00FC7577 /* ProvisionalFundingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalFundingSource.swift; sourceTree = "<group>"; };
@@ -253,16 +299,26 @@
 		844673F7247CB11A0016FA56 /* FundingSourceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceServiceTests.swift; sourceTree = "<group>"; };
 		844673F9247CB28D0016FA56 /* MockJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJSONDecoder.swift; sourceTree = "<group>"; };
 		844673FB247CB2A90016FA56 /* MockJSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJSONEncoder.swift; sourceTree = "<group>"; };
+		844BB6332818C960006F588A /* VirtualCardAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardAttributes.swift; sourceTree = "<group>"; };
+		844BB6352818C97B006F588A /* VirtualCardSealedAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardSealedAttributes.swift; sourceTree = "<group>"; };
+		844BB63A2818C9E9006F588A /* TransactionAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionAttributes.swift; sourceTree = "<group>"; };
+		844BB63C2818C9F1006F588A /* TransactionSealedAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionSealedAttributes.swift; sourceTree = "<group>"; };
+		844BB6402818CCAF006F588A /* ProvisionalCardAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalCardAttributes.swift; sourceTree = "<group>"; };
+		844BB6422818CCBA006F588A /* ProvisionalCardSealedAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalCardSealedAttributes.swift; sourceTree = "<group>"; };
+		844BB6442818D535006F588A /* PartialResult+ProvisionalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PartialResult+ProvisionalCard.swift"; sourceTree = "<group>"; };
+		844BB6462818D59A006F588A /* PartialResult+VirtualCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PartialResult+VirtualCard.swift"; sourceTree = "<group>"; };
+		844BB6482818F0F1006F588A /* PartialResult+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PartialResult+Transaction.swift"; sourceTree = "<group>"; };
+		844BB64A28191BC4006F588A /* SealedMarkup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SealedMarkup.swift; sourceTree = "<group>"; };
+		844BB64E281A0A04006F588A /* DataFactoryNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFactoryNamespace.swift; sourceTree = "<group>"; };
 		844D903E2334943E00AD343B /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
-		844D90402334945E00AD343B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		844D90442334A21500AD343B /* ClientInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInputs.swift; sourceTree = "<group>"; };
+		844D90402334945E00AD343B /* VirtualCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCard.swift; sourceTree = "<group>"; };
 		844F86FF27A8EE88000069B5 /* GraphQLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLHelper.swift; sourceTree = "<group>"; };
-		845A8B3B2473977700FAFB42 /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
+		845A8B3B2473977700FAFB42 /* VirtualCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardService.swift; sourceTree = "<group>"; };
 		845A8B3E24739E6900FAFB42 /* PublicKeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyService.swift; sourceTree = "<group>"; };
 		845A8B402474A0FC00FAFB42 /* MockPublicKeyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPublicKeyService.swift; sourceTree = "<group>"; };
 		845A8B432474AF3500FAFB42 /* PublicKeyServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyServiceTests.swift; sourceTree = "<group>"; };
 		845A8B4824776C6600FAFB42 /* MockCardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardService.swift; sourceTree = "<group>"; };
-		845A8B4D24779D9B00FAFB42 /* CardServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardServiceTests.swift; sourceTree = "<group>"; };
+		845A8B4D24779D9B00FAFB42 /* VirtualCardServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardServiceTests.swift; sourceTree = "<group>"; };
 		845A8B502477A12E00FAFB42 /* FundingSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceService.swift; sourceTree = "<group>"; };
 		845AAB92237E292A00E4A13C /* PlatformSubscriptionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformSubscriptionStatus.swift; sourceTree = "<group>"; };
 		845AAB9B237E2D7600E4A13C /* MockAWSNetworkTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAWSNetworkTransport.swift; sourceTree = "<group>"; };
@@ -273,18 +329,33 @@
 		845AABD323848B7D00E4A13C /* Error+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Equality.swift"; sourceTree = "<group>"; };
 		845AABD5238490EB00E4A13C /* Error+Equality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Equality.swift"; sourceTree = "<group>"; };
 		845C4CD52372345E00AC8B99 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		845C4CD92373C46800AC8B99 /* ListOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOutput.swift; sourceTree = "<group>"; };
 		8460A32723D95830004AB5A9 /* GetOwnershipProofOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetOwnershipProofOperationTests.swift; sourceTree = "<group>"; };
 		8460A32B23D97655004AB5A9 /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
 		8462FFB72338466000D1A68E /* SudoVirtualCardsClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsClientTests.swift; sourceTree = "<group>"; };
-		8476888C2398746D0067D2DD /* ProvisionCardObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionCardObservable.swift; sourceTree = "<group>"; };
-		8477EEDF2396386F006CE618 /* SealedCurrencyAmount+GraphQLAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SealedCurrencyAmount+GraphQLAPI.swift"; sourceTree = "<group>"; };
-		8477EEE123963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SealedCardAttributes+GraphQLAPI.swift"; sourceTree = "<group>"; };
+		8467C2C627FA7E9B007BB525 /* JSONValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValue.swift; sourceTree = "<group>"; };
+		8467C2C827FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymmetricKeyEncryptionAlgorithm.swift; sourceTree = "<group>"; };
+		846B27562804F26A00273801 /* CreateKeysIfAbsentResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateKeysIfAbsentResult.swift; sourceTree = "<group>"; };
+		846B275B280541DF00273801 /* CreateKeysIfAbsentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateKeysIfAbsentUseCase.swift; sourceTree = "<group>"; };
+		846B276828054C2700273801 /* SudoVirtualCardsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsOperation.swift; sourceTree = "<group>"; };
+		846B276B280640A500273801 /* SudoVirtualCardsOperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsOperationQueue.swift; sourceTree = "<group>"; };
+		847290892828CF31000C3169 /* ProvisionVirtualCardIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionVirtualCardIntegrationTests.swift; sourceTree = "<group>"; };
+		8472908B2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelFundingSourceIntegrationTests.swift; sourceTree = "<group>"; };
+		8472908D2828E276000C3169 /* UpdateVirtualCardIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateVirtualCardIntegrationTests.swift; sourceTree = "<group>"; };
+		8476888C2398746D0067D2DD /* ProvisionVirtualCardObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionVirtualCardObservable.swift; sourceTree = "<group>"; };
 		84783B2A231C916200CCBC27 /* SudoVirtualCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SudoVirtualCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84783B2D231C916200CCBC27 /* SudoVirtualCards.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SudoVirtualCards.h; sourceTree = "<group>"; };
 		84783B2E231C916200CCBC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84783B33231C916200CCBC27 /* SudoVirtualCardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudoVirtualCardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84783B3A231C916200CCBC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8478C2A2281A3B2F00F7E334 /* DataFactory+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFactory+API.swift"; sourceTree = "<group>"; };
+		8478C2A4281A3E4900F7E334 /* DataFactory+GraphQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFactory+GraphQL.swift"; sourceTree = "<group>"; };
+		8478C2A7281A50EF00F7E334 /* FundingSource+Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FundingSource+Transformer.swift"; sourceTree = "<group>"; };
+		8478C2A9281B81C500F7E334 /* ProvisionVirtualCardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionVirtualCardInput.swift; sourceTree = "<group>"; };
+		8478C2AB281B81DB00F7E334 /* UpdateVirtualCardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateVirtualCardInput.swift; sourceTree = "<group>"; };
+		8478C2AD281B81FA00F7E334 /* SetupFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFundingSourceInput.swift; sourceTree = "<group>"; };
+		8478C2AF281B824300F7E334 /* CompleteFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteFundingSourceInput.swift; sourceTree = "<group>"; };
+		8478C2B2281B827700F7E334 /* DateRangeInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangeInput.swift; sourceTree = "<group>"; };
+		8478C2B4281B82A400F7E334 /* SortOrderInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrderInput.swift; sourceTree = "<group>"; };
 		847BDB8D239A2A0B00293C1B /* PlatformSubscriptionStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformSubscriptionStatusTests.swift; sourceTree = "<group>"; };
 		847BDB8F239A2C2600293C1B /* CardProvisioningStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardProvisioningStateTests.swift; sourceTree = "<group>"; };
 		847BDB91239A2CC900293C1B /* ListOutputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOutputTests.swift; sourceTree = "<group>"; };
@@ -298,9 +369,26 @@
 		848ADAB8231F744B0013F196 /* SudoVirtualCardsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudoVirtualCardsClient.swift; sourceTree = "<group>"; };
 		8494E4E82458F237003FD52E /* GraphQLFilterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFilterable.swift; sourceTree = "<group>"; };
 		849CA2DF23221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSudoVirtualCardsClient.swift; sourceTree = "<group>"; };
+		84A043F0280F8FA600D84039 /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
+		84A043F22810DE0D00D84039 /* Partiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partiable.swift; sourceTree = "<group>"; };
+		84A043F42810DEB800D84039 /* Partiable+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Partiable+Types.swift"; sourceTree = "<group>"; };
+		84A043FA2811043900D84039 /* ListAPIResult+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListAPIResult+Empty.swift"; sourceTree = "<group>"; };
+		84A043FE281111C700D84039 /* APIResult+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIResult+Hashable.swift"; sourceTree = "<group>"; };
+		84A0440028112E0400D84039 /* ListOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListOutput.swift; sourceTree = "<group>"; };
+		84A044022812252500D84039 /* Nullish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nullish.swift; sourceTree = "<group>"; };
+		84A044052817A5DD00D84039 /* VirtualCardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardState.swift; sourceTree = "<group>"; };
+		84A044072817A5F400D84039 /* VirtualCardBillingAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardBillingAddress.swift; sourceTree = "<group>"; };
+		84A044092817A60E00D84039 /* VirtualCardExpiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardExpiry.swift; sourceTree = "<group>"; };
+		84A0440B2817A68700D84039 /* PartialVirtualCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialVirtualCard.swift; sourceTree = "<group>"; };
+		84A0440E2817A87000D84039 /* ProvisionalCardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalCardState.swift; sourceTree = "<group>"; };
+		84A044102817A8A700D84039 /* PartialProvisionalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialProvisionalCard.swift; sourceTree = "<group>"; };
+		84A044132817AA1100D84039 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		84A044152817AA2900D84039 /* TransactionDeclineReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDeclineReason.swift; sourceTree = "<group>"; };
+		84A044172817AA5800D84039 /* TransactionDetailChargeAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailChargeAttribute.swift; sourceTree = "<group>"; };
+		84A044192817AA9200D84039 /* PartialTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartialTransaction.swift; sourceTree = "<group>"; };
+		84A0441B2817AB3700D84039 /* CurrencyAmount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAmount.swift; sourceTree = "<group>"; };
 		84AC7A492457E4C300815DA9 /* CachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachePolicy.swift; sourceTree = "<group>"; };
 		84B74C4023F0D94D001BEF7C /* SealedTransactionDetailChargeAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SealedTransactionDetailChargeAttribute.swift; sourceTree = "<group>"; };
-		84B74C4223F0DD92001BEF7C /* SealedMarkup+GraphQLAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SealedMarkup+GraphQLAPI.swift"; sourceTree = "<group>"; };
 		84BE4F3424E2306400EE75AB /* SubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionToken.swift; sourceTree = "<group>"; };
 		84BE4F3724E2310300EE75AB /* VirtualCardsSubscriptionToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardsSubscriptionToken.swift; sourceTree = "<group>"; };
 		84BE4F3924E2313900EE75AB /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
@@ -312,7 +400,6 @@
 		84CA6BBE23D567070088677E /* SealedBillingAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SealedBillingAddress.swift; sourceTree = "<group>"; };
 		84CA6BC023D5673F0088677E /* SealedExpiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SealedExpiry.swift; sourceTree = "<group>"; };
 		84CFC9DA23A9AA1300FDB032 /* ProvisionalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalCard.swift; sourceTree = "<group>"; };
-		84CFF8C723D8186000C6BC46 /* FilterInputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterInputs.swift; sourceTree = "<group>"; };
 		84DE4978246BAC53009A93AC /* TransactionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionServiceTests.swift; sourceTree = "<group>"; };
 		84DE497D246BC7B9009A93AC /* MockTransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTransactionService.swift; sourceTree = "<group>"; };
 		84DF458423A735EE002ADC85 /* StripeDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeDataTests.swift; sourceTree = "<group>"; };
@@ -322,6 +409,15 @@
 		84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFundingSourceForCreditCardIntegrationTests.swift; sourceTree = "<group>"; };
 		84FB5D65244EA062006AB2B1 /* String+Last4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Last4.swift"; sourceTree = "<group>"; };
 		84FB5D67244EA27A006AB2B1 /* Result+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Convenience.swift"; sourceTree = "<group>"; };
+		84FD6EFB2829E7430006D91F /* CancelVirtualCardIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelVirtualCardIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6EFD282A193A0006D91F /* GetVirtualCardIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetVirtualCardIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6EFF282A330D0006D91F /* ListVirtualCardsIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVirtualCardsIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6F02282A42A30006D91F /* GetProvisionalCardIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProvisionalCardIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6F04282A42B10006D91F /* ListProvisionalCardsIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProvisionalCardsIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6F08282A437E0006D91F /* ListFundingSourceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListFundingSourceIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6F0B282A44FE0006D91F /* GetTransactionIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTransactionIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6F0D282A45080006D91F /* ListTransactionsIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTransactionsIntegrationTests.swift; sourceTree = "<group>"; };
+		84FD6F11282A47680006D91F /* PublicKeyIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyIntegrationTests.swift; sourceTree = "<group>"; };
 		8DE899D206F11AD7FB0DB7A7 /* Pods_SudoVirtualCards_SudoVirtualCardsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoVirtualCards_SudoVirtualCardsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B258871714E5602C1388E662 /* Pods-SudoVirtualCards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoVirtualCards.release.xcconfig"; path = "Target Support Files/Pods-SudoVirtualCards/Pods-SudoVirtualCards.release.xcconfig"; sourceTree = "<group>"; };
 		D9EE6F6327B24D5D00BFC149 /* Data+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Utility.swift"; sourceTree = "<group>"; };
@@ -446,6 +542,7 @@
 		841E5CA5233DB4EC004219B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				84A043FE281111C700D84039 /* APIResult+Hashable.swift */,
 				845AABD5238490EB00E4A13C /* Error+Equality.swift */,
 				84FB5D67244EA27A006AB2B1 /* Result+Convenience.swift */,
 				841E5CA6233DB504004219B9 /* String+DataFromHex.swift */,
@@ -569,13 +666,13 @@
 		843678BD2325D44400007E05 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8478C2A6281A50DE00F7E334 /* Transformers */,
 				84309D6D24652E5E00F48ECC /* Bundle+Static.swift */,
 				843064E6233C34E30083874D /* Date+MillisecondsSinceEpoch.swift */,
+				84A043FA2811043900D84039 /* ListAPIResult+Empty.swift */,
+				84A043F42810DEB800D84039 /* Partiable+Types.swift */,
 				8407BD1C23E135B90018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializable.swift */,
 				84309D9F246BA05900F48ECC /* Result+Convenience.swift */,
-				8477EEE123963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift */,
-				8477EEDF2396386F006CE618 /* SealedCurrencyAmount+GraphQLAPI.swift */,
-				84B74C4223F0DD92001BEF7C /* SealedMarkup+GraphQLAPI.swift */,
 				843678BE2325D45C00007E05 /* SudoLogger+VirtualCards.swift */,
 			);
 			path = Extensions;
@@ -591,7 +688,6 @@
 				8439546223FCB7FA00A52CE0 /* ConfigFIleDecodable.swift */,
 				8407BD1723E114E40018ABEA /* DecryptionWorkerIntegrationTests.swift */,
 				8436827E2320D8A5005F6D34 /* Info.plist */,
-				8436827C2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift */,
 			);
 			path = SudoVirtualCardsIntegrationTests;
 			sourceTree = "<group>";
@@ -599,8 +695,12 @@
 		843882A127C5E23A00FC7577 /* FundingSource */ = {
 			isa = PBXGroup;
 			children = (
+				8472908B2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift */,
 				843882A427C5F0CD00FC7577 /* CompleteFundingSourceIntegrationTests.swift */,
+				84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */,
 				8438829F27C5DDB100FC7577 /* GetFundingSourceClientConfigurationIntegrationTests.swift */,
+				842E856E282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift */,
+				84FD6F08282A437E0006D91F /* ListFundingSourceIntegrationTests.swift */,
 				843882A227C5ED8C00FC7577 /* SetupFundingSourceIntegrationTests.swift */,
 			);
 			path = FundingSource;
@@ -612,6 +712,78 @@
 				844673F7247CB11A0016FA56 /* FundingSourceServiceTests.swift */,
 			);
 			path = "Funding Source";
+			sourceTree = "<group>";
+		};
+		844BB6322818C953006F588A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				844BB6332818C960006F588A /* VirtualCardAttributes.swift */,
+				844BB6352818C97B006F588A /* VirtualCardSealedAttributes.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		844BB6372818C9B0006F588A /* Supplementary */ = {
+			isa = PBXGroup;
+			children = (
+				84A044072817A5F400D84039 /* VirtualCardBillingAddress.swift */,
+				84A044092817A60E00D84039 /* VirtualCardExpiry.swift */,
+				84A044052817A5DD00D84039 /* VirtualCardState.swift */,
+			);
+			path = Supplementary;
+			sourceTree = "<group>";
+		};
+		844BB6382818C9C4006F588A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				844BB63A2818C9E9006F588A /* TransactionAttributes.swift */,
+				844BB63C2818C9F1006F588A /* TransactionSealedAttributes.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		844BB6392818C9CC006F588A /* Supplementary */ = {
+			isa = PBXGroup;
+			children = (
+				84A044152817AA2900D84039 /* TransactionDeclineReason.swift */,
+				84A044172817AA5800D84039 /* TransactionDetailChargeAttribute.swift */,
+				84A044132817AA1100D84039 /* TransactionType.swift */,
+			);
+			path = Supplementary;
+			sourceTree = "<group>";
+		};
+		844BB63E2818CC92006F588A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				844BB6402818CCAF006F588A /* ProvisionalCardAttributes.swift */,
+				844BB6422818CCBA006F588A /* ProvisionalCardSealedAttributes.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		844BB63F2818CC9A006F588A /* Supplementary */ = {
+			isa = PBXGroup;
+			children = (
+				84A0440E2817A87000D84039 /* ProvisionalCardState.swift */,
+			);
+			path = Supplementary;
+			sourceTree = "<group>";
+		};
+		844BB64C281A0907006F588A /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		844BB64D281A09DE006F588A /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				8478C2A2281A3B2F00F7E334 /* DataFactory+API.swift */,
+				8478C2A4281A3E4900F7E334 /* DataFactory+GraphQL.swift */,
+				844BB64E281A0A04006F588A /* DataFactoryNamespace.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		844D903A23345FAF00AD343B /* Platform */ = {
@@ -637,7 +809,7 @@
 		845A8B3A2473976C00FAFB42 /* Card */ = {
 			isa = PBXGroup;
 			children = (
-				845A8B3B2473977700FAFB42 /* CardService.swift */,
+				845A8B3B2473977700FAFB42 /* VirtualCardService.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -661,7 +833,7 @@
 		845A8B4C24779D9100FAFB42 /* Card */ = {
 			isa = PBXGroup;
 			children = (
-				845A8B4D24779D9B00FAFB42 /* CardServiceTests.swift */,
+				845A8B4D24779D9B00FAFB42 /* VirtualCardServiceTests.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -705,7 +877,6 @@
 			children = (
 				84C9E38A244D31BB0067C9CF /* DefaultSudoVirtualCardsClientTests */,
 				847BDB8F239A2C2600293C1B /* CardProvisioningStateTests.swift */,
-				842C7F1A23DBB954002B70F2 /* FilterInputsTests.swift */,
 				847BDB91239A2CC900293C1B /* ListOutputTests.swift */,
 				84DF458423A735EE002ADC85 /* StripeDataTests.swift */,
 				8462FFB72338466000D1A68E /* SudoVirtualCardsClientTests.swift */,
@@ -737,6 +908,7 @@
 		8462FFBD23384A5A00D1A68E /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				844BB64C281A0907006F588A /* Data */,
 				845AABA1237E381800E4A13C /* Extensions */,
 				8462FFB62338462600D1A68E /* Internal */,
 				8462FFB9233846B100D1A68E /* Platform */,
@@ -744,6 +916,52 @@
 				8416FB9C23D6A583003DF0BF /* Data.swift */,
 			);
 			path = Test;
+			sourceTree = "<group>";
+		};
+		846B27582805412800273801 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				846B27592805413F00273801 /* Use Cases */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		846B27592805413F00273801 /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				846B275A2805415300273801 /* Key */,
+			);
+			path = "Use Cases";
+			sourceTree = "<group>";
+		};
+		846B275A2805415300273801 /* Key */ = {
+			isa = PBXGroup;
+			children = (
+				846B275B280541DF00273801 /* CreateKeysIfAbsentUseCase.swift */,
+			);
+			path = Key;
+			sourceTree = "<group>";
+		};
+		846B276A2806409700273801 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				846B276828054C2700273801 /* SudoVirtualCardsOperation.swift */,
+				846B276B280640A500273801 /* SudoVirtualCardsOperationQueue.swift */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
+		847290882828CD03000C3169 /* VirtualCard */ = {
+			isa = PBXGroup;
+			children = (
+				84FD6EFB2829E7430006D91F /* CancelVirtualCardIntegrationTests.swift */,
+				84FD6EFD282A193A0006D91F /* GetVirtualCardIntegrationTests.swift */,
+				84FD6EFF282A330D0006D91F /* ListVirtualCardsIntegrationTests.swift */,
+				84043C42244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift */,
+				847290892828CF31000C3169 /* ProvisionVirtualCardIntegrationTests.swift */,
+				8472908D2828E276000C3169 /* UpdateVirtualCardIntegrationTests.swift */,
+			);
+			path = VirtualCard;
 			sourceTree = "<group>";
 		};
 		84783B20231C916200CCBC27 = {
@@ -789,9 +1007,29 @@
 				845AABD223848B6700E4A13C /* Extensions */,
 				84269C47233C4EBA00BF13D6 /* Mocks */,
 				8462FFBD23384A5A00D1A68E /* Test */,
+				844BB64D281A09DE006F588A /* Utility */,
 				84783B3A231C916200CCBC27 /* Info.plist */,
 			);
 			path = SudoVirtualCardsTests;
+			sourceTree = "<group>";
+		};
+		8478C2A6281A50DE00F7E334 /* Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				84A0441D2817AC3100D84039 /* PartialTransformers */,
+				8478C2A7281A50EF00F7E334 /* FundingSource+Transformer.swift */,
+			);
+			path = Transformers;
+			sourceTree = "<group>";
+		};
+		8478C2B1281B826900F7E334 /* Supplementary */ = {
+			isa = PBXGroup;
+			children = (
+				8478C2B2281B827700F7E334 /* DateRangeInput.swift */,
+				84A044022812252500D84039 /* Nullish.swift */,
+				8478C2B4281B82A400F7E334 /* SortOrderInput.swift */,
+			);
+			path = Supplementary;
 			sourceTree = "<group>";
 		};
 		847BDB8C239A29FA00293C1B /* Subscriptions */ = {
@@ -820,6 +1058,7 @@
 			isa = PBXGroup;
 			children = (
 				8494E4E82458F237003FD52E /* GraphQLFilterable.swift */,
+				84A043F22810DE0D00D84039 /* Partiable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -836,24 +1075,72 @@
 			isa = PBXGroup;
 			children = (
 				84CFF8C623D8184700C6BC46 /* Inputs */,
+				84A0440D2817A85D00D84039 /* ProvisionalCard */,
+				84A044122817A9F200D84039 /* Transaction */,
+				84A044042817A5C000D84039 /* VirtualCard */,
 				844D903E2334943E00AD343B /* Address.swift */,
+				84A043F0280F8FA600D84039 /* APIResult.swift */,
 				84AC7A492457E4C300815DA9 /* CachePolicy.swift */,
-				844D90402334945E00AD343B /* Card.swift */,
+				846B27562804F26A00273801 /* CreateKeysIfAbsentResult.swift */,
+				84A0441B2817AB3700D84039 /* CurrencyAmount.swift */,
 				841F01E223A7101C008DED82 /* FundingSource.swift */,
 				8438829D27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift */,
-				845C4CD92373C46800AC8B99 /* ListOutput.swift */,
+				8467C2C627FA7E9B007BB525 /* JSONValue.swift */,
+				84A0440028112E0400D84039 /* ListOutput.swift */,
 				8460A32B23D97655004AB5A9 /* Owner.swift */,
-				84CFC9DA23A9AA1300FDB032 /* ProvisionalCard.swift */,
 				8438829B27C4A37A00FC7577 /* ProvisionalFundingSource.swift */,
 				84BE4F3424E2306400EE75AB /* SubscriptionToken.swift */,
-				845C4CD52372345E00AC8B99 /* Transaction.swift */,
 			);
 			path = Types;
+			sourceTree = "<group>";
+		};
+		84A044042817A5C000D84039 /* VirtualCard */ = {
+			isa = PBXGroup;
+			children = (
+				844BB6322818C953006F588A /* Protocols */,
+				844BB6372818C9B0006F588A /* Supplementary */,
+				84A0440B2817A68700D84039 /* PartialVirtualCard.swift */,
+				844D90402334945E00AD343B /* VirtualCard.swift */,
+			);
+			path = VirtualCard;
+			sourceTree = "<group>";
+		};
+		84A0440D2817A85D00D84039 /* ProvisionalCard */ = {
+			isa = PBXGroup;
+			children = (
+				844BB63E2818CC92006F588A /* Protocols */,
+				844BB63F2818CC9A006F588A /* Supplementary */,
+				84A044102817A8A700D84039 /* PartialProvisionalCard.swift */,
+				84CFC9DA23A9AA1300FDB032 /* ProvisionalCard.swift */,
+			);
+			path = ProvisionalCard;
+			sourceTree = "<group>";
+		};
+		84A044122817A9F200D84039 /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				844BB6382818C9C4006F588A /* Protocols */,
+				844BB6392818C9CC006F588A /* Supplementary */,
+				84A044192817AA9200D84039 /* PartialTransaction.swift */,
+				845C4CD52372345E00AC8B99 /* Transaction.swift */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		84A0441D2817AC3100D84039 /* PartialTransformers */ = {
+			isa = PBXGroup;
+			children = (
+				844BB6442818D535006F588A /* PartialResult+ProvisionalCard.swift */,
+				844BB6482818F0F1006F588A /* PartialResult+Transaction.swift */,
+				844BB6462818D59A006F588A /* PartialResult+VirtualCard.swift */,
+			);
+			path = PartialTransformers;
 			sourceTree = "<group>";
 		};
 		84BE4F3624E230F000EE75AB /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				846B276A2806409700273801 /* Operation */,
 				844F86FF27A8EE88000069B5 /* GraphQLHelper.swift */,
 				84BE4F3924E2313900EE75AB /* SubscriptionManager.swift */,
 				84BE4F3724E2310300EE75AB /* VirtualCardsSubscriptionToken.swift */,
@@ -878,6 +1165,7 @@
 				84CA6BBE23D567070088677E /* SealedBillingAddress.swift */,
 				8409EC6E23D5192F00553022 /* SealedCurrencyAmount.swift */,
 				84CA6BC023D5673F0088677E /* SealedExpiry.swift */,
+				844BB64A28191BC4006F588A /* SealedMarkup.swift */,
 				84B74C4023F0D94D001BEF7C /* SealedTransactionDetailChargeAttribute.swift */,
 			);
 			path = Types;
@@ -886,8 +1174,11 @@
 		84CFF8C623D8184700C6BC46 /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
-				844D90442334A21500AD343B /* ClientInputs.swift */,
-				84CFF8C723D8186000C6BC46 /* FilterInputs.swift */,
+				8478C2B1281B826900F7E334 /* Supplementary */,
+				8478C2AF281B824300F7E334 /* CompleteFundingSourceInput.swift */,
+				8478C2A9281B81C500F7E334 /* ProvisionVirtualCardInput.swift */,
+				8478C2AD281B81FA00F7E334 /* SetupFundingSourceInput.swift */,
+				8478C2AB281B81DB00F7E334 /* UpdateVirtualCardInput.swift */,
 			);
 			path = Inputs;
 			sourceTree = "<group>";
@@ -925,6 +1216,7 @@
 		84E89E972320D6C000AB34E3 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				846B27582805412800273801 /* Domain */,
 				8409EC6D23D5191300553022 /* Encryption */,
 				843678BD2325D44400007E05 /* Extensions */,
 				8494E4E72458F227003FD52E /* Protocols */,
@@ -933,7 +1225,6 @@
 				84BE4F3624E230F000EE75AB /* Utility */,
 				843682852320E3F7005F6D34 /* GraphQLAPI.swift */,
 				8422321423D7AA0F00ED948C /* Inputs.swift */,
-				842C7F1823DADA76002B70F2 /* SequenceIdFilter.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -944,7 +1235,7 @@
 				849CA2DB23221F180075EA21 /* Errors */,
 				849CA2DC23221F220075EA21 /* Types */,
 				849CA2DF23221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift */,
-				8476888C2398746D0067D2DD /* ProvisionCardObservable.swift */,
+				8476888C2398746D0067D2DD /* ProvisionVirtualCardObservable.swift */,
 				848ADAB8231F744B0013F196 /* SudoVirtualCardsClient.swift */,
 				8439546023FCB24500A52CE0 /* SudoVirtualCardsConfig.swift */,
 			);
@@ -955,6 +1246,7 @@
 			isa = PBXGroup;
 			children = (
 				841F01E423A71438008DED82 /* StripeData.swift */,
+				8467C2C827FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift */,
 				84309DA3246BA4A500F48ECC /* WeakCancellable.swift */,
 			);
 			path = Types;
@@ -974,11 +1266,47 @@
 			isa = PBXGroup;
 			children = (
 				843882A127C5E23A00FC7577 /* FundingSource */,
-				84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */,
-				84043C42244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift */,
+				84FD6F0F282A47560006D91F /* Internal */,
+				84FD6F01282A428C0006D91F /* ProvisionalCard */,
+				84FD6F0A282A44D30006D91F /* Transaction */,
+				847290882828CD03000C3169 /* VirtualCard */,
 				84FB5D5F244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift */,
 			);
 			path = SudoVirtualCardsClient;
+			sourceTree = "<group>";
+		};
+		84FD6F01282A428C0006D91F /* ProvisionalCard */ = {
+			isa = PBXGroup;
+			children = (
+				84FD6F02282A42A30006D91F /* GetProvisionalCardIntegrationTests.swift */,
+				84FD6F04282A42B10006D91F /* ListProvisionalCardsIntegrationTests.swift */,
+			);
+			path = ProvisionalCard;
+			sourceTree = "<group>";
+		};
+		84FD6F0A282A44D30006D91F /* Transaction */ = {
+			isa = PBXGroup;
+			children = (
+				84FD6F0B282A44FE0006D91F /* GetTransactionIntegrationTests.swift */,
+				84FD6F0D282A45080006D91F /* ListTransactionsIntegrationTests.swift */,
+			);
+			path = Transaction;
+			sourceTree = "<group>";
+		};
+		84FD6F0F282A47560006D91F /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				84FD6F10282A47580006D91F /* PublicKey */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		84FD6F10282A47580006D91F /* PublicKey */ = {
+			isa = PBXGroup;
+			children = (
+				84FD6F11282A47680006D91F /* PublicKeyIntegrationTests.swift */,
+			);
+			path = PublicKey;
 			sourceTree = "<group>";
 		};
 		AC4811F82F13E9F94B3E0CAB /* Frameworks */ = {
@@ -1346,7 +1674,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A043FF281111C700D84039 /* APIResult+Hashable.swift in Sources */,
 				84043C45244FBBAD00BA3EF4 /* BlockProvisionCardObserver.swift in Sources */,
+				8472908C2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift in Sources */,
+				84FD6EFC2829E7440006D91F /* CancelVirtualCardIntegrationTests.swift in Sources */,
 				843882A527C5F0CD00FC7577 /* CompleteFundingSourceIntegrationTests.swift in Sources */,
 				8439546323FCB7FA00A52CE0 /* ConfigFIleDecodable.swift in Sources */,
 				84FB5D64244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift in Sources */,
@@ -1354,9 +1685,19 @@
 				845AABD6238490EB00E4A13C /* Error+Equality.swift in Sources */,
 				84FB5D5C244E650A006AB2B1 /* FundingSourceTestData.swift in Sources */,
 				843882A027C5DDB100FC7577 /* GetFundingSourceClientConfigurationIntegrationTests.swift in Sources */,
+				842E856F282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift in Sources */,
+				84FD6F03282A42A30006D91F /* GetProvisionalCardIntegrationTests.swift in Sources */,
 				5D6148AE26C0EDCC009FB037 /* GetSimulatorConversionRatesIntTests.swift in Sources */,
 				5D6148AA26C0EDCC009FB037 /* GetSimulatorMerchantsIntegrationTests.swift in Sources */,
+				84FD6F0C282A44FE0006D91F /* GetTransactionIntegrationTests.swift in Sources */,
+				84FD6EFE282A193A0006D91F /* GetVirtualCardIntegrationTests.swift in Sources */,
+				84FD6F09282A437E0006D91F /* ListFundingSourceIntegrationTests.swift in Sources */,
+				84FD6F05282A42B10006D91F /* ListProvisionalCardsIntegrationTests.swift in Sources */,
+				84FD6F0E282A45080006D91F /* ListTransactionsIntegrationTests.swift in Sources */,
+				84FD6F00282A330D0006D91F /* ListVirtualCardsIntegrationTests.swift in Sources */,
 				84043C43244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift in Sources */,
+				8472908A2828CF31000C3169 /* ProvisionVirtualCardIntegrationTests.swift in Sources */,
+				84FD6F12282A47680006D91F /* PublicKeyIntegrationTests.swift in Sources */,
 				84FB5D68244EA27A006AB2B1 /* Result+Convenience.swift in Sources */,
 				843882A327C5ED8C00FC7577 /* SetupFundingSourceIntegrationTests.swift in Sources */,
 				5D6148AB26C0EDCC009FB037 /* SimulateAuthorizationWithInputIntTests.swift in Sources */,
@@ -1370,7 +1711,7 @@
 				843882A927C5F6C900FC7577 /* StripeIntentWorker.swift in Sources */,
 				8407BD1B23E115B80018ABEA /* SudoLogger+Tests.swift in Sources */,
 				84FB5D60244E8007006AB2B1 /* SudoVirtualCardsClientIntegrationTestCase.swift in Sources */,
-				8436827D2320D8A5005F6D34 /* SudoVirtualCardsClientIntegrationTests.swift in Sources */,
+				8472908E2828E276000C3169 /* UpdateVirtualCardIntegrationTests.swift in Sources */,
 				8439545F23FA1C8F00A52CE0 /* XCTestCase+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1382,16 +1723,19 @@
 				844D903F2334943E00AD343B /* Address.swift in Sources */,
 				845AABB22382571600E4A13C /* AggregateError.swift in Sources */,
 				841145122343214800D3612A /* AnyError.swift in Sources */,
+				84A043F1280F8FA600D84039 /* APIResult.swift in Sources */,
 				841E5CCB2342D464004219B9 /* AWSRegionType+Decodable.swift in Sources */,
 				84309D6E24652E5E00F48ECC /* Bundle+Static.swift in Sources */,
 				84AC7A4A2457E4C300815DA9 /* CachePolicy.swift in Sources */,
-				844D90412334945E00AD343B /* Card.swift in Sources */,
-				845A8B3C2473977700FAFB42 /* CardService.swift in Sources */,
-				844D90452334A21500AD343B /* ClientInputs.swift in Sources */,
+				8478C2B0281B824300F7E334 /* CompleteFundingSourceInput.swift in Sources */,
+				846B27572804F26A00273801 /* CreateKeysIfAbsentResult.swift in Sources */,
+				846B275C280541DF00273801 /* CreateKeysIfAbsentUseCase.swift in Sources */,
+				84A0441C2817AB3700D84039 /* CurrencyAmount.swift in Sources */,
 				843064E7233C34E30083874D /* Date+MillisecondsSinceEpoch.swift in Sources */,
+				8478C2B3281B827700F7E334 /* DateRangeInput.swift in Sources */,
 				84CA6BB723D53EF30088677E /* DecryptionWorker.swift in Sources */,
 				849CA2E023221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift in Sources */,
-				84CFF8C823D8186000C6BC46 /* FilterInputs.swift in Sources */,
+				8478C2A8281A50EF00F7E334 /* FundingSource+Transformer.swift in Sources */,
 				841F01E323A7101C008DED82 /* FundingSource.swift in Sources */,
 				8438829E27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift in Sources */,
 				845A8B512477A12E00FAFB42 /* FundingSourceService.swift in Sources */,
@@ -1399,26 +1743,40 @@
 				8494E4E92458F237003FD52E /* GraphQLFilterable.swift in Sources */,
 				844F870027A8EE88000069B5 /* GraphQLHelper.swift in Sources */,
 				8422321523D7AA0F00ED948C /* Inputs.swift in Sources */,
+				8467C2C727FA7E9B007BB525 /* JSONValue.swift in Sources */,
 				8409EC7123D51D8000553022 /* KeyPair.swift in Sources */,
-				845C4CDA2373C46800AC8B99 /* ListOutput.swift in Sources */,
+				84A043FB2811043900D84039 /* ListAPIResult+Empty.swift in Sources */,
+				84A0440128112E0400D84039 /* ListOutput.swift in Sources */,
+				84A044032812252500D84039 /* Nullish.swift in Sources */,
 				8460A32C23D97655004AB5A9 /* Owner.swift in Sources */,
+				84A043F52810DEB800D84039 /* Partiable+Types.swift in Sources */,
+				84A043F32810DE0D00D84039 /* Partiable.swift in Sources */,
+				84A044112817A8A700D84039 /* PartialProvisionalCard.swift in Sources */,
+				844BB6452818D535006F588A /* PartialResult+ProvisionalCard.swift in Sources */,
+				844BB6492818F0F1006F588A /* PartialResult+Transaction.swift in Sources */,
+				844BB6472818D59A006F588A /* PartialResult+VirtualCard.swift in Sources */,
+				84A0441A2817AA9200D84039 /* PartialTransaction.swift in Sources */,
+				84A0440C2817A68700D84039 /* PartialVirtualCard.swift in Sources */,
 				8409EC6423D02DC200553022 /* PlatformKeyManager.swift in Sources */,
 				845AAB93237E292A00E4A13C /* PlatformSubscriptionStatus.swift in Sources */,
 				84CFC9DB23A9AA1300FDB032 /* ProvisionalCard.swift in Sources */,
+				844BB6412818CCAF006F588A /* ProvisionalCardAttributes.swift in Sources */,
+				844BB6432818CCBA006F588A /* ProvisionalCardSealedAttributes.swift in Sources */,
+				84A0440F2817A87000D84039 /* ProvisionalCardState.swift in Sources */,
 				8438829C27C4A37A00FC7577 /* ProvisionalFundingSource.swift in Sources */,
-				8476888D2398746D0067D2DD /* ProvisionCardObservable.swift in Sources */,
+				8478C2AA281B81C500F7E334 /* ProvisionVirtualCardInput.swift in Sources */,
+				8476888D2398746D0067D2DD /* ProvisionVirtualCardObservable.swift in Sources */,
 				8409EC6123CEDF5F00553022 /* PublicKey.swift in Sources */,
 				8407BD1D23E135B90018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializable.swift in Sources */,
 				845A8B3F24739E6900FAFB42 /* PublicKeyService.swift in Sources */,
 				84309DA0246BA05900F48ECC /* Result+Convenience.swift in Sources */,
 				84CA6BBF23D567070088677E /* SealedBillingAddress.swift in Sources */,
-				8477EEE223963D58006CE618 /* SealedCardAttributes+GraphQLAPI.swift in Sources */,
-				8477EEE02396386F006CE618 /* SealedCurrencyAmount+GraphQLAPI.swift in Sources */,
 				8409EC6F23D5192F00553022 /* SealedCurrencyAmount.swift in Sources */,
 				84CA6BC123D5673F0088677E /* SealedExpiry.swift in Sources */,
-				84B74C4323F0DD92001BEF7C /* SealedMarkup+GraphQLAPI.swift in Sources */,
+				844BB64B28191BC4006F588A /* SealedMarkup.swift in Sources */,
 				84B74C4123F0D94D001BEF7C /* SealedTransactionDetailChargeAttribute.swift in Sources */,
-				842C7F1923DADA76002B70F2 /* SequenceIdFilter.swift in Sources */,
+				8478C2AE281B81FA00F7E334 /* SetupFundingSourceInput.swift in Sources */,
+				8478C2B5281B82A400F7E334 /* SortOrderInput.swift in Sources */,
 				84309D6C246528DD00F48ECC /* Strings.swift in Sources */,
 				841F01E523A71438008DED82 /* StripeData.swift in Sources */,
 				84BE4F3A24E2313900EE75AB /* SubscriptionManager.swift in Sources */,
@@ -1428,10 +1786,26 @@
 				848ADAB9231F744B0013F196 /* SudoVirtualCardsClient.swift in Sources */,
 				8439546123FCB24500A52CE0 /* SudoVirtualCardsConfig.swift in Sources */,
 				845AABC32383A42600E4A13C /* SudoVirtualCardsError.swift in Sources */,
+				846B276928054C2700273801 /* SudoVirtualCardsOperation.swift in Sources */,
+				846B276C280640A500273801 /* SudoVirtualCardsOperationQueue.swift in Sources */,
+				8467C2C927FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift in Sources */,
 				845C4CD62372345E00AC8B99 /* Transaction.swift in Sources */,
+				844BB63B2818C9E9006F588A /* TransactionAttributes.swift in Sources */,
+				84A044162817AA2900D84039 /* TransactionDeclineReason.swift in Sources */,
+				84A044182817AA5800D84039 /* TransactionDetailChargeAttribute.swift in Sources */,
+				844BB63D2818C9F1006F588A /* TransactionSealedAttributes.swift in Sources */,
 				84309D9E246A735B00F48ECC /* TransactionService.swift in Sources */,
+				84A044142817AA1100D84039 /* TransactionType.swift in Sources */,
 				8409EC6C23D16D9700553022 /* Unsealer.swift in Sources */,
+				8478C2AC281B81DB00F7E334 /* UpdateVirtualCardInput.swift in Sources */,
+				844D90412334945E00AD343B /* VirtualCard.swift in Sources */,
+				844BB6342818C960006F588A /* VirtualCardAttributes.swift in Sources */,
+				84A044082817A5F400D84039 /* VirtualCardBillingAddress.swift in Sources */,
+				84A0440A2817A60E00D84039 /* VirtualCardExpiry.swift in Sources */,
+				844BB6362818C97B006F588A /* VirtualCardSealedAttributes.swift in Sources */,
+				845A8B3C2473977700FAFB42 /* VirtualCardService.swift in Sources */,
 				84BE4F3824E2310300EE75AB /* VirtualCardsSubscriptionToken.swift in Sources */,
+				84A044062817A5DD00D84039 /* VirtualCardState.swift in Sources */,
 				84309DA4246BA4A500F48ECC /* WeakCancellable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1442,15 +1816,16 @@
 			files = (
 				845AABC72383AEF200E4A13C /* AggregateErrorTests.swift in Sources */,
 				847BDB90239A2C2600293C1B /* CardProvisioningStateTests.swift in Sources */,
-				845A8B4E24779D9B00FAFB42 /* CardServiceTests.swift in Sources */,
 				843882AF27C607C300FC7577 /* CompleteFundingSourceTests.swift in Sources */,
 				D9EE6F6427B24D5D00BFC149 /* Data+Utility.swift in Sources */,
 				8416FB9D23D6A583003DF0BF /* Data.swift in Sources */,
+				8478C2A3281A3B2F00F7E334 /* DataFactory+API.swift in Sources */,
+				8478C2A5281A3E4900F7E334 /* DataFactory+GraphQL.swift in Sources */,
+				844BB64F281A0A04006F588A /* DataFactoryNamespace.swift in Sources */,
 				84269C58233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift in Sources */,
 				84CA6BB923D53F280088677E /* DecryptionWorkerTests.swift in Sources */,
 				84C9E38E244D32260067C9CF /* DefaultSudoVirtualCardsClientTestCase.swift in Sources */,
 				845AABD423848B7D00E4A13C /* Error+Equality.swift in Sources */,
-				842C7F1B23DBB954002B70F2 /* FilterInputsTests.swift in Sources */,
 				844673F8247CB11A0016FA56 /* FundingSourceServiceTests.swift in Sources */,
 				843882AB27C6043C00FC7577 /* GetFundingSourceClientConfigurationTests.swift in Sources */,
 				847BDB92239A2CC900293C1B /* ListOutputTests.swift in Sources */,
@@ -1478,6 +1853,7 @@
 				84DF458C23A85E39002ADC85 /* SudoVirtualCardsErrorTests.swift in Sources */,
 				84DE4979246BAC53009A93AC /* TransactionServiceTests.swift in Sources */,
 				8409EC7923D538B100553022 /* UnsealerTests.swift in Sources */,
+				845A8B4E24779D9B00FAFB42 /* VirtualCardServiceTests.swift in Sources */,
 				842E8BD1242838A000B5B94E /* XCTestCase+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

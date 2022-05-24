@@ -10,7 +10,7 @@ Please see the [Sudo Platform Developer Docs](https://sudoplatform.com/docs) for
 ## Version Support
 | Technology             | Supported version |
 | ---------------------- | ----------------- |
-| iOS Deployment Target  | 13.0+             |
+| iOS Deployment Target  | 14.0+             |
 | Swift language version | 5.0               |
 | Xcode version          | 12.0+             |
 

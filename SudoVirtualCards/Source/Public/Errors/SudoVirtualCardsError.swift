@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -35,6 +35,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case updateFailed
     /// Failed to retrieve.
     case getFailed
+    /// Algorithm is unrecognized.
+    case unrecognizedAlgorithm(_ algorithm: String)
 
     // MARK: - Service
 
@@ -351,6 +353,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.unknownTimezone
         case let .invalidArgument(msg):
             return msg ?? L10n.VirtualCards.Errors.invalidArgument
+        case .unrecognizedAlgorithm(let algorithm):
+            return "\(String(describing: self)): \(algorithm)"
         case .notAuthorized:
             return L10n.VirtualCards.Errors.notAuthorized
         case .limitExceeded:
@@ -363,8 +367,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.rateLimitExceeded
         case .graphQLError:
             return L10n.VirtualCards.Errors.graphQLError
-        case .fatalError:
-            return L10n.VirtualCards.Errors.fatalError
+        case .fatalError(let msg):
+            return "\(L10n.VirtualCards.Errors.fatalError): \(msg)"
         case .decodingError:
             return L10n.VirtualCards.Errors.decodingError
         }

@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -40,12 +40,20 @@ protocol PlatformKeyManager: AnyObject {
     /// Generate a new current key pair.
     func generateNewCurrentKeyPair() throws -> KeyPair
 
+    func generateNewCurrentSymmetricKey() throws -> String
+
+    func getCurrentSymmetricKeyId() throws -> String?
+
     /// Decrypt input `data` using the input `keyId`.
-    /// - Parameter data: Data to be decrypted.
     /// - Parameter keyId: Key id to be used to access the key to decrypt the `data` with.
     /// - Parameter algorithm: Algorithm to decrypt the `data`.
+    /// - Parameter data: Data to be decrypted.
     /// - Throws: `KeyManagerError` if the key cannot be found or the data cannot be decrypted.
-    func decryptData(_ data: Data, withKeyId keyId: String, algorithm: PublicKeyEncryptionAlgorithm) throws -> Data
+    func decrypt(withPrivateKeyId keyId: String, algorithm: PublicKeyEncryptionAlgorithm, data: Data) throws -> Data
+
+    func decrypt(withSymmetricKeyId keyId: String, data: Data) throws -> Data
+
+    func encrypt(withSymmetricKeyId keyId: String, data: Data) throws -> Data
 
     /// Decrypt the input `data` using the `key`.
     func decryptWithSymmetricKey(_ key: Data, data: Data) throws -> Data
@@ -59,6 +67,7 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
 
     private struct Constants {
         static let currentKeyIdPointerName: String = "current"
+        static let secretKeyIdKeyName: String = "vc-secret-key"
         static let keyManagerKeyTag = "com.sudoplatform"
         static let defaultKeyManagerServiceName = "com.sudoplatform.appservicename"
     }
@@ -197,8 +206,40 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
             privateKey: privateKey)
     }
 
-    func decryptData(_ data: Data, withKeyId keyId: String, algorithm: PublicKeyEncryptionAlgorithm) throws -> Data {
+    func generateNewCurrentSymmetricKey() throws -> String {
+        let keyId = UUID().uuidString
+        guard let keyIdBits = keyId.data(using: .utf8) else {
+            throw SudoVirtualCardsError.fatalError(description: "keyId could not be encoded to UTF-8")
+        }
+        // We need to delete any old key id information before adding a new key.
+        try keyManager.deletePassword(Constants.secretKeyIdKeyName)
+        try keyManager.addPassword(keyIdBits, name: Constants.secretKeyIdKeyName)
+        try keyManager.generateSymmetricKey(keyId)
+        return keyId
+    }
+
+    func getCurrentSymmetricKeyId() throws -> String? {
+        guard let keyIdBits = try keyManager.getPassword(Constants.secretKeyIdKeyName),
+              let keyId = String(data: keyIdBits, encoding: .utf8)
+        else {
+            return nil
+        }
+        guard try keyManager.getSymmetricKey(keyId) != nil else {
+            return nil
+        }
+        return keyId
+    }
+
+    func decrypt(withPrivateKeyId keyId: String, algorithm: PublicKeyEncryptionAlgorithm, data: Data) throws -> Data {
         return try keyManager.decryptWithPrivateKey(keyId, data: data, algorithm: algorithm)
+    }
+
+    func decrypt(withSymmetricKeyId keyId: String, data: Data) throws -> Data {
+        return try keyManager.decryptWithSymmetricKey(keyId, data: data)
+    }
+
+    func encrypt(withSymmetricKeyId keyId: String, data: Data) throws -> Data {
+        return try keyManager.encryptWithSymmetricKey(keyId, data: data)
     }
 
     func decryptWithSymmetricKey(_ key: Data, data: Data) throws -> Data {

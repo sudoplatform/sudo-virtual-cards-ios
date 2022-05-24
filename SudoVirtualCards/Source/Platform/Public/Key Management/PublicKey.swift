@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -24,9 +24,9 @@ struct PublicKey: Hashable {
 
     let version: Int
 
-    let created: Date
+    let createdAt: Date
 
-    let updated: Date
+    let updatedAt: Date
 
     // MARK: - Lifecycle
 
@@ -38,8 +38,8 @@ struct PublicKey: Hashable {
         publicKey: String,
         owner: String,
         version: Int,
-        created: Date,
-        updated: Date
+        createdAt: Date,
+        updatedAt: Date
     ) {
         self.id = id
         self.keyId = keyId
@@ -48,15 +48,15 @@ struct PublicKey: Hashable {
         self.publicKey = publicKey
         self.owner = owner
         self.version = version
-        self.created = created
-        self.updated = updated
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 
     // MARK: - Lifecycle: GraphQL Translation
 
-    init(createPublicKeyForVirtualCards publicKey: CreatePublicKeyForVirtualCardsMutation.Data.CreatePublicKeyForVirtualCard) {
-        let created = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+    init(createPublicKeyForVirtualCards publicKey: GraphQL.CreatePublicKeyMutation.Data.CreatePublicKeyForVirtualCard) {
+        let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -65,13 +65,13 @@ struct PublicKey: Hashable {
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt)
     }
 
-    init(deletePublicKeyForVirtualCards publicKey: DeletePublicKeyForVirtualCardsMutation.Data.DeletePublicKeyForVirtualCard) {
-        let created = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+    init(deletePublicKeyForVirtualCards publicKey: GraphQL.DeletePublicKeyMutation.Data.DeletePublicKeyForVirtualCard) {
+        let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -80,13 +80,13 @@ struct PublicKey: Hashable {
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt)
     }
 
-    init(getPublicKeyForVirtualCards publicKey: GetPublicKeyForVirtualCardsQuery.Data.GetPublicKeyForVirtualCard) {
-        let created = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+    init(getPublicKeyForVirtualCards publicKey: GraphQL.GetPublicKeyQuery.Data.GetPublicKeyForVirtualCard) {
+        let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -95,13 +95,13 @@ struct PublicKey: Hashable {
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt)
     }
 
-    init(getPublicKeysForVirtualCards publicKey: GetPublicKeysForVirtualCardsQuery.Data.GetPublicKeysForVirtualCard.Item) {
-        let created = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+    init(getPublicKeysForVirtualCards publicKey: GraphQL.GetPublicKeysQuery.Data.GetPublicKeysForVirtualCard.Item) {
+        let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -110,13 +110,13 @@ struct PublicKey: Hashable {
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt)
     }
 
-    init(getKeyRingForVirtualCards publicKey: GetKeyRingForVirtualCardsQuery.Data.GetKeyRingForVirtualCard.Item) {
-        let created = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
-        let updated = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+    init(getKeyRingForVirtualCards publicKey: GraphQL.GetKeyRingQuery.Data.GetKeyRingForVirtualCard.Item) {
+        let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -125,7 +125,7 @@ struct PublicKey: Hashable {
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
-            created: created,
-            updated: updated)
+            createdAt: createdAt,
+            updatedAt: updatedAt)
     }
 }

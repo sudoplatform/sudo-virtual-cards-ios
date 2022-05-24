@@ -3,7 +3,7 @@
 //  SudoVirtualCards
 //
 //  Created by Lachlan McCulloch on 28/4/20.
-//  Copyright © 2020 Anonyome Labs. All rights reserved.
+//  Copyright © 2022 Anonyome Labs. All rights reserved.
 //
 
 import Foundation

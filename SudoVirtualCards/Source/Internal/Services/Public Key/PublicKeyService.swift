@@ -1,5 +1,5 @@
 //
-// Copyright © 2020 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -20,7 +20,7 @@ class PublicKeyService {
     typealias GetCurrentKeyPairResult = Swift.Result<KeyPair, Error>
 
     /// Typealias for the GraphQL query type for accessing the key ring.
-    typealias GetKeyRingQuery = GetKeyRingForVirtualCardsQuery
+    typealias GetKeyRingQuery = GraphQL.GetKeyRingQuery
 
     /// Default values used in `CardService`.
     enum Defaults {
@@ -84,7 +84,7 @@ class PublicKeyService {
 
     /// Get the key ring.
     func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy) async throws -> GetKeyRingQuery.Data {
-        let query = GetKeyRingQuery(keyRingId: keyRingId)
+        let query = GetKeyRingQuery(keyRingId: keyRingId, keyFormats: nil)
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
         guard let result = data else {
             logger.error("Failed to get key ring")
@@ -98,8 +98,8 @@ class PublicKeyService {
     /// Although a keypair is passed in, only the public key is sent external to the device. **Private keys remain on the device only**.
     func create(withKeyPair keyPair: KeyPair) async throws -> PublicKey {
         let publicKeyString = keyPair.publicKey.base64EncodedString()
-        let input = CreatePublicKeyInput(keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, algorithm: Defaults.algorithm, publicKey: publicKeyString)
-        let mutation = CreatePublicKeyForVirtualCardsMutation(input: input)
+        let input = GraphQL.CreatePublicKeyInput(algorithm: Defaults.algorithm, keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, publicKey: publicKeyString)
+        let mutation = GraphQL.CreatePublicKeyMutation(input: input)
         let data = try await GraphQLHelper.performMutation(graphQLClient: graphQLClient, mutation: mutation, logger: logger)
         return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
     }
