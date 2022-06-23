@@ -81,6 +81,24 @@ class PublicKeyService {
             return .failure(SudoVirtualCardsError.localKeyPairFailure)
         }
     }
+    
+    /// Get the public key associated with the registered public key on the virtual cards service.
+    ///
+    /// - Parameter id: Id associated with the public key.
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                          will only return cached results of similar exact API calls.
+    /// - Returns:
+    ///     - Success: `PublicKey` associated with `id`, or `nil` if the public key cannot be found.
+    ///     - Failure:
+    ///         - SudoPlatformError.
+    func getPublicKeyWithId(_ id: String, cachePolicy: CachePolicy) async throws -> PublicKey? {
+        let query = GraphQL.GetPublicKeyQuery(keyId: id)
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        guard let key = data?.getPublicKeyForVirtualCards else {
+            return nil
+        }
+        return PublicKey(getPublicKeyForVirtualCards: key)
+    }
 
     /// Get the key ring.
     func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy) async throws -> GetKeyRingQuery.Data {

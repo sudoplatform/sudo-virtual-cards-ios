@@ -233,18 +233,9 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
 
         // Check if Key exists on service, else create.
-        let registeredKeys = try await publicKeyService.getKeyRing(
-            forKeyRingId: keyPair.keyRingId,
-            cachePolicy: .remoteOnly
-        ).getKeyRingForVirtualCards.items
-        let matchedKey = registeredKeys.first { key in
-            let keyIdMatches = (key.keyId == keyPair.keyId)
-            let keyRingIdMatches = (key.keyRingId == keyPair.keyRingId)
-            return keyIdMatches && keyRingIdMatches
-        }
         let publicKey: PublicKey
-        if let matchedKey = matchedKey {
-            publicKey = PublicKey(getKeyRingForVirtualCards: matchedKey)
+        if let fetchedPublicKey = try await self.getPublicKeyWithId(keyPair.keyId, cachePolicy: .remoteOnly) {
+            publicKey = fetchedPublicKey
         } else {
             publicKey = try await publicKeyService.create(withKeyPair: keyPair)
         }
@@ -635,12 +626,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///         - SudoPlatformError.
     func getPublicKeyWithId(_ id: String, cachePolicy: CachePolicy) async throws ->PublicKey? {
         try checkUserSignedIn()
-        let query = GraphQL.GetPublicKeyQuery(keyId: id)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let key = data?.getPublicKeyForVirtualCards else {
-            return nil
-        }
-        return PublicKey(getPublicKeyForVirtualCards: key)
+        return try await publicKeyService.getPublicKeyWithId(id, cachePolicy: cachePolicy)
     }
 
     /// Get a list of public keys. If no public keys can be found, an empty list will be returned.
