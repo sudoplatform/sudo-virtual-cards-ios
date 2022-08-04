@@ -106,7 +106,7 @@ class TransactionService {
             sortOrder: sortOrder?.toGraphQL()
         )
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listTransactions = data?.listTransactionsByCardId else {
+        guard let listTransactions = data?.listTransactionsByCardId2 else {
             return .empty
         }
         let nextToken = listTransactions.nextToken
@@ -132,6 +132,8 @@ class TransactionService {
     /// - Parameters:
     ///     - filter: Filter to be applied to results of query.
     ///     - limit: Number of transaction to return. If nil, the limit is 10.
+    ///     - dateRange: Range of upper and lower date limits for records.
+    ///     - sortOrder: Order in which records are returned (based on date).
     ///     - nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be pre-generated from a previous
     ///         pagination call, otherwise it will throw an error.
     /// - Parameter cachePolicy: Determines how the data is fetched.
@@ -142,12 +144,19 @@ class TransactionService {
     func list(
         withLimit limit: Int?,
         nextToken: String?,
+        dateRange: DateRangeInput?,
+        sortOrder: SortOrderInput?,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         // sequenceId has no affect on this, but we still want to honor other filters.
-        let query = GraphQL.ListTransactionsQuery(limit: limit, nextToken: nextToken)
+        let query = GraphQL.ListTransactionsQuery(
+            limit: limit,
+            nextToken: nextToken,
+            dateRange: dateRange?.toGraphQL(),
+            sortOrder: sortOrder?.toGraphQL()
+        )
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listTransactions = data?.listTransactions else {
+        guard let listTransactions = data?.listTransactions2 else {
             return .empty
         }
         let nextToken = listTransactions.nextToken

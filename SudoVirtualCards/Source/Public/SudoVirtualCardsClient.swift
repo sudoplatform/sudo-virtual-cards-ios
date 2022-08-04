@@ -252,6 +252,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter limit: Number of transaction to return. If nil, the limit is 10.
     /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
+    /// - Parameter dateRange: Range of upper and lower date limits for records.
+    /// - Parameter sortOrder: Order in which records are returned (based on date).
     /// - Parameter cachePolicy: Determines how the data is fetched.
     ///
     /// - Returns:
@@ -261,6 +263,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     func listTransactions(
         withLimit limit: Int?,
         nextToken: String?,
+        dateRange: DateRangeInput?,
+        sortOrder: SortOrderInput?,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<Transaction, PartialTransaction>
 
@@ -287,4 +291,31 @@ public protocol SudoVirtualCardsClient: AnyObject {
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
     ) async throws -> SubscriptionToken?
+}
+
+extension SudoVirtualCardsClient {
+    /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
+    ///
+    /// - Parameter limit: Number of transaction to return. If nil, the limit is 10.
+    /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
+    ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
+    /// - Parameter cachePolicy: Determines how the data is fetched.
+    ///
+    /// - Returns:
+    ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///    - Failure:
+    ///      - SudoPlatformError.
+    @available(*, deprecated, message: "Added new dateRange and sortOrder parameters")
+    func listTransactions(
+        withLimit limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
+        return try await listTransactions(
+            withLimit: limit,
+            nextToken: nextToken,
+            dateRange: nil,
+            sortOrder: nil,
+            cachePolicy: cachePolicy)
+    }
 }

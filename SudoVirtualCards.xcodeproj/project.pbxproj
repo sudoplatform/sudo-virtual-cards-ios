@@ -769,13 +769,6 @@
 			path = Supplementary;
 			sourceTree = "<group>";
 		};
-		844BB64C281A0907006F588A /* Data */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
 		844BB64D281A09DE006F588A /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -908,7 +901,6 @@
 		8462FFBD23384A5A00D1A68E /* Test */ = {
 			isa = PBXGroup;
 			children = (
-				844BB64C281A0907006F588A /* Data */,
 				845AABA1237E381800E4A13C /* Extensions */,
 				8462FFB62338462600D1A68E /* Internal */,
 				8462FFB9233846B100D1A68E /* Platform */,

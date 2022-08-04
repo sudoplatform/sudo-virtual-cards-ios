@@ -12574,27 +12574,31 @@ internal final class GetTransactionQuery: GraphQLQuery {
 
 internal final class ListTransactionsQuery: GraphQLQuery {
   internal static let operationString =
-    "query ListTransactions($limit: Int, $nextToken: String) {\n  listTransactions(limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...SealedTransaction\n    }\n    nextToken\n  }\n}"
+    "query ListTransactions($limit: Int, $nextToken: String, $dateRange: DateRangeInput, $sortOrder: SortOrder) {\n  listTransactions2(limit: $limit, nextToken: $nextToken, dateRange: $dateRange, sortOrder: $sortOrder) {\n    __typename\n    items {\n      __typename\n      ...SealedTransaction\n    }\n    nextToken\n  }\n}"
 
   internal static var requestString: String { return operationString.appending(SealedTransaction.fragmentString).appending(SealedCurrencyAmountAttribute.fragmentString).appending(SealedTransactionDetailChargeAttribute.fragmentString).appending(SealedMarkupAttribute.fragmentString) }
 
   internal var limit: Int?
   internal var nextToken: String?
+  internal var dateRange: DateRangeInput?
+  internal var sortOrder: SortOrder?
 
-  internal init(limit: Int? = nil, nextToken: String? = nil) {
+  internal init(limit: Int? = nil, nextToken: String? = nil, dateRange: DateRangeInput? = nil, sortOrder: SortOrder? = nil) {
     self.limit = limit
     self.nextToken = nextToken
+    self.dateRange = dateRange
+    self.sortOrder = sortOrder
   }
 
   internal var variables: GraphQLMap? {
-    return ["limit": limit, "nextToken": nextToken]
+    return ["limit": limit, "nextToken": nextToken, "dateRange": dateRange, "sortOrder": sortOrder]
   }
 
   internal struct Data: GraphQLSelectionSet {
     internal static let possibleTypes = ["Query"]
 
     internal static let selections: [GraphQLSelection] = [
-      GraphQLField("listTransactions", arguments: ["limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListTransaction.selections))),
+      GraphQLField("listTransactions2", arguments: ["limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken"), "dateRange": GraphQLVariable("dateRange"), "sortOrder": GraphQLVariable("sortOrder")], type: .nonNull(.object(ListTransactions2.selections))),
     ]
 
     internal var snapshot: Snapshot
@@ -12603,20 +12607,20 @@ internal final class ListTransactionsQuery: GraphQLQuery {
       self.snapshot = snapshot
     }
 
-    internal init(listTransactions: ListTransaction) {
-      self.init(snapshot: ["__typename": "Query", "listTransactions": listTransactions.snapshot])
+    internal init(listTransactions2: ListTransactions2) {
+      self.init(snapshot: ["__typename": "Query", "listTransactions2": listTransactions2.snapshot])
     }
 
-    internal var listTransactions: ListTransaction {
+    internal var listTransactions2: ListTransactions2 {
       get {
-        return ListTransaction(snapshot: snapshot["listTransactions"]! as! Snapshot)
+        return ListTransactions2(snapshot: snapshot["listTransactions2"]! as! Snapshot)
       }
       set {
-        snapshot.updateValue(newValue.snapshot, forKey: "listTransactions")
+        snapshot.updateValue(newValue.snapshot, forKey: "listTransactions2")
       }
     }
 
-    internal struct ListTransaction: GraphQLSelectionSet {
+    internal struct ListTransactions2: GraphQLSelectionSet {
       internal static let possibleTypes = ["SealedTransactionConnection"]
 
       internal static let selections: [GraphQLSelection] = [
@@ -13437,7 +13441,7 @@ internal final class ListTransactionsQuery: GraphQLQuery {
 
 internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
   internal static let operationString =
-    "query ListTransactionsByCardId($cardId: ID!, $limit: Int, $nextToken: String, $dateRange: DateRangeInput, $sortOrder: SortOrder) {\n  listTransactionsByCardId(cardId: $cardId, limit: $limit, nextToken: $nextToken, dateRange: $dateRange, sortOrder: $sortOrder) {\n    __typename\n    items {\n      __typename\n      ...SealedTransaction\n    }\n    nextToken\n  }\n}"
+    "query ListTransactionsByCardId($cardId: ID!, $limit: Int, $nextToken: String, $dateRange: DateRangeInput, $sortOrder: SortOrder) {\n  listTransactionsByCardId2(cardId: $cardId, limit: $limit, nextToken: $nextToken, dateRange: $dateRange, sortOrder: $sortOrder) {\n    __typename\n    items {\n      __typename\n      ...SealedTransaction\n    }\n    nextToken\n  }\n}"
 
   internal static var requestString: String { return operationString.appending(SealedTransaction.fragmentString).appending(SealedCurrencyAmountAttribute.fragmentString).appending(SealedTransactionDetailChargeAttribute.fragmentString).appending(SealedMarkupAttribute.fragmentString) }
 
@@ -13463,7 +13467,7 @@ internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
     internal static let possibleTypes = ["Query"]
 
     internal static let selections: [GraphQLSelection] = [
-      GraphQLField("listTransactionsByCardId", arguments: ["cardId": GraphQLVariable("cardId"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken"), "dateRange": GraphQLVariable("dateRange"), "sortOrder": GraphQLVariable("sortOrder")], type: .nonNull(.object(ListTransactionsByCardId.selections))),
+      GraphQLField("listTransactionsByCardId2", arguments: ["cardId": GraphQLVariable("cardId"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken"), "dateRange": GraphQLVariable("dateRange"), "sortOrder": GraphQLVariable("sortOrder")], type: .nonNull(.object(ListTransactionsByCardId2.selections))),
     ]
 
     internal var snapshot: Snapshot
@@ -13472,20 +13476,20 @@ internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
       self.snapshot = snapshot
     }
 
-    internal init(listTransactionsByCardId: ListTransactionsByCardId) {
-      self.init(snapshot: ["__typename": "Query", "listTransactionsByCardId": listTransactionsByCardId.snapshot])
+    internal init(listTransactionsByCardId2: ListTransactionsByCardId2) {
+      self.init(snapshot: ["__typename": "Query", "listTransactionsByCardId2": listTransactionsByCardId2.snapshot])
     }
 
-    internal var listTransactionsByCardId: ListTransactionsByCardId {
+    internal var listTransactionsByCardId2: ListTransactionsByCardId2 {
       get {
-        return ListTransactionsByCardId(snapshot: snapshot["listTransactionsByCardId"]! as! Snapshot)
+        return ListTransactionsByCardId2(snapshot: snapshot["listTransactionsByCardId2"]! as! Snapshot)
       }
       set {
-        snapshot.updateValue(newValue.snapshot, forKey: "listTransactionsByCardId")
+        snapshot.updateValue(newValue.snapshot, forKey: "listTransactionsByCardId2")
       }
     }
 
-    internal struct ListTransactionsByCardId: GraphQLSelectionSet {
+    internal struct ListTransactionsByCardId2: GraphQLSelectionSet {
       internal static let possibleTypes = ["SealedTransactionConnection"]
 
       internal static let selections: [GraphQLSelection] = [

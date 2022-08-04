@@ -81,7 +81,7 @@ class PublicKeyService {
             return .failure(SudoVirtualCardsError.localKeyPairFailure)
         }
     }
-    
+
     /// Get the public key associated with the registered public key on the virtual cards service.
     ///
     /// - Parameter id: Id associated with the public key.

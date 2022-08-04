@@ -488,9 +488,16 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func listTransactions(
         withLimit limit: Int?,
         nextToken: String?,
+        dateRange: DateRangeInput?,
+        sortOrder: SortOrderInput?,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
-        return try await transactionService.list(withLimit: limit, nextToken: nextToken, cachePolicy: cachePolicy)
+        return try await transactionService.list(
+            withLimit: limit,
+            nextToken: nextToken,
+            dateRange: dateRange,
+            sortOrder: sortOrder,
+            cachePolicy: cachePolicy)
     }
 
     @discardableResult
