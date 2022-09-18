@@ -101,7 +101,7 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
         userClient: SudoUserClient,
         logger: Logger
     ) {
-        let keyManager = SudoKeyManagerImpl(
+        let keyManager = LegacySudoKeyManager(
             serviceName: Constants.defaultKeyManagerServiceName,
             keyTag: Constants.keyManagerKeyTag,
             namespace: keyNamespace)
