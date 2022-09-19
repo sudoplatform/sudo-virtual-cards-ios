@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 
   spec.source                = { :git => 'https://github.com/sudoplatform/sudo-virtual-cards-ios.git', :tag => "v#{spec.version}" }
   spec.source_files          = 'SudoVirtualCards/**/*.swift'
-  spec.ios.deployment_target = '14.0'
+  spec.ios.deployment_target = '15.0'
   spec.requires_arc          = true
   spec.swift_version         = '5.0'
 
