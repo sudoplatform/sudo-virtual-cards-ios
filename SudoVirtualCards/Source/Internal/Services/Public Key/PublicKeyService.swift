@@ -92,7 +92,7 @@ class PublicKeyService {
     ///     - Failure:
     ///         - SudoPlatformError.
     func getPublicKeyWithId(_ id: String, cachePolicy: CachePolicy) async throws -> PublicKey? {
-        let query = GraphQL.GetPublicKeyQuery(keyId: id)
+        let query = GraphQL.GetPublicKeyQuery(keyId: id, keyFormats: nil)
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
         guard let key = data?.getPublicKeyForVirtualCards else {
             return nil

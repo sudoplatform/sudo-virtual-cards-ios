@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StripeProvisioningData Structure Reference</title>
+    <title>CheckoutCardCompletionDataInput Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,14 +14,14 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/StripeProvisioningData" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/CheckoutCardCompletionDataInput" class="dashAnchor"></a>
 
-    <a title="StripeProvisioningData Structure Reference"></a>
+    <a title="CheckoutCardCompletionDataInput Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 19.0.0 Docs
+          SudoVirtualCards 20.0.0 Docs
         </a>
         
       </p>
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoVirtualCards Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      StripeProvisioningData Structure Reference
+      CheckoutCardCompletionDataInput Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -60,6 +60,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CachePolicy.html">CachePolicy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
@@ -84,9 +87,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SortOrderInput.html">SortOrderInput</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards11StateReasonO">StateReason</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
@@ -132,6 +132,18 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/AnyError.html">AnyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CheckoutCardClientConfiguration.html">CheckoutCardClientConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CheckoutCardCompletionData.html">CheckoutCardCompletionData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CheckoutCardCompletionDataInput.html">CheckoutCardCompletionDataInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CheckoutCardInteractionData.html">CheckoutCardInteractionData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CompleteFundingSourceInput.html">CompleteFundingSourceInput</a>
@@ -188,13 +200,13 @@
                 <a class="nav-group-task-link" href="../Structs.html#/s:16SudoVirtualCards23SetupFundingSourceInputV">SetupFundingSourceInput</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/StripeCompletionDataInput.html">StripeCompletionDataInput</a>
+                <a class="nav-group-task-link" href="../Structs/StripeCardClientConfiguration.html">StripeCardClientConfiguration</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/StripeFundingSourceClientConfiguration.html">StripeFundingSourceClientConfiguration</a>
+                <a class="nav-group-task-link" href="../Structs/StripeCardCompletionData.html">StripeCardCompletionData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/StripeProvisioningData.html">StripeProvisioningData</a>
+                <a class="nav-group-task-link" href="../Structs/StripeCardCompletionDataInput.html">StripeCardCompletionDataInput</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/SudoVirtualCardsConfig.html">SudoVirtualCardsConfig</a>
@@ -239,15 +251,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>StripeProvisioningData</h1>
+            <h1>CheckoutCardCompletionDataInput</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeProvisioningData</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutCardCompletionDataInput</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">FundingSourceProviderData</span></code></pre>
 
                 </div>
               </div>
-            <p>Provisioning Data for Stripe Provisional Funding Source.</p>
+            <p>Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).</p>
 
           </div>
         </section>
@@ -268,9 +280,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards22StripeProvisioningDataV7versionSivp"></a>
-                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards22StripeProvisioningDataV7versionSivp">version</a>
+                    <a name="/s:16SudoVirtualCards31CheckoutCardCompletionDataInputV12paymentTokenSSvp"></a>
+                    <a name="//apple_ref/swift/Property/paymentToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards31CheckoutCardCompletionDataInputV12paymentTokenSSvp">paymentToken</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -278,8 +290,61 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Version of the provisioning data.</p>
+                        <p>Identifier of the Payment Method used.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards31CheckoutCardCompletionDataInputV8providerSSvp"></a>
+                    <a name="//apple_ref/swift/Property/provider" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards31CheckoutCardCompletionDataInputV8providerSSvp">provider</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provider used to save the funding source information.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">provider</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards25FundingSourceProviderDataP7versionSivp"></a>
+                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards25FundingSourceProviderDataP7versionSivp">version</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -295,9 +360,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards22StripeProvisioningDataV12clientSecretSSvp"></a>
-                    <a name="//apple_ref/swift/Property/clientSecret" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards22StripeProvisioningDataV12clientSecretSSvp">clientSecret</a>
+                    <a name="/s:16SudoVirtualCards25FundingSourceProviderDataP4typeAA0dE4TypeOvp"></a>
+                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards25FundingSourceProviderDataP4typeAA0dE4TypeOvp">type</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -305,68 +370,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Client secret used to call stripe setup intent.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">clientSecret</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards22StripeProvisioningDataV6intentSSvp"></a>
-                    <a name="//apple_ref/swift/Property/intent" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards22StripeProvisioningDataV6intentSSvp">intent</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Intent of setup data.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">intent</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards22StripeProvisioningDataV8providerSSvp"></a>
-                    <a name="//apple_ref/swift/Property/provider" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards22StripeProvisioningDataV8providerSSvp">provider</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Provider of the provisioning data.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">provider</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">FundingSourceType</span></code></pre>
 
                         </div>
                       </div>
@@ -381,7 +391,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-09-19)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-24)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

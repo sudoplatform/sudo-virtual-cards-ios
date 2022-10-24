@@ -38,11 +38,13 @@ public struct SetupFundingSourceInput: Equatable {
 
     public let type: SetupFundingSourceType
     public let currency: String
+    public let supportedProviders: [String]?
 
     // MARK: - Lifecycle
 
-    public init(type: SetupFundingSourceType, currency: String) {
+    public init(type: SetupFundingSourceType, currency: String, supportedProviders: [String] = []) {
         self.type = type
         self.currency = currency
+        self.supportedProviders = supportedProviders.isEmpty ? nil : supportedProviders
     }
 }

@@ -41,6 +41,7 @@
 "virtual_cards.errors.unsupportedCurrency" = "Unsupported currency";
 "virtual_cards.errors.fundingSourceNotSetup" = "Funding source not setup";
 "virtual_cards.errors.fundingSourceCompletionDataInvalid" = "Funding source completion data is invalid";
+"virtual_cards.errors.fundingSourceRequiresUserInteraction" = "Funding source setup requires additional user interaction";
 "virtual_cards.errors.fundingSourceStateError" = "Funding source state is inappropriate for the requested operation";
 "virtual_cards.errors.unacceptableFundingSource" = "Funding source is not acceptable";
 

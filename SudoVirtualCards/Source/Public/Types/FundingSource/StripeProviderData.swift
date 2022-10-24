@@ -18,22 +18,16 @@ struct StripeDefaults {
     static let configurationType = "stripe"
 }
 
-/// Basic Stripe Data - all stripe related data contains this.
-protocol StripeData {
-
-    /// Provider String.
-    var provider: String { get }
-    /// Associated supported version.
-    var version: Int { get }
-}
-
-struct StripeSetup: StripeData, Hashable {
+public struct StripeCardProvisioningData: FundingSourceProviderData, Hashable {
 
     // MARK: - Supplementary
 
     struct Data: Decodable, Hashable {
-        let provider: String
 
+        // MARK: - Properties
+
+        let provider: String
+        let type: FundingSourceType
         let version: Int
 
         /// Setup Intent ID.
@@ -42,9 +36,12 @@ struct StripeSetup: StripeData, Hashable {
         /// Setup Client Secret.
         var clientSecret: String
 
+        // MARK: - Lifecycle
+
         init(intent: String, clientSecret: String) {
             self.provider = StripeDefaults.provider
             self.version = StripeDefaults.version
+            self.type = .creditCard
             self.intent = intent
             self.clientSecret = clientSecret
         }
@@ -53,6 +50,7 @@ struct StripeSetup: StripeData, Hashable {
 
         enum CodingKeys: String, CodingKey {
             case provider
+            case type
             case version
             case intent
             case clientSecret = "client_secret"
@@ -73,102 +71,118 @@ struct StripeSetup: StripeData, Hashable {
                                                        in: container,
                                                        debugDescription: "Version must equal \(StripeDefaults.version)")
             }
+            let type = FundingSourceType(try container.decode(String.self, forKey: .type))
+            guard type == FundingSourceType.creditCard else {
+                throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
+                                                       in: container,
+                                                       debugDescription: "Type must equal \(FundingSourceType.creditCard)")
+            }
+
             self.provider = provider
+            self.type = type
             self.version = version
             self.intent = try container.decode(String.self, forKey: .intent)
             self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
         }
     }
 
-    /// ID Associated with the provisioning of the funding source.
-    let id: String
+    // MARK: - Properties
 
-    var provider: String {
+    public var provider: String {
         return data.provider
     }
 
-    var version: Int {
+    public var type: FundingSourceType {
+        return data.type
+    }
+
+    public var version: Int {
         return data.version
     }
 
-    var intent: String {
+    public var intent: String {
         return data.intent
     }
 
-    var clientSecret: String {
+    public var clientSecret: String {
         return data.clientSecret
     }
 
     let data: Data
 
-    init(id: String, data: Data) {
-        self.id = id
+    // MARK: - Lifecycle
+
+    init(data: Data) {
         self.data = data
+    }
+
+    init(intent: String, clientSecret: String) {
+        self.init(data: .init(intent: intent, clientSecret: clientSecret))
     }
 }
 
 /// Data received from stripe to complete provisioning a funding source.
-struct FundingSourceCompletionData: StripeData, Encodable, Hashable {
+public struct StripeCardCompletionData: FundingSourceProviderData, Hashable {
 
-    let provider: String
+    // MARK: - Supplemental
 
-    let version: Int
+    struct Data: Encodable, Hashable {
 
-    /// Specifies payment method bound to confirmed SetupIntent.
-    var paymentMethod: String
+        // MARK: - Properties
 
-    init(paymentMethod: String, provider: String, version: Int) {
-        self.provider = provider
-        self.version = version
-        self.paymentMethod = paymentMethod
-    }
+        let provider: String = "stripe"
+        let type: FundingSourceType = FundingSourceType.creditCard
+        let version: Int = 1
 
-    // MARK: - Conformance: Encodable
+        /// Specifies payment method bound to confirmed SetupIntent.
+        var paymentMethod: String
 
-    enum CodingKeys: String, CodingKey {
-        case provider
-        case version
-        case paymentMethod = "payment_method"
-    }
+        init(paymentMethod: String) {
+            self.paymentMethod = paymentMethod
+        }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(provider, forKey: .provider)
-        try container.encode(version, forKey: .version)
-        try container.encode(paymentMethod, forKey: .paymentMethod)
-    }
-}
+        // MARK: - Conformance: Encodable
 
-/// Data retrieved from the Sudo Virtual Cards Service call `getFundingSourceClientConfiguration`.
-struct StripeClientConfiguration: Decodable, Hashable {
+        enum CodingKeys: String, CodingKey {
+            case provider
+            case type
+            case version
+            case paymentMethod = "payment_method"
+        }
 
-    // MARK: - Supplementary
-
-    struct FundingSourceType: Decodable, Hashable {
-        var type: String = StripeDefaults.configurationType
-        var version: Int = StripeDefaults.version
-        let apiKey: String
-
-        init(apiKey: String) {
-            self.apiKey = apiKey
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(provider, forKey: .provider)
+            try container.encode(type, forKey: .type)
+            try container.encode(version, forKey: .version)
+            try container.encode(paymentMethod, forKey: .paymentMethod)
         }
     }
 
     // MARK: - Properties
 
-    let fundingSourceTypes: [FundingSourceType]
+    let data: Data
+
+    public var provider: String {
+        return data.provider
+    }
+
+    public var type: FundingSourceType {
+        return data.type
+    }
+
+    public var version: Int {
+        return data.version
+    }
+
+    public var paymentMethod: String {
+        return data.paymentMethod
+    }
 
     // MARK: - Lifecycle
 
-    init(fundingSourceTypes: [FundingSourceType]) {
-        self.fundingSourceTypes = fundingSourceTypes
+    init(paymentMethod: String) {
+        self.data = Data(paymentMethod: paymentMethod)
     }
 
-    init(apiKey: String) {
-        self.fundingSourceTypes = [FundingSourceType(apiKey: apiKey)]
-    }
-
-    init(apiKeys: [String]) {
-        self.fundingSourceTypes = apiKeys.map(FundingSourceType.init(apiKey:))
-    }
 }

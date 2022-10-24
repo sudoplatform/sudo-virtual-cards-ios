@@ -74,6 +74,9 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// performed, the funding source is high risk and other reasons.
     case unacceptableFundingSource
 
+    /// Returned on funding source completion when further user interaction is required to complete the funding source setup
+    case fundingSourceRequiresUserInteraction(_ interactionData: FundingSourceInteractionData)
+
     /// Indicates the requested operation failed because the user account is locked.
     case accountLocked
 
@@ -189,6 +192,14 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             self = .fundingSourceStateError
         case "sudoplatform.virtual-cards.UnacceptableFundingSourceError":
             self = .unacceptableFundingSource
+        case "sudoplatform.virtual-cards.FundingSourceRequiresUserInteractionError":
+            let result = decodeProvisionalFundingSourceInteractionData(error["errorInfo"])
+            switch result {
+            case .success(let interactionData):
+                self = .fundingSourceRequiresUserInteraction(interactionData)
+            case .failure(let error):
+                self = error
+            }
         case "sudoplatform.AccountLockedError":
             self = .accountLocked
         case "sudoplatform.DecodingError":
@@ -240,6 +251,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
              (.fundingSourceNotActive, .fundingSourceNotActive),
              (.fundingSourceNotFound, .fundingSourceNotFound),
              (.fundingSourceNotSetup, .fundingSourceNotSetup),
+             (.fundingSourceRequiresUserInteraction, .fundingSourceRequiresUserInteraction),
              (.fundingSourceStateError, .fundingSourceStateError),
              (.getFailed, .getFailed),
              (.graphQLError, .graphQLError),
@@ -305,6 +317,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.fundingSourceNotFound
         case .fundingSourceNotSetup:
             return L10n.VirtualCards.Errors.fundingSourceNotSetup
+        case .fundingSourceRequiresUserInteraction:
+            return L10n.VirtualCards.Errors.fundingSourceRequiresUserInteraction
         case .fundingSourceStateError:
             return L10n.VirtualCards.Errors.fundingSourceStateError
         case .getFailed:
@@ -409,7 +423,6 @@ extension SudoVirtualCardsError {
             return .fatalError(description: "Unexpected API operation error: \(error)")
         }
     }
-
 }
 
 /// Errors associated with the failure of Public Key Registration Lifecycle events.
@@ -422,4 +435,43 @@ public enum PublicKeyError: Error, Equatable {
     case publicKeyNotFound
     /// Operation to access a keyring from the serviced failed.
     case keyRingGetFailed
+}
+
+/// Decode errorInfo from GraphQL error as provisional funding source interaction data
+func decodeProvisionalFundingSourceInteractionData(_ errorInfo: Any?) -> Swift.Result<FundingSourceInteractionData, SudoVirtualCardsError> {
+
+    let msg = "Error info cannot be decoded as funding source interaction data"
+    guard let errorInfo = errorInfo as? JSONObject else {
+        return .failure(SudoVirtualCardsError.internalError("\(msg): \(String(describing: errorInfo)) is not a JSONObject"))
+    }
+
+    let base64ProvisioningData = errorInfo["provisioningData"]
+    guard let base64ProvisioningData = base64ProvisioningData as? String else {
+        return .failure(SudoVirtualCardsError.internalError("\(msg): \(String(describing: base64ProvisioningData)) is not a String"))
+    }
+
+    guard let encodedProvisioningData = Data(base64Encoded: base64ProvisioningData) else {
+        return .failure(SudoVirtualCardsError.internalError("\(msg): \(String(describing: base64ProvisioningData)) is not Base64 encoded"))
+    }
+
+    do {
+        let decoder: JSONDecoder = JSONDecoder()
+        let baseProvisioningData = try decoder.decode(BaseProvisioningData.self, from: encodedProvisioningData)
+
+        let interactionData: FundingSourceInteractionData
+        if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
+            let data = try decoder.decode(CheckoutCardInteractionData.Data.self, from: encodedProvisioningData)
+
+            interactionData = .checkoutCard(CheckoutCardInteractionData(data: data))
+        } else {
+            interactionData = .unknown(baseProvisioningData)
+        }
+        return .success(interactionData)
+    } catch let error {
+        let data = String(decoding: encodedProvisioningData, as: UTF8.self)
+        return .failure(
+            SudoVirtualCardsError.internalError(
+                "\(msg): \(data) is not expected format for FundingSourceInteractionData: \(String(describing: error))"))
+
+    }
 }

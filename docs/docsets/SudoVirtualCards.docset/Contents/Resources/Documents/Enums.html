@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          SudoVirtualCards 19.0.0 Docs
+          SudoVirtualCards 20.0.0 Docs
         </a>
         
       </p>
@@ -62,6 +62,9 @@
                 <a class="nav-group-task-link" href="Enums/CachePolicy.html">CachePolicy</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
               </li>
               <li class="nav-group-task">
@@ -84,9 +87,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SortOrderInput.html">SortOrderInput</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards11StateReasonO">StateReason</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
@@ -132,6 +132,18 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/AnyError.html">AnyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardClientConfiguration.html">CheckoutCardClientConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardCompletionData.html">CheckoutCardCompletionData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardCompletionDataInput.html">CheckoutCardCompletionDataInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardInteractionData.html">CheckoutCardInteractionData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/CompleteFundingSourceInput.html">CompleteFundingSourceInput</a>
@@ -188,13 +200,13 @@
                 <a class="nav-group-task-link" href="Structs.html#/s:16SudoVirtualCards23SetupFundingSourceInputV">SetupFundingSourceInput</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/StripeCompletionDataInput.html">StripeCompletionDataInput</a>
+                <a class="nav-group-task-link" href="Structs/StripeCardClientConfiguration.html">StripeCardClientConfiguration</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/StripeFundingSourceClientConfiguration.html">StripeFundingSourceClientConfiguration</a>
+                <a class="nav-group-task-link" href="Structs/StripeCardCompletionData.html">StripeCardCompletionData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/StripeProvisioningData.html">StripeProvisioningData</a>
+                <a class="nav-group-task-link" href="Structs/StripeCardCompletionDataInput.html">StripeCardCompletionDataInput</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/SudoVirtualCardsConfig.html">SudoVirtualCardsConfig</a>
@@ -421,6 +433,43 @@ the Virtual Cards Service.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards28FundingSourceInteractionDataO"></a>
+                    <a name="//apple_ref/swift/Enum/FundingSourceInteractionData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards28FundingSourceInteractionDataO">FundingSourceInteractionData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Data returned as part of fundingSourceRequiresUserInteraction thrown when completeFundingSource
+is called but requires further user interaction. The data contains funding source provider specific information
+required to carry out that user interfaction.</p>
+
+<p><em>Values</em></p>
+
+<ul>
+<li>checkoutCard - data for Checkout Card funding sources</li>
+<li>unknown - data for a funding source type not yet supported by this SDK. Update your SDK version to resolve.</li>
+</ul>
+
+                        <a href="Enums/FundingSourceInteractionData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FundingSourceInteractionData</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">FundingSourceProviderData</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards7NullishO"></a>
                     <a name="//apple_ref/swift/Enum/Nullish" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards7NullishO">Nullish</a>
@@ -540,33 +589,6 @@ the Virtual Cards Service.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards11StateReasonO"></a>
-                    <a name="//apple_ref/swift/Enum/StateReason" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards11StateReasonO">StateReason</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The Sudo Platform SDK representation of an enumeration depicting the provisional funding source state reason.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StateReason</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:16SudoVirtualCards15TransactionTypeO"></a>
                     <a name="//apple_ref/swift/Enum/TransactionType" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards15TransactionTypeO">TransactionType</a>
@@ -635,7 +657,7 @@ the Virtual Cards Service.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-09-19)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-24)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

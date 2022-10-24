@@ -141,127 +141,246 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "line": 19,
+      "symbol": "CheckoutCardProvisioningData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "line": 153,
+      "symbol": "CheckoutCardCompletionData.paymentToken",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "line": 242,
+      "symbol": "CheckoutCardInteractionData.redirectUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 19,
       "symbol": "FundingSource.State.active",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 20,
       "symbol": "FundingSource.State.inactive",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 21,
       "symbol": "FundingSource.State.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 40,
       "symbol": "FundingSource.Network.amex",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 41,
       "symbol": "FundingSource.Network.diners",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 42,
       "symbol": "FundingSource.Network.discover",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 43,
       "symbol": "FundingSource.Network.jcb",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 44,
       "symbol": "FundingSource.Network.mastercard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 45,
       "symbol": "FundingSource.Network.unionpay",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 46,
       "symbol": "FundingSource.Network.visa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 47,
       "symbol": "FundingSource.Network.other",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource.swift",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSource.swift",
       "line": 48,
       "symbol": "FundingSource.Network.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSourceClientConfiguration.swift",
-      "line": 25,
-      "symbol": "StripeFundingSourceClientConfiguration.init(version:apiKey:)",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "line": 28,
+      "symbol": "StripeCardClientConfiguration.init(apiKey:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSourceClientConfiguration.swift",
-      "line": 32,
-      "symbol": "FundingSourceClientConfiguration",
-      "symbol_kind": "source.lang.swift.decl.typealias",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "line": 53,
+      "symbol": "CheckoutCardClientConfiguration.init(apiKey:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
-      "line": 20,
-      "symbol": "StripeCompletionDataInput.version",
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "line": 58,
+      "symbol": "FundingSourceClientConfiguration",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceType.swift",
+      "line": 9,
+      "symbol": "FundingSourceType",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
+      "line": 29,
+      "symbol": "FundingSourceInteractionData.checkoutCard(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
+      "line": 30,
+      "symbol": "FundingSourceInteractionData.unknown(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Protocols/BaseFundingSourceClientConfiguration.swift",
+      "line": 9,
+      "symbol": "BaseFundingSourceClientConfiguration",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Protocols/FundingSourceProviderData.swift",
+      "line": 9,
+      "symbol": "FundingSourceProviderData",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "line": 9,
+      "symbol": "ProvisioningData",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "line": 71,
+      "symbol": "ProvisionalFundingSource.State.completed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "line": 72,
+      "symbol": "ProvisionalFundingSource.State.failed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "line": 73,
+      "symbol": "ProvisionalFundingSource.State.pending",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "line": 74,
+      "symbol": "ProvisionalFundingSource.State.provisioning",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "line": 99,
+      "symbol": "ProvisionalFundingSource.init(id:owner:version:createdAt:updatedAt:provisioningData:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/StripeProviderData.swift",
+      "line": 21,
+      "symbol": "StripeCardProvisioningData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/StripeProviderData.swift",
+      "line": 178,
+      "symbol": "StripeCardCompletionData.paymentMethod",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
-      "line": 24,
-      "symbol": "StripeCompletionDataInput.init(paymentMethodId:)",
+      "line": 26,
+      "symbol": "StripeCardCompletionDataInput.init(paymentMethodId:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
-      "line": 29,
-      "symbol": "CompletionDataInput",
-      "symbol_kind": "source.lang.swift.decl.typealias",
+      "line": 50,
+      "symbol": "CheckoutCardCompletionDataInput.init(paymentToken:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
-      "line": 44,
+      "line": 55,
+      "symbol": "CompletionDataInput",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
+      "line": 96,
       "symbol": "CompleteFundingSourceInput.init(id:completionData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -296,8 +415,15 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
-      "line": 44,
-      "symbol": "SetupFundingSourceInput.init(type:currency:)",
+      "line": 41,
+      "symbol": "SetupFundingSourceInput.supportedProviders",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "line": 45,
+      "symbol": "SetupFundingSourceInput.init(type:currency:supportedProviders:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -397,118 +523,6 @@
       "line": 19,
       "symbol": "ProvisionalCardState.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 11,
-      "symbol": "StateReason.admin",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 12,
-      "symbol": "StateReason.deletion",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 13,
-      "symbol": "StateReason.entitlement",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 14,
-      "symbol": "StateReason.locked",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 15,
-      "symbol": "StateReason.processing",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 16,
-      "symbol": "StateReason.suspicious",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 17,
-      "symbol": "StateReason.unknown",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 18,
-      "symbol": "StateReason.unlocked",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 19,
-      "symbol": "StateReason.user",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 41,
-      "symbol": "StripeProvisioningData.init(version:clientSecret:intent:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 48,
-      "symbol": "ProvisioningData",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 57,
-      "symbol": "ProvisionalFundingSource.State.completed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 58,
-      "symbol": "ProvisionalFundingSource.State.failed",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 59,
-      "symbol": "ProvisionalFundingSource.State.pending",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 60,
-      "symbol": "ProvisionalFundingSource.State.provisioning",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalFundingSource.swift",
-      "line": 85,
-      "symbol": "ProvisionalFundingSource.init(id:owner:version:createdAt:updatedAt:provisioningData:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {

@@ -7,7 +7,7 @@
 import Foundation
 
 /// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct StripeCompletionDataInput: Equatable {
+public struct StripeCardCompletionDataInput: Hashable, FundingSourceProviderData {
 
     // MARK: - Properties
 
@@ -19,6 +19,8 @@ public struct StripeCompletionDataInput: Equatable {
 
     public let version: Int = 1
 
+    public let type: FundingSourceType = .creditCard
+
     // MARK: - Lifecycle
 
     public init(paymentMethodId: String) {
@@ -26,7 +28,57 @@ public struct StripeCompletionDataInput: Equatable {
     }
 }
 
-public typealias CompletionDataInput = StripeCompletionDataInput
+typealias StripeCompletionDataInput = StripeCardCompletionDataInput
+
+/// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
+public struct CheckoutCardCompletionDataInput: Hashable, FundingSourceProviderData {
+
+    // MARK: - Properties
+
+    /// Identifier of the Payment Method used.
+    public let paymentToken: String
+
+    /// Provider used to save the funding source information.
+    public let provider: String = "checkout"
+
+    public let version: Int = 1
+
+    public let type: FundingSourceType = .creditCard
+
+    // MARK: - Lifecycle
+
+    public init(paymentToken: String) {
+        self.paymentToken = paymentToken
+    }
+}
+
+public enum CompletionDataInput: Hashable, FundingSourceProviderData {
+    case stripeCard(StripeCardCompletionDataInput)
+    case checkoutCard(CheckoutCardCompletionDataInput)
+
+    // MARK: - Properties
+
+    public var provider: String {
+        switch self {
+        case .stripeCard(let input): return input.provider
+        case .checkoutCard(let input): return input.provider
+        }
+    }
+
+    public var type: FundingSourceType {
+        switch self {
+        case .stripeCard(let input): return input.type
+        case .checkoutCard(let input): return input.type
+        }
+    }
+
+    public var version: Int {
+        switch self {
+        case .stripeCard(let input): return input.version
+        case .checkoutCard(let input): return input.version
+        }
+    }
+}
 
 /// Input for SudoVirtualCardsClient.completeFundingSource(withInput:).
 public struct CompleteFundingSourceInput: Equatable {

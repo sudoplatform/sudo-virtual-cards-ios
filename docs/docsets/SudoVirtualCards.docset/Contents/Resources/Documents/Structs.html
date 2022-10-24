@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          SudoVirtualCards 19.0.0 Docs
+          SudoVirtualCards 20.0.0 Docs
         </a>
         
       </p>
@@ -62,6 +62,9 @@
                 <a class="nav-group-task-link" href="Enums/CachePolicy.html">CachePolicy</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
               </li>
               <li class="nav-group-task">
@@ -84,9 +87,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SortOrderInput.html">SortOrderInput</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards11StateReasonO">StateReason</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
@@ -132,6 +132,18 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/AnyError.html">AnyError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardClientConfiguration.html">CheckoutCardClientConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardCompletionData.html">CheckoutCardCompletionData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardCompletionDataInput.html">CheckoutCardCompletionDataInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutCardInteractionData.html">CheckoutCardInteractionData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/CompleteFundingSourceInput.html">CompleteFundingSourceInput</a>
@@ -188,13 +200,13 @@
                 <a class="nav-group-task-link" href="Structs.html#/s:16SudoVirtualCards23SetupFundingSourceInputV">SetupFundingSourceInput</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/StripeCompletionDataInput.html">StripeCompletionDataInput</a>
+                <a class="nav-group-task-link" href="Structs/StripeCardClientConfiguration.html">StripeCardClientConfiguration</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/StripeFundingSourceClientConfiguration.html">StripeFundingSourceClientConfiguration</a>
+                <a class="nav-group-task-link" href="Structs/StripeCardCompletionData.html">StripeCardCompletionData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/StripeProvisioningData.html">StripeProvisioningData</a>
+                <a class="nav-group-task-link" href="Structs/StripeCardCompletionDataInput.html">StripeCardCompletionDataInput</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/SudoVirtualCardsConfig.html">SudoVirtualCardsConfig</a>
@@ -447,6 +459,63 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards26CheckoutCardCompletionDataV"></a>
+                    <a name="//apple_ref/swift/Struct/CheckoutCardCompletionData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards26CheckoutCardCompletionDataV">CheckoutCardCompletionData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Data received from checkout to complete provisioning a funding source.</p>
+
+                        <a href="Structs/CheckoutCardCompletionData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutCardCompletionData</span> <span class="p">:</span> <span class="kt">FundingSourceProviderData</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards27CheckoutCardInteractionDataV"></a>
+                    <a name="//apple_ref/swift/Struct/CheckoutCardInteractionData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards27CheckoutCardInteractionDataV">CheckoutCardInteractionData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Data received to continue funding source completion process when further user interaction is required
+for Checkout Card funding sources.</p>
+
+                        <a href="Structs/CheckoutCardInteractionData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutCardInteractionData</span> <span class="p">:</span> <span class="kt">FundingSourceProviderData</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards13FundingSourceV"></a>
                     <a name="//apple_ref/swift/Struct/FundingSource" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards13FundingSourceV">FundingSource</a>
@@ -475,9 +544,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards38StripeFundingSourceClientConfigurationV"></a>
-                    <a name="//apple_ref/swift/Struct/StripeFundingSourceClientConfiguration" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards38StripeFundingSourceClientConfigurationV">StripeFundingSourceClientConfiguration</a>
+                    <a name="/s:16SudoVirtualCards29StripeCardClientConfigurationV"></a>
+                    <a name="//apple_ref/swift/Struct/StripeCardClientConfiguration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards29StripeCardClientConfigurationV">StripeCardClientConfiguration</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -485,15 +554,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The Sudo Platform SDK representation of the funding source client configuration.</p>
+                        <p>The Sudo Platform SDK representation of the funding source client configuration for Stripe card provider</p>
 
-                        <a href="Structs/StripeFundingSourceClientConfiguration.html" class="slightly-smaller">See more</a>
+                        <a href="Structs/StripeCardClientConfiguration.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeFundingSourceClientConfiguration</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeCardClientConfiguration</span> <span class="p">:</span> <span class="kt">BaseFundingSourceClientConfiguration</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -503,9 +572,93 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards25StripeCompletionDataInputV"></a>
-                    <a name="//apple_ref/swift/Struct/StripeCompletionDataInput" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards25StripeCompletionDataInputV">StripeCompletionDataInput</a>
+                    <a name="/s:16SudoVirtualCards31CheckoutCardClientConfigurationV"></a>
+                    <a name="//apple_ref/swift/Struct/CheckoutCardClientConfiguration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards31CheckoutCardClientConfigurationV">CheckoutCardClientConfiguration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Sudo Platform SDK representation of the funding source client configuration for checkout.com card provider</p>
+
+                        <a href="Structs/CheckoutCardClientConfiguration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutCardClientConfiguration</span> <span class="p">:</span> <span class="kt">BaseFundingSourceClientConfiguration</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV"></a>
+                    <a name="//apple_ref/swift/Struct/ProvisionalFundingSource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV">ProvisionalFundingSource</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Sudo Platform SDK representation of a funding source.</p>
+
+                        <a href="Structs/ProvisionalFundingSource.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProvisionalFundingSource</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards24StripeCardCompletionDataV"></a>
+                    <a name="//apple_ref/swift/Struct/StripeCardCompletionData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24StripeCardCompletionDataV">StripeCardCompletionData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Data received from stripe to complete provisioning a funding source.</p>
+
+                        <a href="Structs/StripeCardCompletionData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeCardCompletionData</span> <span class="p">:</span> <span class="kt">FundingSourceProviderData</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards29StripeCardCompletionDataInputV"></a>
+                    <a name="//apple_ref/swift/Struct/StripeCardCompletionDataInput" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards29StripeCardCompletionDataInputV">StripeCardCompletionDataInput</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -515,13 +668,41 @@
                       <div class="abstract">
                         <p>Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).</p>
 
-                        <a href="Structs/StripeCompletionDataInput.html" class="slightly-smaller">See more</a>
+                        <a href="Structs/StripeCardCompletionDataInput.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeCompletionDataInput</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeCardCompletionDataInput</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">FundingSourceProviderData</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards31CheckoutCardCompletionDataInputV"></a>
+                    <a name="//apple_ref/swift/Struct/CheckoutCardCompletionDataInput" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards31CheckoutCardCompletionDataInputV">CheckoutCardCompletionDataInput</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).</p>
+
+                        <a href="Structs/CheckoutCardCompletionDataInput.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutCardCompletionDataInput</span> <span class="p">:</span> <span class="kt">Hashable</span><span class="p">,</span> <span class="kt">FundingSourceProviderData</span></code></pre>
 
                         </div>
                       </div>
@@ -787,62 +968,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards22StripeProvisioningDataV"></a>
-                    <a name="//apple_ref/swift/Struct/StripeProvisioningData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards22StripeProvisioningDataV">StripeProvisioningData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Provisioning Data for Stripe Provisional Funding Source.</p>
-
-                        <a href="Structs/StripeProvisioningData.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">StripeProvisioningData</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV"></a>
-                    <a name="//apple_ref/swift/Struct/ProvisionalFundingSource" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV">ProvisionalFundingSource</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The Sudo Platform SDK representation of a funding source.</p>
-
-                        <a href="Structs/ProvisionalFundingSource.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ProvisionalFundingSource</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:16SudoVirtualCards18PartialTransactionV"></a>
                     <a name="//apple_ref/swift/Struct/PartialTransaction" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards18PartialTransactionV">PartialTransaction</a>
@@ -1045,7 +1170,7 @@ card transaction details etc.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-09-19)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-24)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

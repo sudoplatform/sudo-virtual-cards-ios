@@ -180,13 +180,17 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     public func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource {
         try checkUserSignedIn()
+        let completionData: FundingSourceCompletionData
+        switch input.completionData {
+        case .stripeCard(let data):
+            completionData = FundingSourceCompletionData.stripeCard(StripeCardCompletionData(paymentMethod: data.paymentMethodId))
+        case .checkoutCard(let data):
+            completionData = FundingSourceCompletionData.checkoutCard(CheckoutCardCompletionData(paymentToken: data.paymentToken))
+        }
+
         return try await fundingSourceService.complete(
             clientId: input.id,
-            completionData: FundingSourceCompletionData(
-                paymentMethod: input.completionData.paymentMethodId,
-                provider: input.completionData.provider,
-                version: input.completionData.version
-            )
+            completionData: completionData
         )
     }
 
@@ -296,11 +300,21 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration] {
-        let result = try await fundingSourceService.getConfig(cachePolicy: .remoteOnly)
-        guard let config = result.fundingSourceTypes.first else {
+        let configs = try await fundingSourceService.getConfig(cachePolicy: .remoteOnly)
+        if configs.fundingSourceTypes.isEmpty {
             throw SudoVirtualCardsError.internalError("No configuration found")
         }
-        return [FundingSourceClientConfiguration(version: config.version, apiKey: config.apiKey)]
+
+        return configs.fundingSourceTypes.map {
+            switch $0 {
+            case .stripeCard(let config):
+                return .stripeCard(StripeCardClientConfiguration(apiKey: config.apiKey))
+            case .checkoutCard(let config):
+                return .checkoutCard(CheckoutCardClientConfiguration(apiKey: config.apiKey))
+            case .unknown(let config):
+                return .unknown(config)
+            }
+        }
     }
 
     public func getProvisionalCard(withId id: String, cachePolicy: CachePolicy) async throws -> ProvisionalCard? {
@@ -593,33 +607,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             logger: logger
         )
         return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
-    }
-
-    /// Delete a key that has been previously registered using `registerPublicKeyWithId(_:completion:)`.
-    ///
-    /// If an `id` is supplied that is not associated with any public key resource on the virtual cards service, a `PublicKeyError.publicKeyNotFound` will be
-    /// returned.
-    ///
-    /// - Parameter id: Id associated with the successfully registered returned public key from `registerPublicKeyWithId(_:completion:)`.
-    /// - Returns:
-    ///     - Success: Public key resource that was deleted on the virtual card service.
-    ///     - Failure:
-    ///         - SudoPlatformError.
-    ///         - PublicKeyError.
-    func deletePublicKeyWithId(_ id: String) async throws -> PublicKey {
-        try checkUserSignedIn()
-        let mutationInput = GraphQL.DeletePublicKeyInput(keyId: id)
-        let mutation = GraphQL.DeletePublicKeyMutation(input: mutationInput)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
-        guard let key = data.deletePublicKeyForVirtualCards else {
-            throw PublicKeyError.publicKeyNotFound
-        }
-        return PublicKey(deletePublicKeyForVirtualCards: key)
     }
 
     /// Get the public key associated with the registered public key on the virtual cards service.

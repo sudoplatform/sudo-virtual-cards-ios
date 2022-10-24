@@ -44,8 +44,14 @@ class FundingSourceService {
     ///     - Success: Setup/Provisional information from the service.
     ///     - Failure: `Error` that occurred.
     func setup(input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
-        let input = GraphQL.SetupFundingSourceRequest(currency: input.currency, type: input.type.fundingSourceType)
-        let mutation = GraphQL.SetupFundingSourceMutation(input: input)
+
+        var request = GraphQL.SetupFundingSourceRequest(
+            currency: input.currency,
+            type: input.type.fundingSourceType)
+        if input.supportedProviders?.isEmpty == false {
+            request.supportedProviders = input.supportedProviders
+        }
+        let mutation = GraphQL.SetupFundingSourceMutation(input: request)
         let data = try await GraphQLHelper.performMutation(
             graphQLClient: graphQLClient,
             serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
@@ -56,18 +62,29 @@ class FundingSourceService {
             logger.error("Data received for setupFundingSource is not base64 encoded")
             throw SudoVirtualCardsError.internalError("Data received for setupFundingSource is not base64 encoded")
         }
-        let stripeSetupData = try self.decoder.decode(StripeSetup.Data.self, from: encodedProvisioningData)
+
+        let baseProvisioningData = try self.decoder.decode(BaseProvisioningData.self, from: encodedProvisioningData)
+
+        let provisioningData: ProvisioningData
+        if baseProvisioningData.provider == "stripe" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
+            let data = try self.decoder.decode(StripeCardProvisioningData.Data.self, from: encodedProvisioningData)
+
+            provisioningData = .stripeCard(StripeCardProvisioningData(data: data))
+        } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
+            let stripeCardData = try self.decoder.decode(CheckoutCardProvisioningData.Data.self, from: encodedProvisioningData)
+
+            provisioningData = .checkoutCard(CheckoutCardProvisioningData(data: stripeCardData))
+        } else {
+            provisioningData = .unknown(baseProvisioningData)
+        }
+
         return ProvisionalFundingSource(
             id: data.setupFundingSource.id,
             owner: data.setupFundingSource.owner,
             version: data.setupFundingSource.version,
             createdAt: Date(millisecondsSince1970: data.setupFundingSource.createdAtEpochMs),
             updatedAt: Date(millisecondsSince1970: data.setupFundingSource.updatedAtEpochMs),
-            provisioningData: ProvisioningData(
-                version: stripeSetupData.version,
-                clientSecret: stripeSetupData.clientSecret,
-                intent: stripeSetupData.intent
-            )
+            provisioningData: provisioningData
         )
     }
 
@@ -98,14 +115,14 @@ class FundingSourceService {
         return FundingSource(fragment: data.completeFundingSource.fragments.fundingSource)
     }
 
-    /// Get the client configuration for interacting with 3rd party partner authorization.
+    /// Get the client configuration for interacting with 3rd party partner payment processors.
     ///
     /// - Parameters:
     ///   - cachePolicy: Cache policy on how to access the configuration.
     /// - Returns:
     ///     - Success: Configuration.
     ///     - Failure: `Error` that occurred.
-    func getConfig(cachePolicy: CachePolicy) async throws -> StripeClientConfiguration {
+    func getConfig(cachePolicy: CachePolicy) async throws -> ClientConfigurations {
         let query = GraphQL.GetFundingSourceClientConfigurationQuery()
         let data = try await GraphQLHelper.performQuery(
             graphQLClient: graphQLClient,
@@ -120,8 +137,7 @@ class FundingSourceService {
             throw SudoVirtualCardsError.getFailed
         }
         do {
-            let configuration = try decoder.decode(StripeClientConfiguration.self, from: encodedData)
-            return configuration
+            return try decoder.decode(ClientConfigurations.self, from: encodedData)
         } catch {
             logger.error("Error occurred while decoding data: \(error.localizedDescription)")
             throw SudoVirtualCardsError.getFailed

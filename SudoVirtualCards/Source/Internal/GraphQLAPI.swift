@@ -378,28 +378,11 @@ internal struct CreatePublicKeyInput: GraphQLMapConvertible {
   }
 }
 
-internal struct DeletePublicKeyInput: GraphQLMapConvertible {
-  internal var graphQLMap: GraphQLMap
-
-  internal init(keyId: String) {
-    graphQLMap = ["keyId": keyId]
-  }
-
-  internal var keyId: String {
-    get {
-      return graphQLMap["keyId"] as! String
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "keyId")
-    }
-  }
-}
-
 internal struct SetupFundingSourceRequest: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
-  internal init(currency: String, type: FundingSourceType) {
-    graphQLMap = ["currency": currency, "type": type]
+  internal init(currency: String, supportedProviders: Optional<[String]?> = nil, type: FundingSourceType) {
+    graphQLMap = ["currency": currency, "supportedProviders": supportedProviders, "type": type]
   }
 
   internal var currency: String {
@@ -408,6 +391,15 @@ internal struct SetupFundingSourceRequest: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "currency")
+    }
+  }
+
+  internal var supportedProviders: Optional<[String]?> {
+    get {
+      return graphQLMap["supportedProviders"] as! Optional<[String]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "supportedProviders")
     }
   }
 
@@ -797,8 +789,8 @@ internal struct CardCancelRequest: GraphQLMapConvertible {
 internal struct ProvisionalCardFilterInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
-  internal init(clientRefId: Optional<IDFilterInput?> = nil, id: Optional<IDFilterInput?> = nil, owner: Optional<IDFilterInput?> = nil) {
-    graphQLMap = ["clientRefId": clientRefId, "id": id, "owner": owner]
+  internal init(clientRefId: Optional<IDFilterInput?> = nil) {
+    graphQLMap = ["clientRefId": clientRefId]
   }
 
   internal var clientRefId: Optional<IDFilterInput?> {
@@ -807,24 +799,6 @@ internal struct ProvisionalCardFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "clientRefId")
-    }
-  }
-
-  internal var id: Optional<IDFilterInput?> {
-    get {
-      return graphQLMap["id"] as! Optional<IDFilterInput?>
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "id")
-    }
-  }
-
-  internal var owner: Optional<IDFilterInput?> {
-    get {
-      return graphQLMap["owner"] as! Optional<IDFilterInput?>
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "owner")
     }
   }
 }
@@ -1029,200 +1003,6 @@ internal final class CreatePublicKeyMutation: GraphQLMutation {
     }
 
     internal struct CreatePublicKeyForVirtualCard: GraphQLSelectionSet {
-      internal static let possibleTypes = ["PublicKey"]
-
-      internal static let selections: [GraphQLSelection] = [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
-        GraphQLField("keyRingId", type: .nonNull(.scalar(String.self))),
-        GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
-        GraphQLField("keyFormat", type: .scalar(KeyFormat.self)),
-        GraphQLField("publicKey", type: .nonNull(.scalar(String.self))),
-        GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
-        GraphQLField("version", type: .nonNull(.scalar(Int.self))),
-        GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
-        GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
-      ]
-
-      internal var snapshot: Snapshot
-
-      internal init(snapshot: Snapshot) {
-        self.snapshot = snapshot
-      }
-
-      internal init(id: GraphQLID, keyId: String, keyRingId: String, algorithm: String, keyFormat: KeyFormat? = nil, publicKey: String, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double) {
-        self.init(snapshot: ["__typename": "PublicKey", "id": id, "keyId": keyId, "keyRingId": keyRingId, "algorithm": algorithm, "keyFormat": keyFormat, "publicKey": publicKey, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs])
-      }
-
-      internal var __typename: String {
-        get {
-          return snapshot["__typename"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      internal var id: GraphQLID {
-        get {
-          return snapshot["id"]! as! GraphQLID
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "id")
-        }
-      }
-
-      internal var keyId: String {
-        get {
-          return snapshot["keyId"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "keyId")
-        }
-      }
-
-      internal var keyRingId: String {
-        get {
-          return snapshot["keyRingId"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "keyRingId")
-        }
-      }
-
-      internal var algorithm: String {
-        get {
-          return snapshot["algorithm"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "algorithm")
-        }
-      }
-
-      internal var keyFormat: KeyFormat? {
-        get {
-          return snapshot["keyFormat"] as? KeyFormat
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "keyFormat")
-        }
-      }
-
-      internal var publicKey: String {
-        get {
-          return snapshot["publicKey"]! as! String
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "publicKey")
-        }
-      }
-
-      internal var owner: GraphQLID {
-        get {
-          return snapshot["owner"]! as! GraphQLID
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "owner")
-        }
-      }
-
-      internal var version: Int {
-        get {
-          return snapshot["version"]! as! Int
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "version")
-        }
-      }
-
-      internal var createdAtEpochMs: Double {
-        get {
-          return snapshot["createdAtEpochMs"]! as! Double
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
-        }
-      }
-
-      internal var updatedAtEpochMs: Double {
-        get {
-          return snapshot["updatedAtEpochMs"]! as! Double
-        }
-        set {
-          snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
-        }
-      }
-
-      internal var fragments: Fragments {
-        get {
-          return Fragments(snapshot: snapshot)
-        }
-        set {
-          snapshot += newValue.snapshot
-        }
-      }
-
-      internal struct Fragments {
-        internal var snapshot: Snapshot
-
-        internal var publicKey: PublicKey {
-          get {
-            return PublicKey(snapshot: snapshot)
-          }
-          set {
-            snapshot += newValue.snapshot
-          }
-        }
-      }
-    }
-  }
-}
-
-internal final class DeletePublicKeyMutation: GraphQLMutation {
-  internal static let operationString =
-    "mutation DeletePublicKey($input: DeletePublicKeyInput!) {\n  deletePublicKeyForVirtualCards(input: $input) {\n    __typename\n    ...PublicKey\n  }\n}"
-
-  internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
-
-  internal var input: DeletePublicKeyInput
-
-  internal init(input: DeletePublicKeyInput) {
-    self.input = input
-  }
-
-  internal var variables: GraphQLMap? {
-    return ["input": input]
-  }
-
-  internal struct Data: GraphQLSelectionSet {
-    internal static let possibleTypes = ["Mutation"]
-
-    internal static let selections: [GraphQLSelection] = [
-      GraphQLField("deletePublicKeyForVirtualCards", arguments: ["input": GraphQLVariable("input")], type: .object(DeletePublicKeyForVirtualCard.selections)),
-    ]
-
-    internal var snapshot: Snapshot
-
-    internal init(snapshot: Snapshot) {
-      self.snapshot = snapshot
-    }
-
-    internal init(deletePublicKeyForVirtualCards: DeletePublicKeyForVirtualCard? = nil) {
-      self.init(snapshot: ["__typename": "Mutation", "deletePublicKeyForVirtualCards": deletePublicKeyForVirtualCards.flatMap { $0.snapshot }])
-    }
-
-    internal var deletePublicKeyForVirtualCards: DeletePublicKeyForVirtualCard? {
-      get {
-        return (snapshot["deletePublicKeyForVirtualCards"] as? Snapshot).flatMap { DeletePublicKeyForVirtualCard(snapshot: $0) }
-      }
-      set {
-        snapshot.updateValue(newValue?.snapshot, forKey: "deletePublicKeyForVirtualCards")
-      }
-    }
-
-    internal struct DeletePublicKeyForVirtualCard: GraphQLSelectionSet {
       internal static let possibleTypes = ["PublicKey"]
 
       internal static let selections: [GraphQLSelection] = [
@@ -5981,25 +5761,27 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
 
 internal final class GetPublicKeyQuery: GraphQLQuery {
   internal static let operationString =
-    "query GetPublicKey($keyId: String!) {\n  getPublicKeyForVirtualCards(keyId: $keyId) {\n    __typename\n    ...PublicKey\n  }\n}"
+    "query GetPublicKey($keyId: String!, $keyFormats: [KeyFormat!]) {\n  getPublicKeyForVirtualCards(keyId: $keyId, keyFormats: $keyFormats) {\n    __typename\n    ...PublicKey\n  }\n}"
 
   internal static var requestString: String { return operationString.appending(PublicKey.fragmentString) }
 
   internal var keyId: String
+  internal var keyFormats: [KeyFormat]?
 
-  internal init(keyId: String) {
+  internal init(keyId: String, keyFormats: [KeyFormat]?) {
     self.keyId = keyId
+    self.keyFormats = keyFormats
   }
 
   internal var variables: GraphQLMap? {
-    return ["keyId": keyId]
+    return ["keyId": keyId, "keyFormats": keyFormats]
   }
 
   internal struct Data: GraphQLSelectionSet {
     internal static let possibleTypes = ["Query"]
 
     internal static let selections: [GraphQLSelection] = [
-      GraphQLField("getPublicKeyForVirtualCards", arguments: ["keyId": GraphQLVariable("keyId")], type: .object(GetPublicKeyForVirtualCard.selections)),
+      GraphQLField("getPublicKeyForVirtualCards", arguments: ["keyId": GraphQLVariable("keyId"), "keyFormats": GraphQLVariable("keyFormats")], type: .object(GetPublicKeyForVirtualCard.selections)),
     ]
 
     internal var snapshot: Snapshot
