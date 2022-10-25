@@ -52,29 +52,16 @@ class CreateKeysIfAbsentUseCase: SudoVirtualCardsOperation {
     }
 
     func createAndRegisterKeyPairIfAbsent() async throws -> CreateKeysIfAbsentResult.KeyResult {
-        var registerRequired = false
-        var created = false
-        let publicKey: KeyPair
-        if let currentKey = try platformKeyManager.getCurrentKeyPair() {
-            let keyId = currentKey.keyId
-
-            var nextToken: String?
-            var alreadyRegistered = false
-            repeat {
-                let result = try await publicKeyService.getKeyRing(forKeyRingId: currentKey.keyRingId, cachePolicy: .remoteOnly)
-                alreadyRegistered = result.getKeyRingForVirtualCards.items.contains(where: { $0.keyId == keyId})
-                nextToken = result.getKeyRingForVirtualCards.nextToken
-            } while nextToken != nil
-            registerRequired = !alreadyRegistered
-            publicKey = currentKey
+        if let currentKeyPair = try platformKeyManager.getCurrentKeyPair() {
+            if (try await self.publicKeyService.getPublicKeyWithId(currentKeyPair.keyId, cachePolicy: .remoteOnly)) == nil {
+                _ = try await self.publicKeyService.create(withKeyPair: currentKeyPair)
+            }
+            return .init(created: false, keyId: currentKeyPair.keyId)
         } else {
-            publicKey = try platformKeyManager.generateNewCurrentKeyPair()
-            created = true
+            let keyPair = try platformKeyManager.generateNewCurrentKeyPair()
+            _ = try await publicKeyService.create(withKeyPair: keyPair)
+            return .init(created: true, keyId: keyPair.keyId)
         }
-        if registerRequired {
-            _ = try await publicKeyService.create(withKeyPair: publicKey)
-        }
-        return .init(created: created, keyId: publicKey.keyId)
     }
 
 }
