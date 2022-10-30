@@ -151,6 +151,20 @@ public protocol SudoVirtualCardsClient: AnyObject {
         withId id: String,
         cachePolicy: CachePolicy
     ) async throws -> VirtualCard?
+    
+    /// Get the current `VirtualCardsConfig`. If the config cannot be found, `nil` will be returned.
+    ///
+    /// - Parameters
+    ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                    will only return cached results of similar exact API calls.
+    ///
+    /// - Returns:
+    ///    - Success: Virtual card config associated with account, or `nil` if the coinfig cannot be found.
+    ///    - Failure:
+    ///      - SudoPlatformError.
+    func getVirtualCardsConfig(
+        cachePolicy: CachePolicy
+    ) async throws -> VirtualCardsConfig?
 
     /// Get a list of cards. If no cards can be found, an empty list will be returned.
     ///

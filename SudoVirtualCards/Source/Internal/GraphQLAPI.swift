@@ -415,12 +415,14 @@ internal struct SetupFundingSourceRequest: GraphQLMapConvertible {
 
 internal enum FundingSourceType: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  case bankAccount
   case creditCard
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
   internal init?(rawValue: RawValue) {
     switch rawValue {
+      case "BANK_ACCOUNT": self = .bankAccount
       case "CREDIT_CARD": self = .creditCard
       default: self = .unknown(rawValue)
     }
@@ -428,6 +430,7 @@ internal enum FundingSourceType: RawRepresentable, Equatable, JSONDecodable, JSO
 
   internal var rawValue: RawValue {
     switch self {
+      case .bankAccount: return "BANK_ACCOUNT"
       case .creditCard: return "CREDIT_CARD"
       case .unknown(let value): return value
     }
@@ -435,6 +438,7 @@ internal enum FundingSourceType: RawRepresentable, Equatable, JSONDecodable, JSO
 
   internal static func == (lhs: FundingSourceType, rhs: FundingSourceType) -> Bool {
     switch (lhs, rhs) {
+      case (.bankAccount, .bankAccount): return true
       case (.creditCard, .creditCard): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
@@ -5565,7 +5569,7 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
         internal static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("currency", type: .nonNull(.scalar(String.self))),
-          GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+          GraphQLField("amount", type: .nonNull(.scalar(Int.self))),
         ]
 
         internal var snapshot: Snapshot
@@ -5574,7 +5578,7 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        internal init(currency: String, amount: String) {
+        internal init(currency: String, amount: Int) {
           self.init(snapshot: ["__typename": "CurrencyAmount", "currency": currency, "amount": amount])
         }
 
@@ -5596,9 +5600,9 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
           }
         }
 
-        internal var amount: String {
+        internal var amount: Int {
           get {
-            return snapshot["amount"]! as! String
+            return snapshot["amount"]! as! Int
           }
           set {
             snapshot.updateValue(newValue, forKey: "amount")
@@ -21579,7 +21583,7 @@ internal struct VirtualCardsConfig: GraphQLFragment {
     internal static let selections: [GraphQLSelection] = [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
       GraphQLField("currency", type: .nonNull(.scalar(String.self))),
-      GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+      GraphQLField("amount", type: .nonNull(.scalar(Int.self))),
     ]
 
     internal var snapshot: Snapshot
@@ -21588,7 +21592,7 @@ internal struct VirtualCardsConfig: GraphQLFragment {
       self.snapshot = snapshot
     }
 
-    internal init(currency: String, amount: String) {
+    internal init(currency: String, amount: Int) {
       self.init(snapshot: ["__typename": "CurrencyAmount", "currency": currency, "amount": amount])
     }
 
@@ -21610,9 +21614,9 @@ internal struct VirtualCardsConfig: GraphQLFragment {
       }
     }
 
-    internal var amount: String {
+    internal var amount: Int {
       get {
-        return snapshot["amount"]! as! String
+        return snapshot["amount"]! as! Int
       }
       set {
         snapshot.updateValue(newValue, forKey: "amount")

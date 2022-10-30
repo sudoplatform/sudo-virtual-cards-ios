@@ -13,12 +13,15 @@ public struct SetupFundingSourceInput: Equatable {
 
     public enum SetupFundingSourceType: Equatable {
         case creditCard
+        case bankAccount
         case unknown(String)
 
         init(_ type: GraphQL.FundingSourceType) {
             switch type {
             case .creditCard:
                 self = .creditCard
+            case .bankAccount:
+                self = .bankAccount
             case let .unknown(type):
                 self = .unknown(type)
             }
@@ -28,6 +31,8 @@ public struct SetupFundingSourceInput: Equatable {
             switch self {
             case .creditCard:
                 return .creditCard
+            case .bankAccount:
+                return .bankAccount
             case let .unknown(type):
                 return .unknown(type)
             }

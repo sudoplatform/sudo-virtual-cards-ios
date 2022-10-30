@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          SudoVirtualCards 20.0.1 Docs
+          SudoVirtualCards 20.1.0 Docs
         </a>
         
       </p>
@@ -60,6 +60,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/CachePolicy.html">CachePolicy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/CardType.html">CardType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
@@ -134,6 +137,9 @@
                 <a class="nav-group-task-link" href="Structs/AnyError.html">AnyError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CheckoutBankAccountClientConfiguration.html">CheckoutBankAccountClientConfiguration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/CheckoutCardClientConfiguration.html">CheckoutCardClientConfiguration</a>
               </li>
               <li class="nav-group-task">
@@ -155,6 +161,9 @@
                 <a class="nav-group-task-link" href="Structs/CurrencyAmount.html">CurrencyAmount</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/CurrencyVelocity.html">CurrencyVelocity</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/DateRangeInput.html">DateRangeInput</a>
               </li>
               <li class="nav-group-task">
@@ -165,6 +174,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/FundingSource.html#/s:16SudoVirtualCards13FundingSourceV7NetworkO">– Network</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FundingSourceSupportDetail.html">FundingSourceSupportDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/FundingSourceSupportInfo.html">FundingSourceSupportInfo</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/ListOutput.html">ListOutput</a>
@@ -231,6 +246,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/VirtualCardExpiry.html">VirtualCardExpiry</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/VirtualCardsConfig.html">VirtualCardsConfig</a>
               </li>
             </ul>
           </li>
@@ -591,6 +609,34 @@ for Checkout Card funding sources.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutCardClientConfiguration</span> <span class="p">:</span> <span class="kt">BaseFundingSourceClientConfiguration</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards38CheckoutBankAccountClientConfigurationV"></a>
+                    <a name="//apple_ref/swift/Struct/CheckoutBankAccountClientConfiguration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards38CheckoutBankAccountClientConfigurationV">CheckoutBankAccountClientConfiguration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Sudo Platform SDK representation of the funding source client configuration for checkout.com bank account provider</p>
+
+                        <a href="Structs/CheckoutBankAccountClientConfiguration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CheckoutBankAccountClientConfiguration</span> <span class="p">:</span> <span class="kt">BaseFundingSourceClientConfiguration</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                         </div>
                       </div>
@@ -1162,6 +1208,118 @@ card transaction details etc.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards16CurrencyVelocityV"></a>
+                    <a name="//apple_ref/swift/Struct/CurrencyVelocity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards16CurrencyVelocityV">CurrencyVelocity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Representation of a Currency Velocity</p>
+
+                        <a href="Structs/CurrencyVelocity.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CurrencyVelocity</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards26FundingSourceSupportDetailV"></a>
+                    <a name="//apple_ref/swift/Struct/FundingSourceSupportDetail" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards26FundingSourceSupportDetailV">FundingSourceSupportDetail</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Representation of a Funding Source&rsquo;s details</p>
+
+                        <a href="Structs/FundingSourceSupportDetail.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FundingSourceSupportDetail</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards24FundingSourceSupportInfoV"></a>
+                    <a name="//apple_ref/swift/Struct/FundingSourceSupportInfo" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24FundingSourceSupportInfoV">FundingSourceSupportInfo</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Representation of a Funding Source&rsquo;s Info</p>
+
+                        <a href="Structs/FundingSourceSupportInfo.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FundingSourceSupportInfo</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0bC6ConfigV"></a>
+                    <a name="//apple_ref/swift/Struct/VirtualCardsConfig" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0bC6ConfigV">VirtualCardsConfig</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Representation of a Virtual Card Config</p>
+
+                        <a href="Structs/VirtualCardsConfig.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">VirtualCardsConfig</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
@@ -1170,7 +1328,7 @@ card transaction details etc.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-25)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-31)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

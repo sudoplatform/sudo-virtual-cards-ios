@@ -9,10 +9,13 @@ import Foundation
 public enum FundingSourceType: Encodable, Hashable {
     /// Credit or debit card based funding source
     case creditCard
+    /// Bank account based funding source
+    case bankAccount
     case unknown(String)
 
     enum CodingKeys: String, CodingKey {
         case creditCard = "CREDIT_CARD"
+        case bankAccount = "BANK_ACCOUNT"
     }
 
     /// Initialize an instance of `FundingSourceType from GraphQL type
@@ -20,6 +23,8 @@ public enum FundingSourceType: Encodable, Hashable {
         switch type {
         case .creditCard:
             self = .creditCard
+        case .bankAccount:
+            self = .bankAccount
         case let .unknown(type):
             self = .unknown(type)
         }
@@ -30,6 +35,8 @@ public enum FundingSourceType: Encodable, Hashable {
         switch type {
         case "CREDIT_CARD":
             self = .creditCard
+        case "BANK_ACCOUNT":
+            self = .bankAccount
         default:
             self = .unknown(type)
         }
@@ -40,6 +47,8 @@ public enum FundingSourceType: Encodable, Hashable {
         switch self {
         case .creditCard:
             try container.encode("CREDIT_CARD")
+        case .bankAccount:
+            try container.encode("BANK_ACCOUNT")
         case .unknown(let type):
             try container.encode(type)
         }

@@ -71,9 +71,15 @@ class FundingSourceService {
 
             provisioningData = .stripeCard(StripeCardProvisioningData(data: data))
         } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
-            let stripeCardData = try self.decoder.decode(CheckoutCardProvisioningData.Data.self, from: encodedProvisioningData)
+            let checkoutCardData = try self.decoder.decode(CheckoutCardProvisioningData.Data.self, from: encodedProvisioningData)
 
-            provisioningData = .checkoutCard(CheckoutCardProvisioningData(data: stripeCardData))
+            provisioningData = .checkoutCard(CheckoutCardProvisioningData(data: checkoutCardData))
+        } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .bankAccount &&
+            baseProvisioningData.version == 1 {
+            let checkoutBankAccountData = try self.decoder.decode(CheckoutBankAccountProvisioningData.Data.self, from:
+                encodedProvisioningData)
+
+            provisioningData = .checkoutBankAccount(CheckoutBankAccountProvisioningData(data: checkoutBankAccountData))
         } else {
             provisioningData = .unknown(baseProvisioningData)
         }

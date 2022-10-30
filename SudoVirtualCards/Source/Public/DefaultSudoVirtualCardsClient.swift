@@ -311,6 +311,8 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 return .stripeCard(StripeCardClientConfiguration(apiKey: config.apiKey))
             case .checkoutCard(let config):
                 return .checkoutCard(CheckoutCardClientConfiguration(apiKey: config.apiKey))
+            case .checkoutBankAccount(let config):
+                return .checkoutBankAccount(CheckoutBankAccountClientConfiguration(apiKey: config.apiKey))
             case .unknown(let config):
                 return .unknown(config)
             }
@@ -407,6 +409,15 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             return nil
         }
         return try unsealer.unseal(sealedCard.fragments.sealedCardWithLastTransaction)
+    }
+    
+    public func getVirtualCardsConfig(cachePolicy: CachePolicy) async throws -> VirtualCardsConfig? {
+        let query = GraphQL.GetVirtualCardsConfigQuery()
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        guard let virtualCardsConfig = data?.getVirtualCardsConfig else {
+            return nil
+        }
+        return VirtualCardsConfig(fragment: virtualCardsConfig)
     }
 
     public func listVirtualCards(

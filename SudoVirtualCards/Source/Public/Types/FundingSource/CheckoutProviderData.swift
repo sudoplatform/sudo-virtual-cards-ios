@@ -95,6 +95,99 @@ public struct CheckoutCardProvisioningData: FundingSourceProviderData, Hashable 
     }
 }
 
+public struct CheckoutBankAccountProvisioningData: FundingSourceProviderData, Hashable {
+
+    // MARK: - Supplementary
+
+    struct Data: Decodable, Hashable {
+
+        // MARK: - Properties
+
+        let provider: String
+        let type: FundingSourceType
+        let version: Int
+
+        /// Provider setup link token
+        var linkToken: String
+
+        // MARK: - Lifecycle
+
+        init(linkToken: String) {
+            self.provider = CheckoutDefaults.provider
+            self.version = CheckoutDefaults.version
+            self.type = .bankAccount
+            self.linkToken = linkToken
+        }
+
+        // MARK: - Conformance: Encodable
+
+        enum CodingKeys: String, CodingKey {
+            case provider
+            case type
+            case version
+            case linkToken
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let provider = try container.decode(String.self, forKey: .provider)
+            guard provider == CheckoutDefaults.provider else {
+                throw DecodingError.dataCorruptedError(
+                    forKey: CodingKeys.provider,
+                    in: container,
+                    debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
+            }
+            let version = try container.decode(Int.self, forKey: .version)
+            guard version == CheckoutDefaults.version else {
+                throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
+                                                       in: container,
+                                                       debugDescription: "Version must equal \(CheckoutDefaults.version)")
+            }
+            let typeValue = try container.decode(String.self, forKey: .type)
+            let type = FundingSourceType(typeValue)
+            guard type == FundingSourceType.bankAccount else {
+                throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
+                                                       in: container,
+                                                       debugDescription: "Type must equal \(FundingSourceType.bankAccount)")
+            }
+            self.provider = provider
+            self.type = type
+            self.version = version
+            self.linkToken = try container.decode(String.self, forKey: .linkToken)
+        }
+    }
+
+    // MARK: - Properties
+
+    public var provider: String {
+        return data.provider
+    }
+
+    public var type: FundingSourceType {
+        return data.type
+    }
+
+    public var version: Int {
+        return data.version
+    }
+
+    public var linkToken: String {
+        return data.linkToken
+    }
+
+    let data: Data
+
+    // MARK: - Lifecycle
+
+    init(data: Data) {
+        self.data = data
+    }
+
+    init(linkToken: String) {
+        self.init(data: .init(linkToken: linkToken))
+    }
+}
+
 /// Data received from checkout to complete provisioning a funding source.
 public struct CheckoutCardCompletionData: FundingSourceProviderData, Hashable {
 

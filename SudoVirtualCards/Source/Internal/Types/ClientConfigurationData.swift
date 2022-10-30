@@ -84,10 +84,37 @@ struct InternalCheckoutCardClientConfiguration: BaseFundingSourceClientConfigura
     }
 }
 
+struct InternalCheckoutBankAccountClientConfiguration: BaseFundingSourceClientConfiguration, Decodable, Equatable {
+    // MARK: - Properties
+
+    var type: String = "checkout"
+    var fundingSourceType: FundingSourceType = FundingSourceType.bankAccount
+    var version: Int = 1
+    let apiKey: String
+
+    // MARK: - Conformance: Decodable
+
+    enum CodingKeys: String, CodingKey {
+        case apiKey
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.apiKey = try container.decode(String.self, forKey: .apiKey)
+    }
+
+    // MARK: - Lifecycle
+
+    init(apiKey: String) {
+        self.apiKey = apiKey
+    }
+}
+
 enum ClientConfiguration: Decodable, Equatable {
 
     case stripeCard(InternalStripeCardClientConfiguration)
     case checkoutCard(InternalCheckoutCardClientConfiguration)
+    case checkoutBankAccount(InternalCheckoutBankAccountClientConfiguration)
     case unknown(BaseFundingSourceClientConfiguration)
 
     // MARK: - Conformance: Decodable
@@ -98,6 +125,8 @@ enum ClientConfiguration: Decodable, Equatable {
             self = try .stripeCard(InternalStripeCardClientConfiguration(from: decoder))
         } else if base.type == "checkout" && base.fundingSourceType == .creditCard && base.version == 1 {
             self = try .checkoutCard(InternalCheckoutCardClientConfiguration(from: decoder))
+        } else if base.type == "checkout" && base.fundingSourceType == .bankAccount && base.version == 1 {
+            self = try .checkoutBankAccount(InternalCheckoutBankAccountClientConfiguration(from: decoder))
         } else {
             self = .unknown(base)
         }
@@ -115,6 +144,11 @@ enum ClientConfiguration: Decodable, Equatable {
         case .checkoutCard(let lhsConfig):
             switch rhs {
             case .checkoutCard(let rhsConfig): return lhsConfig == rhsConfig
+            default: return false
+            }
+        case .checkoutBankAccount(let lhsConfig):
+            switch rhs {
+            case .checkoutBankAccount(let rhsConfig): return lhsConfig == rhsConfig
             default: return false
             }
         case .unknown: return false

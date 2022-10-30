@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 20.0.1 Docs
+          SudoVirtualCards 20.1.0 Docs
         </a>
         
       </p>
@@ -60,6 +60,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CachePolicy.html">CachePolicy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/CardType.html">CardType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
@@ -134,6 +137,9 @@
                 <a class="nav-group-task-link" href="../Structs/AnyError.html">AnyError</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CheckoutBankAccountClientConfiguration.html">CheckoutBankAccountClientConfiguration</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CheckoutCardClientConfiguration.html">CheckoutCardClientConfiguration</a>
               </li>
               <li class="nav-group-task">
@@ -155,6 +161,9 @@
                 <a class="nav-group-task-link" href="../Structs/CurrencyAmount.html">CurrencyAmount</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/CurrencyVelocity.html">CurrencyVelocity</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/DateRangeInput.html">DateRangeInput</a>
               </li>
               <li class="nav-group-task">
@@ -165,6 +174,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/FundingSource.html#/s:16SudoVirtualCards13FundingSourceV7NetworkO">– Network</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/FundingSourceSupportDetail.html">FundingSourceSupportDetail</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/FundingSourceSupportInfo.html">FundingSourceSupportInfo</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/ListOutput.html">ListOutput</a>
@@ -231,6 +246,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/VirtualCardExpiry.html">VirtualCardExpiry</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a>
               </li>
             </ul>
           </li>
@@ -916,6 +934,60 @@ Returns: The configuration of the client funding source data.</p>
 
 <ul>
 <li>Success: Card associated with <code>id</code>, or <code>nil</code> if the card cannot be found.</li>
+<li>Failure:
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul></li>
+</ul>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP03getbC6Config11cachePolicyAA0bcF0VSgAA05CacheH0O_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getVirtualCardsConfig(cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP03getbC6Config11cachePolicyAA0bcF0VSgAA05CacheH0O_tYaKF">getVirtualCardsConfig(cachePolicy:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the current <code><a href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a></code>. If the config cannot be found, <code>nil</code> will be returned.</p>
+
+<ul>
+<li><p>Parameters</p>
+
+<ul>
+<li>cachePolicy: Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
+           will only return cached results of similar exact API calls.</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getVirtualCardsConfig</span><span class="p">(</span>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p></p>
+
+<ul>
+<li>Success: Virtual card config associated with account, or <code>nil</code> if the coinfig cannot be found.</li>
 <li>Failure:
 
 <ul>
@@ -1689,7 +1761,7 @@ Returns: The configuration of the client funding source data.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-25)</p>
+      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-10-31)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
