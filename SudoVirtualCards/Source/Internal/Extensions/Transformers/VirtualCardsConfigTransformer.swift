@@ -12,17 +12,14 @@ extension VirtualCardsConfig {
         self.maxFundingSourceVelocity = fragment.maxFundingSourceVelocity
         self.maxFundingSourceFailureVelocity = fragment.maxFundingSourceFailureVelocity
         self.maxCardCreationVelocity = fragment.maxCardCreationVelocity
-        self.maxTransactionVelocity = fragment.maxTransactionVelocity.map {
-            (velocity: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.MaxTransactionVelocity)
+        self.maxTransactionVelocity = fragment.maxTransactionVelocity.map { (velocity)
             in return CurrencyVelocity(fragment: velocity)
         }
-        self.maxTransactionAmount = fragment.maxTransactionAmount.map {
-            (amount: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.MaxTransactionAmount)
+        self.maxTransactionAmount = fragment.maxTransactionAmount.map { (amount)
             in return CurrencyAmount(fragment: amount)
         }
         self.virtualCardCurrencies = fragment.virtualCardCurrencies
-        self.fundingSourceSupportInfo = fragment.fundingSourceSupportInfo.map {
-            (info: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.FundingSourceSupportInfo)
+        self.fundingSourceSupportInfo = fragment.fundingSourceSupportInfo.map { (info)
             in return FundingSourceSupportInfo(fragment: info)
         }
     }
@@ -47,8 +44,7 @@ extension FundingSourceSupportInfo {
         self.providerType = fragment.providerType
         self.fundingSourceType = fragment.fundingSourceType
         self.network = fragment.network
-        self.detail = fragment.detail.map {
-            (det: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.FundingSourceSupportInfo.Detail)
+        self.detail = fragment.detail.map { (det: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.FundingSourceSupportInfo.Detail)
             in return FundingSourceSupportDetail(fragment: det)}
     }
 }

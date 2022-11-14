@@ -8,17 +8,17 @@ import Foundation
 
 /// Representation of a Currency Velocity
 public struct CurrencyVelocity: Equatable {
-    
+
     // MARK: - Properties
-    
+
     /// The type of currency
     public var currency: String
-    
+
     /// The velocity of the currency
     public var velocity: [String]
-    
+
     // MARK: - Lifecycle
-    
+
     /// Initialises an instance of `CurrencyVelocity`.
     public init(
         currency: String,

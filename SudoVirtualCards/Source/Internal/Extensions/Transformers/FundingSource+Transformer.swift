@@ -16,6 +16,7 @@ extension FundingSource {
         self.currency = fragment.currency
         self.last4 = fragment.last4
         self.network = Network(fragment.network)
+        self.cardType = CardType(fragment.cardType)
         self.createdAt = Date(millisecondsSince1970: fragment.createdAtEpochMs)
         self.updatedAt = Date(millisecondsSince1970: fragment.updatedAtEpochMs)
     }

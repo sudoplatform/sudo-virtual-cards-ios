@@ -410,7 +410,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
         return try unsealer.unseal(sealedCard.fragments.sealedCardWithLastTransaction)
     }
-    
+
     public func getVirtualCardsConfig(cachePolicy: CachePolicy) async throws -> VirtualCardsConfig? {
         let query = GraphQL.GetVirtualCardsConfigQuery()
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)

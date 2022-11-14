@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Markup Structure Reference</title>
+    <title>Network Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Markup" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/Network" class="dashAnchor"></a>
 
-    <a title="Markup Structure Reference"></a>
+    <a title="Network Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../../index.html">SudoVirtualCards Reference</a>
       <img class="carat" src="../../img/carat.png" alt=""/>
-      Markup Structure Reference
+      Network Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -269,15 +269,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Markup</h1>
+            <h1>Network</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Markup</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Network</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
-            <p>Representation of a markup formula.</p>
+            <p>Network type associated with <code><a href="../../Structs/FundingSource.html">FundingSource</a></code>.</p>
 
           </div>
         </section>
@@ -285,22 +285,13 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Properties"></a>
-                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Properties"></a>
-                  <h3 class="section-name"><span>Properties</span>
-</h3>
-                </div>
-              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV7percentSivp"></a>
-                    <a name="//apple_ref/swift/Property/percent" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV7percentSivp">percent</a>
+                    <a name="/s:16SudoVirtualCards13FundingSourceV7NetworkO7unknownyAESScAEmF"></a>
+                    <a name="//apple_ref/swift/Element/unknown(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceV7NetworkO7unknownyAESScAEmF">unknown(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -308,117 +299,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Floating point percentage amount applied in calculating
-total markup multiple by 1000. For example: 2990 for 2.99%.
-1/1000th of a percent is the smallest granularity that can be
-represented.</p>
+                        <p>Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">percent</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV4flatSivp"></a>
-                    <a name="//apple_ref/swift/Property/flat" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV4flatSivp">flat</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Flat amount applied in calculating total markup in minor
-currency unit of billed currency in containing transaction detail
-e.g. 31 for $0.31.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">flat</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV03minF0Sivp"></a>
-                    <a name="//apple_ref/swift/Property/minCharge" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV03minF0Sivp">minCharge</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The minimum charge that will be made to the funding source. For example,
-if a small charge of $0.10 were made with a 2.99%+$0.31 fee formula
-then the resultant fee would be $0.31 cents resulting in an expected
-funding source charge of $0.41 cents. If minCharge is set and more than
-this amount then the minCharge will be charged instead.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">minCharge</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Lifecycle"></a>
-                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Lifecycle"></a>
-                  <h3 class="section-name"><span>Lifecycle</span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV7percent4flat03minF0AESi_S2itcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(percent:flat:minCharge:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV6MarkupV7percent4flat03minF0AESi_S2itcfc">init(percent:<wbr>flat:<wbr>minCharge:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Initialize an instance of <code>Markup</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">percent</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">flat</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">minCharge</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">unknown</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

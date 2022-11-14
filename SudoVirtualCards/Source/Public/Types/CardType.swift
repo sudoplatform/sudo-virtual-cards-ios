@@ -9,18 +9,21 @@ import Foundation
 ///  Representation of an enumeration depicting the type of [FundingSource], in the Sudo
 ///  Platform Virtual Cards SDK.
 ///
-public enum CardType: Equatable {
+public enum CardType: Hashable {
     /// Credit Card funding source
     case CREDIT
     /// Debit Card funding source
     case DEBIT
     /// Prepaid card funding source
     case PREPAID
-    /// Unknown funding source type
+    /// Other card funding source type
+    case OTHER
+
+    /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
     case UNKNOWN(String)
-    
+
     // MARK: - Lifecycle
-    
+
     /// Initialise an instance of `CardType`.
     init(_ cardType: GraphQL.CardType) {
         switch cardType {
@@ -30,6 +33,8 @@ public enum CardType: Equatable {
             self = .DEBIT
         case .prepaid:
             self = .PREPAID
+        case .other:
+            self = .OTHER
         case let .unknown(cardType):
             self = .UNKNOWN(cardType)
         }

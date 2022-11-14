@@ -24,6 +24,8 @@ public enum TransactionType: Hashable {
             self = .refund
         case .decline:
             self = .decline
+
+        /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
         case let .unknown(rawValue):
             self = .unknown(rawValue)
         }

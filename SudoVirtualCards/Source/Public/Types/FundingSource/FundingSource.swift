@@ -29,6 +29,8 @@ public struct FundingSource: Hashable {
                 self = .active
             case .inactive:
                 self = .inactive
+
+            /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
             case let .unknown(state):
                 self = .unknown(state)
             }
@@ -45,6 +47,8 @@ public struct FundingSource: Hashable {
         case unionpay
         case visa
         case other
+
+        /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
         case unknown(String)
 
         /// Initialize an instance of `FundingSource.Network`.
@@ -95,6 +99,9 @@ public struct FundingSource: Hashable {
     /// Payment Method network of the funding source.
     public var network: Network
 
+    /// Type of card represented by this funding source
+    public var cardType: CardType
+
     /// VirtualCards service timestamp to when the funding source record was created.
     public var createdAt: Date
 
@@ -104,7 +111,18 @@ public struct FundingSource: Hashable {
     // MARK: - Lifecycle
 
     /// Initialize an instance of `FundingSource`.
-    public init(id: String, owner: String, version: Int, state: State, currency: String, last4: String, network: Network, createdAt: Date, updatedAt: Date) {
+    public init(
+        id: String,
+        owner: String,
+        version: Int,
+        state: State,
+        currency: String,
+        last4: String,
+        network: Network,
+        cardType: CardType,
+        createdAt: Date,
+        updatedAt: Date
+    ) {
         self.id = id
         self.owner = owner
         self.version = version
@@ -112,6 +130,7 @@ public struct FundingSource: Hashable {
         self.currency = currency
         self.last4 = last4
         self.network = network
+        self.cardType = cardType
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }

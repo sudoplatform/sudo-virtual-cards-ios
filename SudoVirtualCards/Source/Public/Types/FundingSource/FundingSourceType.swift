@@ -37,6 +37,8 @@ public enum FundingSourceType: Encodable, Hashable {
             self = .creditCard
         case "BANK_ACCOUNT":
             self = .bankAccount
+
+        /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
         default:
             self = .unknown(type)
         }

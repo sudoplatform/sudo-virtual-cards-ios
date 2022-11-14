@@ -22,6 +22,8 @@ public enum TransactionDeclineReason: Hashable {
     case velocityExceeded
     case currencyBlocked
     case fundingError
+
+    /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
     case unknown(String)
 
     init(string: String) {

@@ -17,6 +17,8 @@ public enum VirtualCardState: Hashable, CustomStringConvertible {
     case failed
     case closed
     case suspended
+
+    /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
     case unknown(String)
 
     // MARK: - Lifecycle

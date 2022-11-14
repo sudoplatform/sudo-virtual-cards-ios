@@ -151,7 +151,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
         withId id: String,
         cachePolicy: CachePolicy
     ) async throws -> VirtualCard?
-    
+
     /// Get the current `VirtualCardsConfig`. If the config cannot be found, `nil` will be returned.
     ///
     /// - Parameters
