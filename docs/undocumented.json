@@ -645,6 +645,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/TransactionVelocity.swift",
+      "line": 11,
+      "symbol": "TransactionVelocity",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Protocols/VirtualCardAttributes.swift",
       "line": 9,
       "symbol": "VirtualCardAttributes",

@@ -30,6 +30,7 @@
 		5D795DB528FE2C0B00A74559 /* ProviderAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DB428FE2C0B00A74559 /* ProviderAPIs.swift */; };
 		5D795DB728FE4CE500A74559 /* TestIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DB628FE4CE500A74559 /* TestIdentity.swift */; };
 		5D795DBB29011E2B00A74559 /* InteractionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DBA29011E2B00A74559 /* InteractionData.swift */; };
+		5DE6628829AD7577007F03D9 /* TransactionVelocity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE6628729AD7577007F03D9 /* TransactionVelocity.swift */; };
 		5DE83277291C6D0A006C6FBA /* CardTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE83276291C6D0A006C6FBA /* CardTypeTests.swift */; };
 		84043C43244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84043C42244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift */; };
 		84043C45244FBBAD00BA3EF4 /* BlockProvisionCardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84043C44244FBBAD00BA3EF4 /* BlockProvisionCardObserver.swift */; };
@@ -265,6 +266,7 @@
 		5D795DB428FE2C0B00A74559 /* ProviderAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderAPIs.swift; sourceTree = "<group>"; };
 		5D795DB628FE4CE500A74559 /* TestIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIdentity.swift; sourceTree = "<group>"; };
 		5D795DBA29011E2B00A74559 /* InteractionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionData.swift; sourceTree = "<group>"; };
+		5DE6628729AD7577007F03D9 /* TransactionVelocity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionVelocity.swift; sourceTree = "<group>"; };
 		5DE83276291C6D0A006C6FBA /* CardTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeTests.swift; sourceTree = "<group>"; };
 		84043C42244FB67800BA3EF4 /* ProvisionCardEventualConsistencyIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionCardEventualConsistencyIntegrationTests.swift; sourceTree = "<group>"; };
 		84043C44244FBBAD00BA3EF4 /* BlockProvisionCardObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockProvisionCardObserver.swift; sourceTree = "<group>"; };
@@ -1160,6 +1162,7 @@
 				84A0440028112E0400D84039 /* ListOutput.swift */,
 				8460A32B23D97655004AB5A9 /* Owner.swift */,
 				84BE4F3424E2306400EE75AB /* SubscriptionToken.swift */,
+				5DE6628729AD7577007F03D9 /* TransactionVelocity.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1898,6 +1901,7 @@
 				844BB63D2818C9F1006F588A /* TransactionSealedAttributes.swift in Sources */,
 				84309D9E246A735B00F48ECC /* TransactionService.swift in Sources */,
 				84A044142817AA1100D84039 /* TransactionType.swift in Sources */,
+				5DE6628829AD7577007F03D9 /* TransactionVelocity.swift in Sources */,
 				8409EC6C23D16D9700553022 /* Unsealer.swift in Sources */,
 				8478C2AC281B81DB00F7E334 /* UpdateVirtualCardInput.swift in Sources */,
 				844D90412334945E00AD343B /* VirtualCard.swift in Sources */,

@@ -14,6 +14,11 @@ extension FundingSource {
         self.version = fragment.version
         self.state = State(fragment.state)
         self.currency = fragment.currency
+        self.transactionVelocity = fragment.transactionVelocity?.maximum == nil && fragment.transactionVelocity?.velocity == nil
+        ? nil
+        : TransactionVelocity(
+            maximum: fragment.transactionVelocity?.maximum,
+            velocity: fragment.transactionVelocity?.velocity)
         self.last4 = fragment.last4
         self.network = Network(fragment.network)
         self.cardType = CardType(fragment.cardType)

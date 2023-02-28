@@ -93,6 +93,13 @@ public struct FundingSource: Hashable {
     /// Currency of the funding source.
     public var currency: String
 
+    /// Effective transaction velocity, if any, applied to
+    /// virtual card transactions funded by this funding source.
+    /// This is the combined result of all velocity policies
+    /// (global and funding source specific) as at the time this funding
+    /// source was retrieved.
+    public var transactionVelocity: TransactionVelocity?
+
     /// Last 4 digits of the card of the funding source.
     public var last4: String
 
@@ -117,6 +124,7 @@ public struct FundingSource: Hashable {
         version: Int,
         state: State,
         currency: String,
+        transactionVelocity: TransactionVelocity? = nil,
         last4: String,
         network: Network,
         cardType: CardType,
@@ -128,6 +136,7 @@ public struct FundingSource: Hashable {
         self.version = version
         self.state = state
         self.currency = currency
+        self.transactionVelocity = transactionVelocity
         self.last4 = last4
         self.network = network
         self.cardType = cardType

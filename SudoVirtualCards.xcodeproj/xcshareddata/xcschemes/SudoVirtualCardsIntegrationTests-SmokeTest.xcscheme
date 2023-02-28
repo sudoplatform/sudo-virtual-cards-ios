@@ -89,6 +89,22 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "843682792320D8A5005F6D34"
+            BuildableName = "SudoVirtualCardsIntegrationTests.xctest"
+            BlueprintName = "SudoVirtualCardsIntegrationTests"
+            ReferencedContainer = "container:SudoVirtualCards.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "API_KEY"
+            value = "${API_KEY}"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

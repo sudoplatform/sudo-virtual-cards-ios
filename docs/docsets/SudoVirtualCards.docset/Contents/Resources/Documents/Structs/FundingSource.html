@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 20.2.0 Docs
+          SudoVirtualCards 20.3.0 Docs
         </a>
         
       </p>
@@ -507,6 +507,37 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards13FundingSourceV19transactionVelocityAA011TransactionG0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/transactionVelocity" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceV19transactionVelocityAA011TransactionG0VSgvp">transactionVelocity</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Effective transaction velocity, if any, applied to
+virtual card transactions funded by this funding source.
+This is the combined result of all velocity policies
+(global and funding source specific) as at the time this funding
+source was retrieved.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">transactionVelocity</span><span class="p">:</span> <span class="kt">TransactionVelocity</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards13FundingSourceV5last4SSvp"></a>
                     <a name="//apple_ref/swift/Property/last4" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards13FundingSourceV5last4SSvp">last4</a>
@@ -655,9 +686,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceV2id5owner7version5state8currency5last47network8cardType9createdAt07updatedP0ACSS_SSSiAC5StateOS2SAC7NetworkOAA04CardN0O10Foundation4DateVAVtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(id:owner:version:state:currency:last4:network:cardType:createdAt:updatedAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceV2id5owner7version5state8currency5last47network8cardType9createdAt07updatedP0ACSS_SSSiAC5StateOS2SAC7NetworkOAA04CardN0O10Foundation4DateVAVtcfc">init(id:<wbr>owner:<wbr>version:<wbr>state:<wbr>currency:<wbr>last4:<wbr>network:<wbr>cardType:<wbr>createdAt:<wbr>updatedAt:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards13FundingSourceV2id5owner7version5state8currency19transactionVelocity5last47network8cardType9createdAt07updatedR0ACSS_SSSiAC5StateOSSAA011TransactionL0VSgSSAC7NetworkOAA04CardP0O10Foundation4DateVAZtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(id:owner:version:state:currency:transactionVelocity:last4:network:cardType:createdAt:updatedAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceV2id5owner7version5state8currency19transactionVelocity5last47network8cardType9createdAt07updatedR0ACSS_SSSiAC5StateOSSAA011TransactionL0VSgSSAC7NetworkOAA04CardP0O10Foundation4DateVAZtcfc">init(id:<wbr>owner:<wbr>version:<wbr>state:<wbr>currency:<wbr>transactionVelocity:<wbr>last4:<wbr>network:<wbr>cardType:<wbr>createdAt:<wbr>updatedAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -678,6 +709,7 @@
     <span class="nv">version</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
     <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Structs/FundingSource.html#/s:16SudoVirtualCards13FundingSourceV5StateO">State</a></span><span class="p">,</span>
     <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">transactionVelocity</span><span class="p">:</span> <span class="kt">TransactionVelocity</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">last4</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">network</span><span class="p">:</span> <span class="kt"><a href="../Structs/FundingSource/Network.html">Network</a></span><span class="p">,</span>
     <span class="nv">cardType</span><span class="p">:</span> <span class="kt"><a href="../Enums/CardType.html">CardType</a></span><span class="p">,</span>
@@ -698,8 +730,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2022-11-14)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-02-28)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>
