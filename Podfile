@@ -28,11 +28,11 @@ target 'SudoVirtualCards' do
     podspec :name => 'SudoVirtualCards'
     pod 'Stripe', '~> 22'
     pod 'Frames', '~> 3'
-    pod 'SudoProfiles', '~> 16.0'
-    pod 'SudoEntitlements', '~> 8.0'
+    pod 'SudoProfiles', '~> 17.0'
+    pod 'SudoEntitlements', '~> 9.0'
     pod 'SudoEntitlementsAdmin', '~> 4.0'
-    pod 'SudoIdentityVerification', '~> 13.0'
-    pod 'SudoVirtualCardsSimulator', '~> 9.0'
+    pod 'SudoIdentityVerification', '~> 14.0'
+    pod 'SudoVirtualCardsSimulator', '~> 10.0'
   end
 
 end
