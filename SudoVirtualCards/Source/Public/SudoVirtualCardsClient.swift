@@ -1,5 +1,5 @@
 //
-// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2023 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -38,44 +38,51 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// Setup a funding source.
     /// - Parameters:
     ///   - input: Funding Source input information.
-    /// - Returns:
-    ///   - Success: The provisional Funding Source.
-    ///   - Failure:
-    ///     - InsufficientEntitlements.
-    ///     - VelocityExceeded.
+    /// - Returns: The provisional Funding Source.
+    /// - Throws:
+    ///   - InsufficientEntitlements.
+    ///   - VelocityExceeded.
     func setupFundingSource(withInput input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource
 
     /// Complete a provisional funding source.
     /// - Parameters:
     ///   - input: Parameters used to complete the funding source.
-    /// - Returns:
-    ///   - Success: The provisioned Funding Source.
-    ///   - Failure:
-    ///     - DuplicateFundingSource.
-    ///     - FundingSourceCompletionDataInvalid.
-    ///     - IdentityNotVerified.
-    ///     - ProvisionalFundingSourceNotFound.
-    ///     - UnacceptableFundingSource.
+    /// - Returns: The provisioned Funding Source.
+    /// - Throws:
+    ///   - DuplicateFundingSource.
+    ///   - FundingSourceCompletionDataInvalid.
+    ///   - IdentityNotVerified.
+    ///   - ProvisionalFundingSourceNotFound.
+    ///   - UnacceptableFundingSource.
     func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource
+
+    /// Refresh a funding source.
+    /// - Parameters:
+    ///   - input: Parameters used to refresh the funding source.
+    /// - Returns:The refreshed Funding Source.
+    /// - Throws:
+    ///     - FundingSourceCompletionDataInvalid.
+    ///     - FundingSourceNotFound.
+    ///     - UnacceptableFundingSource.
+    ///     - FundingSourceRequiresUserInteraction.
+    func refreshFundingSource(withInput input: RefreshFundingSourceInput) async throws -> FundingSource
 
     /// Provision a virtual card.
     ///
-    /// - Returns:
-    ///   - Success: A newly provisioned card information is returned.
-    ///   - Failure:
-    ///     - SudoPlatformError.
-    ///     - SudoVirtualCardsError.
+    /// - Returns: A newly provisioned card information is returned.
+    /// - Throws:
+    ///   - SudoPlatformError.
+    ///   - SudoVirtualCardsError.
     func provisionVirtualCard(withInput input: ProvisionVirtualCardInput, observer: ProvisionVirtualCardObservable?) async throws -> ProvisionalCardState
 
     /// Cancel a funding source.
     ///
     /// - Parameter id: ID of the funding source to be deleted.
     ///
-    /// - Returns:
-    ///   - Success: Funding source that was cancelled.
-    ///   - Failure:
-    ///     - SudoPlatformError.
-    ///     - SudoVirtualCardsError.
+    /// - Returns: Funding source that was cancelled.
+    /// - Throws:
+    ///  - SudoPlatformError.
+    ///  - SudoVirtualCardsError.
     func cancelFundingSource(withId id: String) async throws -> FundingSource
 
     /// Update a virtual card.
@@ -84,23 +91,25 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// original data.
     ///
     /// - Parameter input: Input fields for the card update.
-    /// - Returns:
-    ///   - Success: Updated card.
-    ///   - Failure:
-    ///     - SudoPlatformError.
+    /// - Returns: Updated card.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func updateVirtualCard(withInput input: UpdateVirtualCardInput) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard>
 
     /// Cancel a virtual card.
     ///
     /// - Parameter id: ID of the card to cancel.
     ///
-    /// - Returns: Record of Virtual Card that was canceled.
+    /// - Returns:
+    ///   - Success: Record of Virtual Card that was canceled.
+    ///   - Partial: Partial record of cancelled Virtual Card
     func cancelVirtualCard(withId id: String) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard>
 
     // MARK: - Queries
 
     /// Get the funding source client configuration.
-    /// Returns: The configuration of the client funding source data.
+    ///
+    /// - Returns: The configuration of the client funding source data.
     func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration]
 
     /// Get a provisional card using the `id` parameter. If the card cannot be found, `nil` will be returned.
@@ -110,10 +119,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
-    /// - Returns:
-    ///    - Success: Card associated with `id`, or `nil` if the card cannot be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    /// - Returns: Card associated with `id`, or `nil` if the card cannot be found.
+    /// - Throws
+    ///   - SudoPlatformError.
     func getProvisionalCard(withId id: String, cachePolicy: CachePolicy) async throws -> ProvisionalCard?
 
     /// Get a list of provisional cards. If no cards can be found, an empty list will be returned.
@@ -127,9 +135,10 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                    will only return cached results of similar exact API calls.
     ///
     /// - Returns:
-    ///    - Success: Cards associated with user, or empty array if no card can be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    ///   - Success: Cards associated with user, or empty array if no card can be found.
+    ///   - Partial: Mix of success and partial cards associated with user.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func listProvisionalCards(
         withLimit limit: Int?,
         nextToken: String?,
@@ -143,10 +152,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
-    /// - Returns:
-    ///    - Success: Card associated with `id`, or `nil` if the card cannot be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    /// - Returns: Card associated with `id`, or `nil` if the card cannot be found.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func getVirtualCard(
         withId id: String,
         cachePolicy: CachePolicy
@@ -158,10 +166,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                    will only return cached results of similar exact API calls.
     ///
-    /// - Returns:
-    ///    - Success: Virtual card config associated with account, or `nil` if the coinfig cannot be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    /// - Returns: Virtual card config associated with account, or `nil` if the coinfig cannot be found.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func getVirtualCardsConfig(
         cachePolicy: CachePolicy
     ) async throws -> VirtualCardsConfig?
@@ -178,8 +185,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///
     /// - Returns:
     ///    - Success: Cards associated with user, or empty array if no card can be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    ///    - Partial: Mix of success and partial cards associated with user.
+    /// - Throws:
+    ///    - SudoPlatformError.
     func listVirtualCards(
         withLimit limit: Int?,
         nextToken: String?,
@@ -192,10 +200,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
-    /// - Returns:
-    ///     - Success: `FundingSource` associated with `id`, or `nil` if the funding source cannot be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    /// - Returns: `FundingSource` associated with `id`, or `nil` if the funding source cannot be found.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func getFundingSource(
         withId id: String,
         cachePolicy: CachePolicy
@@ -211,10 +218,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
-    /// - Returns:
-    ///     - Success: `FundingSource` associated with `id`, or empty array if no card can be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    /// - Returns: `FundingSource`s associated with `id`, or empty array if no funding source can be found.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func listFundingSources(
         withLimit limit: Int?,
         nextToken: String?,
@@ -229,10 +235,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of similar exact API calls.
     ///
-    /// - Returns:
-    ///    - Success: Transaction associated with `id`, or `nil` if the card cannot be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    /// - Returns: Transaction associated with `id`, or `nil` if the card cannot be found.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func getTransaction(
         withId id: String,
         cachePolicy: CachePolicy
@@ -249,9 +254,10 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter cachePolicy: Determines how the data is fetched.
     ///
     /// - Returns:
-    ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///   - Partial: Mix of complete and partial Transactions associated with user.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func listTransactions(
         withCardId cardId: String,
         limit: Int?,
@@ -271,9 +277,10 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter cachePolicy: Determines how the data is fetched.
     ///
     /// - Returns:
-    ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///   - Partial: Mix of complete and partial Transactions associated with user.
+    /// - Throws:
+    ///   - SudoPlatformError.
     func listTransactions(
         withLimit limit: Int?,
         nextToken: String?,
@@ -316,9 +323,10 @@ extension SudoVirtualCardsClient {
     /// - Parameter cachePolicy: Determines how the data is fetched.
     ///
     /// - Returns:
-    ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
-    ///    - Failure:
-    ///      - SudoPlatformError.
+    ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///   - Partial: Mix of partial and complete Transactions associated with user.
+    /// - Throws:
+    ///   - SudoPlatformError.
     @available(*, deprecated, message: "Added new dateRange and sortOrder parameters")
     func listTransactions(
         withLimit limit: Int?,

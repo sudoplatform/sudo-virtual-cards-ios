@@ -31,13 +31,13 @@ class PublicKeyService {
     // MARK: - Properties
 
     /// App Sync Client used to interact with the GraphQL endpoint of the virtual cards service.
-    unowned var graphQLClient: SudoApiClient
+    private unowned var graphQLClient: SudoApiClient
 
     /// Platform key manager used to access the iOS keychain for mainpulating and accessing key data.
-    unowned var platformKeyManager: PlatformKeyManager
+    private unowned var platformKeyManager: PlatformKeyManager
 
     /// Logs errors and diagnostic information.
-    var logger: Logger
+    private var logger: Logger
 
     // MARK: - Lifecycle
 

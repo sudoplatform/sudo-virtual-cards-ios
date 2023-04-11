@@ -11,8 +11,8 @@ Please see the [Sudo Platform Developer Docs](https://sudoplatform.com/docs) for
 | Technology             | Supported version |
 | ---------------------- | ----------------- |
 | iOS Deployment Target  | 14.0+             |
-| Swift language version | 5.0               |
-| Xcode version          | 12.0+             |
+| Swift language version | 5.7               |
+| Xcode version          | 14.1+             |
 
 ## Integration Instructions
 Visit the [Virtual Cards section](https://sudoplatform.com/docs) of the Sudo Platform Developer Docs for SDK integration instructions.

@@ -1,11 +1,8 @@
 //
-// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2023 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
-
-// disabled nesting for *.Data.CodingKeys
-// swiftlint:disable nesting
 
 import Foundation
 
@@ -16,241 +13,158 @@ struct CheckoutDefaults {
     static let version = 1
 }
 
-public struct CheckoutCardProvisioningData: FundingSourceProviderData, Hashable {
-
-    // MARK: - Supplementary
-
-    struct Data: Decodable, Hashable {
-
-        // MARK: - Properties
-
-        let provider: String
-        let type: FundingSourceType
-        let version: Int
-
-        // MARK: - Lifecycle
-
-        init() {
-            self.provider = CheckoutDefaults.provider
-            self.version = CheckoutDefaults.version
-            self.type = .creditCard
-        }
-
-        // MARK: - Conformance: Encodable
-
-        enum CodingKeys: String, CodingKey {
-            case provider
-            case type
-            case version
-        }
-
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            let provider = try container.decode(String.self, forKey: .provider)
-            guard provider == CheckoutDefaults.provider else {
-                throw DecodingError.dataCorruptedError(
-                    forKey: CodingKeys.provider,
-                    in: container,
-                    debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
-            }
-            let version = try container.decode(Int.self, forKey: .version)
-            guard version == CheckoutDefaults.version else {
-                throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
-                                                       in: container,
-                                                       debugDescription: "Version must equal \(CheckoutDefaults.version)")
-            }
-            let typeValue = try container.decode(String.self, forKey: .type)
-            let type = FundingSourceType(typeValue)
-            guard type == FundingSourceType.creditCard else {
-                throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
-                                                       in: container,
-                                                       debugDescription: "Type must equal \(FundingSourceType.creditCard)")
-            }
-            self.provider = provider
-            self.type = type
-            self.version = version
-        }
-    }
-
+public struct CheckoutCardProvisioningData: FundingSourceProviderData, Decodable, Hashable {
     // MARK: - Properties
 
-    public var provider: String {
-        return data.provider
-    }
+    public let provider: String
+    public let type: FundingSourceType
+    public let version: Int
 
-    public var type: FundingSourceType {
-        return data.type
-    }
+    // MARK: - Conformance: Encodable
 
-    public var version: Int {
-        return data.version
+    enum CodingKeys: String, CodingKey {
+        case provider
+        case type
+        case version
     }
-
-    let data: Data
 
     // MARK: - Lifecycle
 
-    init(data: Data) {
-        self.data = data
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let provider = try container.decode(String.self, forKey: .provider)
+        guard provider == CheckoutDefaults.provider else {
+            throw DecodingError.dataCorruptedError(
+                forKey: CodingKeys.provider,
+                in: container,
+                debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
+        }
+        let version = try container.decode(Int.self, forKey: .version)
+        guard version == CheckoutDefaults.version else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
+                                                   in: container,
+                                                   debugDescription: "Version must equal \(CheckoutDefaults.version)")
+        }
+        let typeValue = try container.decode(String.self, forKey: .type)
+        let type = FundingSourceType(typeValue)
+        guard type == FundingSourceType.creditCard else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
+                                                   in: container,
+                                                   debugDescription: "Type must equal \(FundingSourceType.creditCard)")
+        }
+        self.provider = provider
+        self.type = type
+        self.version = version
+    }
+
+    public init() {
+        self.provider = CheckoutDefaults.provider
+        self.type = .creditCard
+        self.version = CheckoutDefaults.version
     }
 }
 
-public struct CheckoutBankAccountProvisioningData: FundingSourceProviderData, Hashable {
-
-    // MARK: - Supplementary
-
-    struct Data: Decodable, Hashable {
-
-        // MARK: - Properties
-
-        let provider: String
-        let type: FundingSourceType
-        let version: Int
-
-        /// Provider setup link token
-        var linkToken: String
-
-        // MARK: - Lifecycle
-
-        init(linkToken: String) {
-            self.provider = CheckoutDefaults.provider
-            self.version = CheckoutDefaults.version
-            self.type = .bankAccount
-            self.linkToken = linkToken
-        }
-
-        // MARK: - Conformance: Encodable
-
-        enum CodingKeys: String, CodingKey {
-            case provider
-            case type
-            case version
-            case linkToken
-        }
-
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            let provider = try container.decode(String.self, forKey: .provider)
-            guard provider == CheckoutDefaults.provider else {
-                throw DecodingError.dataCorruptedError(
-                    forKey: CodingKeys.provider,
-                    in: container,
-                    debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
-            }
-            let version = try container.decode(Int.self, forKey: .version)
-            guard version == CheckoutDefaults.version else {
-                throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
-                                                       in: container,
-                                                       debugDescription: "Version must equal \(CheckoutDefaults.version)")
-            }
-            let typeValue = try container.decode(String.self, forKey: .type)
-            let type = FundingSourceType(typeValue)
-            guard type == FundingSourceType.bankAccount else {
-                throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
-                                                       in: container,
-                                                       debugDescription: "Type must equal \(FundingSourceType.bankAccount)")
-            }
-            self.provider = provider
-            self.type = type
-            self.version = version
-            self.linkToken = try container.decode(String.self, forKey: .linkToken)
-        }
-    }
+public struct CheckoutBankAccountProvisioningData: FundingSourceProviderData, Decodable, Hashable {
 
     // MARK: - Properties
+    public let provider: String
+    public let type: FundingSourceType
+    public let version: Int
 
-    public var provider: String {
-        return data.provider
+    /// Provider setup link token
+    public let linkToken: String
+    /// Authorization text
+    public let authorizationText: [AuthorizationText]
+
+    // MARK: - Conformance: Encodable
+
+    enum CodingKeys: String, CodingKey {
+        case provider
+        case type
+        case version
+        case plaidLinkToken
+        case authorizationText
     }
 
-    public var type: FundingSourceType {
-        return data.type
-    }
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let provider = try container.decode(String.self, forKey: .provider)
+        guard provider == CheckoutDefaults.provider else {
+            throw DecodingError.dataCorruptedError(
+                forKey: CodingKeys.provider,
+                in: container,
+                debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
+        }
+        let version = try container.decode(Int.self, forKey: .version)
+        guard version == CheckoutDefaults.version else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
+                                                   in: container,
+                                                   debugDescription: "Version must equal \(CheckoutDefaults.version)")
+        }
+        let typeValue = try container.decode(String.self, forKey: .type)
+        let type = FundingSourceType(typeValue)
+        guard type == FundingSourceType.bankAccount else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
+                                                   in: container,
+                                                   debugDescription: "Type must equal \(FundingSourceType.bankAccount)")
+        }
+        let authorizationText = try container.decode([AuthorizationText].self, forKey: .authorizationText)
 
-    public var version: Int {
-        return data.version
+        self.provider = provider
+        self.type = type
+        self.version = version
+        let plaidLinkToken = try container.decode(PlaidLinkToken.self, forKey: .plaidLinkToken)
+        self.linkToken = plaidLinkToken.linkToken
+        self.authorizationText = authorizationText
     }
-
-    public var linkToken: String {
-        return data.linkToken
-    }
-
-    let data: Data
 
     // MARK: - Lifecycle
 
-    init(data: Data) {
-        self.data = data
+    init(linkToken: String, authorizationText: [AuthorizationText]) {
+        self.provider = CheckoutDefaults.provider
+        self.version = CheckoutDefaults.version
+        self.type = .bankAccount
+        self.linkToken = linkToken
+        self.authorizationText = authorizationText
     }
 
-    init(linkToken: String) {
-        self.init(data: .init(linkToken: linkToken))
-    }
 }
 
-/// Data received from checkout to complete provisioning a funding source.
-public struct CheckoutCardCompletionData: FundingSourceProviderData, Hashable {
-
-    // MARK: - Supplementary
-
-    struct Data: Encodable, Hashable {
-        // MARK: - Properties
-
-        let provider: String = CheckoutDefaults.provider
-        let type: FundingSourceType = FundingSourceType.creditCard
-        let version: Int = CheckoutDefaults.version
-
-        /// Specifies payment token being setup
-        var paymentToken: String
-
-        // MARK: - Lifecycle
-
-        init(paymentToken: String) {
-            self.paymentToken = paymentToken
-        }
-
-        // MARK: - Conformance: Encodable
-
-        enum CodingKeys: String, CodingKey {
-            case provider
-            case type
-            case version
-            case paymentToken = "payment_token"
-        }
-
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            try container.encode(provider, forKey: .provider)
-            try container.encode(type, forKey: .type)
-            try container.encode(version, forKey: .version)
-            try container.encode(paymentToken, forKey: .paymentToken)
-        }
-    }
+/// Data received from checkout to complete provisioning a card based funding source.
+public struct CheckoutCardCompletionData: FundingSourceProviderData, Encodable, Hashable {
 
     // MARK: - Properties
 
-    let data: Data
+    public let provider: String
+    public let type: FundingSourceType
+    public let version: Int
 
-    public var provider: String {
-        return data.provider
+    /// Specifies payment token being setup
+    public let paymentToken: String
+
+    // MARK: - Conformance: Encodable
+
+    enum CodingKeys: String, CodingKey {
+        case provider
+        case type
+        case version
+        case paymentToken = "payment_token"
     }
 
-    public var type: FundingSourceType {
-        return data.type
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(provider, forKey: .provider)
+        try container.encode(type, forKey: .type)
+        try container.encode(version, forKey: .version)
+        try container.encode(paymentToken, forKey: .paymentToken)
     }
-
-    public var version: Int {
-        return data.version
-    }
-
-    public var paymentToken: String {
-        return data.paymentToken
-    }
-
     // MARK: - Lifecycle
 
     init(paymentToken: String) {
-        self.data = Data(paymentToken: paymentToken)
+        self.provider = CheckoutDefaults.provider
+        self.type = .creditCard
+        self.version = CheckoutDefaults.version
+        self.paymentToken = paymentToken
     }
 }
 
@@ -258,89 +172,126 @@ public struct CheckoutCardCompletionData: FundingSourceProviderData, Hashable {
 /// Data received to continue funding source completion process when further user interaction is required
 /// for Checkout Card funding sources.
 ///
-public struct CheckoutCardInteractionData: FundingSourceProviderData, Hashable {
-    // MARK: - Supplementary
-
-    struct Data: Decodable, Hashable {
-
-        // MARK: - Properties
-
-        let provider: String
-        let type: FundingSourceType
-        let version: Int
-        let redirectUrl: String
-
-        // MARK: - Lifecycle
-
-        init(redirectUrl: String) {
-            self.provider = CheckoutDefaults.provider
-            self.version = CheckoutDefaults.version
-            self.type = .creditCard
-            self.redirectUrl = redirectUrl
-        }
-
-        // MARK: - Conformance: Encodable
-
-        enum CodingKeys: String, CodingKey {
-            case provider
-            case type
-            case version
-            case redirectUrl
-        }
-
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            let provider = try container.decode(String.self, forKey: .provider)
-            guard provider == CheckoutDefaults.provider else {
-                throw DecodingError.dataCorruptedError(
-                    forKey: CodingKeys.provider,
-                    in: container,
-                    debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
-            }
-            let version = try container.decode(Int.self, forKey: .version)
-            guard version == CheckoutDefaults.version else {
-                throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
-                                                       in: container,
-                                                       debugDescription: "Version must equal \(CheckoutDefaults.version)")
-            }
-            let typeValue = try container.decode(String.self, forKey: .type)
-            let type = FundingSourceType(typeValue)
-            guard type == FundingSourceType.creditCard else {
-                throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
-                                                       in: container,
-                                                       debugDescription: "Type must equal \(FundingSourceType.creditCard)")
-            }
-            let redirectUrl = try container.decode(String.self, forKey: .redirectUrl)
-            self.provider = provider
-            self.type = type
-            self.version = version
-            self.redirectUrl = redirectUrl
-        }
-    }
+public struct CheckoutCardInteractionData: FundingSourceProviderData, Decodable, Hashable {
 
     // MARK: - Properties
 
-    public var provider: String {
-        return data.provider
+    public let provider: String
+    public let type: FundingSourceType
+    public let version: Int
+    public let redirectUrl: String
+
+    // MARK: - Conformance: Encodable
+
+    enum CodingKeys: String, CodingKey {
+        case provider
+        case type
+        case version
+        case redirectUrl
     }
 
-    public var type: FundingSourceType {
-        return data.type
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let provider = try container.decode(String.self, forKey: .provider)
+        guard provider == CheckoutDefaults.provider else {
+            throw DecodingError.dataCorruptedError(
+                forKey: CodingKeys.provider,
+                in: container,
+                debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
+        }
+        let version = try container.decode(Int.self, forKey: .version)
+        guard version == CheckoutDefaults.version else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
+                                                   in: container,
+                                                   debugDescription: "Version must equal \(CheckoutDefaults.version)")
+        }
+        let typeValue = try container.decode(String.self, forKey: .type)
+        let type = FundingSourceType(typeValue)
+        guard type == FundingSourceType.creditCard else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
+                                                   in: container,
+                                                   debugDescription: "Type must equal \(FundingSourceType.creditCard)")
+        }
+        let redirectUrl = try container.decode(String.self, forKey: .redirectUrl)
+        self.provider = provider
+        self.type = type
+        self.version = version
+        self.redirectUrl = redirectUrl
     }
-
-    public var version: Int {
-        return data.version
-    }
-
-    public var redirectUrl: String {
-        return data.redirectUrl
-    }
-
-    let data: Data
 
     // MARK: - Lifecycle
 
-    init(data: Data) {
-        self.data = data
+    public init(redirectUrl: String) {
+        self.provider = CheckoutDefaults.provider
+        self.version = CheckoutDefaults.version
+        self.type = .creditCard
+        self.redirectUrl = redirectUrl
+    }
+}
+
+///
+/// Data received to continue funding source refresh process when further user interaction is required
+/// for Checkout Bank Account funding sources.
+///
+public struct CheckoutBankAccountRefreshInteractionData: FundingSourceProviderData, Decodable, Hashable {
+
+    // MARK: - Properties
+
+    public let provider: String
+    public let type: FundingSourceType
+    public let version: Int
+    public let linkToken: String
+    public let authorizationText: [AuthorizationText]
+
+    // MARK: - Conformance: Encodable
+
+    enum CodingKeys: String, CodingKey {
+        case provider
+        case type
+        case version
+        case plaidLinkToken
+        case authorizationText
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let provider = try container.decode(String.self, forKey: .provider)
+        guard provider == CheckoutDefaults.provider else {
+            throw DecodingError.dataCorruptedError(
+                forKey: CodingKeys.provider,
+                in: container,
+                debugDescription: "Provider must equal \(CheckoutDefaults.provider)")
+        }
+        let version = try container.decode(Int.self, forKey: .version)
+        guard version == CheckoutDefaults.version else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.version,
+                                                   in: container,
+                                                   debugDescription: "Version must equal \(CheckoutDefaults.version)")
+        }
+        let typeValue = try container.decode(String.self, forKey: .type)
+        let type = FundingSourceType(typeValue)
+        guard type == FundingSourceType.bankAccount else {
+            throw DecodingError.dataCorruptedError(forKey: CodingKeys.type,
+                                                   in: container,
+                                                   debugDescription: "Type must equal \(FundingSourceType.bankAccount)")
+        }
+        let plaidLinkToken = try container.decode(PlaidLinkToken.self, forKey: .plaidLinkToken)
+        let authorizationText = try container.decode([AuthorizationText].self, forKey: .authorizationText)
+        self.provider = provider
+        self.type = type
+        self.version = version
+        self.linkToken = plaidLinkToken.linkToken
+        self.authorizationText = authorizationText
+    }
+
+    // MARK: - Lifecycle
+
+    public init(linkToken: String, authorizationText: [AuthorizationText]) {
+        self.provider = CheckoutDefaults.provider
+        self.version = CheckoutDefaults.version
+        self.type = .bankAccount
+
+        self.linkToken = linkToken
+        self.authorizationText = authorizationText
     }
 }

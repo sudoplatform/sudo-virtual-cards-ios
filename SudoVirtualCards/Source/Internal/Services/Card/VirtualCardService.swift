@@ -24,15 +24,15 @@ class VirtualCardService {
     // MARK: - Properties
 
     /// App Sync Client used to interact with the GraphQL endpoint of the virtual cards service.
-    unowned var graphQLClient: SudoApiClient
+    private unowned let graphQLClient: SudoApiClient
 
     /// Unsealer used to unseal card data that has been encrypted.
-    unowned var unsealer: Unsealer
+    private unowned let unsealer: Unsealer
 
-    unowned var platformKeyManager: PlatformKeyManager
+    private unowned let platformKeyManager: PlatformKeyManager
 
     /// Logs errors and diagnostic information.
-    var logger: Logger
+    private let logger: Logger
 
     /// Dictionary of Timers used to cancel a provision card subscription if it times out.
     var provisionTimers: [String: Timer] = [:]

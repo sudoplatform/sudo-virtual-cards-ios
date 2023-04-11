@@ -18,6 +18,7 @@
 "virtual_cards.errors.cancelFailed" = "Failed to cancel";
 "virtual_cards.errors.updateFailed" = "Failed to update";
 "virtual_cards.errors.getFailed" = "Failed to get";
+"virtual_cards.errors.refreshFailed" = "Failed to refresh a funding source";
 
 // MARK: - Errors: ClientPublicKey
 

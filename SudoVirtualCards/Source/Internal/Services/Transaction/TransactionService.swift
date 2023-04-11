@@ -17,16 +17,16 @@ class TransactionService {
 
     /// Used to determine if the user is signed in and access the user owner ID.
     /// Unowned used since this should always outlive the lifetime of this class.
-    unowned let userClient: SudoUserClient
+    private unowned let userClient: SudoUserClient
 
     /// Used to make GraphQL requests to AWS. Injected into operations to delegate the calls.
-    unowned let graphQLClient: SudoApiClient
+    private unowned let graphQLClient: SudoApiClient
 
     /// Used to unseal incoming transactions.
-    unowned let unsealer: Unsealer
+    private unowned let unsealer: Unsealer
 
     /// Logs errors and diagnostic information.
-    let logger: Logger
+    private let logger: Logger
 
     /// Weak reference to existing subscriptions.
     var subscriptions: [WeakCancellable] = []

@@ -1,5 +1,5 @@
 //
-// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2023 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -44,12 +44,14 @@ public struct SetupFundingSourceInput: Equatable {
     public let type: SetupFundingSourceType
     public let currency: String
     public let supportedProviders: [String]?
+    public let language: String?
 
     // MARK: - Lifecycle
 
-    public init(type: SetupFundingSourceType, currency: String, supportedProviders: [String] = []) {
+    public init(type: SetupFundingSourceType, currency: String, supportedProviders: [String] = [], language: String? = nil) {
         self.type = type
         self.currency = currency
         self.supportedProviders = supportedProviders.isEmpty ? nil : supportedProviders
+        self.language = language
     }
 }

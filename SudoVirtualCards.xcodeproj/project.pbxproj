@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BD141AFFEB1CC00136A0487 /* Pods_SudoVirtualCards_SudoVirtualCardsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59EDBC84F8BA527F3E5C29E /* Pods_SudoVirtualCards_SudoVirtualCardsTests.framework */; };
+		0C05AF8229DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C05AF8129DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift */; };
 		0CCE83D129075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE83D029075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift */; };
 		2D3A6AD2380CF18611D930CB /* Pods_SudoVirtualCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F67D27E441538D0B1C55566 /* Pods_SudoVirtualCards.framework */; };
 		5D5A15AE28F5307E001D1E0D /* FundingSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5A15AD28F5307E001D1E0D /* FundingSourceType.swift */; };
@@ -56,7 +57,7 @@
 		841E5CBB23418ABF004219B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 841E5CBA23418ABF004219B9 /* Assets.xcassets */; };
 		841E5CBE23418ABF004219B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 841E5CBC23418ABF004219B9 /* LaunchScreen.storyboard */; };
 		841E5CCB2342D464004219B9 /* AWSRegionType+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841E5CCA2342D464004219B9 /* AWSRegionType+Decodable.swift */; };
-		841F01E323A7101C008DED82 /* FundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F01E223A7101C008DED82 /* FundingSource.swift */; };
+		841F01E323A7101C008DED82 /* FundingSourceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F01E223A7101C008DED82 /* FundingSourceState.swift */; };
 		841F01E523A71438008DED82 /* StripeProviderData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F01E423A71438008DED82 /* StripeProviderData.swift */; };
 		8422321523D7AA0F00ED948C /* Inputs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8422321423D7AA0F00ED948C /* Inputs.swift */; };
 		842499FB240635770093BBCD /* SudoVirtualCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84783B2A231C916200CCBC27 /* SudoVirtualCards.framework */; };
@@ -137,7 +138,6 @@
 		84783B3B231C916200CCBC27 /* SudoVirtualCards.h in Headers */ = {isa = PBXBuildFile; fileRef = 84783B2D231C916200CCBC27 /* SudoVirtualCards.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8478C2A3281A3B2F00F7E334 /* DataFactory+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A2281A3B2F00F7E334 /* DataFactory+API.swift */; };
 		8478C2A5281A3E4900F7E334 /* DataFactory+GraphQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A4281A3E4900F7E334 /* DataFactory+GraphQL.swift */; };
-		8478C2A8281A50EF00F7E334 /* FundingSource+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A7281A50EF00F7E334 /* FundingSource+Transformer.swift */; };
 		8478C2AA281B81C500F7E334 /* ProvisionVirtualCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2A9281B81C500F7E334 /* ProvisionVirtualCardInput.swift */; };
 		8478C2AC281B81DB00F7E334 /* UpdateVirtualCardInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2AB281B81DB00F7E334 /* UpdateVirtualCardInput.swift */; };
 		8478C2AE281B81FA00F7E334 /* SetupFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8478C2AD281B81FA00F7E334 /* SetupFundingSourceInput.swift */; };
@@ -213,6 +213,18 @@
 		A286F3A828DD338700D89CDE /* VirtualCardsConfigTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A286F3A728DD338700D89CDE /* VirtualCardsConfigTransformer.swift */; };
 		A286F3AB28DD826600D89CDE /* GetVirtualCardsConfigIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A286F3AA28DD826600D89CDE /* GetVirtualCardsConfigIntegrationTests.swift */; };
 		AA87ACC92FCF4A4564F213AC /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C65219757952B6A89B3989A /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework */; };
+		AD10B40129D1805A00DC3407 /* PlaidLinkToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */; };
+		AD65A87C29CAD76800821E6F /* README.md.external in Resources */ = {isa = PBXBuildFile; fileRef = AD65A87B29CAD76800821E6F /* README.md.external */; };
+		AD65A87E29CBBDDB00821E6F /* FundingSource+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */; };
+		ADBC447629C918FF002DC04E /* RefreshFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */; };
+		ADBC447829C91AB1002DC04E /* AuthorizationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447729C91AB1002DC04E /* AuthorizationText.swift */; };
+		ADBC447A29C93685002DC04E /* FundingSourceRefreshData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447929C93685002DC04E /* FundingSourceRefreshData.swift */; };
+		ADBC447C29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447B29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift */; };
+		ADBC447E29C93B88002DC04E /* AuthorizationTextSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447D29C93B88002DC04E /* AuthorizationTextSignature.swift */; };
+		ADBC448229C960D6002DC04E /* FundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448129C960D5002DC04E /* FundingSource.swift */; };
+		ADBC448429C96741002DC04E /* CreditCardFundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */; };
+		ADBC448829C979F5002DC04E /* BankAccountFundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */; };
+		ADBC448A29C97D0A002DC04E /* BankAccountType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448929C97D0A002DC04E /* BankAccountType.swift */; };
 		D9EE6F6427B24D5D00BFC149 /* Data+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EE6F6327B24D5D00BFC149 /* Data+Utility.swift */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +253,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C05AF8129DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutBankAccountCompletionData.swift; sourceTree = "<group>"; };
 		0C65219757952B6A89B3989A /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CCE83D029075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutBankAccountProviderDataTests.swift; sourceTree = "<group>"; };
 		0F67D27E441538D0B1C55566 /* Pods_SudoVirtualCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoVirtualCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -294,7 +307,7 @@
 		841E5CBD23418ABF004219B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		841E5CBF23418ABF004219B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		841E5CCA2342D464004219B9 /* AWSRegionType+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSRegionType+Decodable.swift"; sourceTree = "<group>"; };
-		841F01E223A7101C008DED82 /* FundingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSource.swift; sourceTree = "<group>"; };
+		841F01E223A7101C008DED82 /* FundingSourceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceState.swift; sourceTree = "<group>"; };
 		841F01E423A71438008DED82 /* StripeProviderData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeProviderData.swift; sourceTree = "<group>"; };
 		8422321423D7AA0F00ED948C /* Inputs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inputs.swift; sourceTree = "<group>"; };
 		84269C48233C4EC300BF13D6 /* MockGraphQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGraphQL.swift; sourceTree = "<group>"; };
@@ -380,7 +393,6 @@
 		84783B3A231C916200CCBC27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8478C2A2281A3B2F00F7E334 /* DataFactory+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFactory+API.swift"; sourceTree = "<group>"; };
 		8478C2A4281A3E4900F7E334 /* DataFactory+GraphQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataFactory+GraphQL.swift"; sourceTree = "<group>"; };
-		8478C2A7281A50EF00F7E334 /* FundingSource+Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FundingSource+Transformer.swift"; sourceTree = "<group>"; };
 		8478C2A9281B81C500F7E334 /* ProvisionVirtualCardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionVirtualCardInput.swift; sourceTree = "<group>"; };
 		8478C2AB281B81DB00F7E334 /* UpdateVirtualCardInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateVirtualCardInput.swift; sourceTree = "<group>"; };
 		8478C2AD281B81FA00F7E334 /* SetupFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFundingSourceInput.swift; sourceTree = "<group>"; };
@@ -455,6 +467,18 @@
 		A286F3A528DD23C600D89CDE /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		A286F3A728DD338700D89CDE /* VirtualCardsConfigTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardsConfigTransformer.swift; sourceTree = "<group>"; };
 		A286F3AA28DD826600D89CDE /* GetVirtualCardsConfigIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVirtualCardsConfigIntegrationTests.swift; sourceTree = "<group>"; };
+		AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidLinkToken.swift; sourceTree = "<group>"; };
+		AD65A87B29CAD76800821E6F /* README.md.external */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md.external; sourceTree = "<group>"; };
+		AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FundingSource+Transformer.swift"; sourceTree = "<group>"; };
+		ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshFundingSourceInput.swift; sourceTree = "<group>"; };
+		ADBC447729C91AB1002DC04E /* AuthorizationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationText.swift; sourceTree = "<group>"; };
+		ADBC447929C93685002DC04E /* FundingSourceRefreshData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceRefreshData.swift; sourceTree = "<group>"; };
+		ADBC447B29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutBankAccountRefreshData.swift; sourceTree = "<group>"; };
+		ADBC447D29C93B88002DC04E /* AuthorizationTextSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTextSignature.swift; sourceTree = "<group>"; };
+		ADBC448129C960D5002DC04E /* FundingSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FundingSource.swift; sourceTree = "<group>"; };
+		ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardFundingSource.swift; sourceTree = "<group>"; };
+		ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountFundingSource.swift; sourceTree = "<group>"; };
+		ADBC448929C97D0A002DC04E /* BankAccountType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountType.swift; sourceTree = "<group>"; };
 		AED7DCEFD93C93581006E6CC /* Pods-SudoVirtualCards-SudoVirtualCardsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoVirtualCards-SudoVirtualCardsTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoVirtualCards-SudoVirtualCardsTests/Pods-SudoVirtualCards-SudoVirtualCardsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D9EE6F6327B24D5D00BFC149 /* Data+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Utility.swift"; sourceTree = "<group>"; };
 		E23B00CA621523F2A6394A65 /* Pods-SudoVirtualCards-SudoVirtualCardsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoVirtualCards-SudoVirtualCardsTests.release.xcconfig"; path = "Target Support Files/Pods-SudoVirtualCards-SudoVirtualCardsTests/Pods-SudoVirtualCards-SudoVirtualCardsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -517,9 +541,12 @@
 			isa = PBXGroup;
 			children = (
 				5D5A15B428FB5446001D1E0D /* Protocols */,
+				ADBC447729C91AB1002DC04E /* AuthorizationText.swift */,
+				ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */,
 				5D5A15B928FCA163001D1E0D /* CheckoutProviderData.swift */,
-				841F01E223A7101C008DED82 /* FundingSource.swift */,
+				ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */,
 				8438829D27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift */,
+				841F01E223A7101C008DED82 /* FundingSourceState.swift */,
 				5D5A15AD28F5307E001D1E0D /* FundingSourceType.swift */,
 				5D795DBA29011E2B00A74559 /* InteractionData.swift */,
 				8438829B27C4A37A00FC7577 /* ProvisionalFundingSource.swift */,
@@ -532,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				5D5A15B528FB59CC001D1E0D /* BaseFundingSourceClientConfiguration.swift */,
+				ADBC448129C960D5002DC04E /* FundingSource.swift */,
 				5D5A15AF28FA7E36001D1E0D /* FundingSourceProviderData.swift */,
 			);
 			path = Protocols;
@@ -1088,7 +1116,7 @@
 			isa = PBXGroup;
 			children = (
 				84A0441D2817AC3100D84039 /* PartialTransformers */,
-				8478C2A7281A50EF00F7E334 /* FundingSource+Transformer.swift */,
+				AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */,
 				A286F3A728DD338700D89CDE /* VirtualCardsConfigTransformer.swift */,
 			);
 			path = Transformers;
@@ -1120,6 +1148,7 @@
 				848ADAA6231CD56E0013F196 /* Gemfile.lock */,
 				848ADAA7231CD56E0013F196 /* Podfile.lock */,
 				848ADAA5231CD56E0013F196 /* README.md */,
+				AD65A87B29CAD76800821E6F /* README.md.external */,
 				848ADAA8231CD56E0013F196 /* sonar-project.properties */,
 				848ADAA9231CD56E0013F196 /* SudoVirtualCards.podspec */,
 			);
@@ -1154,6 +1183,7 @@
 				A286F39B28DD210700D89CDE /* VirtualCardsConfig */,
 				844D903E2334943E00AD343B /* Address.swift */,
 				84A043F0280F8FA600D84039 /* APIResult.swift */,
+				ADBC448929C97D0A002DC04E /* BankAccountType.swift */,
 				84AC7A492457E4C300815DA9 /* CachePolicy.swift */,
 				A286F3A528DD23C600D89CDE /* CardType.swift */,
 				846B27562804F26A00273801 /* CreateKeysIfAbsentResult.swift */,
@@ -1250,6 +1280,7 @@
 				8478C2B1281B826900F7E334 /* Supplementary */,
 				8478C2AF281B824300F7E334 /* CompleteFundingSourceInput.swift */,
 				8478C2A9281B81C500F7E334 /* ProvisionVirtualCardInput.swift */,
+				ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */,
 				8478C2AD281B81FA00F7E334 /* SetupFundingSourceInput.swift */,
 				8478C2AB281B81DB00F7E334 /* UpdateVirtualCardInput.swift */,
 			);
@@ -1318,9 +1349,14 @@
 		84FB5D57244D6699006AB2B1 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				ADBC447D29C93B88002DC04E /* AuthorizationTextSignature.swift */,
 				5D5A15BD28FCBFF7001D1E0D /* BaseProvisioningData.swift */,
+				0C05AF8129DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift */,
+				ADBC447B29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift */,
 				5D5A15B128FB4F37001D1E0D /* ClientConfigurationData.swift */,
 				5D5A15BB28FCB1A9001D1E0D /* FundingSourceCompletionData.swift */,
+				ADBC447929C93685002DC04E /* FundingSourceRefreshData.swift */,
+				AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */,
 				8467C2C827FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift */,
 				84309DA3246BA4A500F48ECC /* WeakCancellable.swift */,
 			);
@@ -1576,6 +1612,7 @@
 				848ADAAB231CD56E0013F196 /* Podfile in Resources */,
 				848ADAAF231CD56E0013F196 /* Podfile.lock in Resources */,
 				848ADAAD231CD56E0013F196 /* README.md in Resources */,
+				AD65A87C29CAD76800821E6F /* README.md.external in Resources */,
 				848ADAB0231CD56E0013F196 /* sonar-project.properties in Resources */,
 				848ADAB1231CD56E0013F196 /* SudoVirtualCards.podspec in Resources */,
 			);
@@ -1817,29 +1854,38 @@
 				845AABB22382571600E4A13C /* AggregateError.swift in Sources */,
 				841145122343214800D3612A /* AnyError.swift in Sources */,
 				84A043F1280F8FA600D84039 /* APIResult.swift in Sources */,
+				ADBC447829C91AB1002DC04E /* AuthorizationText.swift in Sources */,
+				ADBC447E29C93B88002DC04E /* AuthorizationTextSignature.swift in Sources */,
 				841E5CCB2342D464004219B9 /* AWSRegionType+Decodable.swift in Sources */,
+				ADBC448829C979F5002DC04E /* BankAccountFundingSource.swift in Sources */,
+				ADBC448A29C97D0A002DC04E /* BankAccountType.swift in Sources */,
 				5D5A15B628FB59CC001D1E0D /* BaseFundingSourceClientConfiguration.swift in Sources */,
 				5D5A15BE28FCBFF7001D1E0D /* BaseProvisioningData.swift in Sources */,
 				84309D6E24652E5E00F48ECC /* Bundle+Static.swift in Sources */,
 				84AC7A4A2457E4C300815DA9 /* CachePolicy.swift in Sources */,
 				A286F3A628DD23C600D89CDE /* CardType.swift in Sources */,
+				0C05AF8229DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift in Sources */,
+				ADBC447C29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift in Sources */,
 				5D5A15BA28FCA163001D1E0D /* CheckoutProviderData.swift in Sources */,
 				5D5A15B228FB4F37001D1E0D /* ClientConfigurationData.swift in Sources */,
 				8478C2B0281B824300F7E334 /* CompleteFundingSourceInput.swift in Sources */,
 				846B27572804F26A00273801 /* CreateKeysIfAbsentResult.swift in Sources */,
 				846B275C280541DF00273801 /* CreateKeysIfAbsentUseCase.swift in Sources */,
+				ADBC448429C96741002DC04E /* CreditCardFundingSource.swift in Sources */,
 				84A0441C2817AB3700D84039 /* CurrencyAmount.swift in Sources */,
 				A286F39E28DD217F00D89CDE /* CurrencyVelocity.swift in Sources */,
 				843064E7233C34E30083874D /* Date+MillisecondsSinceEpoch.swift in Sources */,
 				8478C2B3281B827700F7E334 /* DateRangeInput.swift in Sources */,
 				84CA6BB723D53EF30088677E /* DecryptionWorker.swift in Sources */,
 				849CA2E023221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift in Sources */,
-				8478C2A8281A50EF00F7E334 /* FundingSource+Transformer.swift in Sources */,
-				841F01E323A7101C008DED82 /* FundingSource.swift in Sources */,
+				AD65A87E29CBBDDB00821E6F /* FundingSource+Transformer.swift in Sources */,
+				ADBC448229C960D6002DC04E /* FundingSource.swift in Sources */,
 				8438829E27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift in Sources */,
 				5D5A15BC28FCB1A9001D1E0D /* FundingSourceCompletionData.swift in Sources */,
 				5D5A15B028FA7E36001D1E0D /* FundingSourceProviderData.swift in Sources */,
+				ADBC447A29C93685002DC04E /* FundingSourceRefreshData.swift in Sources */,
 				845A8B512477A12E00FAFB42 /* FundingSourceService.swift in Sources */,
+				841F01E323A7101C008DED82 /* FundingSourceState.swift in Sources */,
 				A286F3A428DD238400D89CDE /* FundingSourceSupportDetail.swift in Sources */,
 				A286F3A228DD21A700D89CDE /* FundingSourceSupportInfo.swift in Sources */,
 				5D5A15AE28F5307E001D1E0D /* FundingSourceType.swift in Sources */,
@@ -1862,6 +1908,7 @@
 				844BB6472818D59A006F588A /* PartialResult+VirtualCard.swift in Sources */,
 				84A0441A2817AA9200D84039 /* PartialTransaction.swift in Sources */,
 				84A0440C2817A68700D84039 /* PartialVirtualCard.swift in Sources */,
+				AD10B40129D1805A00DC3407 /* PlaidLinkToken.swift in Sources */,
 				8409EC6423D02DC200553022 /* PlatformKeyManager.swift in Sources */,
 				845AAB93237E292A00E4A13C /* PlatformSubscriptionStatus.swift in Sources */,
 				84CFC9DB23A9AA1300FDB032 /* ProvisionalCard.swift in Sources */,
@@ -1874,6 +1921,7 @@
 				8409EC6123CEDF5F00553022 /* PublicKey.swift in Sources */,
 				8407BD1D23E135B90018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializable.swift in Sources */,
 				845A8B3F24739E6900FAFB42 /* PublicKeyService.swift in Sources */,
+				ADBC447629C918FF002DC04E /* RefreshFundingSourceInput.swift in Sources */,
 				84309DA0246BA05900F48ECC /* Result+Convenience.swift in Sources */,
 				84CA6BBF23D567070088677E /* SealedBillingAddress.swift in Sources */,
 				8409EC6F23D5192F00553022 /* SealedCurrencyAmount.swift in Sources */,

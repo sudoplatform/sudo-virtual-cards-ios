@@ -55,6 +55,41 @@ public struct TransactionDetailChargeAttribute: Hashable {
         }
     }
 
+    /// Enum describing the state of the transaction charge detail. Historically all transaction charges would complete
+    /// immediately, resulting in a `CLEARED` state, however some transactions, particularly those backed by ACH funding sources
+    /// can take some time to resolve so will begin as `PENDING` and may result in failure.
+    public enum ChargeDetailState: Hashable {
+        /// Funding transaction initiated
+        case pending
+        /// Funding transaction cleared
+        case cleared
+        /// Funding transaction failed due to insufficient funds
+        case insufficientFunds
+        /// Funding transaction failed for other reasons
+        case failed
+        /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
+        case unknown(String)
+
+        // MARK: - Lifecycle
+
+        /// Initialize an instance of `ChargeDetailState`.
+        public init(_ state: String) {
+            switch state {
+            case "PENDING":
+                self = .pending
+            case "CLEARED":
+                self = .cleared
+            case "INSUFFICIENT_FUNDS":
+                self = .insufficientFunds
+            case "FAILED":
+                self = .failed
+                /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
+            default:
+                self = .unknown(state)
+            }
+        }
+    }
+
     // MARK: - Properties
 
     /// Amount the merchant charged the virtual card.
@@ -75,6 +110,9 @@ public struct TransactionDetailChargeAttribute: Hashable {
     /// Description that will show on the real funding source statement.
     public let description: String
 
+    /// Current state of the transaction detail charge
+    public let state: ChargeDetailState
+
     // MARK: - Lifecycle
 
     /// Initialize an instance of `TransactionDetailChargeAttribute`.
@@ -84,7 +122,8 @@ public struct TransactionDetailChargeAttribute: Hashable {
         markupAmount: CurrencyAmount,
         fundingSourceAmount: CurrencyAmount,
         fundingSourceId: String,
-        description: String
+        description: String,
+        state: ChargeDetailState
     ) {
         self.virtualCardAmount = virtualCardAmount
         self.markup = markup
@@ -92,6 +131,6 @@ public struct TransactionDetailChargeAttribute: Hashable {
         self.fundingSourceAmount = fundingSourceAmount
         self.fundingSourceId = fundingSourceId
         self.description = description
+        self.state = state
     }
-
 }

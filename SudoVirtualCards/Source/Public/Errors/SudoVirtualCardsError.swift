@@ -29,6 +29,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case setupFailed
     /// Failed to complete the funding source process.
     case completionFailed
+    /// Failed to refresh the funding source.
+    case refreshFailed
     /// Failed to cancel.
     case cancelFailed
     /// Failed to update.
@@ -37,6 +39,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case getFailed
     /// Algorithm is unrecognized.
     case unrecognizedAlgorithm(_ algorithm: String)
+    /// Funding source type is unrecognized - check you have the latest version of the SDK
+    case unrecognizedFundingSourceType(_ fundingSourceType: String)
 
     // MARK: - Service
 
@@ -64,7 +68,6 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     /// The funding source cannot be completed as its setup has not completed successfully.
     case fundingSourceNotSetup
     /// The funding source completion data is invalid.
-    ///
     /// This can occur when there is a mismatch between the completion data and the recorded setup data.
     case fundingSourceCompletionDataInvalid
     /// The funding source or provisional funding source is in an invalid state for the requested operation
@@ -337,6 +340,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.provisionFailed
         case .provisionalFundingSourceNotFound:
             return L10n.VirtualCards.Errors.provisionalFundingSourceNotFound
+        case .refreshFailed:
+            return L10n.VirtualCards.Errors.refreshFailed
         case .setupFailed:
             return L10n.VirtualCards.Errors.setupFailed
         case .transactionNotFound:
@@ -369,6 +374,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return msg ?? L10n.VirtualCards.Errors.invalidArgument
         case .unrecognizedAlgorithm(let algorithm):
             return "\(String(describing: self)): \(algorithm)"
+        case .unrecognizedFundingSourceType(let fundingSourceType):
+            return"\(String(describing: self)): \(fundingSourceType)"
         case .notAuthorized:
             return L10n.VirtualCards.Errors.notAuthorized
         case .limitExceeded:
@@ -460,9 +467,9 @@ func decodeProvisionalFundingSourceInteractionData(_ errorInfo: Any?) -> Swift.R
 
         let interactionData: FundingSourceInteractionData
         if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
-            let data = try decoder.decode(CheckoutCardInteractionData.Data.self, from: encodedProvisioningData)
+            let data = try decoder.decode(CheckoutCardInteractionData.self, from: encodedProvisioningData)
 
-            interactionData = .checkoutCard(CheckoutCardInteractionData(data: data))
+            interactionData = .checkoutCard(data)
         } else {
             interactionData = .unknown(baseProvisioningData)
         }

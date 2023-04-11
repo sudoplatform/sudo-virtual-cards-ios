@@ -28,6 +28,9 @@ struct SealedTransactionDetailChargeAttribute: Equatable {
     /// Sealed description that will show on the real funding source statement.
     var description: SealedString
 
+    /// Sealed charge detail state
+    var state: SealedString?
+
 }
 
 extension SealedTransactionDetailChargeAttribute {
@@ -39,6 +42,7 @@ extension SealedTransactionDetailChargeAttribute {
         self.markupAmount = .init(fragment.markupAmount.fragments.sealedCurrencyAmountAttribute)
         self.fundingSourceAmount = .init(fragment.fundingSourceAmount.fragments.sealedCurrencyAmountAttribute)
         self.description = fragment.description
+        self.state = fragment.state
     }
 
 }

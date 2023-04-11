@@ -58,6 +58,9 @@ protocol PlatformKeyManager: AnyObject {
     /// Decrypt the input `data` using the `key`.
     func decryptWithSymmetricKey(_ key: Data, data: Data) throws -> Data
 
+    /// Sign the `data` using the private key from `keyId`
+    func sign(withPrivateKeyId keyId: String, data: Data) throws -> Data
+
     func removeAllKeys() throws
 }
 
@@ -244,6 +247,10 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
 
     func decryptWithSymmetricKey(_ key: Data, data: Data) throws -> Data {
         return try keyManager.decryptWithSymmetricKey(key, data: data)
+    }
+
+    func sign(withPrivateKeyId keyId: String, data: Data) throws -> Data {
+        return try keyManager.generateSignatureWithPrivateKey(keyId, data: data)
     }
 
     func removeAllKeys() throws {

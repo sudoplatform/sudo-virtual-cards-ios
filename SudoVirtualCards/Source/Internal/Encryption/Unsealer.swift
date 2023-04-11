@@ -56,11 +56,26 @@ protocol Unsealer: AnyObject {
     ///     - KeyManagerError.
     func unseal(_ transaction: GraphQL.SealedTransaction) throws -> Transaction
 
+    /// Attempt to unseal a bank account funding source received from a `GraphQL.*FundingSource` query or mutation.
+    ///
+    /// Returns: BankAccount funding source that is unsealed using contained keyIds as required.
+    /// Throws:
+    ///     - UnsealingError.
+    ///     - KeyManagerError.
+    func unseal(_ fundingSource: GraphQL.BankAccountFundingSource) throws -> BankAccountFundingSource
+
+    /// Attempt to unseal a sealedAttribute
+    ///
+    /// Returns: String value that is unsealed using contained keyIds as required
+    /// Throws:
+    ///     - `UnsealingError.dataDecodingFailed`:
+    ///         - If the decrypted data cannot be decoded to a string.
+    ///     - `KeyManagerError` if the data cannot be decrypted.
+    func unseal(_ attribute: GraphQL.SealedAttribute) throws -> String
 }
 
 /// Unseals various resources received from the Virtual Cards Service.
 class DefaultUnsealer: Unsealer {
-
     // MARK: - Supplementary
 
     /// Unowned instance of `PlatformKeyManager` used to lookup if key exists on input.
@@ -68,6 +83,8 @@ class DefaultUnsealer: Unsealer {
 
     /// Utility worker than can unseal properties.
     private let worker: DecryptionWorker
+
+    private let decoder: JSONDecoder = JSONDecoder()
 
     // MARK: - Lifecycle
 
@@ -81,7 +98,7 @@ class DefaultUnsealer: Unsealer {
         self.worker = worker
     }
 
-    // MARK: Methods
+    // MARK: - Conformance: Unsealer
 
     func unseal(_ card: GraphQL.SealedCardWithLastTransaction) throws -> VirtualCard {
         var unsealedCard = try unseal(card.fragments.sealedCard)
@@ -108,14 +125,14 @@ class DefaultUnsealer: Unsealer {
         }
         let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
-        let owners = card.owners.map({Owner(id: $0.id, issuer: $0.issuer)})
+        let owners = card.owners.map { Owner(id: $0.id, issuer: $0.issuer) }
 
         var metadata: JSONValue?
         if let md = card.metadata?.fragments.sealedAttribute {
-            metadata = try unseal(md)
+            metadata = try unseal(metadata: md)
         }
 
-        let keyInfo: KeyInfo = KeyInfo(keyId: card.keyId, keyType: .privateKey, algorithm: card.algorithm)
+        let keyInfo = KeyInfo(keyId: card.keyId, keyType: .privateKey, algorithm: card.algorithm)
 
         return try unsealCard(
             id: card.id,
@@ -140,7 +157,6 @@ class DefaultUnsealer: Unsealer {
             expiry: expiry,
             withKeyInfo: keyInfo
         )
-
     }
 
     func unseal(_ transaction: GraphQL.SealedTransaction) throws -> Transaction {
@@ -157,7 +173,7 @@ class DefaultUnsealer: Unsealer {
             }
         }
 
-        let keyInfo: KeyInfo = KeyInfo(keyId: transaction.keyId, keyType: .privateKey, algorithm: transaction.algorithm)
+        let keyInfo = KeyInfo(keyId: transaction.keyId, keyType: .privateKey, algorithm: transaction.algorithm)
 
         return try unsealTransaction(
             id: transaction.id,
@@ -176,6 +192,41 @@ class DefaultUnsealer: Unsealer {
             detail: detail,
             withKeyInfo: keyInfo
         )
+    }
+
+    func unseal(_ fundingSource: GraphQL.BankAccountFundingSource) throws -> BankAccountFundingSource {
+        let institutionName = try unseal(fundingSource.institutionName.fragments.sealedAttribute)
+        let optionalLogo = try fundingSource.institutionLogo.map { try unseal(institutionLogo: $0.fragments.sealedAttribute) }
+
+        return BankAccountFundingSource(
+            id: fundingSource.id,
+            owner: fundingSource.owner,
+            version: fundingSource.version,
+            createdAt: Date(millisecondsSince1970: fundingSource.createdAtEpochMs),
+            updatedAt: Date(millisecondsSince1970: fundingSource.updatedAtEpochMs),
+            state: FundingSourceState(fundingSource.state),
+            currency: fundingSource.currency,
+            transactionVelocity: TransactionVelocity(
+                maximum: fundingSource.transactionVelocity?.maximum,
+                velocity: fundingSource.transactionVelocity?.velocity
+            ),
+            last4: fundingSource.last4,
+            bankAccountType: BankAccountType(fundingSource.bankAccountType),
+            institutionName: institutionName,
+            institutionLogo: optionalLogo
+        )
+    }
+
+    func unseal(_ attribute: GraphQL.SealedAttribute) throws -> String {
+        let unsealed = try worker.unsealString(
+            attribute.base64EncodedSealedData,
+            withKeyInfo: .init(
+                keyId: attribute.keyId,
+                keyType: .privateKey,
+                algorithm: attribute.algorithm
+            )
+        )
+        return unsealed
     }
 
     // MARK: - Helpers: Decrypting Resources
@@ -337,7 +388,8 @@ class DefaultUnsealer: Unsealer {
             declineReason: optionalDeclineReason,
             detail: detail,
             createdAt: createdAt,
-            updatedAt: updatedAt)
+            updatedAt: updatedAt
+        )
     }
 
     /// Unseal a sealed currency amount property.
@@ -385,7 +437,8 @@ class DefaultUnsealer: Unsealer {
             city: city,
             state: state,
             postalCode: postalCode,
-            country: country)
+            country: country
+        )
     }
 
     /// Unseal a expiry property.
@@ -423,13 +476,20 @@ class DefaultUnsealer: Unsealer {
         let markupAmount = try unsealCurrencyAmount(attribute.markupAmount, withKeyInfo: keyInfo)
         let fundingSourceAmount = try unsealCurrencyAmount(attribute.fundingSourceAmount, withKeyInfo: keyInfo)
         let description = try worker.unsealString(attribute.description, withKeyInfo: keyInfo)
+        // Remain backwards compatible by defaulting the state to CLEARED
+        var state: TransactionDetailChargeAttribute.ChargeDetailState = .cleared
+        if let detailState = attribute.state {
+            state = .init(try worker.unsealString(detailState, withKeyInfo: keyInfo))
+        }
         return .init(
             virtualCardAmount: virtualCardAmount,
             markup: markup,
             markupAmount: markupAmount,
             fundingSourceAmount: fundingSourceAmount,
             fundingSourceId: attribute.fundingSourceId,
-            description: description)
+            description: description,
+            state: state
+        )
     }
 
     /// Unseal a markup formula.
@@ -452,9 +512,26 @@ class DefaultUnsealer: Unsealer {
         return .init(percent: percent, flat: flat, minCharge: minCharge)
     }
 
+    /// Unseal a sealed institution logo.
+    ///
+    /// - Parameter institutionLogo: Attribute containing encrypted logo and key id with which it can be decrypted.
+    /// Returns: Decrypted institution logo
+    /// Throws:
+    ///     - `UnsealingError.dataDecodingFailed`:
+    ///         - If the input data cannot be encoded to a base 64 data object.
+    ///         - If The decrypted data cannot be decoded to a string.
+    ///     - `KeyManagerError` if the data cannot be decrypted.
+    func unseal(institutionLogo: GraphQL.SealedAttribute) throws -> BankAccountFundingSource.InstitutionLogo {
+        let unsealedLogoString = try unseal(institutionLogo)
+        guard let data = unsealedLogoString.data(using: .utf8) else {
+            throw UnsealingError.dataDecodingFailed
+        }
+        return try decoder.decode(BankAccountFundingSource.InstitutionLogo.self, from: data)
+    }
+
     // MARK: - Helpers: Unseal Metadata
 
-    func unseal(_ metadata: GraphQL.SealedAttribute) throws -> JSONValue {
+    func unseal(metadata: GraphQL.SealedAttribute) throws -> JSONValue {
         guard SymmetricKeyEncryptionAlgorithm.isAlgorithmSupported(metadata.algorithm) else {
             throw SudoVirtualCardsError.unrecognizedAlgorithm(metadata.algorithm)
         }
@@ -472,5 +549,4 @@ class DefaultUnsealer: Unsealer {
         let anyJSON = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
         return try JSONValue(anyJSON)
     }
-
 }

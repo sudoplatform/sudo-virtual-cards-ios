@@ -1,12 +1,12 @@
 //
-// Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
+// Copyright © 2023 Anonyome Labs, Inc. All rights reserved.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
 
 import Foundation
 
-///  Representation of an enumeration depicting the type of [FundingSource], in the Sudo
+///  Representation of an enumeration depicting the card type of a [CreditCardFundingSource], in the Sudo
 ///  Platform Virtual Cards SDK.
 ///
 public enum CardType: Hashable {
