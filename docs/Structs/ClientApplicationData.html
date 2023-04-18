@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>FundingSource Protocol Reference</title>
+    <title>ClientApplicationData Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,14 +14,14 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/FundingSource" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/ClientApplicationData" class="dashAnchor"></a>
 
-    <a title="FundingSource Protocol Reference"></a>
+    <a title="ClientApplicationData Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 21.1.0 Docs
+          SudoVirtualCards 22.0.0 Docs
         </a>
         
       </p>
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoVirtualCards Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      FundingSource Protocol Reference
+      ClientApplicationData Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -66,6 +66,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CardType.html">CardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FundingSource.html">FundingSource</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
@@ -123,7 +126,7 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/FundingSource.html">FundingSource</a>
+                <a class="nav-group-task-link" href="../Protocols/BaseFundingSource.html">BaseFundingSource</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ProvisionVirtualCardObservable.html">ProvisionVirtualCardObservable</a>
@@ -177,6 +180,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CheckoutCardInteractionData.html">CheckoutCardInteractionData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ClientApplicationData.html">ClientApplicationData</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/CompleteFundingSourceInput.html">CompleteFundingSourceInput</a>
@@ -299,15 +305,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>FundingSource</h1>
+            <h1>ClientApplicationData</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">FundingSource</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ClientApplicationData</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            <p>Representation of a Funding Source used in Platform SDK.</p>
+            <p>Information about the calling client application which equates to service-side configuration</p>
 
           </div>
         </section>
@@ -315,13 +321,22 @@
         <section class="section">
           <div class="section-content">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Properties"></a>
+                  <h3 class="section-name"><span>Properties</span>
+</h3>
+                </div>
+              </div>
               <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP2idSSvp"></a>
-                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP2idSSvp">id</a>
+                    <a name="/s:16SudoVirtualCards21ClientApplicationDataV15applicationNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/applicationName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards21ClientApplicationDataV15applicationNameSSvp">applicationName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -329,26 +344,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Identifier generated by the Virtual Cards Service.</p>
+                        <p>Unique application name. Verify with service providers.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">applicationName</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Lifecycle"></a>
+                  <h3 class="section-name"><span>Lifecycle</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP5ownerSSvp"></a>
-                    <a name="//apple_ref/swift/Property/owner" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP5ownerSSvp">owner</a>
+                    <a name="/s:16SudoVirtualCards21ClientApplicationDataV15applicationNameACSS_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(applicationName:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards21ClientApplicationDataV15applicationNameACSS_tcfc">init(applicationName:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -356,207 +384,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Owner identifier of the funding source. Typically the user sub.</p>
+                        <p>Initialize an instance.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">owner</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP7versionSivp"></a>
-                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP7versionSivp">version</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Version assigned by the service.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">version</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP9createdAt10Foundation4DateVvp"></a>
-                    <a name="//apple_ref/swift/Property/createdAt" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP9createdAt10Foundation4DateVvp">createdAt</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Virtual Cards service timestamp to when the funding source record was created.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">createdAt</span><span class="p">:</span> <span class="kt">Date</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP9updatedAt10Foundation4DateVvp"></a>
-                    <a name="//apple_ref/swift/Property/updatedAt" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP9updatedAt10Foundation4DateVvp">updatedAt</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Virtual Cards service timestamp to when the funding source record was last updated.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">updatedAt</span><span class="p">:</span> <span class="kt">Date</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP4typeAA0dE4TypeOvp"></a>
-                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP4typeAA0dE4TypeOvp">type</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Type of this funding source</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">FundingSourceType</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP5stateAA0dE5StateOvp"></a>
-                    <a name="//apple_ref/swift/Property/state" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP5stateAA0dE5StateOvp">state</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Current state of the funding source.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums.html#/s:16SudoVirtualCards18FundingSourceStateO">FundingSourceState</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP8currencySSvp"></a>
-                    <a name="//apple_ref/swift/Property/currency" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP8currencySSvp">currency</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Currency of the funding source.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards13FundingSourceP19transactionVelocityAA011TransactionG0VSgvp"></a>
-                    <a name="//apple_ref/swift/Property/transactionVelocity" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards13FundingSourceP19transactionVelocityAA011TransactionG0VSgvp">transactionVelocity</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Effective transaction velocity, if any, applied to
-virtual card transactions funded by this funding source.
-This is the combined result of all velocity policies
-(global and funding source specific) as at the time this funding
-source was retrieved.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">transactionVelocity</span><span class="p">:</span> <span class="kt">TransactionVelocity</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">applicationName</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -571,7 +406,7 @@ source was retrieved.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-04-11)</p>
+      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-04-18)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

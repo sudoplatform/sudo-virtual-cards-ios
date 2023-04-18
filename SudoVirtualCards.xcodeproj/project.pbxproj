@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0BD141AFFEB1CC00136A0487 /* Pods_SudoVirtualCards_SudoVirtualCardsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59EDBC84F8BA527F3E5C29E /* Pods_SudoVirtualCards_SudoVirtualCardsTests.framework */; };
 		0C05AF8229DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C05AF8129DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift */; };
+		0CABCD5329E97D0F00F8BEDB /* FundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CABCD5229E97D0F00F8BEDB /* FundingSource.swift */; };
 		0CCE83D129075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCE83D029075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift */; };
 		2D3A6AD2380CF18611D930CB /* Pods_SudoVirtualCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F67D27E441538D0B1C55566 /* Pods_SudoVirtualCards.framework */; };
 		5D5A15AE28F5307E001D1E0D /* FundingSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5A15AD28F5307E001D1E0D /* FundingSourceType.swift */; };
@@ -214,6 +215,8 @@
 		A286F3AB28DD826600D89CDE /* GetVirtualCardsConfigIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A286F3AA28DD826600D89CDE /* GetVirtualCardsConfigIntegrationTests.swift */; };
 		AA87ACC92FCF4A4564F213AC /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C65219757952B6A89B3989A /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework */; };
 		AD10B40129D1805A00DC3407 /* PlaidLinkToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */; };
+		AD15708129E62CF300C6E348 /* ClientApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15708029E62CF300C6E348 /* ClientApplicationData.swift */; };
+		AD15708329E6316E00C6E348 /* FundingSourceSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */; };
 		AD65A87C29CAD76800821E6F /* README.md.external in Resources */ = {isa = PBXBuildFile; fileRef = AD65A87B29CAD76800821E6F /* README.md.external */; };
 		AD65A87E29CBBDDB00821E6F /* FundingSource+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */; };
 		ADBC447629C918FF002DC04E /* RefreshFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */; };
@@ -221,7 +224,7 @@
 		ADBC447A29C93685002DC04E /* FundingSourceRefreshData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447929C93685002DC04E /* FundingSourceRefreshData.swift */; };
 		ADBC447C29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447B29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift */; };
 		ADBC447E29C93B88002DC04E /* AuthorizationTextSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447D29C93B88002DC04E /* AuthorizationTextSignature.swift */; };
-		ADBC448229C960D6002DC04E /* FundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448129C960D5002DC04E /* FundingSource.swift */; };
+		ADBC448229C960D6002DC04E /* BaseFundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448129C960D5002DC04E /* BaseFundingSource.swift */; };
 		ADBC448429C96741002DC04E /* CreditCardFundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */; };
 		ADBC448829C979F5002DC04E /* BankAccountFundingSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */; };
 		ADBC448A29C97D0A002DC04E /* BankAccountType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC448929C97D0A002DC04E /* BankAccountType.swift */; };
@@ -255,6 +258,7 @@
 /* Begin PBXFileReference section */
 		0C05AF8129DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutBankAccountCompletionData.swift; sourceTree = "<group>"; };
 		0C65219757952B6A89B3989A /* Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoVirtualCards_SudoVirtualCardsIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CABCD5229E97D0F00F8BEDB /* FundingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSource.swift; sourceTree = "<group>"; };
 		0CCE83D029075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutBankAccountProviderDataTests.swift; sourceTree = "<group>"; };
 		0F67D27E441538D0B1C55566 /* Pods_SudoVirtualCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SudoVirtualCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FC58856F4BCFED0A07563CD /* Pods-SudoVirtualCards-SudoVirtualCardsIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SudoVirtualCards-SudoVirtualCardsIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-SudoVirtualCards-SudoVirtualCardsIntegrationTests/Pods-SudoVirtualCards-SudoVirtualCardsIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 		A286F3A728DD338700D89CDE /* VirtualCardsConfigTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardsConfigTransformer.swift; sourceTree = "<group>"; };
 		A286F3AA28DD826600D89CDE /* GetVirtualCardsConfigIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetVirtualCardsConfigIntegrationTests.swift; sourceTree = "<group>"; };
 		AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidLinkToken.swift; sourceTree = "<group>"; };
+		AD15708029E62CF300C6E348 /* ClientApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApplicationData.swift; sourceTree = "<group>"; };
+		AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceSetupData.swift; sourceTree = "<group>"; };
 		AD65A87B29CAD76800821E6F /* README.md.external */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md.external; sourceTree = "<group>"; };
 		AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FundingSource+Transformer.swift"; sourceTree = "<group>"; };
 		ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshFundingSourceInput.swift; sourceTree = "<group>"; };
@@ -475,7 +481,7 @@
 		ADBC447929C93685002DC04E /* FundingSourceRefreshData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceRefreshData.swift; sourceTree = "<group>"; };
 		ADBC447B29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutBankAccountRefreshData.swift; sourceTree = "<group>"; };
 		ADBC447D29C93B88002DC04E /* AuthorizationTextSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationTextSignature.swift; sourceTree = "<group>"; };
-		ADBC448129C960D5002DC04E /* FundingSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FundingSource.swift; sourceTree = "<group>"; };
+		ADBC448129C960D5002DC04E /* BaseFundingSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFundingSource.swift; sourceTree = "<group>"; };
 		ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardFundingSource.swift; sourceTree = "<group>"; };
 		ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountFundingSource.swift; sourceTree = "<group>"; };
 		ADBC448929C97D0A002DC04E /* BankAccountType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountType.swift; sourceTree = "<group>"; };
@@ -545,6 +551,7 @@
 				ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */,
 				5D5A15B928FCA163001D1E0D /* CheckoutProviderData.swift */,
 				ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */,
+				0CABCD5229E97D0F00F8BEDB /* FundingSource.swift */,
 				8438829D27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift */,
 				841F01E223A7101C008DED82 /* FundingSourceState.swift */,
 				5D5A15AD28F5307E001D1E0D /* FundingSourceType.swift */,
@@ -558,8 +565,8 @@
 		5D5A15B428FB5446001D1E0D /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				ADBC448129C960D5002DC04E /* BaseFundingSource.swift */,
 				5D5A15B528FB59CC001D1E0D /* BaseFundingSourceClientConfiguration.swift */,
-				ADBC448129C960D5002DC04E /* FundingSource.swift */,
 				5D5A15AF28FA7E36001D1E0D /* FundingSourceProviderData.swift */,
 			);
 			path = Protocols;
@@ -1186,6 +1193,7 @@
 				ADBC448929C97D0A002DC04E /* BankAccountType.swift */,
 				84AC7A492457E4C300815DA9 /* CachePolicy.swift */,
 				A286F3A528DD23C600D89CDE /* CardType.swift */,
+				AD15708029E62CF300C6E348 /* ClientApplicationData.swift */,
 				846B27562804F26A00273801 /* CreateKeysIfAbsentResult.swift */,
 				84A0441B2817AB3700D84039 /* CurrencyAmount.swift */,
 				8467C2C627FA7E9B007BB525 /* JSONValue.swift */,
@@ -1356,6 +1364,7 @@
 				5D5A15B128FB4F37001D1E0D /* ClientConfigurationData.swift */,
 				5D5A15BB28FCB1A9001D1E0D /* FundingSourceCompletionData.swift */,
 				ADBC447929C93685002DC04E /* FundingSourceRefreshData.swift */,
+				AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */,
 				AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */,
 				8467C2C827FAB74A007BB525 /* SymmetricKeyEncryptionAlgorithm.swift */,
 				84309DA3246BA4A500F48ECC /* WeakCancellable.swift */,
@@ -1859,6 +1868,7 @@
 				841E5CCB2342D464004219B9 /* AWSRegionType+Decodable.swift in Sources */,
 				ADBC448829C979F5002DC04E /* BankAccountFundingSource.swift in Sources */,
 				ADBC448A29C97D0A002DC04E /* BankAccountType.swift in Sources */,
+				ADBC448229C960D6002DC04E /* BaseFundingSource.swift in Sources */,
 				5D5A15B628FB59CC001D1E0D /* BaseFundingSourceClientConfiguration.swift in Sources */,
 				5D5A15BE28FCBFF7001D1E0D /* BaseProvisioningData.swift in Sources */,
 				84309D6E24652E5E00F48ECC /* Bundle+Static.swift in Sources */,
@@ -1867,6 +1877,7 @@
 				0C05AF8229DAA490007AEFF1 /* CheckoutBankAccountCompletionData.swift in Sources */,
 				ADBC447C29C93AC1002DC04E /* CheckoutBankAccountRefreshData.swift in Sources */,
 				5D5A15BA28FCA163001D1E0D /* CheckoutProviderData.swift in Sources */,
+				AD15708129E62CF300C6E348 /* ClientApplicationData.swift in Sources */,
 				5D5A15B228FB4F37001D1E0D /* ClientConfigurationData.swift in Sources */,
 				8478C2B0281B824300F7E334 /* CompleteFundingSourceInput.swift in Sources */,
 				846B27572804F26A00273801 /* CreateKeysIfAbsentResult.swift in Sources */,
@@ -1879,12 +1890,13 @@
 				84CA6BB723D53EF30088677E /* DecryptionWorker.swift in Sources */,
 				849CA2E023221F6F0075EA21 /* DefaultSudoVirtualCardsClient.swift in Sources */,
 				AD65A87E29CBBDDB00821E6F /* FundingSource+Transformer.swift in Sources */,
-				ADBC448229C960D6002DC04E /* FundingSource.swift in Sources */,
+				0CABCD5329E97D0F00F8BEDB /* FundingSource.swift in Sources */,
 				8438829E27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift in Sources */,
 				5D5A15BC28FCB1A9001D1E0D /* FundingSourceCompletionData.swift in Sources */,
 				5D5A15B028FA7E36001D1E0D /* FundingSourceProviderData.swift in Sources */,
 				ADBC447A29C93685002DC04E /* FundingSourceRefreshData.swift in Sources */,
 				845A8B512477A12E00FAFB42 /* FundingSourceService.swift in Sources */,
+				AD15708329E6316E00C6E348 /* FundingSourceSetupData.swift in Sources */,
 				841F01E323A7101C008DED82 /* FundingSourceState.swift in Sources */,
 				A286F3A428DD238400D89CDE /* FundingSourceSupportDetail.swift in Sources */,
 				A286F3A228DD21A700D89CDE /* FundingSourceSupportInfo.swift in Sources */,

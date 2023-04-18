@@ -459,8 +459,8 @@ internal struct CreatePublicKeyInput: GraphQLMapConvertible {
 internal struct SetupFundingSourceRequest: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
-  internal init(currency: String, language: Optional<String?> = nil, supportedProviders: Optional<[String]?> = nil, type: FundingSourceType) {
-    graphQLMap = ["currency": currency, "language": language, "supportedProviders": supportedProviders, "type": type]
+  internal init(currency: String, language: Optional<String?> = nil, setupData: Optional<GraphQLID?> = nil, supportedProviders: Optional<[String]?> = nil, type: FundingSourceType) {
+    graphQLMap = ["currency": currency, "language": language, "setupData": setupData, "supportedProviders": supportedProviders, "type": type]
   }
 
   internal var currency: String {
@@ -478,6 +478,15 @@ internal struct SetupFundingSourceRequest: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "language")
+    }
+  }
+
+  internal var setupData: Optional<GraphQLID?> {
+    get {
+      return graphQLMap["setupData"] as! Optional<GraphQLID?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "setupData")
     }
   }
 

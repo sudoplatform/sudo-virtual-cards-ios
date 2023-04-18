@@ -16,6 +16,9 @@ struct CheckoutBankAccountRefreshData: FundingSourceProviderData, Encodable, Has
     let type: FundingSourceType
     let version: Int
 
+    /// Client application name, shared with the service for configuration information
+    let applicationName: String
+
     /// Specifies the key id used to sign the authorization text
     let keyId: String
 
@@ -28,6 +31,7 @@ struct CheckoutBankAccountRefreshData: FundingSourceProviderData, Encodable, Has
         case provider
         case type
         case version
+        case applicationName
         case keyId
         case authorizationTextSignature
     }
@@ -37,16 +41,18 @@ struct CheckoutBankAccountRefreshData: FundingSourceProviderData, Encodable, Has
         try container.encode(provider, forKey: .provider)
         try container.encode(type, forKey: .type)
         try container.encode(version, forKey: .version)
+        try container.encode(applicationName, forKey: .applicationName)
         try container.encode(keyId, forKey: .keyId)
         try container.encode(authorizationTextSignature, forKey: .authorizationTextSignature)
     }
 
     // MARK: - Lifecycle
 
-    init(keyId: String, authorizationTextSignature: AuthorizationTextSignature?) {
+    init(applicationName: String, keyId: String, authorizationTextSignature: AuthorizationTextSignature?) {
         self.provider = CheckoutDefaults.provider
         self.type = .bankAccount
         self.version = CheckoutDefaults.version
+        self.applicationName = applicationName
         self.keyId = keyId
         self.authorizationTextSignature = authorizationTextSignature
     }

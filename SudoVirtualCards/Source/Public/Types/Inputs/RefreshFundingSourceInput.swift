@@ -73,6 +73,9 @@ public struct RefreshFundingSourceInput: Equatable {
     /// The data representation of the refresh data to be passed back to the service.
     public let refreshData: RefreshDataInput
 
+    /// Data about the application used to reference configuration information at the service.
+    public let applicationData: ClientApplicationData
+
     /// Preferred user language for the authorization text display
     public let language: String?
 
@@ -82,10 +85,12 @@ public struct RefreshFundingSourceInput: Equatable {
     ///  - Parameters
     ///   - id: Identifier of the provisional funding source to be completed and provisioned.
     ///   - refreshData: The data representation of the refresh data to be passed back to the service.
+    ///   - applicationData: Data about the application used to reference configuration information at the service.
     ///   - language: Preferred user language for the authorization text display
-    public init(id: String, refreshData: RefreshDataInput, language: String?) {
+    public init(id: String, refreshData: RefreshDataInput, applicationData: ClientApplicationData, language: String?) {
         self.id = id
         self.refreshData = refreshData
+        self.applicationData = applicationData
         self.language = language
     }
 }

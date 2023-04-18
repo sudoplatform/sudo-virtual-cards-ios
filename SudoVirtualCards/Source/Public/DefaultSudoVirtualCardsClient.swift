@@ -215,6 +215,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         return try await fundingSourceService.refresh(
             clientId: input.id,
             refreshData: input.refreshData,
+            applicationData: input.applicationData,
             language: input.language
         )
     }
@@ -487,14 +488,16 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 logger.error("No data received for getFundingSource credit card response")
                 throw SudoVirtualCardsError.internalError("No data received for getFundingSource credit card response")
             }
-            return CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            return FundingSource.creditCardFundingSource(creditCardFundingSource)
         }
         if getFundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
             guard let fundingSource = getFundingSource.asBankAccountFundingSource else {
                 logger.error("No data received for getFundingSource bank account response")
                 throw SudoVirtualCardsError.internalError("No data received for getFundingSource bank account response")
             }
-            return try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            let bankAccountFundingSource = try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
         }
         return nil
     }
@@ -517,14 +520,16 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                         logger.error("No data received for getFundingSource credit card response")
                         throw SudoVirtualCardsError.internalError("No data received for getFundingSource credit card response")
                     }
-                    return CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+                    let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+                    return FundingSource.creditCardFundingSource(creditCardFundingSource)
                 }
                 if $0.__typename == BankAccountFundingSource.Constants.TypeName {
                     guard let fundingSource = $0.asBankAccountFundingSource else {
                         logger.error("No data received for getFundingSource bank account response")
                         throw SudoVirtualCardsError.internalError("No data received for getFundingSource bank account response")
                     }
-                    return try (self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource))
+                    let bankAccountFundingSource = try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+                    return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
                 }
                 throw SudoVirtualCardsError.unrecognizedFundingSourceType($0.__typename)
             }

@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Bank Account Funding Source
-public struct BankAccountFundingSource: FundingSource, Hashable {
+public struct BankAccountFundingSource: BaseFundingSource, Hashable {
     struct Constants {
         static let TypeName: String = "BankAccountFundingSource"
     }
@@ -15,9 +15,9 @@ public struct BankAccountFundingSource: FundingSource, Hashable {
     // Representation of the logo of a banking institution.
     public struct InstitutionLogo: Decodable, Hashable {
         /// Mime type of institution logo
-        let type: String
+        public let type: String
         /// Base64 encoded image data of institution logo
-        let data: String
+        public let data: String
 
         // MARK: - Conformance: Decodable
 

@@ -61,8 +61,11 @@ class FundingSourceService {
     /// - Returns: Setup/Provisional information from the service.
     ///
     func setup(input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
+        let setupData = FundingSourceSetupData(applicationName: input.applicationData.applicationName)
+        let encodedSetupData = try encoder.encode(setupData)
         var request = GraphQL.SetupFundingSourceRequest(
             currency: input.currency,
+            setupData: encodedSetupData.base64EncodedString(),
             type: input.type.fundingSourceType
         )
         if input.supportedProviders?.isEmpty == false {
@@ -167,14 +170,16 @@ class FundingSourceService {
                 logger.error("No data received for completeFundingSource credit card response")
                 throw SudoVirtualCardsError.internalError("No data received for completeFundingSource credit card response")
             }
-            return CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            return FundingSource.creditCardFundingSource(creditCardFundingSource)
         }
         if data.completeFundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
             guard let fundingSource = data.completeFundingSource.asBankAccountFundingSource else {
                 logger.error("No data received for completeFundingSource bank account response")
                 throw SudoVirtualCardsError.internalError("No data received for completeFundingSource bank account response")
             }
-            return try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            let bankAccountFundingSource = try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
         }
         throw SudoVirtualCardsError.unrecognizedFundingSourceType(data.completeFundingSource.__typename)
     }
@@ -184,10 +189,15 @@ class FundingSourceService {
     /// - Parameters:
     ///   - clientId: identifier of the funding source.
     ///   - refreshData: provider-specific data required to perform the funding source refresh operation
+    ///   - applicationData: client application data to enable configuraiton lookup at the service
     ///   - language: user's optional preferred language used for authorization display text generation
     /// - Returns: Refreshed funding source.
     ///
-    func refresh(clientId: String, refreshData: RefreshDataInput, language: String?) async throws -> FundingSource {
+    func refresh(
+        clientId: String,
+        refreshData: RefreshDataInput,
+        applicationData: ClientApplicationData,
+        language: String?) async throws -> FundingSource {
         let encodedRefreshString: String
         switch refreshData {
         case let .checkoutBankAccount(refreshData):
@@ -210,7 +220,9 @@ class FundingSourceService {
                 }
 
                 let bankAccountRefreshData = FundingSourceRefreshData.checkoutBankAccount(CheckoutBankAccountRefreshData(
-                    keyId: currentKeys.keyId, authorizationTextSignature: authorizationTextSignature
+                    applicationName: applicationData.applicationName,
+                    keyId: currentKeys.keyId,
+                    authorizationTextSignature: authorizationTextSignature
                 ))
 
                 let data = try encoder.encode(bankAccountRefreshData)
@@ -233,14 +245,16 @@ class FundingSourceService {
                 logger.error("No data received for refreshFundingSource credit card response")
                 throw SudoVirtualCardsError.internalError("No data received for refreshFundingSource credit card response")
             }
-            return CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            return FundingSource.creditCardFundingSource(creditCardFundingSource)
         }
         if data.refreshFundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
             guard let fundingSource = data.refreshFundingSource.asBankAccountFundingSource else {
                 logger.error("No data received for refreshFundingSource bank account response")
                 throw SudoVirtualCardsError.internalError("No data received for refreshFundingSource bank account response")
             }
-            return try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            let bankAccountFundingSource = try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
         }
         throw SudoVirtualCardsError.unrecognizedFundingSourceType(data.refreshFundingSource.__typename)
     }
@@ -293,14 +307,16 @@ class FundingSourceService {
                 logger.error("No data received for cancelFundingSource credit card response")
                 throw SudoVirtualCardsError.internalError("No data received for cancelFundingSource credit card response")
             }
-            return CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            return FundingSource.creditCardFundingSource(creditCardFundingSource)
         }
         if data.cancelFundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
             guard let fundingSource = data.cancelFundingSource.asBankAccountFundingSource else {
                 logger.error("No data received for cancelFundingSource bank account response")
                 throw SudoVirtualCardsError.internalError("No data received for cancelFundingSource bank account response")
             }
-            return try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            let bankAccountFundingSource = try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
         }
         throw SudoVirtualCardsError.unrecognizedFundingSourceType(data.cancelFundingSource.__typename)
     }
@@ -316,8 +332,8 @@ class FundingSourceService {
             )
             let plaintextData = try encoder.encode(signatureData)
             let signed = try platformKeyManager.sign(withPrivateKeyId: keyId, data: plaintextData)
-            if let plaintext = String(data: plaintextData, encoding: .utf8),
-               let signature = String(data: signed, encoding: .utf8) {
+            let signature = signed.base64EncodedString()
+            if let plaintext = String(data: plaintextData, encoding: .utf8) {
                 return AuthorizationTextSignature(
                     data: plaintext,
                     algorithm: Constants.signatureAlgorithm,

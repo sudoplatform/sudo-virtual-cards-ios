@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Credit Card Funding Source
-public struct CreditCardFundingSource: FundingSource, Hashable {
+public struct CreditCardFundingSource: BaseFundingSource, Hashable {
     struct Constants {
         static let TypeName: String = "CreditCardFundingSource"
     }
