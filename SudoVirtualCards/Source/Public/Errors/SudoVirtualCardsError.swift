@@ -470,6 +470,10 @@ func decodeProvisionalFundingSourceInteractionData(_ errorInfo: Any?) -> Swift.R
             let data = try decoder.decode(CheckoutCardInteractionData.self, from: encodedProvisioningData)
 
             interactionData = .checkoutCard(data)
+        } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .bankAccount && baseProvisioningData.version == 1 {
+            let data = try decoder.decode(CheckoutBankAccountRefreshInteractionData.self, from: encodedProvisioningData)
+
+            interactionData = .checkoutBankAccount(data)
         } else {
             interactionData = .unknown(baseProvisioningData)
         }
