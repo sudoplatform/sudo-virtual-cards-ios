@@ -1,9 +1,7 @@
 //
-//  CachePolicy.swift
-//  SudoVirtualCards
+// Copyright © 2023 Anonyome Labs, Inc. All rights reserved.
 //
-//  Created by Lachlan McCulloch on 28/4/20.
-//  Copyright © 2022 Anonyome Labs. All rights reserved.
+// SPDX-License-Identifier: Apache-2.0
 //
 
 import Foundation

@@ -1,10 +1,3 @@
-/* 
-  Copyright © 2022 Anonyome Labs, Inc. All rights reserved.
-
-  SPDX-License-Identifier: Apache-2.0
-
-*/
-
 // MARK: - Errors: Client
 
 "virtual_cards.errors.invalidConfig" = "There was an issue with the configuration file. Please check that a valid configuration is included in the bundle";
