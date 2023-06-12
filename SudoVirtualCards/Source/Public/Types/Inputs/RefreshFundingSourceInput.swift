@@ -45,19 +45,19 @@ public enum RefreshDataInput: FundingSourceProviderData, Hashable {
 
     public var provider: String {
         switch self {
-            case .checkoutBankAccount(let input): return input.provider
+        case .checkoutBankAccount(let input): return input.provider
         }
     }
 
     public var type: FundingSourceType {
         switch self {
-            case .checkoutBankAccount(let input): return input.type
+        case .checkoutBankAccount(let input): return input.type
         }
     }
 
     public var version: Int {
         switch self {
-            case .checkoutBankAccount(let input): return input.version
+        case .checkoutBankAccount(let input): return input.version
         }
     }
 }

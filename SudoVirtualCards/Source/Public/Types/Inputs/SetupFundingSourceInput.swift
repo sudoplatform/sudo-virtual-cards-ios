@@ -49,7 +49,13 @@ public struct SetupFundingSourceInput: Equatable {
 
     // MARK: - Lifecycle
 
-    public init(type: SetupFundingSourceType, currency: String, applicationData: ClientApplicationData, supportedProviders: [String] = [], language: String? = nil) {
+    public init(
+        type: SetupFundingSourceType,
+        currency: String,
+        applicationData: ClientApplicationData,
+        supportedProviders: [String] = [],
+        language: String? = nil
+    ) {
         self.type = type
         self.currency = currency
         self.applicationData = applicationData

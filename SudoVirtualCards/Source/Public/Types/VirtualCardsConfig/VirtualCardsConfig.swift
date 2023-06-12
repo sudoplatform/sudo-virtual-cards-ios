@@ -36,6 +36,10 @@ public struct VirtualCardsConfig: Equatable {
     /// The funding source support info.
     public var fundingSourceSupportInfo: [FundingSourceSupportInfo]
 
+    /// Whether or not the sudoplatform.virtual-cards.bankAccountFundingSourceExpendable
+    /// entitlement is required to provision a bank account funding source
+    public var bankAccountFundingSourceExpendableEnabled: Bool
+
     // MARK: - Lifecycle
 
     /// Initialise an instance of `VirtualCardConfig`.
@@ -46,7 +50,8 @@ public struct VirtualCardsConfig: Equatable {
         maxTransactionVelocity: [CurrencyVelocity],
         maxTransactionAmount: [CurrencyAmount],
         virtualCardCurrencies: [String],
-        fundingSourceSupportInfo: [FundingSourceSupportInfo]
+        fundingSourceSupportInfo: [FundingSourceSupportInfo],
+        bankAccountFundingSourceExpendableEnabled: Bool
     ) {
         self.maxFundingSourceVelocity = maxFundingSourceVelocity
         self.maxFundingSourceFailureVelocity = maxFundingSourceFailureVelocity
@@ -55,5 +60,6 @@ public struct VirtualCardsConfig: Equatable {
         self.maxTransactionAmount = maxTransactionAmount
         self.virtualCardCurrencies = virtualCardCurrencies
         self.fundingSourceSupportInfo = fundingSourceSupportInfo
+        self.bankAccountFundingSourceExpendableEnabled = bankAccountFundingSourceExpendableEnabled
     }
 }

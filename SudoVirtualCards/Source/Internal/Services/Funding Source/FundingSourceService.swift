@@ -197,7 +197,8 @@ class FundingSourceService {
         clientId: String,
         refreshData: RefreshDataInput,
         applicationData: ClientApplicationData,
-        language: String?) async throws -> FundingSource {
+        language: String?
+    ) async throws -> FundingSource {
         let encodedRefreshString: String
         switch refreshData {
         case let .checkoutBankAccount(refreshData):

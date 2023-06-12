@@ -22,6 +22,7 @@ extension VirtualCardsConfig {
         self.fundingSourceSupportInfo = fragment.fundingSourceSupportInfo.map { (info)
             in return FundingSourceSupportInfo(fragment: info)
         }
+        self.bankAccountFundingSourceExpendableEnabled = fragment.bankAccountFundingSourceExpendableEnabled
     }
 }
 
