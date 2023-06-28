@@ -312,6 +312,30 @@ public protocol SudoVirtualCardsClient: AnyObject {
         statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
         resultHandler: @escaping ClientCompletion<Transaction>
     ) async throws -> SubscriptionToken?
+
+    // MARK: - Sandbox APIs
+
+    /// Sandbox API to obtain data normally returned by full Plaid Link flow. Useful for testing
+    /// ahead of full Plaid Link integration during application development.
+    ///
+    /// - Parameter institutionId: ID of Plaid sandbox institution to use
+    /// - Parameter plaidUsername: Username of Plaid sandbox user to obtain data for
+    ///
+    /// - Returns:`SandboxPlaidData` object containing sandbox Plaid data for populating completion
+    ///  data before calling `completeFundingSource`
+    func sandboxGetPlaidData(
+        institutionId: String,
+        plaidUsername: String
+    ) async throws -> SandboxPlaidData
+
+    /// Sandbox API to set a funding source to refresh state to facilitate testing
+    ///
+    /// - Parameter id: ID of funding source to set to refresh state. Must identify a bank account funding source.
+    ///
+    /// - Returns: `FundingSource` that has been set to refresh state
+    func sandboxSetFundingSourceToRequireRefresh(
+        fundingSourceId: String
+    ) async throws -> FundingSource
 }
 
 extension SudoVirtualCardsClient {

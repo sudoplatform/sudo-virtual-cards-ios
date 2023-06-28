@@ -651,6 +651,64 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         return VirtualCardsSubscriptionToken(id: subscriptionId, cancellable: cancellable, manager: subscriptionManager)
     }
 
+    // MARK: - Sandbox APIs
+
+    public func sandboxGetPlaidData(institutionId: String, plaidUsername: String) async throws -> SandboxPlaidData {
+        try checkUserSignedIn()
+
+        let query = GraphQL.SandboxGetPlaidDataQuery(input: .init(institutionId: institutionId, username: plaidUsername))
+
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: .remoteOnly, logger: logger)
+        guard let sandboxPlaidData = data?.sandboxGetPlaidData else {
+            throw SudoVirtualCardsError.internalError("No sandbox Plaid data returned")
+        }
+
+        return .init(
+            accountMetadata: sandboxPlaidData.accountMetadata.map {
+                .init(
+                    accountId: $0.accountId,
+                    subtype: .init(plaidSubType: $0.subtype ?? "unknown")
+                )
+            },
+            publicToken: sandboxPlaidData.publicToken
+        )
+    }
+
+    public func sandboxSetFundingSourceToRequireRefresh(
+        fundingSourceId: String
+    ) async throws -> FundingSource {
+        try checkUserSignedIn()
+
+        let mutation = GraphQL.SandboxSetFundingSourceToRequireRefreshMutation(input: .init(fundingSourceId: fundingSourceId))
+
+        let data = try await GraphQLHelper.performMutation(
+            graphQLClient: graphQLClient,
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            mutation: mutation,
+            logger: logger
+        )
+
+        let fundingSource = data.sandboxSetFundingSourceToRequireRefresh
+        if fundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
+            guard let fundingSource = fundingSource.asCreditCardFundingSource else {
+                logger.error("No data received for credit card response")
+                throw SudoVirtualCardsError.internalError("No data received for credit card response")
+            }
+            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            return FundingSource.creditCardFundingSource(creditCardFundingSource)
+        }
+        if fundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
+            guard let fundingSource = fundingSource.asBankAccountFundingSource else {
+                logger.error("No data received for bank account response")
+                throw SudoVirtualCardsError.internalError("No data received for bank account response")
+            }
+            let bankAccountFundingSource = try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
+        }
+
+        throw SudoVirtualCardsError.internalError("Unexpected funding source type \(fundingSource.__typename)")
+    }
+
     // MARK: Internal - Public Key Lifecycle
 
     /// Register a client generated public key data to the virtual cards service.

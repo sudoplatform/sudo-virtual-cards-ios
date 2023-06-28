@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 22.1.0 Docs
+          SudoVirtualCards 22.2.0 Docs
         </a>
         
       </p>
@@ -1891,13 +1891,151 @@ original data.</p>
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Sandbox%20APIs"></a>
+                <a name="//apple_ref/swift/Section/Sandbox APIs" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Sandbox%20APIs"></a>
+                  <h3 class="section-name"><span>Sandbox APIs</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP19sandboxGetPlaidData13institutionId13plaidUsernameAA07SandboxgH0VSS_SStYaKF"></a>
+                    <a name="//apple_ref/swift/Method/sandboxGetPlaidData(institutionId:plaidUsername:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP19sandboxGetPlaidData13institutionId13plaidUsernameAA07SandboxgH0VSS_SStYaKF">sandboxGetPlaidData(institutionId:<wbr>plaidUsername:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sandbox API to obtain data normally returned by full Plaid Link flow. Useful for testing
+ahead of full Plaid Link integration during application development.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sandboxGetPlaidData</span><span class="p">(</span>
+    <span class="nv">institutionId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">plaidUsername</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">SandboxPlaidData</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>institutionId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of Plaid sandbox institution to use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>plaidUsername</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Username of Plaid sandbox user to obtain data for</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>SandboxPlaidData</code> object containing sandbox Plaid data for populating completion
+data before calling <code>completeFundingSource</code></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP39sandboxSetFundingSourceToRequireRefresh07fundingH2IdAA0gH0OSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/sandboxSetFundingSourceToRequireRefresh(fundingSourceId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP39sandboxSetFundingSourceToRequireRefresh07fundingH2IdAA0gH0OSS_tYaKF">sandboxSetFundingSourceToRequireRefresh(fundingSourceId:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sandbox API to set a funding source to refresh state to facilitate testing</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">sandboxSetFundingSourceToRequireRefresh</span><span class="p">(</span>
+    <span class="nv">fundingSourceId</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="k">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/FundingSource.html">FundingSource</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of funding source to set to refresh state. Must identify a bank account funding source.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code><a href="../Enums/FundingSource.html">FundingSource</a></code> that has been set to refresh state</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-06-12)</p>
+      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-06-28)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
