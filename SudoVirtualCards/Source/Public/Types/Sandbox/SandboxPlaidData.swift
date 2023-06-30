@@ -14,4 +14,11 @@ public struct SandboxPlaidData: Equatable {
 
     /// Token for passing in completion data to completeFundingSource
     public let publicToken: String
+    
+    // MARK: - Lifecycle
+
+    public init(accountMetadata: [PlaidAccountMetadata], publicToken: String) {
+        self.accountMetadata = accountMetadata
+        self.publicToken = publicToken
+    }
 }

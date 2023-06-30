@@ -611,7 +611,7 @@
     },
     {
       "file": "/Users/anonyome/builds/c2dfa4ea/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/PlaidAccountMetadata.swift",
-      "line": 20,
+      "line": 32,
       "symbol": "SudoVirtualCards.BankAccountType.init(plaidSubType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

@@ -14,6 +14,18 @@ public struct PlaidAccountMetadata: Equatable {
 
     /// Account sub type
     public let subtype: BankAccountType
+    
+    // MARK: - Lifecycle
+
+    public init(accountId: String, subtype: BankAccountType) {
+        self.accountId = accountId
+        self.subtype = subtype
+    }
+
+    public init(accountId: String, plaidSubType: String) {
+        self.accountId = accountId
+        self.subtype = SudoVirtualCards.BankAccountType(plaidSubType: plaidSubType)
+    }
 }
 
 extension SudoVirtualCards.BankAccountType {
