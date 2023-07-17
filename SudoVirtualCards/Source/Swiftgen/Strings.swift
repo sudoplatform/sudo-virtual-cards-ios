@@ -61,6 +61,7 @@ internal enum L10n {
         internal static let transactionNotFound = L10n.tr("Localizable", "virtual_cards.errors.transactionNotFound")
         internal static let unacceptableFundingSource = L10n.tr("Localizable", "virtual_cards.errors.unacceptableFundingSource")
         internal static let unknownTimezone = L10n.tr("Localizable", "virtual_cards.errors.unknownTimezone")
+        internal static let unrecognizedTransactionType = L10n.tr("Localizable", "virtual_cards.errors.unrecognizedTransactionType")
         internal static let unsupportedCurrency = L10n.tr("Localizable", "virtual_cards.errors.unsupportedCurrency")
         internal static let updateFailed = L10n.tr("Localizable", "virtual_cards.errors.updateFailed")
         internal static let velocityExceeded = L10n.tr("Localizable", "virtual_cards.errors.velocityExceeded")

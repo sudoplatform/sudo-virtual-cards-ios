@@ -82,7 +82,7 @@ class TransactionService {
     /// - Parameters:
     ///   - cardId: Identifier of the card for associated transactions.
     ///   - limit: Number of transaction to return. If nil, the limit is 10.
-    ///   - nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be pre-generated from a previous
+    ///   - nextToken: Generated token by previous calls to `list`. This is used for pagination. This value should be pre-generated from a previous
     ///         pagination call, otherwise it will throw an error.
     ///   - dateRange: Range of upper and lower date limits for records.
     ///   - sortOrder: Order in which records are returned (based on date).
@@ -121,10 +121,53 @@ class TransactionService {
                 partials.append(PartialResult(transaction: transaction, error: error))
             }
         }
-        if !partials.isEmpty {
-            return .partial(.init(items: success, failed: partials, nextToken: nextToken))
+        return deduplicateTransactionListResult(success: success, partials: partials, nextToken: nextToken)
+    }
+    
+    /// Get a list of transactions by cardId and transaction type. If no transactions can be found, an empty list will be returned.
+    /// - Parameters:
+    ///   - cardId: Identifier of the card for associated transactions.
+    ///   - transactionType: The type of transactions to retrieve.
+    ///   - limit: Number of transaction to return. If nil, the limit is 10.
+    ///   - nextToken: Generated token by previous calls to `list`. This is used for pagination. This value should be pre-generated from a previous
+    ///         pagination call, otherwise it will throw an error.
+    ///   - cachePolicy: Determines how the data is fetched.
+    /// - Returns:
+    ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///    - Failure: `Error` that occurred.
+    func list(
+        withCardId cardId: String,
+        withTransactionType transactionType: TransactionType,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
+        if (transactionType.toGraphQL() == nil) {
+            throw SudoVirtualCardsError.unrecognizedTransactionType
         }
-        return .success(.init(items: success, nextToken: nextToken))
+        let query = GraphQL.ListTransactionsByCardIdAndTypeQuery(
+            cardId: cardId,
+            transactionType: transactionType.toGraphQL()!,
+            limit: limit,
+            nextToken: nextToken
+        )
+        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        guard let listTransactions = data?.listTransactionsByCardIdAndType else {
+            return .empty
+        }
+        let nextToken = listTransactions.nextToken
+        var success: [Transaction] = []
+        var partials: [PartialResult<PartialTransaction>] = []
+        for listTransaction in listTransactions.items {
+            do {
+                let unsealedTransaction = try unsealer.unseal(listTransaction.fragments.sealedTransaction)
+                success.append(unsealedTransaction)
+            } catch {
+                let transaction = listTransaction.fragments.sealedTransaction
+                partials.append(PartialResult(transaction: transaction, error: error))
+            }
+        }
+        return deduplicateTransactionListResult(success: success, partials: partials, nextToken: nextToken)
     }
 
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
@@ -134,7 +177,7 @@ class TransactionService {
     ///     - limit: Number of transaction to return. If nil, the limit is 10.
     ///     - dateRange: Range of upper and lower date limits for records.
     ///     - sortOrder: Order in which records are returned (based on date).
-    ///     - nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be pre-generated from a previous
+    ///     - nextToken: Generated token by previous calls to `list`. This is used for pagination. This value should be pre-generated from a previous
     ///         pagination call, otherwise it will throw an error.
     /// - Parameter cachePolicy: Determines how the data is fetched.
     ///
@@ -171,10 +214,7 @@ class TransactionService {
                 partials.append(PartialResult(transaction: transaction, error: error))
             }
         }
-        if !partials.isEmpty {
-            return .partial(.init(items: success, failed: partials, nextToken: nextToken))
-        }
-        return .success(.init(items: success, nextToken: nextToken))
+        return deduplicateTransactionListResult(success: success, partials: partials, nextToken: nextToken)
     }
 
     /// Subscribe to transaction update events. This includes creation of new transactions.
@@ -292,5 +332,40 @@ class TransactionService {
         subscriptions.append(WeakCancellable(value: cancellable))
         return cancellable
     }
+    
+    /// Removes duplicate unsealed transactions from success and partial results based on identifier, favouring unsealed transactions in
+    /// the success list.
+    ///
+    /// - Parameter success: A list of successfully unsealed transactions.
+    /// - Parameter partials: A list of partial unsealed transactions.
+    /// - Parameter nextToken: A token generated from previous calls to allow for pagination.
+    ///
+    /// - Returns: A Success or Partial result.
+    private func deduplicateTransactionListResult(
+        success: [Transaction],
+        partials: [PartialResult<PartialTransaction>],
+        nextToken: String?
+    ) -> ListAPIResult<Transaction, PartialTransaction> {
+        // Remove duplicate success and partial transactions based on id
+        let distinctSuccess = Array(Set(success.map { $0.id })).map { id in
+            return success.first { $0.id == id }!
+        }
+        
+        var distinctPartials = Array(Set(partials.map { $0.partial.id })).map { id in
+            return partials.first { $0.partial.id == id }!
+        }
+        
+        // Remove transactions from partial list that have been successfully unsealed
+        distinctPartials.removeAll { partial in
+            distinctSuccess.contains { distinctS in
+                distinctS.id == partial.partial.id
+            }
+        }
 
+        // Build up and return the ListAPIResult
+        if !distinctPartials.isEmpty {
+            return .partial(.init(items: distinctSuccess, failed: distinctPartials, nextToken: nextToken))
+        }
+        return .success(.init(items: distinctSuccess, nextToken: nextToken))
+    }
 }

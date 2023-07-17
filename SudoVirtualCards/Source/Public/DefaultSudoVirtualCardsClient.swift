@@ -470,10 +470,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 partials.append(PartialResult(card: card, error: error))
             }
         }
-        if !partials.isEmpty {
-            return .partial(.init(items: success, failed: partials, nextToken: nextToken))
-        }
-        return .success(.init(items: success, nextToken: nextToken))
+        return deduplicateVirtualCardListResult(success: success, partials: partials, nextToken: nextToken)
     }
 
     public func getFundingSource(withId id: String, cachePolicy: CachePolicy) async throws -> FundingSource? {
@@ -567,6 +564,22 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             nextToken: nextToken,
             dateRange: dateRange,
             sortOrder: sortOrder,
+            cachePolicy: cachePolicy
+        )
+    }
+    
+    public func listTransactions(
+        withCardId cardId: String,
+        withTransactionType transactionType: TransactionType,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
+        return try await transactionService.list(
+            withCardId: cardId,
+            withTransactionType: transactionType,
+            limit: limit,
+            nextToken: nextToken,
             cachePolicy: cachePolicy
         )
     }
@@ -831,5 +844,41 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             return SudoVirtualCardsError.fromApiOperationError(error: apiOperationError)
         }
         return error
+    }
+    
+    /// Removes duplicate unsealed virtual cards from success and partial results based on identifier, favouring unsealed virtual cards in
+    /// the success list.
+    ///
+    /// - Parameter success: A list of successfully unsealed virtual cards.
+    /// - Parameter partials: A list of partial unsealed virtual cards.
+    /// - Parameter nextToken: A token generated from previous calls to allow for pagination.
+    ///
+    /// - Returns: A Success or Partial result.
+    private func deduplicateVirtualCardListResult(
+        success: [VirtualCard],
+        partials: [PartialResult<PartialVirtualCard>],
+        nextToken: String?
+    ) -> ListAPIResult<VirtualCard, PartialVirtualCard> {
+        // Remove duplicate success and partial virtual cards based on id
+        let distinctSuccess = Array(Set(success.map { $0.id })).map { id in
+            return success.first { $0.id == id }!
+        }
+        
+        var distinctPartials = Array(Set(partials.map { $0.partial.id })).map { id in
+            return partials.first { $0.partial.id == id }!
+        }
+        
+        // Remove virtual cards from partial list that have been successfully unsealed
+        distinctPartials.removeAll { partial in
+            distinctSuccess.contains { distinctS in
+                distinctS.id == partial.partial.id
+            }
+        }
+
+        // Build up and return the ListAPIResult
+        if !distinctPartials.isEmpty {
+            return .partial(.init(items: distinctSuccess, failed: distinctPartials, nextToken: nextToken))
+        }
+        return .success(.init(items: distinctSuccess, nextToken: nextToken))
     }
 }

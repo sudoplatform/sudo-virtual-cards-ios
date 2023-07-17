@@ -30,4 +30,21 @@ public enum TransactionType: Hashable {
             self = .unknown(rawValue)
         }
     }
+    
+    // MARK: - Methods: Internal
+
+    func toGraphQL() -> GraphQL.TransactionType? {
+        switch self {
+        case .pending:
+            return .pending
+        case .complete:
+            return .complete
+        case .refund:
+            return .refund
+        case .decline:
+            return .decline
+        case .unknown(_):
+            return nil
+        }
+    }
 }

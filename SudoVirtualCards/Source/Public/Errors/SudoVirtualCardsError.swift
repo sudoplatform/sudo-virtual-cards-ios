@@ -41,6 +41,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case unrecognizedAlgorithm(_ algorithm: String)
     /// Funding source type is unrecognized - check you have the latest version of the SDK
     case unrecognizedFundingSourceType(_ fundingSourceType: String)
+    /// Transaction type is unrecognized.
+    case unrecognizedTransactionType
 
     // MARK: - Service
 
@@ -376,6 +378,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return "\(String(describing: self)): \(algorithm)"
         case .unrecognizedFundingSourceType(let fundingSourceType):
             return"\(String(describing: self)): \(fundingSourceType)"
+        case .unrecognizedTransactionType:
+            return L10n.VirtualCards.Errors.unrecognizedTransactionType
         case .notAuthorized:
             return L10n.VirtualCards.Errors.notAuthorized
         case .limitExceeded:

@@ -18476,6 +18476,883 @@ internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
   }
 }
 
+internal final class ListTransactionsByCardIdAndTypeQuery: GraphQLQuery {
+  internal static let operationString =
+    "query ListTransactionsByCardIdAndType($cardId: ID!, $transactionType: TransactionType!, $limit: Int, $nextToken: String) {\n  listTransactionsByCardIdAndType(cardId: $cardId, transactionType: $transactionType, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...SealedTransaction\n    }\n    nextToken\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(SealedTransaction.fragmentString).appending(SealedCurrencyAmountAttribute.fragmentString).appending(SealedTransactionDetailChargeAttribute.fragmentString).appending(SealedMarkupAttribute.fragmentString) }
+
+  internal var cardId: GraphQLID
+  internal var transactionType: TransactionType
+  internal var limit: Int?
+  internal var nextToken: String?
+
+  internal init(cardId: GraphQLID, transactionType: TransactionType, limit: Int? = nil, nextToken: String? = nil) {
+    self.cardId = cardId
+    self.transactionType = transactionType
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["cardId": cardId, "transactionType": transactionType, "limit": limit, "nextToken": nextToken]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("listTransactionsByCardIdAndType", arguments: ["cardId": GraphQLVariable("cardId"), "transactionType": GraphQLVariable("transactionType"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListTransactionsByCardIdAndType.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(listTransactionsByCardIdAndType: ListTransactionsByCardIdAndType) {
+      self.init(snapshot: ["__typename": "Query", "listTransactionsByCardIdAndType": listTransactionsByCardIdAndType.snapshot])
+    }
+
+    internal var listTransactionsByCardIdAndType: ListTransactionsByCardIdAndType {
+      get {
+        return ListTransactionsByCardIdAndType(snapshot: snapshot["listTransactionsByCardIdAndType"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "listTransactionsByCardIdAndType")
+      }
+    }
+
+    internal struct ListTransactionsByCardIdAndType: GraphQLSelectionSet {
+      internal static let possibleTypes = ["SealedTransactionConnection"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .nonNull(.list(.nonNull(.object(Item.selections))))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(items: [Item], nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "SealedTransactionConnection", "items": items.map { $0.snapshot }, "nextToken": nextToken])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      internal var items: [Item] {
+        get {
+          return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "items")
+        }
+      }
+
+      internal var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["SealedTransaction"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("sortDateEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("algorithm", type: .nonNull(.scalar(String.self))),
+          GraphQLField("keyId", type: .nonNull(.scalar(String.self))),
+          GraphQLField("cardId", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("sequenceId", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("type", type: .nonNull(.scalar(TransactionType.self))),
+          GraphQLField("transactedAtEpochMs", type: .nonNull(.scalar(String.self))),
+          GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
+          GraphQLField("billedAmount", type: .nonNull(.object(BilledAmount.selections))),
+          GraphQLField("transactedAmount", type: .nonNull(.object(TransactedAmount.selections))),
+          GraphQLField("description", type: .nonNull(.scalar(String.self))),
+          GraphQLField("declineReason", type: .scalar(String.self)),
+          GraphQLField("detail", type: .list(.nonNull(.object(Detail.selections)))),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, sortDateEpochMs: Double, algorithm: String, keyId: String, cardId: GraphQLID, sequenceId: GraphQLID, type: TransactionType, transactedAtEpochMs: String, settledAtEpochMs: String? = nil, billedAmount: BilledAmount, transactedAmount: TransactedAmount, description: String, declineReason: String? = nil, detail: [Detail]? = nil) {
+          self.init(snapshot: ["__typename": "SealedTransaction", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "sortDateEpochMs": sortDateEpochMs, "algorithm": algorithm, "keyId": keyId, "cardId": cardId, "sequenceId": sequenceId, "type": type, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "billedAmount": billedAmount.snapshot, "transactedAmount": transactedAmount.snapshot, "description": description, "declineReason": declineReason, "detail": detail.flatMap { $0.map { $0.snapshot } }])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        internal var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        internal var owner: GraphQLID {
+          get {
+            return snapshot["owner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        internal var version: Int {
+          get {
+            return snapshot["version"]! as! Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "version")
+          }
+        }
+
+        internal var createdAtEpochMs: Double {
+          get {
+            return snapshot["createdAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+          }
+        }
+
+        internal var updatedAtEpochMs: Double {
+          get {
+            return snapshot["updatedAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+          }
+        }
+
+        internal var sortDateEpochMs: Double {
+          get {
+            return snapshot["sortDateEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "sortDateEpochMs")
+          }
+        }
+
+        internal var algorithm: String {
+          get {
+            return snapshot["algorithm"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "algorithm")
+          }
+        }
+
+        internal var keyId: String {
+          get {
+            return snapshot["keyId"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "keyId")
+          }
+        }
+
+        internal var cardId: GraphQLID {
+          get {
+            return snapshot["cardId"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "cardId")
+          }
+        }
+
+        internal var sequenceId: GraphQLID {
+          get {
+            return snapshot["sequenceId"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "sequenceId")
+          }
+        }
+
+        internal var type: TransactionType {
+          get {
+            return snapshot["type"]! as! TransactionType
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "type")
+          }
+        }
+
+        internal var transactedAtEpochMs: String {
+          get {
+            return snapshot["transactedAtEpochMs"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+          }
+        }
+
+        internal var settledAtEpochMs: String? {
+          get {
+            return snapshot["settledAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
+          }
+        }
+
+        internal var billedAmount: BilledAmount {
+          get {
+            return BilledAmount(snapshot: snapshot["billedAmount"]! as! Snapshot)
+          }
+          set {
+            snapshot.updateValue(newValue.snapshot, forKey: "billedAmount")
+          }
+        }
+
+        internal var transactedAmount: TransactedAmount {
+          get {
+            return TransactedAmount(snapshot: snapshot["transactedAmount"]! as! Snapshot)
+          }
+          set {
+            snapshot.updateValue(newValue.snapshot, forKey: "transactedAmount")
+          }
+        }
+
+        internal var description: String {
+          get {
+            return snapshot["description"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "description")
+          }
+        }
+
+        internal var declineReason: String? {
+          get {
+            return snapshot["declineReason"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "declineReason")
+          }
+        }
+
+        internal var detail: [Detail]? {
+          get {
+            return (snapshot["detail"] as? [Snapshot]).flatMap { $0.map { Detail(snapshot: $0) } }
+          }
+          set {
+            snapshot.updateValue(newValue.flatMap { $0.map { $0.snapshot } }, forKey: "detail")
+          }
+        }
+
+        internal var fragments: Fragments {
+          get {
+            return Fragments(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+
+        internal struct Fragments {
+          internal var snapshot: Snapshot
+
+          internal var sealedTransaction: SealedTransaction {
+            get {
+              return SealedTransaction(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+        }
+
+        internal struct BilledAmount: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedCurrencyAmountAttribute"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("currency", type: .nonNull(.scalar(String.self))),
+            GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(currency: String, amount: String) {
+            self.init(snapshot: ["__typename": "SealedCurrencyAmountAttribute", "currency": currency, "amount": amount])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          internal var currency: String {
+            get {
+              return snapshot["currency"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "currency")
+            }
+          }
+
+          internal var amount: String {
+            get {
+              return snapshot["amount"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "amount")
+            }
+          }
+
+          internal var fragments: Fragments {
+            get {
+              return Fragments(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+
+          internal struct Fragments {
+            internal var snapshot: Snapshot
+
+            internal var sealedCurrencyAmountAttribute: SealedCurrencyAmountAttribute {
+              get {
+                return SealedCurrencyAmountAttribute(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+          }
+        }
+
+        internal struct TransactedAmount: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedCurrencyAmountAttribute"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("currency", type: .nonNull(.scalar(String.self))),
+            GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(currency: String, amount: String) {
+            self.init(snapshot: ["__typename": "SealedCurrencyAmountAttribute", "currency": currency, "amount": amount])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          internal var currency: String {
+            get {
+              return snapshot["currency"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "currency")
+            }
+          }
+
+          internal var amount: String {
+            get {
+              return snapshot["amount"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "amount")
+            }
+          }
+
+          internal var fragments: Fragments {
+            get {
+              return Fragments(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+
+          internal struct Fragments {
+            internal var snapshot: Snapshot
+
+            internal var sealedCurrencyAmountAttribute: SealedCurrencyAmountAttribute {
+              get {
+                return SealedCurrencyAmountAttribute(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+          }
+        }
+
+        internal struct Detail: GraphQLSelectionSet {
+          internal static let possibleTypes = ["SealedTransactionDetailChargeAttribute"]
+
+          internal static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("virtualCardAmount", type: .nonNull(.object(VirtualCardAmount.selections))),
+            GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
+            GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
+            GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("description", type: .nonNull(.scalar(String.self))),
+            GraphQLField("state", type: .scalar(String.self)),
+          ]
+
+          internal var snapshot: Snapshot
+
+          internal init(snapshot: Snapshot) {
+            self.snapshot = snapshot
+          }
+
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          }
+
+          internal var __typename: String {
+            get {
+              return snapshot["__typename"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          internal var virtualCardAmount: VirtualCardAmount {
+            get {
+              return VirtualCardAmount(snapshot: snapshot["virtualCardAmount"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "virtualCardAmount")
+            }
+          }
+
+          internal var markup: Markup {
+            get {
+              return Markup(snapshot: snapshot["markup"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "markup")
+            }
+          }
+
+          internal var markupAmount: MarkupAmount {
+            get {
+              return MarkupAmount(snapshot: snapshot["markupAmount"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "markupAmount")
+            }
+          }
+
+          internal var fundingSourceAmount: FundingSourceAmount {
+            get {
+              return FundingSourceAmount(snapshot: snapshot["fundingSourceAmount"]! as! Snapshot)
+            }
+            set {
+              snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var fundingSourceId: GraphQLID {
+            get {
+              return snapshot["fundingSourceId"]! as! GraphQLID
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "fundingSourceId")
+            }
+          }
+
+          internal var description: String {
+            get {
+              return snapshot["description"]! as! String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "description")
+            }
+          }
+
+          internal var state: String? {
+            get {
+              return snapshot["state"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "state")
+            }
+          }
+
+          internal var fragments: Fragments {
+            get {
+              return Fragments(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
+            }
+          }
+
+          internal struct Fragments {
+            internal var snapshot: Snapshot
+
+            internal var sealedTransactionDetailChargeAttribute: SealedTransactionDetailChargeAttribute {
+              get {
+                return SealedTransactionDetailChargeAttribute(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+          }
+
+          internal struct VirtualCardAmount: GraphQLSelectionSet {
+            internal static let possibleTypes = ["SealedCurrencyAmountAttribute"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("currency", type: .nonNull(.scalar(String.self))),
+              GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(currency: String, amount: String) {
+              self.init(snapshot: ["__typename": "SealedCurrencyAmountAttribute", "currency": currency, "amount": amount])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            internal var currency: String {
+              get {
+                return snapshot["currency"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "currency")
+              }
+            }
+
+            internal var amount: String {
+              get {
+                return snapshot["amount"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "amount")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var sealedCurrencyAmountAttribute: SealedCurrencyAmountAttribute {
+                get {
+                  return SealedCurrencyAmountAttribute(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+
+          internal struct Markup: GraphQLSelectionSet {
+            internal static let possibleTypes = ["SealedMarkupAttribute"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("percent", type: .nonNull(.scalar(String.self))),
+              GraphQLField("flat", type: .nonNull(.scalar(String.self))),
+              GraphQLField("minCharge", type: .scalar(String.self)),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(percent: String, flat: String, minCharge: String? = nil) {
+              self.init(snapshot: ["__typename": "SealedMarkupAttribute", "percent": percent, "flat": flat, "minCharge": minCharge])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            internal var percent: String {
+              get {
+                return snapshot["percent"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "percent")
+              }
+            }
+
+            internal var flat: String {
+              get {
+                return snapshot["flat"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "flat")
+              }
+            }
+
+            internal var minCharge: String? {
+              get {
+                return snapshot["minCharge"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "minCharge")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var sealedMarkupAttribute: SealedMarkupAttribute {
+                get {
+                  return SealedMarkupAttribute(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+
+          internal struct MarkupAmount: GraphQLSelectionSet {
+            internal static let possibleTypes = ["SealedCurrencyAmountAttribute"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("currency", type: .nonNull(.scalar(String.self))),
+              GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(currency: String, amount: String) {
+              self.init(snapshot: ["__typename": "SealedCurrencyAmountAttribute", "currency": currency, "amount": amount])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            internal var currency: String {
+              get {
+                return snapshot["currency"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "currency")
+              }
+            }
+
+            internal var amount: String {
+              get {
+                return snapshot["amount"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "amount")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var sealedCurrencyAmountAttribute: SealedCurrencyAmountAttribute {
+                get {
+                  return SealedCurrencyAmountAttribute(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+
+          internal struct FundingSourceAmount: GraphQLSelectionSet {
+            internal static let possibleTypes = ["SealedCurrencyAmountAttribute"]
+
+            internal static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("currency", type: .nonNull(.scalar(String.self))),
+              GraphQLField("amount", type: .nonNull(.scalar(String.self))),
+            ]
+
+            internal var snapshot: Snapshot
+
+            internal init(snapshot: Snapshot) {
+              self.snapshot = snapshot
+            }
+
+            internal init(currency: String, amount: String) {
+              self.init(snapshot: ["__typename": "SealedCurrencyAmountAttribute", "currency": currency, "amount": amount])
+            }
+
+            internal var __typename: String {
+              get {
+                return snapshot["__typename"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            internal var currency: String {
+              get {
+                return snapshot["currency"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "currency")
+              }
+            }
+
+            internal var amount: String {
+              get {
+                return snapshot["amount"]! as! String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "amount")
+              }
+            }
+
+            internal var fragments: Fragments {
+              get {
+                return Fragments(snapshot: snapshot)
+              }
+              set {
+                snapshot += newValue.snapshot
+              }
+            }
+
+            internal struct Fragments {
+              internal var snapshot: Snapshot
+
+              internal var sealedCurrencyAmountAttribute: SealedCurrencyAmountAttribute {
+                get {
+                  return SealedCurrencyAmountAttribute(snapshot: snapshot)
+                }
+                set {
+                  snapshot += newValue.snapshot
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 internal final class SandboxGetPlaidDataQuery: GraphQLQuery {
   internal static let operationString =
     "query SandboxGetPlaidData($input: SandboxGetPlaidDataRequest!) {\n  sandboxGetPlaidData(input: $input) {\n    __typename\n    accountMetadata {\n      __typename\n      accountId\n      subtype\n    }\n    publicToken\n  }\n}"

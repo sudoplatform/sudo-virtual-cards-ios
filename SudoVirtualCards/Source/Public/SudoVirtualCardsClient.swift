@@ -247,7 +247,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///
     /// - Parameter cardId: Identifier of the card to search associated transactions for.
     /// - Parameter limit: Number of transaction to return. If nil, the limit is up to 1MB of data returned from the service.
-    /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
+    /// - Parameter nextToken: Generated token by previous calls to `listTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     /// - Parameter dateRange: Range of upper and lower date limits for records.
     /// - Parameter sortOrder: Order in which records are returned (based on date).
@@ -266,11 +266,33 @@ public protocol SudoVirtualCardsClient: AnyObject {
         sortOrder: SortOrderInput?,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<Transaction, PartialTransaction>
+    
+    /// Get a list of transactions by card id and transaction type. If no transactions can be found, an empty list will be returned.
+    ///
+    /// - Parameter cardId: Identifier of the card to search associated transactions for.
+    /// - Parameter transactionType: The type of transactions to retrieve.
+    /// - Parameter limit: Number of transaction to return. If nil, the limit is up to 1MB of data returned from the service.
+    /// - Parameter nextToken: Generated token by previous calls to `listTransactions`. This is used for pagination. This value should be
+    ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
+    /// - Parameter cachePolicy: Determines how the data is fetched.
+    ///
+    /// - Returns:
+    ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
+    ///   - Partial: Mix of complete and partial Transactions associated with user.
+    /// - Throws:
+    ///   - SudoPlatformError.
+    func listTransactions(
+        withCardId cardId: String,
+        withTransactionType transactionType: TransactionType,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListAPIResult<Transaction, PartialTransaction>
 
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
     ///
     /// - Parameter limit: Number of transaction to return. If nil, the limit is 10.
-    /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
+    /// - Parameter nextToken: Generated token by previous calls to `listTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     /// - Parameter dateRange: Range of upper and lower date limits for records.
     /// - Parameter sortOrder: Order in which records are returned (based on date).
