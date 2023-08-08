@@ -123,7 +123,7 @@ class TransactionService {
         }
         return deduplicateTransactionListResult(success: success, partials: partials, nextToken: nextToken)
     }
-    
+
     /// Get a list of transactions by cardId and transaction type. If no transactions can be found, an empty list will be returned.
     /// - Parameters:
     ///   - cardId: Identifier of the card for associated transactions.
@@ -332,7 +332,7 @@ class TransactionService {
         subscriptions.append(WeakCancellable(value: cancellable))
         return cancellable
     }
-    
+
     /// Removes duplicate unsealed transactions from success and partial results based on identifier, favouring unsealed transactions in
     /// the success list.
     ///
@@ -347,14 +347,16 @@ class TransactionService {
         nextToken: String?
     ) -> ListAPIResult<Transaction, PartialTransaction> {
         // Remove duplicate success and partial transactions based on id
-        let distinctSuccess = Array(Set(success.map { $0.id })).map { id in
-            return success.first { $0.id == id }!
+        let distinctSuccess = (NSOrderedSet(array: success.map { $0.id }))
+            // swiftlint:disable force_cast
+            .map { id in return success.first { $0.id == id as! String }!
         }
-        
-        var distinctPartials = Array(Set(partials.map { $0.partial.id })).map { id in
-            return partials.first { $0.partial.id == id }!
+
+        var distinctPartials = (NSOrderedSet(array: partials.map { $0.partial.id }))
+            // swiftlint:disable force_cast
+            .map { id in return partials.first { $0.partial.id == id as! String }!
         }
-        
+
         // Remove transactions from partial list that have been successfully unsealed
         distinctPartials.removeAll { partial in
             distinctSuccess.contains { distinctS in

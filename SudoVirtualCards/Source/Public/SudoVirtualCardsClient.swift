@@ -69,7 +69,10 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Provision a virtual card.
     ///
-    /// - Returns: A newly provisioned card information is returned.
+    /// - Parameters:
+    ///   - input: Parameters used to provision a Virtual Card.
+    ///   - observer: Observable for Provision Virtual Card API events.
+    /// - Returns: The newly provisioned card information.
     /// - Throws:
     ///   - SudoPlatformError.
     ///   - SudoVirtualCardsError.
@@ -77,7 +80,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Cancel a funding source.
     ///
-    /// - Parameter id: ID of the funding source to be deleted.
+    /// - Parameter id: ID of the funding source to be cancelled.
     ///
     /// - Returns: Funding source that was cancelled.
     /// - Throws:
@@ -87,11 +90,14 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Update a virtual card.
     ///
-    /// It is important to note that when updating a card, all fields that should remain the same should include their
-    /// original data.
+    /// It is important to note that when updating a card, all fields are updated, therefore, any fields that should
+    /// remain the same must include their original data.
     ///
-    /// - Parameter input: Input fields for the card update.
-    /// - Returns: Updated card.
+    /// - Parameters:
+    ///  - input: Parameters used to update a Virtual Card.
+    /// - Returns:
+    ///   - Success: The Virtual Card that was updated.
+    ///   - Partial: Partial record of updated Virtual Card.
     /// - Throws:
     ///   - SudoPlatformError.
     func updateVirtualCard(withInput input: UpdateVirtualCardInput) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard>
@@ -117,7 +123,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameters
     ///     - id: ID of the card to be retrieved.
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                    will only return cached results of similar exact API calls.
+    ///                    will only return cached results of identical API calls.
     ///
     /// - Returns: Card associated with `id`, or `nil` if the card cannot be found.
     /// - Throws
@@ -132,7 +138,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                    will only return cached results of similar exact API calls.
+    ///                    will only return cached results of identical API calls.
     ///
     /// - Returns:
     ///   - Success: Cards associated with user, or empty array if no card can be found.
@@ -150,7 +156,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameters
     ///     - id: ID of the card to be retrieved.
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                    will only return cached results of similar exact API calls.
+    ///                    will only return cached results of identical API calls.
     ///
     /// - Returns: Card associated with `id`, or `nil` if the card cannot be found.
     /// - Throws:
@@ -164,7 +170,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///
     /// - Parameters
     ///     - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                    will only return cached results of similar exact API calls.
+    ///                    will only return cached results of identical API calls.
     ///
     /// - Returns: Virtual card config associated with account, or `nil` if the coinfig cannot be found.
     /// - Throws:
@@ -181,7 +187,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns:
     ///    - Success: Cards associated with user, or empty array if no card can be found.
@@ -198,7 +204,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///
     /// - Parameter id: ID of the funding source to be retrieved.
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns: `FundingSource` associated with `id`, or `nil` if the funding source cannot be found.
     /// - Throws:
@@ -216,7 +222,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns: `FundingSource`s associated with `id`, or empty array if no funding source can be found.
     /// - Throws:
@@ -233,9 +239,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///
     /// - Parameter id: ID of the transaction to be retrieved.
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
+    ///                          will only return cached results of identical API calls.
     ///
-    /// - Returns: Transaction associated with `id`, or `nil` if the card cannot be found.
+    /// - Returns: Transaction associated with `id`, or `nil` if the transaction cannot be found.
     /// - Throws:
     ///   - SudoPlatformError.
     func getTransaction(
@@ -245,17 +251,18 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Get a list of transactions by card id. If no transactions can be found, an empty list will be returned.
     ///
-    /// - Parameter cardId: Identifier of the card to search associated transactions for.
-    /// - Parameter limit: Number of transaction to return. If nil, the limit is up to 1MB of data returned from the service.
+    /// - Parameter cardId: Identifier of the card for which associated transactions will be returned.
+    /// - Parameter limit: Number of transactions to return. If nil, the limit is up to 1MB of data returned from the service.
     /// - Parameter nextToken: Generated token by previous calls to `listTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     /// - Parameter dateRange: Range of upper and lower date limits for records.
     /// - Parameter sortOrder: Order in which records are returned (based on date).
-    /// - Parameter cachePolicy: Determines how the data is fetched.
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns:
-    ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
-    ///   - Partial: Mix of complete and partial Transactions associated with user.
+    ///   - Success: Transactions associated with the virtual card, or empty array if no transaction can be found.
+    ///   - Partial: Mix of complete and partial Transactions associated with the virtual card.
     /// - Throws:
     ///   - SudoPlatformError.
     func listTransactions(
@@ -266,19 +273,20 @@ public protocol SudoVirtualCardsClient: AnyObject {
         sortOrder: SortOrderInput?,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<Transaction, PartialTransaction>
-    
+
     /// Get a list of transactions by card id and transaction type. If no transactions can be found, an empty list will be returned.
     ///
-    /// - Parameter cardId: Identifier of the card to search associated transactions for.
+    /// - Parameter cardId: Identifier of the card for which associated transactions will be returned.
     /// - Parameter transactionType: The type of transactions to retrieve.
     /// - Parameter limit: Number of transaction to return. If nil, the limit is up to 1MB of data returned from the service.
     /// - Parameter nextToken: Generated token by previous calls to `listTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
-    /// - Parameter cachePolicy: Determines how the data is fetched.
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns:
-    ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
-    ///   - Partial: Mix of complete and partial Transactions associated with user.
+    ///   - Success: Transactions of specific type associated with the virtual card, or empty array if no transaction can be found.
+    ///   - Partial: Mix of complete and partial Transactions associated with the virtual card.
     /// - Throws:
     ///   - SudoPlatformError.
     func listTransactions(
@@ -296,7 +304,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     /// - Parameter dateRange: Range of upper and lower date limits for records.
     /// - Parameter sortOrder: Order in which records are returned (based on date).
-    /// - Parameter cachePolicy: Determines how the data is fetched.
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns:
     ///   - Success: Transactions associated with user, or empty array if no transaction can be found.
@@ -324,7 +333,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
         resultHandler: @escaping ClientCompletion<Transaction>
     ) async throws -> SubscriptionToken?
 
-    /// Subscribe to transaction delete events. This includes creation of new transactions.
+    /// Subscribe to transaction delete events.
     ///
     /// - Parameter statusChangeHandler: Connection status change.
     /// - Parameter resultHandler: Deleted transaction event.
@@ -366,7 +375,8 @@ extension SudoVirtualCardsClient {
     /// - Parameter limit: Number of transaction to return. If nil, the limit is 10.
     /// - Parameter nextToken: Generated token by previous calls to `getTransactions`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
-    /// - Parameter cachePolicy: Determines how the data is fetched.
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                          will only return cached results of identical API calls.
     ///
     /// - Returns:
     ///   - Success: Transactions associated with user, or empty array if no transaction can be found.

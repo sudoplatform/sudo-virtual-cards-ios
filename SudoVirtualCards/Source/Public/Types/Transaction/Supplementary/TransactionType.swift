@@ -30,7 +30,7 @@ public enum TransactionType: Hashable {
             self = .unknown(rawValue)
         }
     }
-    
+
     // MARK: - Methods: Internal
 
     func toGraphQL() -> GraphQL.TransactionType? {

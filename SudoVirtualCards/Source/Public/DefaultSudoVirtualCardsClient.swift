@@ -567,7 +567,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             cachePolicy: cachePolicy
         )
     }
-    
+
     public func listTransactions(
         withCardId cardId: String,
         withTransactionType transactionType: TransactionType,
@@ -845,7 +845,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
         return error
     }
-    
+
     /// Removes duplicate unsealed virtual cards from success and partial results based on identifier, favouring unsealed virtual cards in
     /// the success list.
     ///
@@ -860,14 +860,16 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         nextToken: String?
     ) -> ListAPIResult<VirtualCard, PartialVirtualCard> {
         // Remove duplicate success and partial virtual cards based on id
-        let distinctSuccess = Array(Set(success.map { $0.id })).map { id in
-            return success.first { $0.id == id }!
+        let distinctSuccess = (NSOrderedSet(array: success.map { $0.id }))
+            // swiftlint:disable force_cast
+            .map { id in return success.first { $0.id == id as! String }!
         }
-        
-        var distinctPartials = Array(Set(partials.map { $0.partial.id })).map { id in
-            return partials.first { $0.partial.id == id }!
+
+        var distinctPartials = (NSOrderedSet(array: partials.map { $0.partial.id }))
+            // swiftlint:disable force_cast
+            .map { id in return partials.first { $0.partial.id == id as! String }!
         }
-        
+
         // Remove virtual cards from partial list that have been successfully unsealed
         distinctPartials.removeAll { partial in
             distinctSuccess.contains { distinctS in
