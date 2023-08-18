@@ -8,6 +8,7 @@ import Foundation
 import SudoLogging
 import AWSAppSync
 import SudoApiClient
+import SudoKeyManager
 
 /// Abstraction of the SDKs capabilities surrounding `PublicKey` access/manipulation with virtual cards service.
 ///
@@ -25,7 +26,7 @@ class PublicKeyService {
     /// Default values used in `CardService`.
     enum Defaults {
         /// algorithm used when creating/registering public keys.
-        static let algorithm = "RSAEncryptionOAEPAESCBC"
+        static let algorithm = PublicKeyEncryptionAlgorithm.rsaEncryptionOAEPSHA1
     }
 
     // MARK: - Properties
@@ -116,7 +117,7 @@ class PublicKeyService {
     /// Although a keypair is passed in, only the public key is sent external to the device. **Private keys remain on the device only**.
     func create(withKeyPair keyPair: KeyPair) async throws -> PublicKey {
         let publicKeyString = keyPair.publicKey.base64EncodedString()
-        let input = GraphQL.CreatePublicKeyInput(algorithm: Defaults.algorithm, keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, publicKey: publicKeyString)
+        let input = GraphQL.CreatePublicKeyInput(algorithm: Defaults.algorithm.toString(), keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, publicKey: publicKeyString)
         let mutation = GraphQL.CreatePublicKeyMutation(input: input)
         let data = try await GraphQLHelper.performMutation(graphQLClient: graphQLClient, mutation: mutation, logger: logger)
         return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)

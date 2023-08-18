@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import SudoKeyManager
 
 struct PublicKey: Hashable {
 
@@ -16,7 +17,7 @@ struct PublicKey: Hashable {
 
     let keyRingId: String
 
-    let algorithm: String
+    let algorithm: PublicKeyEncryptionAlgorithm
 
     let publicKey: String
 
@@ -34,7 +35,7 @@ struct PublicKey: Hashable {
         id: String,
         keyId: String,
         keyRingId: String,
-        algorithm: String,
+        algorithm: PublicKeyEncryptionAlgorithm,
         publicKey: String,
         owner: String,
         version: Int,
@@ -57,11 +58,13 @@ struct PublicKey: Hashable {
     init(createPublicKeyForVirtualCards publicKey: GraphQL.CreatePublicKeyMutation.Data.CreatePublicKeyForVirtualCard) {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+        let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
+        
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
             keyRingId: publicKey.keyRingId,
-            algorithm: publicKey.algorithm,
+            algorithm: algorithm,
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
@@ -72,11 +75,13 @@ struct PublicKey: Hashable {
     init(getPublicKeyForVirtualCards publicKey: GraphQL.GetPublicKeyQuery.Data.GetPublicKeyForVirtualCard) {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+        let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
+        
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
             keyRingId: publicKey.keyRingId,
-            algorithm: publicKey.algorithm,
+            algorithm: algorithm,
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
@@ -87,11 +92,13 @@ struct PublicKey: Hashable {
     init(getPublicKeysForVirtualCards publicKey: GraphQL.GetPublicKeysQuery.Data.GetPublicKeysForVirtualCard.Item) {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+        let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
+        
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
             keyRingId: publicKey.keyRingId,
-            algorithm: publicKey.algorithm,
+            algorithm: algorithm,
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,
@@ -102,11 +109,13 @@ struct PublicKey: Hashable {
     init(getKeyRingForVirtualCards publicKey: GraphQL.GetKeyRingQuery.Data.GetKeyRingForVirtualCard.Item) {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
+        let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
+        
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
             keyRingId: publicKey.keyRingId,
-            algorithm: publicKey.algorithm,
+            algorithm: algorithm,
             publicKey: publicKey.publicKey,
             owner: publicKey.owner,
             version: publicKey.version,

@@ -5,8 +5,9 @@
 //
 
 import Foundation
+import SudoKeyManager
 
- struct RegisterPublicKeyInput {
+struct RegisterPublicKeyInput {
 
     /// Client generated ID for the public key.
     var keyId: String
@@ -15,7 +16,7 @@ import Foundation
     var keyRingId: String
 
     /// Algorithm associated with the public key.
-    var algorithm: String
+    var algorithm: PublicKeyEncryptionAlgorithm
 
     /// Base 64 encoded string of the public key.
     var publicKey: String
@@ -23,7 +24,7 @@ import Foundation
     init(
         keyId: String = UUID().uuidString,
         keyRingId: String = UUID().uuidString,
-        algorithm: String,
+        algorithm: PublicKeyEncryptionAlgorithm = .rsaEncryptionOAEPSHA1,
         publicKey: String
     ) {
         self.keyId = keyId
@@ -35,7 +36,7 @@ import Foundation
     init(
         keyId: String = UUID().uuidString,
         keyRingId: String = UUID().uuidString,
-        algorithm: String,
+        algorithm: PublicKeyEncryptionAlgorithm = .rsaEncryptionOAEPSHA1,
         publicKey: Data
     ) {
         self.keyId = keyId

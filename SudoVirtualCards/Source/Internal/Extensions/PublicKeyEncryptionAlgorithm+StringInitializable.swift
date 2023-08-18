@@ -18,4 +18,13 @@ extension PublicKeyEncryptionAlgorithm {
             return nil
         }
     }
+
+    func toString() -> String {
+        switch self {
+        case .rsaEncryptionOAEPSHA1:
+            return "RSAEncryptionOAEPAESCBC"
+        case .rsaEncryptionPKCS1:
+            return "RSAEncryptionPKCS1"
+        }
+    }
 }

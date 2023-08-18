@@ -738,7 +738,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     func registerPublicKeyWithInput(_ input: RegisterPublicKeyInput) async throws -> PublicKey {
         try checkUserSignedIn()
         let mutationInput = GraphQL.CreatePublicKeyInput(
-            algorithm: input.algorithm,
+            algorithm: input.algorithm.toString(),
             keyId: input.keyId,
             keyRingId: input.keyRingId,
             publicKey: input.publicKey

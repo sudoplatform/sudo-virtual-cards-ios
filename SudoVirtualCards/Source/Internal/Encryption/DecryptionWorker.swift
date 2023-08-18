@@ -147,7 +147,7 @@ class DefaultDecryptionWorker: DecryptionWorker {
         case .privateKey:
             return try decryptWithPrivateKeyId(keyInfo.keyId, algorithm: keyInfo.algorithm, input: input)
         case .symmetricKey:
-            return try decryptWithSymmetricKeyId(keyInfo.keyId, algorithm: keyInfo.algorithm, input: input)
+            return try decryptWithSymmetricKeyId(keyInfo.keyId, input: input)
         }
     }
 
@@ -174,7 +174,7 @@ class DefaultDecryptionWorker: DecryptionWorker {
 
     }
 
-    func decryptWithSymmetricKeyId(_ keyId: String, algorithm: String, input: String) throws -> String {
+    func decryptWithSymmetricKeyId(_ keyId: String, input: String) throws -> String {
         guard let payload = Data(base64Encoded: input) else {
             throw UnsealingError.dataDecodingFailed
         }
