@@ -142,7 +142,7 @@ class TransactionService {
         nextToken: String?,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
-        if (transactionType.toGraphQL() == nil) {
+        if transactionType.toGraphQL() == nil {
             throw SudoVirtualCardsError.unrecognizedTransactionType
         }
         let query = GraphQL.ListTransactionsByCardIdAndTypeQuery(

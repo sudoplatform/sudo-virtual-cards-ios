@@ -116,6 +116,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// Get the funding source client configuration.
     ///
     /// - Returns: The configuration of the client funding source data.
+    @available(*, deprecated, message: "Use getVirtualCardsConfig instead to retrieve the FundingSourceClientConfiguration")
     func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration]
 
     /// Get a provisional card using the `id` parameter. If the card cannot be found, `nil` will be returned.

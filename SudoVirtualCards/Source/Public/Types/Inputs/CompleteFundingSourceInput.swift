@@ -35,8 +35,9 @@ public struct CheckoutCardCompletionDataInput: Hashable, FundingSourceProviderDa
 
     // MARK: - Properties
 
-    /// Identifier of the Payment Method used.
-    public let paymentToken: String
+    /// Specifies payment token being setup or nil if calling back after completing
+    /// required user interaction
+    public let paymentToken: String?
 
     /// Provider used to save the funding source information.
     public let provider: String = "checkout"
@@ -47,7 +48,7 @@ public struct CheckoutCardCompletionDataInput: Hashable, FundingSourceProviderDa
 
     // MARK: - Lifecycle
 
-    public init(paymentToken: String) {
+    public init(paymentToken: String?) {
         self.paymentToken = paymentToken
     }
 }

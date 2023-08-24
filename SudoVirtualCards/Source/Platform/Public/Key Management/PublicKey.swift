@@ -59,7 +59,7 @@ struct PublicKey: Hashable {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
-        
+
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -76,7 +76,7 @@ struct PublicKey: Hashable {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
-        
+
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -93,7 +93,7 @@ struct PublicKey: Hashable {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
-        
+
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,
@@ -110,7 +110,7 @@ struct PublicKey: Hashable {
         let createdAt = Date(millisecondsSince1970: publicKey.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: publicKey.updatedAtEpochMs)
         let algorithm = PublicKeyEncryptionAlgorithm(publicKey.algorithm)!
-        
+
         self.init(
             id: publicKey.id,
             keyId: publicKey.keyId,

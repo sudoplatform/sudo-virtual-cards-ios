@@ -139,8 +139,9 @@ public struct CheckoutCardCompletionData: FundingSourceProviderData, Encodable, 
     public let type: FundingSourceType
     public let version: Int
 
-    /// Specifies payment token being setup
-    public let paymentToken: String
+    /// Specifies payment token being setup or nil if calling back after completing
+    /// required user interaction
+    public let paymentToken: String?
 
     // MARK: - Conformance: Encodable
 
@@ -158,9 +159,10 @@ public struct CheckoutCardCompletionData: FundingSourceProviderData, Encodable, 
         try container.encode(version, forKey: .version)
         try container.encode(paymentToken, forKey: .paymentToken)
     }
+
     // MARK: - Lifecycle
 
-    init(paymentToken: String) {
+    init(paymentToken: String?) {
         self.provider = CheckoutDefaults.provider
         self.type = .creditCard
         self.version = CheckoutDefaults.version

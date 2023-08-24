@@ -40,6 +40,12 @@ public struct VirtualCardsConfig: Equatable {
     /// entitlement is required to provision a bank account funding source
     public var bankAccountFundingSourceExpendableEnabled: Bool
 
+    /// The funding source client configuration.
+    public var fundingSourceClientConfiguration: [FundingSourceClientConfiguration]
+
+    /// The client application configuration keyed by application name.
+    public var clientApplicationConfiguration: [String: ClientApplicationConfiguration]
+
     // MARK: - Lifecycle
 
     /// Initialise an instance of `VirtualCardConfig`.
@@ -51,7 +57,9 @@ public struct VirtualCardsConfig: Equatable {
         maxTransactionAmount: [CurrencyAmount],
         virtualCardCurrencies: [String],
         fundingSourceSupportInfo: [FundingSourceSupportInfo],
-        bankAccountFundingSourceExpendableEnabled: Bool
+        bankAccountFundingSourceExpendableEnabled: Bool,
+        fundingSourceClientConfiguration: [FundingSourceClientConfiguration],
+        clientApplicationConfiguration: [String: ClientApplicationConfiguration]
     ) {
         self.maxFundingSourceVelocity = maxFundingSourceVelocity
         self.maxFundingSourceFailureVelocity = maxFundingSourceFailureVelocity
@@ -61,5 +69,7 @@ public struct VirtualCardsConfig: Equatable {
         self.virtualCardCurrencies = virtualCardCurrencies
         self.fundingSourceSupportInfo = fundingSourceSupportInfo
         self.bankAccountFundingSourceExpendableEnabled = bankAccountFundingSourceExpendableEnabled
+        self.fundingSourceClientConfiguration = fundingSourceClientConfiguration
+        self.clientApplicationConfiguration = clientApplicationConfiguration
     }
 }

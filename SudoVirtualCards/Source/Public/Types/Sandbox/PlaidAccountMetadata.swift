@@ -14,7 +14,7 @@ public struct PlaidAccountMetadata: Equatable {
 
     /// Account sub type
     public let subtype: BankAccountType
-    
+
     // MARK: - Lifecycle
 
     public init(accountId: String, subtype: BankAccountType) {
