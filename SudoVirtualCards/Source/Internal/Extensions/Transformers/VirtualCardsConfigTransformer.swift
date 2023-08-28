@@ -93,13 +93,13 @@ internal func decodeFundingSourceClientConfiguration(configData: String) throws 
 internal func decodeClientApplicationConfiguration(configData: String) throws -> [String: ClientApplicationConfiguration] {
     let msg = "client application configuration cannot be decoded"
     let decoder: JSONDecoder = JSONDecoder()
-    
+
     guard
         let encodedData = Data(base64Encoded: configData)
     else {
         throw SudoVirtualCardsError.fatalError(description: "\(msg): Base64 decoding failed \(configData)")
     }
-    
+
     do {
         let decodedObject = try JSONSerialization.jsonObject(with: encodedData) as? [String: Any]
 
@@ -108,7 +108,7 @@ internal func decodeClientApplicationConfiguration(configData: String) throws ->
             for (key, value) in decodedObject {
                 if let fundingSourceProviders = (value as? [String: Any])?["funding_source_providers"] as? [String: Any],
                     let plaid = fundingSourceProviders["plaid"] as? [String: Any],
-                    let _ = plaid["app_id_association"] {
+                    plaid["app_id_association"] != nil {
                     let jsonData = try JSONSerialization.data(withJSONObject: value)
                     let fundingSourceProvider = try decoder.decode(ClientApplicationConfiguration.self, from: jsonData)
                     clientApplicationConfiguration[key] = fundingSourceProvider

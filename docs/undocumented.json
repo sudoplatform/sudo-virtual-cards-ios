@@ -170,28 +170,42 @@
     },
     {
       "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
-      "line": 226,
-      "symbol": "CheckoutCardInteractionData.init(redirectUrl:)",
+      "line": 185,
+      "symbol": "CheckoutCardInteractionData.successUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "line": 186,
+      "symbol": "CheckoutCardInteractionData.failureUrl",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "line": 235,
+      "symbol": "CheckoutCardInteractionData.init(redirectUrl:successUrl:failureUrl:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
-      "line": 245,
+      "line": 256,
       "symbol": "CheckoutBankAccountRefreshInteractionData.linkToken",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
-      "line": 246,
+      "line": 257,
       "symbol": "CheckoutBankAccountRefreshInteractionData.authorizationText",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
-      "line": 291,
+      "line": 302,
       "symbol": "CheckoutBankAccountRefreshInteractionData.init(linkToken:authorizationText:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

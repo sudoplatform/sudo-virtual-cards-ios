@@ -325,7 +325,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
     }
 
-    
     @available(*, deprecated, message: "Use getVirtualCardsConfig instead to retrieve the FundingSourceClientConfiguration")
     public func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration] {
         let configs = try await fundingSourceService.getConfig(cachePolicy: .remoteOnly)

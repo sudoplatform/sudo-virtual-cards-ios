@@ -182,6 +182,8 @@ public struct CheckoutCardInteractionData: FundingSourceProviderData, Decodable,
     public let type: FundingSourceType
     public let version: Int
     public let redirectUrl: String
+    public let successUrl: String
+    public let failureUrl: String
 
     // MARK: - Conformance: Encodable
 
@@ -190,6 +192,8 @@ public struct CheckoutCardInteractionData: FundingSourceProviderData, Decodable,
         case type
         case version
         case redirectUrl
+        case successUrl
+        case failureUrl
     }
 
     public init(from decoder: Decoder) throws {
@@ -215,19 +219,26 @@ public struct CheckoutCardInteractionData: FundingSourceProviderData, Decodable,
                                                    debugDescription: "Type must equal \(FundingSourceType.creditCard)")
         }
         let redirectUrl = try container.decode(String.self, forKey: .redirectUrl)
+        let successUrl = try container.decode(String.self, forKey: .successUrl)
+        let failureUrl = try container.decode(String.self, forKey: .failureUrl)
+
         self.provider = provider
         self.type = type
         self.version = version
         self.redirectUrl = redirectUrl
+        self.successUrl = successUrl
+        self.failureUrl = failureUrl
     }
 
     // MARK: - Lifecycle
 
-    public init(redirectUrl: String) {
+    public init(redirectUrl: String, successUrl: String, failureUrl: String) {
         self.provider = CheckoutDefaults.provider
         self.version = CheckoutDefaults.version
         self.type = .creditCard
         self.redirectUrl = redirectUrl
+        self.successUrl = successUrl
+        self.failureUrl = failureUrl
     }
 }
 
