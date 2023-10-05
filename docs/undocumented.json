@@ -1,810 +1,845 @@
 {
   "warnings": [
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/Encryption/Types/SealedExpiry.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/Encryption/Types/SealedExpiry.swift",
       "line": 12,
       "symbol": "SealedExpiry.mm",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/Encryption/Types/SealedExpiry.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/Encryption/Types/SealedExpiry.swift",
       "line": 13,
       "symbol": "SealedExpiry.yyyy",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/GraphQLAPI.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/GraphQLAPI.swift",
       "line": 9,
       "symbol": "GraphQL.UpdateVirtualCardMutation.Data.UpdateCard",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/GraphQLAPI.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/GraphQLAPI.swift",
       "line": 22,
       "symbol": "GraphQL.CancelVirtualCardMutation.Data.CancelCard",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/Utility/Operation/SudoVirtualCardsOperationQueue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Internal/Utility/Operation/SudoVirtualCardsOperationQueue.swift",
       "line": 30,
       "symbol": "SudoVirtualCardsOperationQueue.addOperation(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
       "line": 27,
       "symbol": "AggregateError.errors",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
       "line": 31,
       "symbol": "AggregateError.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
       "line": 35,
       "symbol": "AggregateError.init(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Errors/AggregateError.swift",
       "line": 41,
       "symbol": "AggregateError.append(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Extensions/AWSRegionType+Decodable.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Extensions/AWSRegionType+Decodable.swift",
       "line": 14,
       "symbol": "AWSRegionType.init(string:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
       "line": 12,
       "symbol": "PlatformSubscriptionStatus.initialized",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
       "line": 13,
       "symbol": "PlatformSubscriptionStatus.connecting",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
       "line": 14,
       "symbol": "PlatformSubscriptionStatus.connected",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
       "line": 15,
       "symbol": "PlatformSubscriptionStatus.disconnected",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Platform/Public/Subscriptions/PlatformSubscriptionStatus.swift",
       "line": 16,
       "symbol": "PlatformSubscriptionStatus.error(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/APIResult.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/APIResult.swift",
       "line": 9,
       "symbol": "PartialResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/APIResult.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/APIResult.swift",
       "line": 32,
       "symbol": "ListAPIResult.ListSuccessResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/APIResult.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/APIResult.swift",
       "line": 42,
       "symbol": "ListAPIResult.ListPartialResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/CreateKeysIfAbsentResult.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/CreateKeysIfAbsentResult.swift",
       "line": 14,
       "symbol": "CreateKeysIfAbsentResult.KeyResult",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/CreateKeysIfAbsentResult.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/CreateKeysIfAbsentResult.swift",
       "line": 32,
       "symbol": "CreateKeysIfAbsentResult.init(symmetricKey:keyPair:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/BankAccountFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/BankAccountFundingSource.swift",
       "line": 16,
       "symbol": "BankAccountFundingSource.InstitutionLogo",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 16,
       "symbol": "CheckoutCardProvisioningData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 67,
       "symbol": "CheckoutBankAccountProvisioningData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 184,
       "symbol": "CheckoutCardInteractionData.redirectUrl",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 185,
       "symbol": "CheckoutCardInteractionData.successUrl",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 186,
       "symbol": "CheckoutCardInteractionData.failureUrl",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 235,
       "symbol": "CheckoutCardInteractionData.init(redirectUrl:successUrl:failureUrl:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 256,
       "symbol": "CheckoutBankAccountRefreshInteractionData.linkToken",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 257,
       "symbol": "CheckoutBankAccountRefreshInteractionData.authorizationText",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CheckoutProviderData.swift",
       "line": 302,
       "symbol": "CheckoutBankAccountRefreshInteractionData.init(linkToken:authorizationText:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 17,
       "symbol": "CreditCardFundingSource.Network.amex",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 18,
       "symbol": "CreditCardFundingSource.Network.diners",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 19,
       "symbol": "CreditCardFundingSource.Network.discover",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 20,
       "symbol": "CreditCardFundingSource.Network.jcb",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 21,
       "symbol": "CreditCardFundingSource.Network.mastercard",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 22,
       "symbol": "CreditCardFundingSource.Network.unionpay",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 23,
       "symbol": "CreditCardFundingSource.Network.visa",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/CreditCardFundingSource.swift",
       "line": 24,
       "symbol": "CreditCardFundingSource.Network.other",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
       "line": 28,
       "symbol": "StripeCardClientConfiguration.init(apiKey:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
       "line": 53,
       "symbol": "CheckoutCardClientConfiguration.init(apiKey:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
       "line": 77,
       "symbol": "CheckoutBankAccountClientConfiguration.init(apiKey:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceClientConfiguration.swift",
       "line": 82,
       "symbol": "FundingSourceClientConfiguration",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
       "line": 15,
       "symbol": "FundingSourceState.active",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
       "line": 16,
       "symbol": "FundingSourceState.inactive",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
       "line": 17,
       "symbol": "FundingSourceState.refresh",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
       "line": 18,
       "symbol": "FundingSourceState.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceType.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceType.swift",
       "line": 9,
       "symbol": "FundingSourceType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
       "line": 35,
       "symbol": "FundingSourceInteractionData.checkoutCard(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
       "line": 36,
       "symbol": "FundingSourceInteractionData.checkoutBankAccount(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/InteractionData.swift",
       "line": 37,
       "symbol": "FundingSourceInteractionData.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Protocols/BaseFundingSourceClientConfiguration.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Protocols/BaseFundingSourceClientConfiguration.swift",
       "line": 9,
       "symbol": "BaseFundingSourceClientConfiguration",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Protocols/FundingSourceProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Protocols/FundingSourceProviderData.swift",
       "line": 9,
       "symbol": "FundingSourceProviderData",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
       "line": 9,
       "symbol": "ProvisioningData",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
       "line": 83,
       "symbol": "ProvisionalFundingSource.State.completed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
       "line": 84,
       "symbol": "ProvisionalFundingSource.State.failed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
       "line": 85,
       "symbol": "ProvisionalFundingSource.State.pending",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
       "line": 86,
       "symbol": "ProvisionalFundingSource.State.provisioning",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/ProvisionalFundingSource.swift",
       "line": 111,
       "symbol": "ProvisionalFundingSource.init(id:owner:version:createdAt:updatedAt:provisioningData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/StripeProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/StripeProviderData.swift",
       "line": 18,
       "symbol": "StripeCardProvisioningData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/StripeProviderData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/StripeProviderData.swift",
       "line": 114,
       "symbol": "StripeCardCompletionData.init(paymentMethod:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
       "line": 26,
       "symbol": "StripeCardCompletionDataInput.init(paymentMethodId:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
       "line": 51,
       "symbol": "CheckoutCardCompletionDataInput.init(paymentToken:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
       "line": 79,
       "symbol": "CheckoutBankAccountCompletionDataInput.init(publicToken:accountId:institutionId:authorizationText:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
       "line": 87,
       "symbol": "CompletionDataInput",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/CompleteFundingSourceInput.swift",
       "line": 132,
       "symbol": "CompleteFundingSourceInput.init(id:completionData:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/ProvisionVirtualCardInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/ProvisionVirtualCardInput.swift",
       "line": 62,
       "symbol": "ProvisionVirtualCardInput.init(fundingSourceId:cardHolder:billingAddress:currency:ownershipProof:metadata:alias:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/RefreshFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/RefreshFundingSourceInput.swift",
       "line": 42,
       "symbol": "RefreshDataInput.checkoutBankAccount(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 14,
       "symbol": "SetupFundingSourceInput.SetupFundingSourceType",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 44,
       "symbol": "SetupFundingSourceInput.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 45,
       "symbol": "SetupFundingSourceInput.currency",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 46,
       "symbol": "SetupFundingSourceInput.applicationData",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 47,
       "symbol": "SetupFundingSourceInput.supportedProviders",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 48,
       "symbol": "SetupFundingSourceInput.language",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/SetupFundingSourceInput.swift",
       "line": 52,
       "symbol": "SetupFundingSourceInput.init(type:currency:applicationData:supportedProviders:language:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/Supplementary/DateRangeInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/Supplementary/DateRangeInput.swift",
       "line": 22,
       "symbol": "DateRangeInput.init(startDate:endDate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/UpdateVirtualCardInput.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Inputs/UpdateVirtualCardInput.swift",
       "line": 48,
       "symbol": "UpdateVirtualCardInput.init(id:expectedCardVersion:cardHolder:billingAddress:metadata:alias:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
       "line": 11,
       "symbol": "JSONValue.string(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
       "line": 12,
       "symbol": "JSONValue.integer(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
       "line": 13,
       "symbol": "JSONValue.double(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
       "line": 14,
       "symbol": "JSONValue.bool(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
       "line": 15,
       "symbol": "JSONValue.array(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/JSONValue.swift",
       "line": 16,
       "symbol": "JSONValue.dictionary(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Protocols/ProvisionalCardAttributes.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Protocols/ProvisionalCardAttributes.swift",
       "line": 9,
       "symbol": "ProvisionalCardAttributes",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Protocols/ProvisionalCardSealedAttributes.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Protocols/ProvisionalCardSealedAttributes.swift",
       "line": 9,
       "symbol": "ProvisionalCardSealedAttributes",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
       "line": 16,
       "symbol": "ProvisionalCardState.provisioning",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
       "line": 17,
       "symbol": "ProvisionalCardState.completed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
       "line": 18,
       "symbol": "ProvisionalCardState.failed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/ProvisionalCard/Supplementary/ProvisionalCardState.swift",
       "line": 19,
       "symbol": "ProvisionalCardState.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/PlaidAccountMetadata.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/PlaidAccountMetadata.swift",
       "line": 9,
       "symbol": "PlaidAccountMetadata",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/PlaidAccountMetadata.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/PlaidAccountMetadata.swift",
       "line": 32,
       "symbol": "SudoVirtualCards.BankAccountType.init(plaidSubType:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/SandboxPlaidData.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Sandbox/SandboxPlaidData.swift",
       "line": 9,
       "symbol": "SandboxPlaidData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 14,
       "symbol": "PartialTransaction.id",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 15,
       "symbol": "PartialTransaction.cardId",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 16,
       "symbol": "PartialTransaction.sequenceId",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 17,
       "symbol": "PartialTransaction.type",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 18,
       "symbol": "PartialTransaction.sortDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 19,
       "symbol": "PartialTransaction.createdAt",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/PartialTransaction.swift",
       "line": 20,
       "symbol": "PartialTransaction.updatedAt",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Protocols/TransactionAttributes.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Protocols/TransactionAttributes.swift",
       "line": 9,
       "symbol": "TransactionAttributes",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Protocols/TransactionSealedAttributes.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Protocols/TransactionSealedAttributes.swift",
       "line": 9,
       "symbol": "TransactionSealedAttributes",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionDeclineReason.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionDeclineReason.swift",
       "line": 9,
       "symbol": "TransactionDeclineReason",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
       "line": 11,
       "symbol": "TransactionType.pending",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
       "line": 12,
       "symbol": "TransactionType.complete",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
       "line": 13,
       "symbol": "TransactionType.refund",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
       "line": 14,
       "symbol": "TransactionType.decline",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Supplementary/TransactionType.swift",
       "line": 15,
       "symbol": "TransactionType.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Transaction.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/Transaction/Transaction.swift",
       "line": 18,
       "symbol": "Transaction.sortDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/TransactionVelocity.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/TransactionVelocity.swift",
       "line": 11,
       "symbol": "TransactionVelocity",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Protocols/VirtualCardAttributes.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Protocols/VirtualCardAttributes.swift",
       "line": 9,
       "symbol": "VirtualCardAttributes",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Protocols/VirtualCardSealedAttributes.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Protocols/VirtualCardSealedAttributes.swift",
       "line": 8,
       "symbol": "VirtualCardSealedAttributes",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
       "line": 16,
       "symbol": "VirtualCardState.issued",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
       "line": 17,
       "symbol": "VirtualCardState.failed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
       "line": 18,
       "symbol": "VirtualCardState.closed",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/Supplementary/VirtualCardState.swift",
       "line": 19,
       "symbol": "VirtualCardState.suspended",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/VirtualCard.swift",
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCard/VirtualCard.swift",
       "line": 34,
       "symbol": "VirtualCard.lastTransaction",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCardsConfig/Supplementary/PricingPolicy.swift",
+      "line": 43,
+      "symbol": "StripePricingPolicy",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCardsConfig/Supplementary/PricingPolicy.swift",
+      "line": 69,
+      "symbol": "CheckoutPricingPolicy",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCardsConfig/Supplementary/PricingPolicy.swift",
+      "line": 101,
+      "symbol": "TieredMarkup",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCardsConfig/Supplementary/PricingPolicy.swift",
+      "line": 133,
+      "symbol": "TieredMarkupPolicy",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/VirtualCardsConfig/Supplementary/PricingPolicy.swift",
+      "line": 159,
+      "symbol": "Markup",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/gitlab-runner/builds/Dg-_MXqzD/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh"
+  "source_directory": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh"
 }

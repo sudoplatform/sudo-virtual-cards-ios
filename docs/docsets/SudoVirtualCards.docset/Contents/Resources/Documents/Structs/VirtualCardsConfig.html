@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 23.1.0 Docs
+          SudoVirtualCards 23.2.0 Docs
         </a>
         
       </p>
@@ -234,6 +234,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PlaidApplicationConfiguration.html">PlaidApplicationConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PricingPolicy.html">PricingPolicy</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/ProvisionVirtualCardInput.html">ProvisionVirtualCardInput</a>
@@ -564,6 +567,34 @@ entitlement is required to provision a bank account funding source</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards0bC6ConfigV39bankAccountFundingSourceCreationEnabledSbSgvp"></a>
+                    <a name="//apple_ref/swift/Property/bankAccountFundingSourceCreationEnabled" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0bC6ConfigV39bankAccountFundingSourceCreationEnabledSbSgvp">bankAccountFundingSourceCreationEnabled</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Flag determining whether bank account funding source creation flows are enabled.
+Mainly used to test edge cases around bank account funding.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">bankAccountFundingSourceCreationEnabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards0bC6ConfigV32fundingSourceClientConfigurationSayAA07FundingfgH0OGvp"></a>
                     <a name="//apple_ref/swift/Property/fundingSourceClientConfiguration" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards0bC6ConfigV32fundingSourceClientConfigurationSayAA07FundingfgH0OGvp">fundingSourceClientConfiguration</a>
@@ -615,6 +646,33 @@ entitlement is required to provision a bank account funding source</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0bC6ConfigV13pricingPolicyAA07PricingF0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/pricingPolicy" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0bC6ConfigV13pricingPolicyAA07PricingF0VSgvp">pricingPolicy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The pricing policy for each funding source provider.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">pricingPolicy</span><span class="p">:</span> <span class="kt"><a href="../Structs/PricingPolicy.html">PricingPolicy</a></span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -631,9 +689,9 @@ entitlement is required to provision a bank account funding source</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0bC6ConfigV24maxFundingSourceVelocity0efg7FailureH00e12CardCreationH00e11TransactionH00eL6Amount07virtualJ10Currencies07fundingG11SupportInfo011bankAccountfG17ExpendableEnabled0pG19ClientConfiguration017clientApplicationX0ACSaySSG_A2NSayAA08CurrencyH0VGSayAA08CurrencyM0VGANSayAA0fgqR0VGSbSayAA0fgwX0OGSDySSAA0wzX0VGtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(maxFundingSourceVelocity:maxFundingSourceFailureVelocity:maxCardCreationVelocity:maxTransactionVelocity:maxTransactionAmount:virtualCardCurrencies:fundingSourceSupportInfo:bankAccountFundingSourceExpendableEnabled:fundingSourceClientConfiguration:clientApplicationConfiguration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0bC6ConfigV24maxFundingSourceVelocity0efg7FailureH00e12CardCreationH00e11TransactionH00eL6Amount07virtualJ10Currencies07fundingG11SupportInfo011bankAccountfG17ExpendableEnabled0pG19ClientConfiguration017clientApplicationX0ACSaySSG_A2NSayAA08CurrencyH0VGSayAA08CurrencyM0VGANSayAA0fgqR0VGSbSayAA0fgwX0OGSDySSAA0wzX0VGtcfc">init(maxFundingSourceVelocity:<wbr>maxFundingSourceFailureVelocity:<wbr>maxCardCreationVelocity:<wbr>maxTransactionVelocity:<wbr>maxTransactionAmount:<wbr>virtualCardCurrencies:<wbr>fundingSourceSupportInfo:<wbr>bankAccountFundingSourceExpendableEnabled:<wbr>fundingSourceClientConfiguration:<wbr>clientApplicationConfiguration:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0bC6ConfigV24maxFundingSourceVelocity0efg7FailureH00e12CardCreationH00e11TransactionH00eL6Amount07virtualJ10Currencies07fundingG11SupportInfo011bankAccountfG17ExpendableEnabled0stfgkV00pG19ClientConfiguration017clientApplicationX013pricingPolicyACSaySSG_A2PSayAA08CurrencyH0VGSayAA08CurrencyM0VGAPSayAA0fgqR0VGS2bSayAA0fgwX0OGSDySSAA0wzX0VGAA13PricingPolicyVtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(maxFundingSourceVelocity:maxFundingSourceFailureVelocity:maxCardCreationVelocity:maxTransactionVelocity:maxTransactionAmount:virtualCardCurrencies:fundingSourceSupportInfo:bankAccountFundingSourceExpendableEnabled:bankAccountFundingSourceCreationEnabled:fundingSourceClientConfiguration:clientApplicationConfiguration:pricingPolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0bC6ConfigV24maxFundingSourceVelocity0efg7FailureH00e12CardCreationH00e11TransactionH00eL6Amount07virtualJ10Currencies07fundingG11SupportInfo011bankAccountfG17ExpendableEnabled0stfgkV00pG19ClientConfiguration017clientApplicationX013pricingPolicyACSaySSG_A2PSayAA08CurrencyH0VGSayAA08CurrencyM0VGAPSayAA0fgqR0VGS2bSayAA0fgwX0OGSDySSAA0wzX0VGAA13PricingPolicyVtcfc">init(maxFundingSourceVelocity:<wbr>maxFundingSourceFailureVelocity:<wbr>maxCardCreationVelocity:<wbr>maxTransactionVelocity:<wbr>maxTransactionAmount:<wbr>virtualCardCurrencies:<wbr>fundingSourceSupportInfo:<wbr>bankAccountFundingSourceExpendableEnabled:<wbr>bankAccountFundingSourceCreationEnabled:<wbr>fundingSourceClientConfiguration:<wbr>clientApplicationConfiguration:<wbr>pricingPolicy:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -657,8 +715,10 @@ entitlement is required to provision a bank account funding source</p>
     <span class="nv">virtualCardCurrencies</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
     <span class="nv">fundingSourceSupportInfo</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/FundingSourceSupportInfo.html">FundingSourceSupportInfo</a></span><span class="p">],</span>
     <span class="nv">bankAccountFundingSourceExpendableEnabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+    <span class="nv">bankAccountFundingSourceCreationEnabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
     <span class="nv">fundingSourceClientConfiguration</span><span class="p">:</span> <span class="p">[</span><span class="kt">FundingSourceClientConfiguration</span><span class="p">],</span>
-    <span class="nv">clientApplicationConfiguration</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Structs/ClientApplicationConfiguration.html">ClientApplicationConfiguration</a></span><span class="p">]</span>
+    <span class="nv">clientApplicationConfiguration</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="../Structs/ClientApplicationConfiguration.html">ClientApplicationConfiguration</a></span><span class="p">],</span>
+    <span class="nv">pricingPolicy</span><span class="p">:</span> <span class="kt"><a href="../Structs/PricingPolicy.html">PricingPolicy</a></span>
 <span class="p">)</span></code></pre>
 
                         </div>
@@ -674,7 +734,7 @@ entitlement is required to provision a bank account funding source</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-08-28)</p>
+      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-10-05)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

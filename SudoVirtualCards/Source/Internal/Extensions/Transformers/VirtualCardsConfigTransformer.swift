@@ -23,10 +23,13 @@ extension VirtualCardsConfig {
             in return FundingSourceSupportInfo(fragment: info)
         }
         self.bankAccountFundingSourceExpendableEnabled = fragment.bankAccountFundingSourceExpendableEnabled
+        self.bankAccountFundingSourceCreationEnabled = fragment.bankAccountFundingSourceCreationEnabled
         self.fundingSourceClientConfiguration = (fragment.fundingSourceClientConfiguration?.data)
             .flatMap { try? decodeFundingSourceClientConfiguration(configData: $0) } ?? []
         self.clientApplicationConfiguration = (fragment.clientApplicationsConfiguration?.data)
             .flatMap { try? decodeClientApplicationConfiguration(configData: $0) } ?? [:]
+        self.pricingPolicy = (fragment.pricingPolicy?.data)
+            .flatMap { try? decodePricingPolicy(policyData: $0) } ?? nil
     }
 }
 
@@ -58,6 +61,25 @@ extension FundingSourceSupportDetail {
     init(fragment: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.FundingSourceSupportInfo.Detail) {
         self.cardType = CardType(fragment.cardType)
     }
+}
+
+internal func decodePricingPolicy(policyData: String) throws -> PricingPolicy {
+    let msg = "pricing policy data cannot be decoded"
+    let decoder: JSONDecoder = JSONDecoder()
+
+    guard
+        let encodedData = Data(base64Encoded: policyData)
+    else {
+        throw SudoVirtualCardsError.fatalError(description: "\(msg): Base64 decoding failed \(policyData)")
+    }
+    let decodedData: PricingPolicy
+    do {
+        decodedData = try decoder.decode(PricingPolicy.self, from: encodedData)
+    } catch {
+        throw SudoVirtualCardsError.fatalError(description: "\(msg): JSON parsing failed \(encodedData): \(error)")
+    }
+
+    return decodedData
 }
 
 internal func decodeFundingSourceClientConfiguration(configData: String) throws -> [FundingSourceClientConfiguration] {

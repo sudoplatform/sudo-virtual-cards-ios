@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CurrencyAmount Structure Reference</title>
+    <title>PricingPolicy Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/CurrencyAmount" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/PricingPolicy" class="dashAnchor"></a>
 
-    <a title="CurrencyAmount Structure Reference"></a>
+    <a title="PricingPolicy Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SudoVirtualCards Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      CurrencyAmount Structure Reference
+      PricingPolicy Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -317,15 +317,16 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>CurrencyAmount</h1>
+            <h1>PricingPolicy</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CurrencyAmount</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">PricingPolicy</span> <span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            <p>Representation of a Currency Amount object on the Virtual Cards Service.</p>
+            <p>Representation of the pricing policy for each funding source provicer which make up a component
+of the virtual cards configuration.</p>
 
           </div>
         </section>
@@ -346,9 +347,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards14CurrencyAmountV8currencySSvp"></a>
-                    <a name="//apple_ref/swift/Property/currency" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards14CurrencyAmountV8currencySSvp">currency</a>
+                    <a name="/s:16SudoVirtualCards13PricingPolicyV6stripeAA06StripedE0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/stripe" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13PricingPolicyV6stripeAA06StripedE0VSgvp">stripe</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -356,14 +357,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Currency ISO code of the amount.</p>
+                        <p>The Stripe-specific pricing policy.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">stripe</span><span class="p">:</span> <span class="kt">StripePricingPolicy</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -373,9 +374,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards14CurrencyAmountV6amountSivp"></a>
-                    <a name="//apple_ref/swift/Property/amount" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards14CurrencyAmountV6amountSivp">amount</a>
+                    <a name="/s:16SudoVirtualCards13PricingPolicyV8checkoutAA08CheckoutdE0VSgvp"></a>
+                    <a name="//apple_ref/swift/Property/checkout" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13PricingPolicyV8checkoutAA08CheckoutdE0VSgvp">checkout</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -383,14 +384,53 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Amount of the currency in cents. <code>100</code> equals $1.00 if currency is <code>USD</code>.</p>
+                        <p>The Checkout-specific pricing policy.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">checkout</span><span class="p">:</span> <span class="kt">CheckoutPricingPolicy</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Conformance%3A%20Codable"></a>
+                <a name="//apple_ref/swift/Section/Conformance: Codable" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Conformance%3A%20Codable"></a>
+                  <h3 class="section-name"><span>Conformance: Codable</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SE6encode2toys7Encoder_p_tKF"></a>
+                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SE6encode2toys7Encoder_p_tKF">encode(to:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -413,9 +453,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards14CurrencyAmountV8currency6amountACSS_Sitcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(currency:amount:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards14CurrencyAmountV8currency6amountACSS_Sitcfc">init(currency:<wbr>amount:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards13PricingPolicyV6stripe8checkoutAcA06StripedE0VSg_AA08CheckoutdE0VSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(stripe:checkout:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13PricingPolicyV6stripe8checkoutAcA06StripedE0VSg_AA08CheckoutdE0VSgtcfc">init(stripe:<wbr>checkout:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -423,14 +463,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialize an instance of <code>CurrencyAmount</code>.</p>
+                        <p>Initialise an instance of <code>PricingPolicy</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">stripe</span><span class="p">:</span> <span class="kt">StripePricingPolicy</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">checkout</span><span class="p">:</span> <span class="kt">CheckoutPricingPolicy</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

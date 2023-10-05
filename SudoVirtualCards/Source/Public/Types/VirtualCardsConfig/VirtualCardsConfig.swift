@@ -39,12 +39,19 @@ public struct VirtualCardsConfig: Equatable {
     /// Whether or not the sudoplatform.virtual-cards.bankAccountFundingSourceExpendable
     /// entitlement is required to provision a bank account funding source
     public var bankAccountFundingSourceExpendableEnabled: Bool
+    
+    /// Flag determining whether bank account funding source creation flows are enabled.
+    /// Mainly used to test edge cases around bank account funding.
+    public var bankAccountFundingSourceCreationEnabled: Bool?
 
     /// The funding source client configuration.
     public var fundingSourceClientConfiguration: [FundingSourceClientConfiguration]
 
     /// The client application configuration keyed by application name.
     public var clientApplicationConfiguration: [String: ClientApplicationConfiguration]
+
+    /// The pricing policy for each funding source provider.
+    public var pricingPolicy: PricingPolicy?
 
     // MARK: - Lifecycle
 
@@ -58,8 +65,10 @@ public struct VirtualCardsConfig: Equatable {
         virtualCardCurrencies: [String],
         fundingSourceSupportInfo: [FundingSourceSupportInfo],
         bankAccountFundingSourceExpendableEnabled: Bool,
+        bankAccountFundingSourceCreationEnabled: Bool,
         fundingSourceClientConfiguration: [FundingSourceClientConfiguration],
-        clientApplicationConfiguration: [String: ClientApplicationConfiguration]
+        clientApplicationConfiguration: [String: ClientApplicationConfiguration],
+        pricingPolicy: PricingPolicy
     ) {
         self.maxFundingSourceVelocity = maxFundingSourceVelocity
         self.maxFundingSourceFailureVelocity = maxFundingSourceFailureVelocity
@@ -69,7 +78,9 @@ public struct VirtualCardsConfig: Equatable {
         self.virtualCardCurrencies = virtualCardCurrencies
         self.fundingSourceSupportInfo = fundingSourceSupportInfo
         self.bankAccountFundingSourceExpendableEnabled = bankAccountFundingSourceExpendableEnabled
+        self.bankAccountFundingSourceCreationEnabled = bankAccountFundingSourceCreationEnabled
         self.fundingSourceClientConfiguration = fundingSourceClientConfiguration
         self.clientApplicationConfiguration = clientApplicationConfiguration
+        self.pricingPolicy = pricingPolicy
     }
 }
