@@ -11,6 +11,7 @@ extension VirtualCardsConfig {
     init(fragment: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig) {
         self.maxFundingSourceVelocity = fragment.maxFundingSourceVelocity
         self.maxFundingSourceFailureVelocity = fragment.maxFundingSourceFailureVelocity
+        self.maxFundingSourcePendingVelocity = fragment.maxFundingSourcePendingVelocity ?? []
         self.maxCardCreationVelocity = fragment.maxCardCreationVelocity
         self.maxTransactionVelocity = fragment.maxTransactionVelocity.map { (velocity)
             in return CurrencyVelocity(fragment: velocity)

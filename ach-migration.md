@@ -111,6 +111,10 @@ public struct VirtualCardsConfig: Equatable {
     /// The maximum number of failed funding source
     /// creations that can be performed within a defined period.
     public var maxFundingSourceFailureVelocity: [String]
+        
+    /// The maximum number of pending funding source
+    /// creations that can be performed within a defined period.
+    public var maxFundingSourcePendingVelocity: [String]
 
     /// The maximum number of virtual cards that can be
     /// created within a defined period.

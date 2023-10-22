@@ -8469,6 +8469,7 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("maxFundingSourceVelocity", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
         GraphQLField("maxFundingSourceFailureVelocity", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
+        GraphQLField("maxFundingSourcePendingVelocity", type: .list(.nonNull(.scalar(String.self)))),
         GraphQLField("maxCardCreationVelocity", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
         GraphQLField("maxTransactionVelocity", type: .nonNull(.list(.nonNull(.object(MaxTransactionVelocity.selections))))),
         GraphQLField("maxTransactionAmount", type: .nonNull(.list(.nonNull(.object(MaxTransactionAmount.selections))))),
@@ -8487,8 +8488,8 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
         self.snapshot = snapshot
       }
 
-      internal init(maxFundingSourceVelocity: [String], maxFundingSourceFailureVelocity: [String], maxCardCreationVelocity: [String], maxTransactionVelocity: [MaxTransactionVelocity], maxTransactionAmount: [MaxTransactionAmount], virtualCardCurrencies: [String], fundingSourceSupportInfo: [FundingSourceSupportInfo], bankAccountFundingSourceExpendableEnabled: Bool, bankAccountFundingSourceCreationEnabled: Bool? = nil, fundingSourceClientConfiguration: FundingSourceClientConfiguration? = nil, clientApplicationsConfiguration: ClientApplicationsConfiguration? = nil, pricingPolicy: PricingPolicy? = nil) {
-        self.init(snapshot: ["__typename": "VirtualCardsConfig", "maxFundingSourceVelocity": maxFundingSourceVelocity, "maxFundingSourceFailureVelocity": maxFundingSourceFailureVelocity, "maxCardCreationVelocity": maxCardCreationVelocity, "maxTransactionVelocity": maxTransactionVelocity.map { $0.snapshot }, "maxTransactionAmount": maxTransactionAmount.map { $0.snapshot }, "virtualCardCurrencies": virtualCardCurrencies, "fundingSourceSupportInfo": fundingSourceSupportInfo.map { $0.snapshot }, "bankAccountFundingSourceExpendableEnabled": bankAccountFundingSourceExpendableEnabled, "bankAccountFundingSourceCreationEnabled": bankAccountFundingSourceCreationEnabled, "fundingSourceClientConfiguration": fundingSourceClientConfiguration.flatMap { $0.snapshot }, "clientApplicationsConfiguration": clientApplicationsConfiguration.flatMap { $0.snapshot }, "pricingPolicy": pricingPolicy.flatMap { $0.snapshot }])
+      internal init(maxFundingSourceVelocity: [String], maxFundingSourceFailureVelocity: [String], maxFundingSourcePendingVelocity: [String]? = nil, maxCardCreationVelocity: [String], maxTransactionVelocity: [MaxTransactionVelocity], maxTransactionAmount: [MaxTransactionAmount], virtualCardCurrencies: [String], fundingSourceSupportInfo: [FundingSourceSupportInfo], bankAccountFundingSourceExpendableEnabled: Bool, bankAccountFundingSourceCreationEnabled: Bool? = nil, fundingSourceClientConfiguration: FundingSourceClientConfiguration? = nil, clientApplicationsConfiguration: ClientApplicationsConfiguration? = nil, pricingPolicy: PricingPolicy? = nil) {
+        self.init(snapshot: ["__typename": "VirtualCardsConfig", "maxFundingSourceVelocity": maxFundingSourceVelocity, "maxFundingSourceFailureVelocity": maxFundingSourceFailureVelocity, "maxFundingSourcePendingVelocity": maxFundingSourcePendingVelocity, "maxCardCreationVelocity": maxCardCreationVelocity, "maxTransactionVelocity": maxTransactionVelocity.map { $0.snapshot }, "maxTransactionAmount": maxTransactionAmount.map { $0.snapshot }, "virtualCardCurrencies": virtualCardCurrencies, "fundingSourceSupportInfo": fundingSourceSupportInfo.map { $0.snapshot }, "bankAccountFundingSourceExpendableEnabled": bankAccountFundingSourceExpendableEnabled, "bankAccountFundingSourceCreationEnabled": bankAccountFundingSourceCreationEnabled, "fundingSourceClientConfiguration": fundingSourceClientConfiguration.flatMap { $0.snapshot }, "clientApplicationsConfiguration": clientApplicationsConfiguration.flatMap { $0.snapshot }, "pricingPolicy": pricingPolicy.flatMap { $0.snapshot }])
       }
 
       internal var __typename: String {
@@ -8515,6 +8516,15 @@ internal final class GetVirtualCardsConfigQuery: GraphQLQuery {
         }
         set {
           snapshot.updateValue(newValue, forKey: "maxFundingSourceFailureVelocity")
+        }
+      }
+
+      internal var maxFundingSourcePendingVelocity: [String]? {
+        get {
+          return snapshot["maxFundingSourcePendingVelocity"] as? [String]
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "maxFundingSourcePendingVelocity")
         }
       }
 
@@ -28413,7 +28423,7 @@ internal struct FundingSourceSupportInfo: GraphQLFragment {
 
 internal struct VirtualCardsConfig: GraphQLFragment {
   internal static let fragmentString =
-    "fragment VirtualCardsConfig on VirtualCardsConfig {\n  __typename\n  maxFundingSourceVelocity\n  maxFundingSourceFailureVelocity\n  maxCardCreationVelocity\n  maxTransactionVelocity {\n    __typename\n    currency\n    velocity\n  }\n  maxTransactionAmount {\n    __typename\n    currency\n    amount\n  }\n  virtualCardCurrencies\n  fundingSourceSupportInfo {\n    __typename\n    ...FundingSourceSupportInfo\n  }\n  bankAccountFundingSourceExpendableEnabled\n  bankAccountFundingSourceCreationEnabled\n  fundingSourceClientConfiguration {\n    __typename\n    data\n  }\n  clientApplicationsConfiguration {\n    __typename\n    data\n  }\n  pricingPolicy {\n    __typename\n    data\n  }\n}"
+    "fragment VirtualCardsConfig on VirtualCardsConfig {\n  __typename\n  maxFundingSourceVelocity\n  maxFundingSourceFailureVelocity\n  maxFundingSourcePendingVelocity\n  maxCardCreationVelocity\n  maxTransactionVelocity {\n    __typename\n    currency\n    velocity\n  }\n  maxTransactionAmount {\n    __typename\n    currency\n    amount\n  }\n  virtualCardCurrencies\n  fundingSourceSupportInfo {\n    __typename\n    ...FundingSourceSupportInfo\n  }\n  bankAccountFundingSourceExpendableEnabled\n  bankAccountFundingSourceCreationEnabled\n  fundingSourceClientConfiguration {\n    __typename\n    data\n  }\n  clientApplicationsConfiguration {\n    __typename\n    data\n  }\n  pricingPolicy {\n    __typename\n    data\n  }\n}"
 
   internal static let possibleTypes = ["VirtualCardsConfig"]
 
@@ -28421,6 +28431,7 @@ internal struct VirtualCardsConfig: GraphQLFragment {
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("maxFundingSourceVelocity", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
     GraphQLField("maxFundingSourceFailureVelocity", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
+    GraphQLField("maxFundingSourcePendingVelocity", type: .list(.nonNull(.scalar(String.self)))),
     GraphQLField("maxCardCreationVelocity", type: .nonNull(.list(.nonNull(.scalar(String.self))))),
     GraphQLField("maxTransactionVelocity", type: .nonNull(.list(.nonNull(.object(MaxTransactionVelocity.selections))))),
     GraphQLField("maxTransactionAmount", type: .nonNull(.list(.nonNull(.object(MaxTransactionAmount.selections))))),
@@ -28439,8 +28450,8 @@ internal struct VirtualCardsConfig: GraphQLFragment {
     self.snapshot = snapshot
   }
 
-  internal init(maxFundingSourceVelocity: [String], maxFundingSourceFailureVelocity: [String], maxCardCreationVelocity: [String], maxTransactionVelocity: [MaxTransactionVelocity], maxTransactionAmount: [MaxTransactionAmount], virtualCardCurrencies: [String], fundingSourceSupportInfo: [FundingSourceSupportInfo], bankAccountFundingSourceExpendableEnabled: Bool, bankAccountFundingSourceCreationEnabled: Bool? = nil, fundingSourceClientConfiguration: FundingSourceClientConfiguration? = nil, clientApplicationsConfiguration: ClientApplicationsConfiguration? = nil, pricingPolicy: PricingPolicy? = nil) {
-    self.init(snapshot: ["__typename": "VirtualCardsConfig", "maxFundingSourceVelocity": maxFundingSourceVelocity, "maxFundingSourceFailureVelocity": maxFundingSourceFailureVelocity, "maxCardCreationVelocity": maxCardCreationVelocity, "maxTransactionVelocity": maxTransactionVelocity.map { $0.snapshot }, "maxTransactionAmount": maxTransactionAmount.map { $0.snapshot }, "virtualCardCurrencies": virtualCardCurrencies, "fundingSourceSupportInfo": fundingSourceSupportInfo.map { $0.snapshot }, "bankAccountFundingSourceExpendableEnabled": bankAccountFundingSourceExpendableEnabled, "bankAccountFundingSourceCreationEnabled": bankAccountFundingSourceCreationEnabled, "fundingSourceClientConfiguration": fundingSourceClientConfiguration.flatMap { $0.snapshot }, "clientApplicationsConfiguration": clientApplicationsConfiguration.flatMap { $0.snapshot }, "pricingPolicy": pricingPolicy.flatMap { $0.snapshot }])
+  internal init(maxFundingSourceVelocity: [String], maxFundingSourceFailureVelocity: [String], maxFundingSourcePendingVelocity: [String]? = nil, maxCardCreationVelocity: [String], maxTransactionVelocity: [MaxTransactionVelocity], maxTransactionAmount: [MaxTransactionAmount], virtualCardCurrencies: [String], fundingSourceSupportInfo: [FundingSourceSupportInfo], bankAccountFundingSourceExpendableEnabled: Bool, bankAccountFundingSourceCreationEnabled: Bool? = nil, fundingSourceClientConfiguration: FundingSourceClientConfiguration? = nil, clientApplicationsConfiguration: ClientApplicationsConfiguration? = nil, pricingPolicy: PricingPolicy? = nil) {
+    self.init(snapshot: ["__typename": "VirtualCardsConfig", "maxFundingSourceVelocity": maxFundingSourceVelocity, "maxFundingSourceFailureVelocity": maxFundingSourceFailureVelocity, "maxFundingSourcePendingVelocity": maxFundingSourcePendingVelocity, "maxCardCreationVelocity": maxCardCreationVelocity, "maxTransactionVelocity": maxTransactionVelocity.map { $0.snapshot }, "maxTransactionAmount": maxTransactionAmount.map { $0.snapshot }, "virtualCardCurrencies": virtualCardCurrencies, "fundingSourceSupportInfo": fundingSourceSupportInfo.map { $0.snapshot }, "bankAccountFundingSourceExpendableEnabled": bankAccountFundingSourceExpendableEnabled, "bankAccountFundingSourceCreationEnabled": bankAccountFundingSourceCreationEnabled, "fundingSourceClientConfiguration": fundingSourceClientConfiguration.flatMap { $0.snapshot }, "clientApplicationsConfiguration": clientApplicationsConfiguration.flatMap { $0.snapshot }, "pricingPolicy": pricingPolicy.flatMap { $0.snapshot }])
   }
 
   internal var __typename: String {
@@ -28467,6 +28478,15 @@ internal struct VirtualCardsConfig: GraphQLFragment {
     }
     set {
       snapshot.updateValue(newValue, forKey: "maxFundingSourceFailureVelocity")
+    }
+  }
+
+  internal var maxFundingSourcePendingVelocity: [String]? {
+    get {
+      return snapshot["maxFundingSourcePendingVelocity"] as? [String]
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "maxFundingSourcePendingVelocity")
     }
   }
 

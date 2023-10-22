@@ -19,6 +19,10 @@ public struct VirtualCardsConfig: Equatable {
     /// creations that can be performed within a defined period.
     public var maxFundingSourceFailureVelocity: [String]
 
+    /// The maximum number of pending funding source
+    /// creations that can be performed within a defined period.
+    public var maxFundingSourcePendingVelocity: [String]
+
     /// The maximum number of virtual cards that can be
     /// created within a defined period.
     public var maxCardCreationVelocity: [String]
@@ -39,7 +43,7 @@ public struct VirtualCardsConfig: Equatable {
     /// Whether or not the sudoplatform.virtual-cards.bankAccountFundingSourceExpendable
     /// entitlement is required to provision a bank account funding source
     public var bankAccountFundingSourceExpendableEnabled: Bool
-    
+
     /// Flag determining whether bank account funding source creation flows are enabled.
     /// Mainly used to test edge cases around bank account funding.
     public var bankAccountFundingSourceCreationEnabled: Bool?
@@ -59,6 +63,7 @@ public struct VirtualCardsConfig: Equatable {
     public init(
         maxFundingSourceVelocity: [String],
         maxFundingSourceFailureVelocity: [String],
+        maxFundingSourcePendingVelocity: [String],
         maxCardCreationVelocity: [String],
         maxTransactionVelocity: [CurrencyVelocity],
         maxTransactionAmount: [CurrencyAmount],
@@ -72,6 +77,7 @@ public struct VirtualCardsConfig: Equatable {
     ) {
         self.maxFundingSourceVelocity = maxFundingSourceVelocity
         self.maxFundingSourceFailureVelocity = maxFundingSourceFailureVelocity
+        self.maxFundingSourcePendingVelocity = maxFundingSourcePendingVelocity
         self.maxCardCreationVelocity = maxCardCreationVelocity
         self.maxTransactionVelocity = maxTransactionVelocity
         self.maxTransactionAmount = maxTransactionAmount

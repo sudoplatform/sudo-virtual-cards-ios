@@ -43,7 +43,7 @@ public enum TransactionType: Hashable {
             return .refund
         case .decline:
             return .decline
-        case .unknown(_):
+        case .unknown:
             return nil
         }
     }
