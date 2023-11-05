@@ -62,6 +62,16 @@ protocol PlatformKeyManager: AnyObject {
     func sign(withPrivateKeyId keyId: String, data: Data) throws -> Data
 
     func removeAllKeys() throws
+
+    /// Export the cryptographic keys to a key archive.
+    ///
+    /// - Returns: Key archive data.
+    func exportKeys() throws -> Data
+
+    /// Imports cryptographic keys from a key archive.
+    ///
+    /// - Parameter archiveData: Key archive data to import the keys from.
+    func importKeys(archiveData: Data) throws
 }
 
 class DefaultPlatformKeyManager: PlatformKeyManager {
@@ -255,5 +265,24 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
 
     func removeAllKeys() throws {
         try keyManager.removeAllKeys()
+    }
+
+    func exportKeys() throws -> Data {
+        let archive = SecureKeyArchiveImpl(keyManager: keyManager, zip: true)
+        try archive.loadKeys()
+        return try archive.archive(nil)
+    }
+
+    func importKeys(archiveData: Data) throws {
+        try keyManager.removeAllKeys()
+        guard let archive = SecureKeyArchiveImpl(
+            archiveData: archiveData,
+            keyManager: keyManager,
+            zip: true
+        ) else {
+            throw SudoVirtualCardsError.invalidKeyArchive
+        }
+        try archive.unarchive(nil)
+        try archive.saveKeys()
     }
 }

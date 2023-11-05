@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '16.2'
+platform :ios, '16.0'
 
 workspace 'SudoVirtualCards'
 use_frameworks!

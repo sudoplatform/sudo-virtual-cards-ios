@@ -536,6 +536,17 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         return ListOutput(items: fundingSources, nextToken: nextToken)
     }
 
+    public func importKeys(archiveData: Data) throws {
+        if archiveData.isEmpty {
+            throw SudoVirtualCardsError.invalidArgument("")
+        }
+        try platformKeyManager.importKeys(archiveData: archiveData)
+    }
+
+    public func exportKeys() throws -> Data {
+        try platformKeyManager.exportKeys()
+    }
+
     // MARK: - Transactions
 
     public func getTransaction(withId id: String, cachePolicy: CachePolicy) async throws -> Transaction? {

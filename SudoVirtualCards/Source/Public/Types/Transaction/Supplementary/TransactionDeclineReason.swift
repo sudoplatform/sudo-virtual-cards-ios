@@ -22,6 +22,7 @@ public enum TransactionDeclineReason: Hashable {
     case velocityExceeded
     case currencyBlocked
     case fundingError
+    case serviceUnavailable
 
     /// Backwards compatibility guard for catching new enum values added by the service - check you have the latest version of the SDK
     case unknown(String)
@@ -58,6 +59,8 @@ public enum TransactionDeclineReason: Hashable {
             self = .currencyBlocked
         case "FUNDING_ERROR":
             self = .fundingError
+        case "SERVICE_UNAVAILABLE":
+            self = .serviceUnavailable
         default:
             self = .unknown(string)
         }

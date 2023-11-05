@@ -12,6 +12,7 @@
 "virtual_cards.errors.updateFailed" = "Failed to update";
 "virtual_cards.errors.getFailed" = "Failed to get";
 "virtual_cards.errors.refreshFailed" = "Failed to refresh a funding source";
+"virtual_cards.errors.invalidKeyArchive" = "Key archive is invalid";
 
 // MARK: - Errors: ClientPublicKey
 
@@ -38,6 +39,7 @@
 "virtual_cards.errors.fundingSourceRequiresUserInteraction" = "Funding source setup requires additional user interaction";
 "virtual_cards.errors.fundingSourceStateError" = "Funding source state is inappropriate for the requested operation";
 "virtual_cards.errors.unacceptableFundingSource" = "Funding source is not acceptable";
+"virtual_cards.errors.unrecognizedTransactionType" = "Transaction type is not recognized";
 
 // MARK: - Errors: SudoPlatformError
 

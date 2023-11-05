@@ -43,6 +43,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     case unrecognizedFundingSourceType(_ fundingSourceType: String)
     /// Transaction type is unrecognized.
     case unrecognizedTransactionType
+    /// Indicates that the key archive imported was invalid.
+    case invalidKeyArchive
 
     // MARK: - Service
 
@@ -382,6 +384,8 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
             return L10n.VirtualCards.Errors.unrecognizedTransactionType
         case .notAuthorized:
             return L10n.VirtualCards.Errors.notAuthorized
+        case .invalidKeyArchive:
+            return L10n.VirtualCards.Errors.invalidKeyArchive
         case .limitExceeded:
             return L10n.VirtualCards.Errors.limitExceeded
         case .versionMismatch:

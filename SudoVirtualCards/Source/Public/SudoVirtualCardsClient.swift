@@ -111,6 +111,11 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - Partial: Partial record of cancelled Virtual Card
     func cancelVirtualCard(withId id: String) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard>
 
+    /// Imports cryptographic keys from a key archive.
+    ///
+    /// - Parameter archiveData: Key archive data to import the keys from.
+    func importKeys(archiveData: Data) throws
+
     // MARK: - Queries
 
     /// Get the funding source client configuration.
@@ -233,6 +238,11 @@ public protocol SudoVirtualCardsClient: AnyObject {
         nextToken: String?,
         cachePolicy: CachePolicy
     ) async throws -> ListOutput<FundingSource>
+
+    /// Export the cryptographic keys to a key archive.
+    ///
+    /// - Returns: Key archive data.
+    func exportKeys() throws -> Data
 
     // MARK: - Methods: Transactions
 
