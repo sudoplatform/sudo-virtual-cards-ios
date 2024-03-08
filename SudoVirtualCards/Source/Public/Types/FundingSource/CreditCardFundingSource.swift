@@ -74,6 +74,9 @@ public struct CreditCardFundingSource: BaseFundingSource, Hashable {
     /// Current state of the funding source.
     public let state: FundingSourceState
 
+    /// Set of flags associated with the funding source
+    public let flags: [FundingSourceFlags ]
+
     /// Currency of the funding source.
     public let currency: String
 
@@ -103,6 +106,7 @@ public struct CreditCardFundingSource: BaseFundingSource, Hashable {
     ///   - createdAt: Virtual Cards service timestamp to when the funding source record was created.
     ///   - updatedAt: Virtual Cards service timestamp to when the funding source record was last updated.
     ///   - state: Current state of the funding source.
+    ///   - flags: Current set of flags associated with the funding source.
     ///   - currency: Currency of the funding source.
     ///   - transactionVelocity: Effective transaction velocity, if any, applied to virtual card transactions funded by this funding source.
     ///   - last4: Last 4 digits of the card number of the funding source.
@@ -113,6 +117,7 @@ public struct CreditCardFundingSource: BaseFundingSource, Hashable {
         owner: String,
         version: Int,
         state: FundingSourceState,
+        flags: [FundingSourceFlags],
         currency: String,
         transactionVelocity: TransactionVelocity? = nil,
         last4: String,
@@ -127,11 +132,16 @@ public struct CreditCardFundingSource: BaseFundingSource, Hashable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.state = state
+        self.flags = flags
         self.currency = currency
         self.transactionVelocity = transactionVelocity
 
         self.last4 = last4
         self.network = network
         self.cardType = cardType
+    }
+
+    public func isUnfunded() -> Bool {
+        return self.flags.contains(.unfunded)
     }
 }

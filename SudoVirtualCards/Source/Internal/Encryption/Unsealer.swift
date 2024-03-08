@@ -205,6 +205,7 @@ class DefaultUnsealer: Unsealer {
             createdAt: Date(millisecondsSince1970: fundingSource.createdAtEpochMs),
             updatedAt: Date(millisecondsSince1970: fundingSource.updatedAtEpochMs),
             state: FundingSourceState(fundingSource.state),
+            flags: fundingSource.flags.map {FundingSourceFlags($0)},
             currency: fundingSource.currency,
             transactionVelocity: TransactionVelocity(
                 maximum: fundingSource.transactionVelocity?.maximum,

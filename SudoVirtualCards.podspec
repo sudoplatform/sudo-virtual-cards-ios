@@ -1,7 +1,7 @@
 #
 Pod::Spec.new do |spec|
   spec.name                  = 'SudoVirtualCards'
-  spec.version               = '23.4.1'
+  spec.version               = '23.5.0'
   spec.author                = { 'Sudo Platform Engineering' => 'sudoplatform-engineering@anonyome.com' }
   spec.homepage              = 'https://sudoplatform.com'
 
@@ -19,7 +19,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'Starscream', '4.0.4'  # 4.0.5+ breaks AWSAppSync
   spec.dependency 'SudoUser', '~> 15.1'
   spec.dependency 'SudoLogging', '~> 1.0'
-  spec.dependency 'SudoKeyManager', '~> 2.4'
+  spec.dependency 'SudoKeyManager', '~> 2.5'
   spec.dependency 'SudoApiClient', '~> 10.1.0'
   spec.dependency 'SudoConfigManager', '~> 3.0.2'
 end

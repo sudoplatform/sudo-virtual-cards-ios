@@ -14,6 +14,7 @@ extension CreditCardFundingSource {
         self.createdAt =  Date(millisecondsSince1970: fragment.createdAtEpochMs)
         self.updatedAt =  Date(millisecondsSince1970: fragment.updatedAtEpochMs)
         self.state = FundingSourceState(fragment.state)
+        self.flags = fragment.flags.map {FundingSourceFlags($0)}
         self.currency = fragment.currency
         self.transactionVelocity = fragment.transactionVelocity?.maximum == nil && fragment.transactionVelocity?.velocity == nil
             ? nil

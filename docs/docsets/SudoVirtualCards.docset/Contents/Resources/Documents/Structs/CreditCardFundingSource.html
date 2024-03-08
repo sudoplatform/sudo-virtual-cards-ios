@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 23.4.1 Docs
+          SudoVirtualCards 23.5.0 Docs
         </a>
         
       </p>
@@ -69,6 +69,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/FundingSource.html">FundingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18FundingSourceFlagsO">FundingSourceFlags</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/FundingSourceInteractionData.html">FundingSourceInteractionData</a>
@@ -567,6 +570,33 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards23CreditCardFundingSourceV5flagsSayAA0fG5FlagsOGvp"></a>
+                    <a name="//apple_ref/swift/Property/flags" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards23CreditCardFundingSourceV5flagsSayAA0fG5FlagsOGvp">flags</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set of flags associated with the funding source</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">flags</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums.html#/s:16SudoVirtualCards18FundingSourceFlagsO">FundingSourceFlags</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards23CreditCardFundingSourceV8currencySSvp"></a>
                     <a name="//apple_ref/swift/Property/currency" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards23CreditCardFundingSourceV8currencySSvp">currency</a>
@@ -719,9 +749,9 @@ source was retrieved.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards23CreditCardFundingSourceV2id5owner7version5state8currency19transactionVelocity5last47network8cardType9createdAt07updatedT0ACSS_SSSiAA0fG5StateOSSAA011TransactionN0VSgSSAC7NetworkOAA0eR0O10Foundation4DateVAZtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(id:owner:version:state:currency:transactionVelocity:last4:network:cardType:createdAt:updatedAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards23CreditCardFundingSourceV2id5owner7version5state8currency19transactionVelocity5last47network8cardType9createdAt07updatedT0ACSS_SSSiAA0fG5StateOSSAA011TransactionN0VSgSSAC7NetworkOAA0eR0O10Foundation4DateVAZtcfc">init(id:<wbr>owner:<wbr>version:<wbr>state:<wbr>currency:<wbr>transactionVelocity:<wbr>last4:<wbr>network:<wbr>cardType:<wbr>createdAt:<wbr>updatedAt:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards23CreditCardFundingSourceV2id5owner7version5state5flags8currency19transactionVelocity5last47network8cardType9createdAt07updatedU0ACSS_SSSiAA0fG5StateOSayAA0fG5FlagsOGSSAA011TransactionO0VSgSSAC7NetworkOAA0eS0O10Foundation4DateVA2_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(id:owner:version:state:flags:currency:transactionVelocity:last4:network:cardType:createdAt:updatedAt:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards23CreditCardFundingSourceV2id5owner7version5state5flags8currency19transactionVelocity5last47network8cardType9createdAt07updatedU0ACSS_SSSiAA0fG5StateOSayAA0fG5FlagsOGSSAA011TransactionO0VSgSSAC7NetworkOAA0eS0O10Foundation4DateVA2_tcfc">init(id:<wbr>owner:<wbr>version:<wbr>state:<wbr>flags:<wbr>currency:<wbr>transactionVelocity:<wbr>last4:<wbr>network:<wbr>cardType:<wbr>createdAt:<wbr>updatedAt:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -741,6 +771,7 @@ source was retrieved.</p>
     <span class="nv">owner</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">version</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
     <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums.html#/s:16SudoVirtualCards18FundingSourceStateO">FundingSourceState</a></span><span class="p">,</span>
+    <span class="nv">flags</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums.html#/s:16SudoVirtualCards18FundingSourceFlagsO">FundingSourceFlags</a></span><span class="p">],</span>
     <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">transactionVelocity</span><span class="p">:</span> <span class="kt">TransactionVelocity</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">last4</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
@@ -831,6 +862,18 @@ source was retrieved.</p>
                             <tr>
                               <td>
                                 <code>
+                                <em>flags</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Current set of flags associated with the funding source.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>currency</em>
                                 </code>
                               </td>
@@ -902,7 +945,7 @@ source was retrieved.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2023 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2023-12-21)</p>
+      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-03-08)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

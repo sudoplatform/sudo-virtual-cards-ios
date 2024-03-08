@@ -225,6 +225,7 @@
 		AD10B40129D1805A00DC3407 /* PlaidLinkToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */; };
 		AD15708129E62CF300C6E348 /* ClientApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15708029E62CF300C6E348 /* ClientApplicationData.swift */; };
 		AD15708329E6316E00C6E348 /* FundingSourceSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */; };
+		AD256ABF2B96A87D00A7658D /* FundingSourceFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD256ABE2B96A87D00A7658D /* FundingSourceFlags.swift */; };
 		AD65A87C29CAD76800821E6F /* README.md.external in Resources */ = {isa = PBXBuildFile; fileRef = AD65A87B29CAD76800821E6F /* README.md.external */; };
 		AD65A87E29CBBDDB00821E6F /* FundingSource+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */; };
 		ADBC447629C918FF002DC04E /* RefreshFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */; };
@@ -504,6 +505,7 @@
 		AD10B40029D1805A00DC3407 /* PlaidLinkToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaidLinkToken.swift; sourceTree = "<group>"; };
 		AD15708029E62CF300C6E348 /* ClientApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApplicationData.swift; sourceTree = "<group>"; };
 		AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceSetupData.swift; sourceTree = "<group>"; };
+		AD256ABE2B96A87D00A7658D /* FundingSourceFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FundingSourceFlags.swift; sourceTree = "<group>"; };
 		AD65A87B29CAD76800821E6F /* README.md.external */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md.external; sourceTree = "<group>"; };
 		AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FundingSource+Transformer.swift"; sourceTree = "<group>"; };
 		ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshFundingSourceInput.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 				ADBC448329C96741002DC04E /* CreditCardFundingSource.swift */,
 				0CABCD5229E97D0F00F8BEDB /* FundingSource.swift */,
 				8438829D27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift */,
+				AD256ABE2B96A87D00A7658D /* FundingSourceFlags.swift */,
 				841F01E223A7101C008DED82 /* FundingSourceState.swift */,
 				5D5A15AD28F5307E001D1E0D /* FundingSourceType.swift */,
 				5D795DBA29011E2B00A74559 /* InteractionData.swift */,
@@ -1946,6 +1949,7 @@
 				0CABCD5329E97D0F00F8BEDB /* FundingSource.swift in Sources */,
 				8438829E27C5B4EB00FC7577 /* FundingSourceClientConfiguration.swift in Sources */,
 				5D5A15BC28FCB1A9001D1E0D /* FundingSourceCompletionData.swift in Sources */,
+				AD256ABF2B96A87D00A7658D /* FundingSourceFlags.swift in Sources */,
 				5D5A15B028FA7E36001D1E0D /* FundingSourceProviderData.swift in Sources */,
 				ADBC447A29C93685002DC04E /* FundingSourceRefreshData.swift in Sources */,
 				845A8B512477A12E00FAFB42 /* FundingSourceService.swift in Sources */,

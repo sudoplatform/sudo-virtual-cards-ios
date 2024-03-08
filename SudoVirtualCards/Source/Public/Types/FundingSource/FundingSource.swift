@@ -12,4 +12,13 @@ public enum FundingSource {
     case creditCardFundingSource(CreditCardFundingSource)
     /// Representation of a Bank Account Funding Source.
     case bankAccountFundingSource(BankAccountFundingSource)
+
+    public func isUnfunded() -> Bool {
+      switch self {
+      case .creditCardFundingSource(let fs):
+          return fs.isUnfunded()
+      case .bankAccountFundingSource(let fs):
+            return fs.isUnfunded()
+        }
+    }
 }
