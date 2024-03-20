@@ -197,6 +197,10 @@ class DefaultUnsealer: Unsealer {
     func unseal(_ fundingSource: GraphQL.BankAccountFundingSource) throws -> BankAccountFundingSource {
         let institutionName = try unseal(fundingSource.institutionName.fragments.sealedAttribute)
         let optionalLogo = try fundingSource.institutionLogo.map { try unseal(institutionLogo: $0.fragments.sealedAttribute) }
+        var optionalUnfundedAmount: CurrencyAmount?
+        if let unfundedAmount = fundingSource.unfundedAmount {
+            optionalUnfundedAmount = CurrencyAmount(currency: unfundedAmount.currency, amount: unfundedAmount .amount)
+        }
 
         return BankAccountFundingSource(
             id: fundingSource.id,
@@ -214,7 +218,8 @@ class DefaultUnsealer: Unsealer {
             last4: fundingSource.last4,
             bankAccountType: BankAccountType(fundingSource.bankAccountType),
             institutionName: institutionName,
-            institutionLogo: optionalLogo
+            institutionLogo: optionalLogo,
+            unfundedAmount: optionalUnfundedAmount
         )
     }
 

@@ -226,6 +226,7 @@
 		AD15708129E62CF300C6E348 /* ClientApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15708029E62CF300C6E348 /* ClientApplicationData.swift */; };
 		AD15708329E6316E00C6E348 /* FundingSourceSetupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */; };
 		AD256ABF2B96A87D00A7658D /* FundingSourceFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD256ABE2B96A87D00A7658D /* FundingSourceFlags.swift */; };
+		AD256AC12BA944CE00A7658D /* ReviewUnfundedFundingSourceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD256AC02BA944CE00A7658D /* ReviewUnfundedFundingSourceIntegrationTests.swift */; };
 		AD65A87C29CAD76800821E6F /* README.md.external in Resources */ = {isa = PBXBuildFile; fileRef = AD65A87B29CAD76800821E6F /* README.md.external */; };
 		AD65A87E29CBBDDB00821E6F /* FundingSource+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */; };
 		ADBC447629C918FF002DC04E /* RefreshFundingSourceInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */; };
@@ -506,6 +507,7 @@
 		AD15708029E62CF300C6E348 /* ClientApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientApplicationData.swift; sourceTree = "<group>"; };
 		AD15708229E6316E00C6E348 /* FundingSourceSetupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundingSourceSetupData.swift; sourceTree = "<group>"; };
 		AD256ABE2B96A87D00A7658D /* FundingSourceFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FundingSourceFlags.swift; sourceTree = "<group>"; };
+		AD256AC02BA944CE00A7658D /* ReviewUnfundedFundingSourceIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewUnfundedFundingSourceIntegrationTests.swift; sourceTree = "<group>"; };
 		AD65A87B29CAD76800821E6F /* README.md.external */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md.external; sourceTree = "<group>"; };
 		AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FundingSource+Transformer.swift"; sourceTree = "<group>"; };
 		ADBC447529C918FF002DC04E /* RefreshFundingSourceInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshFundingSourceInput.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				842E856E282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift */,
 				84FD6F08282A437E0006D91F /* ListFundingSourceIntegrationTests.swift */,
 				51D6AB532A427D9C007CDDCD /* RefreshFundingSourceIntegrationTests.swift */,
+				AD256AC02BA944CE00A7658D /* ReviewUnfundedFundingSourceIntegrationTests.swift */,
 				843882A227C5ED8C00FC7577 /* SetupFundingSourceIntegrationTests.swift */,
 			);
 			path = FundingSource;
@@ -1891,6 +1894,7 @@
 				84FD6F12282A47680006D91F /* PublicKeyIntegrationTests.swift in Sources */,
 				51D6AB542A427D9C007CDDCD /* RefreshFundingSourceIntegrationTests.swift in Sources */,
 				84FB5D68244EA27A006AB2B1 /* Result+Convenience.swift in Sources */,
+				AD256AC12BA944CE00A7658D /* ReviewUnfundedFundingSourceIntegrationTests.swift in Sources */,
 				843882A327C5ED8C00FC7577 /* SetupFundingSourceIntegrationTests.swift in Sources */,
 				5D6148AB26C0EDCC009FB037 /* SimulateAuthorizationWithInputIntTests.swift in Sources */,
 				5D6148AC26C0EDCC009FB037 /* SimulateDebitIntegrationTests.swift in Sources */,

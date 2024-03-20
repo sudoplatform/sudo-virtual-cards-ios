@@ -88,6 +88,17 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///  - SudoVirtualCardsError.
     func cancelFundingSource(withId id: String) async throws -> FundingSource
 
+    /// Request review of a funding source.
+    ///
+    /// - Parameter id: ID of the funding source to be reviewed.
+    ///
+    /// - Returns: Funding source that was reviewed.
+    /// - Throws:
+    ///  - SudoPlatformError.
+    ///  - SudoVirtualCardsError.
+    func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource
+
+    ///
     /// Update a virtual card.
     ///
     /// It is important to note that when updating a card, all fields are updated, therefore, any fields that should

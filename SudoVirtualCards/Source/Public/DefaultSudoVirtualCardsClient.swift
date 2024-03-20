@@ -284,6 +284,11 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         return try await fundingSourceService.cancel(id: id)
     }
 
+    public func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource {
+        try checkUserSignedIn()
+        return try await fundingSourceService.reviewUnfunded(id: id)
+    }
+
     public func updateVirtualCard(withInput input: UpdateVirtualCardInput) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard> {
         try checkUserSignedIn()
         let keyPairResult = publicKeyService.getCurrentKeyPair()

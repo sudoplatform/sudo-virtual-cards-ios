@@ -149,7 +149,7 @@
     },
     {
       "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/BankAccountFundingSource.swift",
-      "line": 137,
+      "line": 143,
       "symbol": "BankAccountFundingSource.isUnfunded()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

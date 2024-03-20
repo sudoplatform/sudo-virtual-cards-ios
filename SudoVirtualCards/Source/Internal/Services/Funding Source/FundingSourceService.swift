@@ -322,6 +322,40 @@ class FundingSourceService {
         throw SudoVirtualCardsError.unrecognizedFundingSourceType(data.cancelFundingSource.__typename)
     }
 
+    /// Review an unfunded funding source.
+    ///
+    /// - Parameters:
+    ///   - id: identifier of the funding source.
+    /// - Returns: Reviewed funding source.
+    ///
+    func reviewUnfunded(id: String) async throws -> FundingSource {
+        let mutationInput = GraphQL.IdInput(id: id)
+        let mutation = GraphQL.ReviewUnfundedFundingSourceMutation(input: mutationInput)
+        let data = try await GraphQLHelper.performMutation(
+            graphQLClient: graphQLClient,
+            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
+            mutation: mutation,
+            logger: logger
+        )
+        if data.reviewUnfundedFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
+            guard let fundingSource = data.reviewUnfundedFundingSource.asCreditCardFundingSource else {
+                logger.error("No data received for reviewUnfundedFundingSource credit card response")
+                throw SudoVirtualCardsError.internalError("No data received for reviewUnfundedFundingSource credit card response")
+            }
+            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            return FundingSource.creditCardFundingSource(creditCardFundingSource)
+        }
+        if data.reviewUnfundedFundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
+            guard let fundingSource = data.reviewUnfundedFundingSource.asBankAccountFundingSource else {
+                logger.error("No data received for reviewUnfundedFundingSource bank account response")
+                throw SudoVirtualCardsError.internalError("No data received for reviewUnfundedFundingSource bank account response")
+            }
+            let bankAccountFundingSource = try unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
+            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
+        }
+        throw SudoVirtualCardsError.unrecognizedFundingSourceType(data.reviewUnfundedFundingSource.__typename)
+    }
+
     private func signAuthorizationText(keyId: String, accountId: String, authorizationText: AuthorizationText) throws -> AuthorizationTextSignature {
         do {
             let signedAt = Date()
