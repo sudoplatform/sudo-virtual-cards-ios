@@ -116,7 +116,6 @@ internal enum FundingSourceState: RawRepresentable, Equatable, JSONDecodable, JS
   internal typealias RawValue = String
   case active
   case inactive
-  case refresh
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
@@ -124,7 +123,6 @@ internal enum FundingSourceState: RawRepresentable, Equatable, JSONDecodable, JS
     switch rawValue {
       case "ACTIVE": self = .active
       case "INACTIVE": self = .inactive
-      case "REFRESH": self = .refresh
       default: self = .unknown(rawValue)
     }
   }
@@ -133,7 +131,6 @@ internal enum FundingSourceState: RawRepresentable, Equatable, JSONDecodable, JS
     switch self {
       case .active: return "ACTIVE"
       case .inactive: return "INACTIVE"
-      case .refresh: return "REFRESH"
       case .unknown(let value): return value
     }
   }
@@ -142,7 +139,6 @@ internal enum FundingSourceState: RawRepresentable, Equatable, JSONDecodable, JS
     switch (lhs, rhs) {
       case (.active, .active): return true
       case (.inactive, .inactive): return true
-      case (.refresh, .refresh): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
     }
@@ -151,12 +147,14 @@ internal enum FundingSourceState: RawRepresentable, Equatable, JSONDecodable, JS
 
 internal enum FundingSourceFlags: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   internal typealias RawValue = String
+  case refresh
   case unfunded
   /// Auto generated constant for unknown enum values
   case unknown(RawValue)
 
   internal init?(rawValue: RawValue) {
     switch rawValue {
+      case "REFRESH": self = .refresh
       case "UNFUNDED": self = .unfunded
       default: self = .unknown(rawValue)
     }
@@ -164,6 +162,7 @@ internal enum FundingSourceFlags: RawRepresentable, Equatable, JSONDecodable, JS
 
   internal var rawValue: RawValue {
     switch self {
+      case .refresh: return "REFRESH"
       case .unfunded: return "UNFUNDED"
       case .unknown(let value): return value
     }
@@ -171,6 +170,7 @@ internal enum FundingSourceFlags: RawRepresentable, Equatable, JSONDecodable, JS
 
   internal static func == (lhs: FundingSourceFlags, rhs: FundingSourceFlags) -> Bool {
     switch (lhs, rhs) {
+      case (.refresh, .refresh): return true
       case (.unfunded, .unfunded): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false

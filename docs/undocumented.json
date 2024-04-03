@@ -317,42 +317,42 @@
     },
     {
       "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceFlags.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "FundingSourceFlags.unfunded",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceFlags.swift",
-      "line": 14,
+      "line": 15,
+      "symbol": "FundingSourceFlags.refresh",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceFlags.swift",
+      "line": 16,
       "symbol": "FundingSourceFlags.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
-      "line": 15,
+      "line": 14,
       "symbol": "FundingSourceState.active",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
-      "line": 16,
+      "line": 15,
       "symbol": "FundingSourceState.inactive",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
-      "line": 17,
-      "symbol": "FundingSourceState.refresh",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/gitlab-runner/builds/s4pLexCBv/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/FundingSourceState.swift",
-      "line": 18,
+      "line": 16,
       "symbol": "FundingSourceState.unknown(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
