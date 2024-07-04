@@ -934,19 +934,55 @@ internal struct SandboxSetFundingSourceToRequireRefreshRequest: GraphQLMapConver
   }
 }
 
-internal struct ProvisionalCardFilterInput: GraphQLMapConvertible {
+internal struct ProvisionalFundingSourceFilterInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
-  internal init(clientRefId: Optional<IDFilterInput?> = nil) {
-    graphQLMap = ["clientRefId": clientRefId]
+  internal init(and: Optional<[ProvisionalFundingSourceFilterInput]?> = nil, id: Optional<IDFilterInput?> = nil, not: Optional<ProvisionalFundingSourceFilterInput?> = nil, or: Optional<[ProvisionalFundingSourceFilterInput]?> = nil, state: Optional<ProvisionalFundingSourceStateFilterInput?> = nil) {
+    graphQLMap = ["and": and, "id": id, "not": not, "or": or, "state": state]
   }
 
-  internal var clientRefId: Optional<IDFilterInput?> {
+  internal var and: Optional<[ProvisionalFundingSourceFilterInput]?> {
     get {
-      return graphQLMap["clientRefId"] as! Optional<IDFilterInput?>
+      return graphQLMap["and"] as! Optional<[ProvisionalFundingSourceFilterInput]?>
     }
     set {
-      graphQLMap.updateValue(newValue, forKey: "clientRefId")
+      graphQLMap.updateValue(newValue, forKey: "and")
+    }
+  }
+
+  internal var id: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["id"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  internal var not: Optional<ProvisionalFundingSourceFilterInput?> {
+    get {
+      return graphQLMap["not"] as! Optional<ProvisionalFundingSourceFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "not")
+    }
+  }
+
+  internal var or: Optional<[ProvisionalFundingSourceFilterInput]?> {
+    get {
+      return graphQLMap["or"] as! Optional<[ProvisionalFundingSourceFilterInput]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "or")
+    }
+  }
+
+  internal var state: Optional<ProvisionalFundingSourceStateFilterInput?> {
+    get {
+      return graphQLMap["state"] as! Optional<ProvisionalFundingSourceStateFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "state")
     }
   }
 }
@@ -1045,6 +1081,49 @@ internal struct IDFilterInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "notContains")
+    }
+  }
+}
+
+internal struct ProvisionalFundingSourceStateFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(eq: Optional<ProvisionalFundingSourceState?> = nil, ne: Optional<ProvisionalFundingSourceState?> = nil) {
+    graphQLMap = ["eq": eq, "ne": ne]
+  }
+
+  internal var eq: Optional<ProvisionalFundingSourceState?> {
+    get {
+      return graphQLMap["eq"] as! Optional<ProvisionalFundingSourceState?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "eq")
+    }
+  }
+
+  internal var ne: Optional<ProvisionalFundingSourceState?> {
+    get {
+      return graphQLMap["ne"] as! Optional<ProvisionalFundingSourceState?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ne")
+    }
+  }
+}
+
+internal struct ProvisionalCardFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(clientRefId: Optional<IDFilterInput?> = nil) {
+    graphQLMap = ["clientRefId": clientRefId]
+  }
+
+  internal var clientRefId: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["clientRefId"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "clientRefId")
     }
   }
 }
@@ -1388,6 +1467,7 @@ internal final class SetupFundingSourceMutation: GraphQLMutation {
         GraphQLField("type", type: .nonNull(.scalar(FundingSourceType.self))),
         GraphQLField("provisioningData", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("state", type: .nonNull(.scalar(ProvisionalFundingSourceState.self))),
+        GraphQLField("last4", type: .scalar(String.self)),
       ]
 
       internal var snapshot: Snapshot
@@ -1396,8 +1476,8 @@ internal final class SetupFundingSourceMutation: GraphQLMutation {
         self.snapshot = snapshot
       }
 
-      internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, type: FundingSourceType, provisioningData: GraphQLID, state: ProvisionalFundingSourceState) {
-        self.init(snapshot: ["__typename": "ProvisionalFundingSource", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "type": type, "provisioningData": provisioningData, "state": state])
+      internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, type: FundingSourceType, provisioningData: GraphQLID, state: ProvisionalFundingSourceState, last4: String? = nil) {
+        self.init(snapshot: ["__typename": "ProvisionalFundingSource", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "type": type, "provisioningData": provisioningData, "state": state, "last4": last4])
       }
 
       internal var __typename: String {
@@ -1478,6 +1558,15 @@ internal final class SetupFundingSourceMutation: GraphQLMutation {
         }
         set {
           snapshot.updateValue(newValue, forKey: "state")
+        }
+      }
+
+      internal var last4: String? {
+        get {
+          return snapshot["last4"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "last4")
         }
       }
 
@@ -4169,6 +4258,190 @@ internal final class CancelFundingSourceMutation: GraphQLMutation {
             set {
               snapshot.updateValue(newValue, forKey: "amount")
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class CancelProvisionalFundingSourceMutation: GraphQLMutation {
+  internal static let operationString =
+    "mutation CancelProvisionalFundingSource($input: IdInput!) {\n  cancelProvisionalFundingSource(input: $input) {\n    __typename\n    ...ProvisionalFundingSource\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(ProvisionalFundingSource.fragmentString) }
+
+  internal var input: IdInput
+
+  internal init(input: IdInput) {
+    self.input = input
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Mutation"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("cancelProvisionalFundingSource", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(CancelProvisionalFundingSource.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(cancelProvisionalFundingSource: CancelProvisionalFundingSource) {
+      self.init(snapshot: ["__typename": "Mutation", "cancelProvisionalFundingSource": cancelProvisionalFundingSource.snapshot])
+    }
+
+    internal var cancelProvisionalFundingSource: CancelProvisionalFundingSource {
+      get {
+        return CancelProvisionalFundingSource(snapshot: snapshot["cancelProvisionalFundingSource"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "cancelProvisionalFundingSource")
+      }
+    }
+
+    internal struct CancelProvisionalFundingSource: GraphQLSelectionSet {
+      internal static let possibleTypes = ["ProvisionalFundingSource"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+        GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+        GraphQLField("type", type: .nonNull(.scalar(FundingSourceType.self))),
+        GraphQLField("provisioningData", type: .nonNull(.scalar(GraphQLID.self))),
+        GraphQLField("state", type: .nonNull(.scalar(ProvisionalFundingSourceState.self))),
+        GraphQLField("last4", type: .scalar(String.self)),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, type: FundingSourceType, provisioningData: GraphQLID, state: ProvisionalFundingSourceState, last4: String? = nil) {
+        self.init(snapshot: ["__typename": "ProvisionalFundingSource", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "type": type, "provisioningData": provisioningData, "state": state, "last4": last4])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      internal var id: GraphQLID {
+        get {
+          return snapshot["id"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      internal var owner: GraphQLID {
+        get {
+          return snapshot["owner"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "owner")
+        }
+      }
+
+      internal var version: Int {
+        get {
+          return snapshot["version"]! as! Int
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "version")
+        }
+      }
+
+      internal var createdAtEpochMs: Double {
+        get {
+          return snapshot["createdAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+        }
+      }
+
+      internal var updatedAtEpochMs: Double {
+        get {
+          return snapshot["updatedAtEpochMs"]! as! Double
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+        }
+      }
+
+      internal var type: FundingSourceType {
+        get {
+          return snapshot["type"]! as! FundingSourceType
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "type")
+        }
+      }
+
+      internal var provisioningData: GraphQLID {
+        get {
+          return snapshot["provisioningData"]! as! GraphQLID
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "provisioningData")
+        }
+      }
+
+      internal var state: ProvisionalFundingSourceState {
+        get {
+          return snapshot["state"]! as! ProvisionalFundingSourceState
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "state")
+        }
+      }
+
+      internal var last4: String? {
+        get {
+          return snapshot["last4"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "last4")
+        }
+      }
+
+      internal var fragments: Fragments {
+        get {
+          return Fragments(snapshot: snapshot)
+        }
+        set {
+          snapshot += newValue.snapshot
+        }
+      }
+
+      internal struct Fragments {
+        internal var snapshot: Snapshot
+
+        internal var provisionalFundingSource: ProvisionalFundingSource {
+          get {
+            return ProvisionalFundingSource(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
           }
         }
       }
@@ -12850,6 +13123,241 @@ internal final class ListFundingSourcesQuery: GraphQLQuery {
               set {
                 snapshot.updateValue(newValue, forKey: "amount")
               }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+internal final class ListProvisionalFundingSourcesQuery: GraphQLQuery {
+  internal static let operationString =
+    "query ListProvisionalFundingSources($filter: ProvisionalFundingSourceFilterInput, $limit: Int, $nextToken: String) {\n  listProvisionalFundingSources(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...ProvisionalFundingSource\n    }\n    nextToken\n  }\n}"
+
+  internal static var requestString: String { return operationString.appending(ProvisionalFundingSource.fragmentString) }
+
+  internal var filter: ProvisionalFundingSourceFilterInput?
+  internal var limit: Int?
+  internal var nextToken: String?
+
+  internal init(filter: ProvisionalFundingSourceFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.filter = filter
+    self.limit = limit
+    self.nextToken = nextToken
+  }
+
+  internal var variables: GraphQLMap? {
+    return ["filter": filter, "limit": limit, "nextToken": nextToken]
+  }
+
+  internal struct Data: GraphQLSelectionSet {
+    internal static let possibleTypes = ["Query"]
+
+    internal static let selections: [GraphQLSelection] = [
+      GraphQLField("listProvisionalFundingSources", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListProvisionalFundingSource.selections))),
+    ]
+
+    internal var snapshot: Snapshot
+
+    internal init(snapshot: Snapshot) {
+      self.snapshot = snapshot
+    }
+
+    internal init(listProvisionalFundingSources: ListProvisionalFundingSource) {
+      self.init(snapshot: ["__typename": "Query", "listProvisionalFundingSources": listProvisionalFundingSources.snapshot])
+    }
+
+    internal var listProvisionalFundingSources: ListProvisionalFundingSource {
+      get {
+        return ListProvisionalFundingSource(snapshot: snapshot["listProvisionalFundingSources"]! as! Snapshot)
+      }
+      set {
+        snapshot.updateValue(newValue.snapshot, forKey: "listProvisionalFundingSources")
+      }
+    }
+
+    internal struct ListProvisionalFundingSource: GraphQLSelectionSet {
+      internal static let possibleTypes = ["ProvisionalFundingSourceConnection"]
+
+      internal static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("items", type: .nonNull(.list(.nonNull(.object(Item.selections))))),
+        GraphQLField("nextToken", type: .scalar(String.self)),
+      ]
+
+      internal var snapshot: Snapshot
+
+      internal init(snapshot: Snapshot) {
+        self.snapshot = snapshot
+      }
+
+      internal init(items: [Item], nextToken: String? = nil) {
+        self.init(snapshot: ["__typename": "ProvisionalFundingSourceConnection", "items": items.map { $0.snapshot }, "nextToken": nextToken])
+      }
+
+      internal var __typename: String {
+        get {
+          return snapshot["__typename"]! as! String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      internal var items: [Item] {
+        get {
+          return (snapshot["items"] as! [Snapshot]).map { Item(snapshot: $0) }
+        }
+        set {
+          snapshot.updateValue(newValue.map { $0.snapshot }, forKey: "items")
+        }
+      }
+
+      internal var nextToken: String? {
+        get {
+          return snapshot["nextToken"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "nextToken")
+        }
+      }
+
+      internal struct Item: GraphQLSelectionSet {
+        internal static let possibleTypes = ["ProvisionalFundingSource"]
+
+        internal static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("owner", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("version", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("createdAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("updatedAtEpochMs", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("type", type: .nonNull(.scalar(FundingSourceType.self))),
+          GraphQLField("provisioningData", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("state", type: .nonNull(.scalar(ProvisionalFundingSourceState.self))),
+          GraphQLField("last4", type: .scalar(String.self)),
+        ]
+
+        internal var snapshot: Snapshot
+
+        internal init(snapshot: Snapshot) {
+          self.snapshot = snapshot
+        }
+
+        internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, type: FundingSourceType, provisioningData: GraphQLID, state: ProvisionalFundingSourceState, last4: String? = nil) {
+          self.init(snapshot: ["__typename": "ProvisionalFundingSource", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "type": type, "provisioningData": provisioningData, "state": state, "last4": last4])
+        }
+
+        internal var __typename: String {
+          get {
+            return snapshot["__typename"]! as! String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        internal var id: GraphQLID {
+          get {
+            return snapshot["id"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        internal var owner: GraphQLID {
+          get {
+            return snapshot["owner"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "owner")
+          }
+        }
+
+        internal var version: Int {
+          get {
+            return snapshot["version"]! as! Int
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "version")
+          }
+        }
+
+        internal var createdAtEpochMs: Double {
+          get {
+            return snapshot["createdAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "createdAtEpochMs")
+          }
+        }
+
+        internal var updatedAtEpochMs: Double {
+          get {
+            return snapshot["updatedAtEpochMs"]! as! Double
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "updatedAtEpochMs")
+          }
+        }
+
+        internal var type: FundingSourceType {
+          get {
+            return snapshot["type"]! as! FundingSourceType
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "type")
+          }
+        }
+
+        internal var provisioningData: GraphQLID {
+          get {
+            return snapshot["provisioningData"]! as! GraphQLID
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "provisioningData")
+          }
+        }
+
+        internal var state: ProvisionalFundingSourceState {
+          get {
+            return snapshot["state"]! as! ProvisionalFundingSourceState
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "state")
+          }
+        }
+
+        internal var last4: String? {
+          get {
+            return snapshot["last4"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "last4")
+          }
+        }
+
+        internal var fragments: Fragments {
+          get {
+            return Fragments(snapshot: snapshot)
+          }
+          set {
+            snapshot += newValue.snapshot
+          }
+        }
+
+        internal struct Fragments {
+          internal var snapshot: Snapshot
+
+          internal var provisionalFundingSource: ProvisionalFundingSource {
+            get {
+              return ProvisionalFundingSource(snapshot: snapshot)
+            }
+            set {
+              snapshot += newValue.snapshot
             }
           }
         }
@@ -24817,7 +25325,7 @@ internal struct SealedAttribute: GraphQLFragment {
 
 internal struct ProvisionalFundingSource: GraphQLFragment {
   internal static let fragmentString =
-    "fragment ProvisionalFundingSource on ProvisionalFundingSource {\n  __typename\n  id\n  owner\n  version\n  createdAtEpochMs\n  updatedAtEpochMs\n  type\n  provisioningData\n  state\n}"
+    "fragment ProvisionalFundingSource on ProvisionalFundingSource {\n  __typename\n  id\n  owner\n  version\n  createdAtEpochMs\n  updatedAtEpochMs\n  type\n  provisioningData\n  state\n  last4\n}"
 
   internal static let possibleTypes = ["ProvisionalFundingSource"]
 
@@ -24831,6 +25339,7 @@ internal struct ProvisionalFundingSource: GraphQLFragment {
     GraphQLField("type", type: .nonNull(.scalar(FundingSourceType.self))),
     GraphQLField("provisioningData", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("state", type: .nonNull(.scalar(ProvisionalFundingSourceState.self))),
+    GraphQLField("last4", type: .scalar(String.self)),
   ]
 
   internal var snapshot: Snapshot
@@ -24839,8 +25348,8 @@ internal struct ProvisionalFundingSource: GraphQLFragment {
     self.snapshot = snapshot
   }
 
-  internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, type: FundingSourceType, provisioningData: GraphQLID, state: ProvisionalFundingSourceState) {
-    self.init(snapshot: ["__typename": "ProvisionalFundingSource", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "type": type, "provisioningData": provisioningData, "state": state])
+  internal init(id: GraphQLID, owner: GraphQLID, version: Int, createdAtEpochMs: Double, updatedAtEpochMs: Double, type: FundingSourceType, provisioningData: GraphQLID, state: ProvisionalFundingSourceState, last4: String? = nil) {
+    self.init(snapshot: ["__typename": "ProvisionalFundingSource", "id": id, "owner": owner, "version": version, "createdAtEpochMs": createdAtEpochMs, "updatedAtEpochMs": updatedAtEpochMs, "type": type, "provisioningData": provisioningData, "state": state, "last4": last4])
   }
 
   internal var __typename: String {
@@ -24921,6 +25430,15 @@ internal struct ProvisionalFundingSource: GraphQLFragment {
     }
     set {
       snapshot.updateValue(newValue, forKey: "state")
+    }
+  }
+
+  internal var last4: String? {
+    get {
+      return snapshot["last4"] as? String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "last4")
     }
   }
 }

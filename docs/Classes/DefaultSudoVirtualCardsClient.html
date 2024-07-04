@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 24.0.0 Docs
+          SudoVirtualCards 24.1.0 Docs
         </a>
         
       </p>
@@ -80,6 +80,9 @@
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18FundingSourceStateO">FundingSourceState</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IDFilterInput.html">IDFilterInput</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
               </li>
               <li class="nav-group-task">
@@ -93,6 +96,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards20ProvisionalCardStateO">ProvisionalCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards29ProvisionalFundingSourceStateO">ProvisionalFundingSourceState</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PublicKeyError.html">PublicKeyError</a>
@@ -249,9 +258,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ProvisionalFundingSource.html#/s:16SudoVirtualCards24ProvisionalFundingSourceV5StateO">– State</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RefreshFundingSourceInput.html">RefreshFundingSourceInput</a>
@@ -670,6 +676,35 @@ Throws:</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP30cancelProvisionalFundingSource6withIdAA0fgH0VSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/cancelProvisionalFundingSource(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP30cancelProvisionalFundingSource6withIdAA0fgH0VSS_tYaKF">cancelProvisionalFundingSource(withId:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancelProvisionalFundingSource</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards0abC6ClientP06updateB4Card9withInputAA15SingleAPIResultOyAA0bF0VAA07PartialbF0VGAA06UpdatebfH0V_tYaKF"></a>
                     <a name="//apple_ref/swift/Method/updateVirtualCard(withInput:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP06updateB4Card9withInputAA15SingleAPIResultOyAA0bF0VAA07PartialbF0VGAA06UpdatebfH0V_tYaKF">updateVirtualCard(withInput:<wbr>)</a>
@@ -964,6 +999,40 @@ Throws:</p>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Enums/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_SiSgSSSgAA05CacheO0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listProvisionalFundingSources(withFilter:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_SiSgSSSgAA05CacheO0OtYaKF">listProvisionalFundingSources(withFilter:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">listProvisionalFundingSources</span><span class="p">(</span>
+    <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a></span><span class="p">?,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -1317,8 +1386,8 @@ Throws:</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-04-03)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-07-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

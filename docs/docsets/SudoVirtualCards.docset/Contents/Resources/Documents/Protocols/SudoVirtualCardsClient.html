@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 24.0.0 Docs
+          SudoVirtualCards 24.1.0 Docs
         </a>
         
       </p>
@@ -80,6 +80,9 @@
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18FundingSourceStateO">FundingSourceState</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IDFilterInput.html">IDFilterInput</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
               </li>
               <li class="nav-group-task">
@@ -93,6 +96,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards20ProvisionalCardStateO">ProvisionalCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards29ProvisionalFundingSourceStateO">ProvisionalFundingSourceState</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PublicKeyError.html">PublicKeyError</a>
@@ -249,9 +258,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ProvisionalFundingSource.html#/s:16SudoVirtualCards24ProvisionalFundingSourceV5StateO">– State</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RefreshFundingSourceInput.html">RefreshFundingSourceInput</a>
@@ -800,6 +806,69 @@ sudo services.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>Funding source that was reviewed.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP30cancelProvisionalFundingSource6withIdAA0fgH0VSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/cancelProvisionalFundingSource(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP30cancelProvisionalFundingSource6withIdAA0fgH0VSS_tYaKF">cancelProvisionalFundingSource(withId:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cancel a provisional funding source.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>Throws:</p>
+
+<ul>
+<li>SudoPlatformError.</li>
+<li>SudoVirtualCardsError.</li>
+</ul>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">cancelProvisionalFundingSource</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of the provisional funding source to be cancelled.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Provisional funding source that was cancelled and is in a failed state.</p>
                       </div>
                     </section>
                   </div>
@@ -1525,7 +1594,114 @@ remain the same must include their original data.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p><code><a href="../Enums/FundingSource.html">FundingSource</a></code>s associated with <code>id</code>, or empty array if no funding source can be found.</p>
+                        <p><code><a href="../Enums/FundingSource.html">FundingSource</a></code>s or empty array if no funding source can be found.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_SiSgSSSgAA05CacheO0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listProvisionalFundingSources(withFilter:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_SiSgSSSgAA05CacheO0OtYaKF">listProvisionalFundingSources(withFilter:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a list of provisional funding sources. If no provisional funding sources can be found, an empty list will be returned.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>Throws:</p>
+
+<ul>
+<li>SudoPlatformError.</li>
+</ul>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listProvisionalFundingSources</span><span class="p">(</span>
+    <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a></span><span class="p">?,</span>
+    <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
+    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filter to be applied to the list of provisional funding sources to return.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of funding sources to return. If <code>nil</code>, the limit is 10.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>nextToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Generated token by previous calls to <code>getProvisionalFundingSources</code>. This is used for pagination.
+                   This value should be pre-generated from a previous pagination call, otherwise it will throw an error.
+                   It is important to note that the same structured API call should be used if using a previously
+                   generated <code>nextToken</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cachePolicy</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
+                     will only return cached results of identical API calls.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code><a href="../Enums/FundingSource.html">FundingSource</a></code>s matching <code>filter</code>, or empty array if no funding source can be found.</p>
                       </div>
                     </section>
                   </div>
@@ -2331,8 +2507,8 @@ data before calling <code>completeFundingSource</code></p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-04-03)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-07-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

@@ -98,6 +98,16 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///  - SudoVirtualCardsError.
     func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource
 
+    /// Cancel a provisional funding source.
+    ///
+    /// - Parameter id: ID of the provisional funding source to be cancelled.
+    ///
+    /// - Returns: Provisional funding source that was cancelled and is in a failed state.
+    /// - Throws:
+    ///  - SudoPlatformError.
+    ///  - SudoVirtualCardsError.
+    func cancelProvisionalFundingSource(withId id: String) async throws -> ProvisionalFundingSource
+
     ///
     /// Update a virtual card.
     ///
@@ -241,7 +251,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
     ///                          will only return cached results of identical API calls.
     ///
-    /// - Returns: `FundingSource`s associated with `id`, or empty array if no funding source can be found.
+    /// - Returns: `FundingSource`s or empty array if no funding source can be found.
     /// - Throws:
     ///   - SudoPlatformError.
     func listFundingSources(
@@ -249,6 +259,27 @@ public protocol SudoVirtualCardsClient: AnyObject {
         nextToken: String?,
         cachePolicy: CachePolicy
     ) async throws -> ListOutput<FundingSource>
+
+    /// Get a list of provisional funding sources. If no provisional funding sources can be found, an empty list will be returned.
+    ///
+    /// - Parameter filter: The filter to be applied to the list of provisional funding sources to return.
+    /// - Parameter limit: Number of funding sources to return. If `nil`, the limit is 10.
+    /// - Parameter nextToken: Generated token by previous calls to `getProvisionalFundingSources`. This is used for pagination.
+    ///                        This value should be pre-generated from a previous pagination call, otherwise it will throw an error.
+    ///                        It is important to note that the same structured API call should be used if using a previously
+    ///                        generated `nextToken`.
+    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
+    ///                          will only return cached results of identical API calls.
+    ///
+    /// - Returns: `FundingSource`s matching `filter`, or empty array if no funding source can be found.
+    /// - Throws:
+    ///   - SudoPlatformError.
+    func listProvisionalFundingSources(
+        withFilter filter: ProvisionalFundingSourceFilterInput?,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListOutput<ProvisionalFundingSource>
 
     /// Export the cryptographic keys to a key archive.
     ///

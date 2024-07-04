@@ -15,6 +15,8 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     // MARK: - Properties: - Services
 
     var fundingSourceService: FundingSourceService
+    
+    var provisionalFundingSourceService: ProvisionalFundingSourceService
 
     /// Abstraction of the SDKs capabilities surrounding `VirtualCard` access/manipulation with virtual cards service.
     var virtualCardService: VirtualCardService
@@ -131,6 +133,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             graphQLClient: graphQLClient,
             unsealer: unsealer,
             platformKeyManager: platformKeyManager,
+            logger: logger
+        )
+        self.provisionalFundingSourceService = ProvisionalFundingSourceService(
+            graphQLClient: graphQLClient,
             logger: logger
         )
         self.virtualCardService = VirtualCardService(graphQLClient: graphQLClient, unsealer: unsealer, platformKeyManager: platformKeyManager, logger: logger)
@@ -287,6 +293,11 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource {
         try checkUserSignedIn()
         return try await fundingSourceService.reviewUnfunded(id: id)
+    }
+
+    public func cancelProvisionalFundingSource(withId id: String) async throws -> ProvisionalFundingSource {
+        try checkUserSignedIn()
+        return try await provisionalFundingSourceService.cancelProvisionalFundingSource(withId: id)
     }
 
     public func updateVirtualCard(withInput input: UpdateVirtualCardInput) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard> {
@@ -539,6 +550,21 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
         let nextToken = listFundingSources.nextToken
         return ListOutput(items: fundingSources, nextToken: nextToken)
+    }
+
+    public func listProvisionalFundingSources(
+        withFilter filter: ProvisionalFundingSourceFilterInput?,
+        limit: Int?,
+        nextToken: String?,
+        cachePolicy: CachePolicy
+    ) async throws -> ListOutput<ProvisionalFundingSource> {
+        try checkUserSignedIn()
+        return try await self.provisionalFundingSourceService.listProvisionalFundingSources(
+            withFilter: filter,
+            limit: limit,
+            nextToken: nextToken,
+            cachePolicy: cachePolicy
+        )
     }
 
     public func importKeys(archiveData: Data) throws {

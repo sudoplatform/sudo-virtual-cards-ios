@@ -76,16 +76,6 @@ public enum ProvisioningData: Equatable, FundingSourceProviderData {
 /// The Sudo Platform SDK representation of a funding source.
 public struct ProvisionalFundingSource: Equatable {
 
-    // MARK: - Supplementary
-
-    /// The Sudo Platform SDK representation of an enumeration depicting the provisional funding source state.
-    public enum State {
-        case completed
-        case failed
-        case pending
-        case provisioning
-    }
-
     // MARK: - Properties
 
     /// Unique identifier of the funding source.
@@ -96,6 +86,15 @@ public struct ProvisionalFundingSource: Equatable {
 
     /// Version of this entity.
     public let version: Int
+
+    /// Sate of this entity
+    public let state: ProvisionalFundingSourceState
+
+    /// Type of this funding source
+    public let type: FundingSourceType
+
+    /// Last 4 digits of the funding source account
+    public let last4: String
 
     /// Date when the funding source was created.
     public let createdAt: Date
@@ -112,6 +111,9 @@ public struct ProvisionalFundingSource: Equatable {
         id: String,
         owner: String,
         version: Int,
+        state: ProvisionalFundingSourceState,
+        type: FundingSourceType,
+        last4: String,
         createdAt: Date,
         updatedAt: Date,
         provisioningData: ProvisioningData
@@ -119,6 +121,9 @@ public struct ProvisionalFundingSource: Equatable {
         self.id = id
         self.owner = owner
         self.version = version
+        self.state = state
+        self.type = type
+        self.last4 = last4
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.provisioningData = provisioningData

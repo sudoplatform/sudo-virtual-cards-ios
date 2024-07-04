@@ -213,6 +213,15 @@
 		84FD6F0C282A44FE0006D91F /* GetTransactionIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F0B282A44FE0006D91F /* GetTransactionIntegrationTests.swift */; };
 		84FD6F0E282A45080006D91F /* ListTransactionsIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F0D282A45080006D91F /* ListTransactionsIntegrationTests.swift */; };
 		84FD6F12282A47680006D91F /* PublicKeyIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FD6F11282A47680006D91F /* PublicKeyIntegrationTests.swift */; };
+		953823D52C3500CA0012B316 /* ListProvisionalFundingSourcesIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953823D42C3500CA0012B316 /* ListProvisionalFundingSourcesIntegrationTests.swift */; };
+		953823D72C35255B0012B316 /* ProvisionalFundingSourceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953823D62C35255B0012B316 /* ProvisionalFundingSourceService.swift */; };
+		953823D92C3529DA0012B316 /* ProvisionalFundingSourceServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953823D82C3529DA0012B316 /* ProvisionalFundingSourceServiceTests.swift */; };
+		953823DB2C35EFE50012B316 /* CancelProvisionalFundingSourceIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953823DA2C35EFE50012B316 /* CancelProvisionalFundingSourceIntegrationTests.swift */; };
+		954E67792C338E82009ACD18 /* ProvisionalFundingSourceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E67782C338E82009ACD18 /* ProvisionalFundingSourceState.swift */; };
+		954E677C2C33A845009ACD18 /* ProvisionalFundingSourceFilterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E677B2C33A845009ACD18 /* ProvisionalFundingSourceFilterInput.swift */; };
+		954E677E2C33B1C4009ACD18 /* IDFilterInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E677D2C33B1C4009ACD18 /* IDFilterInput.swift */; };
+		954E67802C34A907009ACD18 /* ProvisioningData+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E677F2C34A907009ACD18 /* ProvisioningData+Transformer.swift */; };
+		954E67822C34C7BD009ACD18 /* ProvisioningDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954E67812C34C7BD009ACD18 /* ProvisioningDataTests.swift */; };
 		9568CE242AE8CB9F00C81F02 /* ImportExportKeysTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9568CE232AE8CB9F00C81F02 /* ImportExportKeysTests.swift */; };
 		9568CE262AE8DF0D00C81F02 /* ImportExportKeysIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9568CE252AE8DF0D00C81F02 /* ImportExportKeysIntegrationTests.swift */; };
 		A286F39A28DD1F7300D89CDE /* VirtualCardsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A286F39928DD1F7300D89CDE /* VirtualCardsConfig.swift */; };
@@ -492,6 +501,15 @@
 		84FD6F0B282A44FE0006D91F /* GetTransactionIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTransactionIntegrationTests.swift; sourceTree = "<group>"; };
 		84FD6F0D282A45080006D91F /* ListTransactionsIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTransactionsIntegrationTests.swift; sourceTree = "<group>"; };
 		84FD6F11282A47680006D91F /* PublicKeyIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKeyIntegrationTests.swift; sourceTree = "<group>"; };
+		953823D42C3500CA0012B316 /* ListProvisionalFundingSourcesIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProvisionalFundingSourcesIntegrationTests.swift; sourceTree = "<group>"; };
+		953823D62C35255B0012B316 /* ProvisionalFundingSourceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalFundingSourceService.swift; sourceTree = "<group>"; };
+		953823D82C3529DA0012B316 /* ProvisionalFundingSourceServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalFundingSourceServiceTests.swift; sourceTree = "<group>"; };
+		953823DA2C35EFE50012B316 /* CancelProvisionalFundingSourceIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelProvisionalFundingSourceIntegrationTests.swift; sourceTree = "<group>"; };
+		954E67782C338E82009ACD18 /* ProvisionalFundingSourceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalFundingSourceState.swift; sourceTree = "<group>"; };
+		954E677B2C33A845009ACD18 /* ProvisionalFundingSourceFilterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisionalFundingSourceFilterInput.swift; sourceTree = "<group>"; };
+		954E677D2C33B1C4009ACD18 /* IDFilterInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDFilterInput.swift; sourceTree = "<group>"; };
+		954E677F2C34A907009ACD18 /* ProvisioningData+Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProvisioningData+Transformer.swift"; sourceTree = "<group>"; };
+		954E67812C34C7BD009ACD18 /* ProvisioningDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvisioningDataTests.swift; sourceTree = "<group>"; };
 		9568CE232AE8CB9F00C81F02 /* ImportExportKeysTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportKeysTests.swift; sourceTree = "<group>"; };
 		9568CE252AE8DF0D00C81F02 /* ImportExportKeysIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportKeysIntegrationTests.swift; sourceTree = "<group>"; };
 		A286F39928DD1F7300D89CDE /* VirtualCardsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualCardsConfig.swift; sourceTree = "<group>"; };
@@ -577,6 +595,7 @@
 		5D5A15B328FB543A001D1E0D /* FundingSource */ = {
 			isa = PBXGroup;
 			children = (
+				954E677A2C33A7E4009ACD18 /* Filters */,
 				5D5A15B428FB5446001D1E0D /* Protocols */,
 				ADBC447729C91AB1002DC04E /* AuthorizationText.swift */,
 				ADBC448729C979F5002DC04E /* BankAccountFundingSource.swift */,
@@ -589,6 +608,7 @@
 				5D5A15AD28F5307E001D1E0D /* FundingSourceType.swift */,
 				5D795DBA29011E2B00A74559 /* InteractionData.swift */,
 				8438829B27C4A37A00FC7577 /* ProvisionalFundingSource.swift */,
+				954E67782C338E82009ACD18 /* ProvisionalFundingSourceState.swift */,
 				841F01E423A71438008DED82 /* StripeProviderData.swift */,
 			);
 			path = FundingSource;
@@ -757,6 +777,7 @@
 				0CCE83D029075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift */,
 				5D795DB028FDFA3300A74559 /* CheckoutCardProviderDataTests.swift */,
 				84269C57233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift */,
+				954E67812C34C7BD009ACD18 /* ProvisioningDataTests.swift */,
 				8407BD1E23E135DB0018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializableTests.swift */,
 				84309DA1246BA08500F48ECC /* Result+ConvenienceTests.swift */,
 				84DF458423A735EE002ADC85 /* StripeCardProviderDataTests.swift */,
@@ -842,12 +863,14 @@
 			children = (
 				519F4FD12A42BBA10062C8D9 /* BankAccountFundingSourceIntegrationTestCase.swift */,
 				8472908B2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift */,
+				953823DA2C35EFE50012B316 /* CancelProvisionalFundingSourceIntegrationTests.swift */,
 				843882A427C5F0CD00FC7577 /* CompleteFundingSourceIntegrationTests.swift */,
 				51B1BD382A382C4700C9DD1E /* CreateFundingSourceForBankAccountIntegrationTests.swift */,
 				84FB5D63244E8E27006AB2B1 /* CreateFundingSourceForCreditCardIntegrationTests.swift */,
 				8438829F27C5DDB100FC7577 /* GetFundingSourceClientConfigurationIntegrationTests.swift */,
 				842E856E282B2EDD00ADA683 /* GetFundingSourceIntegrationTests.swift */,
 				84FD6F08282A437E0006D91F /* ListFundingSourceIntegrationTests.swift */,
+				953823D42C3500CA0012B316 /* ListProvisionalFundingSourcesIntegrationTests.swift */,
 				51D6AB532A427D9C007CDDCD /* RefreshFundingSourceIntegrationTests.swift */,
 				AD256AC02BA944CE00A7658D /* ReviewUnfundedFundingSourceIntegrationTests.swift */,
 				843882A227C5ED8C00FC7577 /* SetupFundingSourceIntegrationTests.swift */,
@@ -859,6 +882,7 @@
 			isa = PBXGroup;
 			children = (
 				844673F7247CB11A0016FA56 /* FundingSourceServiceTests.swift */,
+				953823D82C3529DA0012B316 /* ProvisionalFundingSourceServiceTests.swift */,
 			);
 			path = "Funding Source";
 			sourceTree = "<group>";
@@ -984,6 +1008,7 @@
 			isa = PBXGroup;
 			children = (
 				845A8B502477A12E00FAFB42 /* FundingSourceService.swift */,
+				953823D62C35255B0012B316 /* ProvisionalFundingSourceService.swift */,
 			);
 			path = "Funding Source";
 			sourceTree = "<group>";
@@ -1159,6 +1184,7 @@
 			children = (
 				84A0441D2817AC3100D84039 /* PartialTransformers */,
 				AD65A87D29CBBDDB00821E6F /* FundingSource+Transformer.swift */,
+				954E677F2C34A907009ACD18 /* ProvisioningData+Transformer.swift */,
 				A286F3A728DD338700D89CDE /* VirtualCardsConfigTransformer.swift */,
 			);
 			path = Transformers;
@@ -1469,6 +1495,15 @@
 				84FD6F11282A47680006D91F /* PublicKeyIntegrationTests.swift */,
 			);
 			path = PublicKey;
+			sourceTree = "<group>";
+		};
+		954E677A2C33A7E4009ACD18 /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				954E677D2C33B1C4009ACD18 /* IDFilterInput.swift */,
+				954E677B2C33A845009ACD18 /* ProvisionalFundingSourceFilterInput.swift */,
+			);
+			path = Filters;
 			sourceTree = "<group>";
 		};
 		A286F39B28DD210700D89CDE /* VirtualCardsConfig */ = {
@@ -1867,6 +1902,7 @@
 				519F4FD22A42BBA10062C8D9 /* BankAccountFundingSourceIntegrationTestCase.swift in Sources */,
 				84043C45244FBBAD00BA3EF4 /* BlockProvisionCardObserver.swift in Sources */,
 				8472908C2828E188000C3169 /* CancelFundingSourceIntegrationTests.swift in Sources */,
+				953823DB2C35EFE50012B316 /* CancelProvisionalFundingSourceIntegrationTests.swift in Sources */,
 				84FD6EFC2829E7440006D91F /* CancelVirtualCardIntegrationTests.swift in Sources */,
 				843882A927C5F6C900FC7577 /* CardProviderInteraction.swift in Sources */,
 				843882A527C5F0CD00FC7577 /* CompleteFundingSourceIntegrationTests.swift in Sources */,
@@ -1886,6 +1922,7 @@
 				9568CE262AE8DF0D00C81F02 /* ImportExportKeysIntegrationTests.swift in Sources */,
 				84FD6F09282A437E0006D91F /* ListFundingSourceIntegrationTests.swift in Sources */,
 				84FD6F05282A42B10006D91F /* ListProvisionalCardsIntegrationTests.swift in Sources */,
+				953823D52C3500CA0012B316 /* ListProvisionalFundingSourcesIntegrationTests.swift in Sources */,
 				84FD6F0E282A45080006D91F /* ListTransactionsIntegrationTests.swift in Sources */,
 				84FD6F00282A330D0006D91F /* ListVirtualCardsIntegrationTests.swift in Sources */,
 				5D795DB528FE2C0B00A74559 /* ProviderAPIs.swift in Sources */,
@@ -1965,6 +2002,7 @@
 				843682862320E3F7005F6D34 /* GraphQLAPI.swift in Sources */,
 				8494E4E92458F237003FD52E /* GraphQLFilterable.swift in Sources */,
 				844F870027A8EE88000069B5 /* GraphQLHelper.swift in Sources */,
+				954E677E2C33B1C4009ACD18 /* IDFilterInput.swift in Sources */,
 				8422321523D7AA0F00ED948C /* Inputs.swift in Sources */,
 				5D795DBB29011E2B00A74559 /* InteractionData.swift in Sources */,
 				8467C2C727FA7E9B007BB525 /* JSONValue.swift in Sources */,
@@ -1991,6 +2029,10 @@
 				844BB6432818CCBA006F588A /* ProvisionalCardSealedAttributes.swift in Sources */,
 				84A0440F2817A87000D84039 /* ProvisionalCardState.swift in Sources */,
 				8438829C27C4A37A00FC7577 /* ProvisionalFundingSource.swift in Sources */,
+				954E677C2C33A845009ACD18 /* ProvisionalFundingSourceFilterInput.swift in Sources */,
+				953823D72C35255B0012B316 /* ProvisionalFundingSourceService.swift in Sources */,
+				954E67792C338E82009ACD18 /* ProvisionalFundingSourceState.swift in Sources */,
+				954E67802C34A907009ACD18 /* ProvisioningData+Transformer.swift in Sources */,
 				8478C2AA281B81C500F7E334 /* ProvisionVirtualCardInput.swift in Sources */,
 				8476888D2398746D0067D2DD /* ProvisionVirtualCardObservable.swift in Sources */,
 				8409EC6123CEDF5F00553022 /* PublicKey.swift in Sources */,
@@ -2079,6 +2121,8 @@
 				84CA6BBB23D555320088677E /* MockUnsealer.swift in Sources */,
 				8409EC7423D51E4700553022 /* PlatformKeyManagerTests.swift in Sources */,
 				847BDB8E239A2A0B00293C1B /* PlatformSubscriptionStatusTests.swift in Sources */,
+				953823D92C3529DA0012B316 /* ProvisionalFundingSourceServiceTests.swift in Sources */,
+				954E67822C34C7BD009ACD18 /* ProvisioningDataTests.swift in Sources */,
 				8407BD1F23E135DB0018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializableTests.swift in Sources */,
 				845A8B442474AF3500FAFB42 /* PublicKeyServiceTests.swift in Sources */,
 				84309DA2246BA08500F48ECC /* Result+ConvenienceTests.swift in Sources */,

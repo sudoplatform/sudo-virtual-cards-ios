@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 24.0.0 Docs
+          SudoVirtualCards 24.1.0 Docs
         </a>
         
       </p>
@@ -80,6 +80,9 @@
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18FundingSourceStateO">FundingSourceState</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/IDFilterInput.html">IDFilterInput</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
               </li>
               <li class="nav-group-task">
@@ -93,6 +96,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards20ProvisionalCardStateO">ProvisionalCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards29ProvisionalFundingSourceStateO">ProvisionalFundingSourceState</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PublicKeyError.html">PublicKeyError</a>
@@ -251,9 +260,6 @@
                 <a class="nav-group-task-link" href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/ProvisionalFundingSource.html#/s:16SudoVirtualCards24ProvisionalFundingSourceV5StateO">– State</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/RefreshFundingSourceInput.html">RefreshFundingSourceInput</a>
               </li>
               <li class="nav-group-task">
@@ -335,46 +341,6 @@
 
         <section class="section">
           <div class="section-content">
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Supplementary"></a>
-                <a name="//apple_ref/swift/Section/Supplementary" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Supplementary"></a>
-                  <h3 class="section-name"><span>Supplementary</span>
-</h3>
-                </div>
-              </div>
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV5StateO"></a>
-                    <a name="//apple_ref/swift/Enum/State" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV5StateO">State</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The Sudo Platform SDK representation of an enumeration depicting the provisional funding source state.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">State</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
             <div class="task-group">
               <div class="task-name-container">
                 <a name="/Properties"></a>
@@ -470,6 +436,87 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV5stateAA0deF5StateOvp"></a>
+                    <a name="//apple_ref/swift/Property/state" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV5stateAA0deF5StateOvp">state</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sate of this entity</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums.html#/s:16SudoVirtualCards29ProvisionalFundingSourceStateO">ProvisionalFundingSourceState</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV4typeAA0eF4TypeOvp"></a>
+                    <a name="//apple_ref/swift/Property/type" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV4typeAA0eF4TypeOvp">type</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type of this funding source</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">FundingSourceType</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV5last4SSvp"></a>
+                    <a name="//apple_ref/swift/Property/last4" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV5last4SSvp">last4</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Last 4 digits of the funding source account</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">last4</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards24ProvisionalFundingSourceV9createdAt10Foundation4DateVvp"></a>
                     <a name="//apple_ref/swift/Property/createdAt" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards24ProvisionalFundingSourceV9createdAt10Foundation4DateVvp">createdAt</a>
@@ -556,8 +603,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-04-03)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-07-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

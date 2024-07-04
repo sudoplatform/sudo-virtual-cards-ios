@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          SudoVirtualCards 24.0.0 Docs
+          SudoVirtualCards 24.1.0 Docs
         </a>
         
       </p>
@@ -80,6 +80,9 @@
                 <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards18FundingSourceStateO">FundingSourceState</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/IDFilterInput.html">IDFilterInput</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards9JSONValueO">JSONValue</a>
               </li>
               <li class="nav-group-task">
@@ -93,6 +96,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards20ProvisionalCardStateO">ProvisionalCardState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums.html#/s:16SudoVirtualCards29ProvisionalFundingSourceStateO">ProvisionalFundingSourceState</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/PublicKeyError.html">PublicKeyError</a>
@@ -249,9 +258,6 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/ProvisionalFundingSource.html#/s:16SudoVirtualCards24ProvisionalFundingSourceV5StateO">– State</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/RefreshFundingSourceInput.html">RefreshFundingSourceInput</a>
@@ -560,6 +566,62 @@ Platform Virtual Cards SDK.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards13IDFilterInputO"></a>
+                    <a name="//apple_ref/swift/Enum/IDFilterInput" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards13IDFilterInputO">IDFilterInput</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Input required to filter lists by id.</p>
+
+                        <a href="Enums/IDFilterInput.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">IDFilterInput</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards35ProvisionalFundingSourceFilterInputO"></a>
+                    <a name="//apple_ref/swift/Enum/ProvisionalFundingSourceFilterInput" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards35ProvisionalFundingSourceFilterInputO">ProvisionalFundingSourceFilterInput</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Input required to filter a provisional funding source list.</p>
+
+                        <a href="Enums/ProvisionalFundingSourceFilterInput.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">indirect</span> <span class="kd">enum</span> <span class="kt">ProvisionalFundingSourceFilterInput</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards13FundingSourceO"></a>
                     <a name="//apple_ref/swift/Enum/FundingSource" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards13FundingSourceO">FundingSource</a>
@@ -683,6 +745,39 @@ required to carry out that user interfaction.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FundingSourceInteractionData</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">FundingSourceProviderData</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards29ProvisionalFundingSourceStateO"></a>
+                    <a name="//apple_ref/swift/Enum/ProvisionalFundingSourceState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards29ProvisionalFundingSourceStateO">ProvisionalFundingSourceState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>State type associated with <code><a href="Enums/FundingSource.html">FundingSource</a></code>.</p>
+
+<ul>
+<li>active: funding source is active.</li>
+<li>inactive: funding source is inactive.</li>
+<li>unknown: type could not be discerned - associated value is unknown and suggests that the SDK version is out of sync with the service.</li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ProvisionalFundingSourceState</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                         </div>
                       </div>
@@ -907,8 +1002,8 @@ required to carry out that user interfaction.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-04-03)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-07-04)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

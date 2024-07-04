@@ -19,6 +19,6 @@ public enum FundingSource {
           return fs.isUnfunded()
       case .bankAccountFundingSource(let fs):
             return fs.isUnfunded()
-        }
+      }
     }
 }

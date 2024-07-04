@@ -104,7 +104,11 @@ class PublicKeyService {
     /// Get the key ring.
     func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy) async throws -> GetKeyRingQuery.Data {
         let query = GetKeyRingQuery(keyRingId: keyRingId, keyFormats: nil)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
+        let data = try await GraphQLHelper.performQuery(
+            graphQLClient: graphQLClient,
+            query: query,
+            cachePolicy: cachePolicy,logger: logger
+        )
         guard let result = data else {
             logger.error("Failed to get key ring")
             throw SudoVirtualCardsError.getFailed
@@ -117,7 +121,12 @@ class PublicKeyService {
     /// Although a keypair is passed in, only the public key is sent external to the device. **Private keys remain on the device only**.
     func create(withKeyPair keyPair: KeyPair) async throws -> PublicKey {
         let publicKeyString = keyPair.publicKey.base64EncodedString()
-        let input = GraphQL.CreatePublicKeyInput(algorithm: Defaults.algorithm.toString(), keyId: keyPair.keyId, keyRingId: keyPair.keyRingId, publicKey: publicKeyString)
+        let input = GraphQL.CreatePublicKeyInput(
+            algorithm: Defaults.algorithm.toString(),
+            keyId: keyPair.keyId,
+            keyRingId: keyPair.keyRingId,
+            publicKey: publicKeyString
+        )
         let mutation = GraphQL.CreatePublicKeyMutation(input: input)
         let data = try await GraphQLHelper.performMutation(graphQLClient: graphQLClient, mutation: mutation, logger: logger)
         return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)

@@ -78,39 +78,19 @@ class FundingSourceService {
             mutation: mutation,
             logger: logger
         )
-        guard let encodedProvisioningData = Data(base64Encoded: data.setupFundingSource.provisioningData) else {
-            logger.error("Data received for setupFundingSource is not base64 encoded")
-            throw SudoVirtualCardsError.internalError("Data received for setupFundingSource is not base64 encoded")
-        }
-
-        let baseProvisioningData = try self.decoder.decode(BaseProvisioningData.self, from: encodedProvisioningData)
-
-        let provisioningData: ProvisioningData
-        if baseProvisioningData.provider == "stripe" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
-            let data = try self.decoder.decode(StripeCardProvisioningData.self, from: encodedProvisioningData)
-
-            provisioningData = .stripeCard(data)
-        } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .creditCard && baseProvisioningData.version == 1 {
-            let checkoutCardData = try self.decoder.decode(CheckoutCardProvisioningData.self, from: encodedProvisioningData)
-
-            provisioningData = .checkoutCard(checkoutCardData)
-        } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .bankAccount &&
-            baseProvisioningData.version == 1 {
-            let checkoutBankAccountData = try self.decoder.decode(CheckoutBankAccountProvisioningData.self, from:
-                encodedProvisioningData)
-
-            provisioningData = .checkoutBankAccount(checkoutBankAccountData)
-        } else {
-            provisioningData = .unknown(baseProvisioningData)
-        }
 
         return ProvisionalFundingSource(
             id: data.setupFundingSource.id,
             owner: data.setupFundingSource.owner,
             version: data.setupFundingSource.version,
+            state: ProvisionalFundingSourceState(data.setupFundingSource.state),
+            type: FundingSourceType(data.setupFundingSource.type),
+            last4: data.setupFundingSource.last4 ?? "",
             createdAt: Date(millisecondsSince1970: data.setupFundingSource.createdAtEpochMs),
             updatedAt: Date(millisecondsSince1970: data.setupFundingSource.updatedAtEpochMs),
-            provisioningData: provisioningData
+            provisioningData: try ProvisioningData(
+                encodedProvisioningData: data.setupFundingSource.provisioningData
+            )
         )
     }
 
