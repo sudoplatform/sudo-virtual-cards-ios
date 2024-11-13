@@ -15,7 +15,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     // MARK: - Properties: - Services
 
     var fundingSourceService: FundingSourceService
-    
+
     var provisionalFundingSourceService: ProvisionalFundingSourceService
 
     /// Abstraction of the SDKs capabilities surrounding `VirtualCard` access/manipulation with virtual cards service.
@@ -465,12 +465,19 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func listVirtualCards(
-        withLimit limit: Int?,
-        nextToken: String?,
+        withFilter filter: VirtualCardFilterInput? = nil,
+        sortOrder: SortOrderInput? = nil,
+        withLimit limit: Int? = nil,
+        nextToken: String? = nil,
         cachePolicy: CachePolicy
     ) async throws -> ListAPIResult<VirtualCard, PartialVirtualCard> {
         try checkUserSignedIn()
-        let query = GraphQL.ListCardsQuery(limit: limit, nextToken: nextToken)
+        let query = GraphQL.ListCardsQuery(
+            filter: filter?.toGraphQL(),
+            sortOrder: sortOrder?.toGraphQL(),
+            limit: limit,
+            nextToken: nextToken
+        )
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
         guard let listCards = data?.listCards else {
             return ListAPIResult.empty
@@ -517,12 +524,19 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func listFundingSources(
-        withLimit limit: Int?,
-        nextToken: String?,
+        withFilter filter: FundingSourceFilterInput? = nil,
+        sortOrder: SortOrderInput? = nil,
+        withLimit limit: Int? = nil,
+        nextToken: String? = nil,
         cachePolicy: CachePolicy
     ) async throws -> ListOutput<FundingSource> {
         try checkUserSignedIn()
-        let query = GraphQL.ListFundingSourcesQuery(limit: limit, nextToken: nextToken)
+        let query = GraphQL.ListFundingSourcesQuery(
+            filter: filter?.toGraphQL(),
+            sortOrder: sortOrder?.toGraphQL(),
+            limit: limit,
+            nextToken: nextToken
+            )
         let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
         guard let listFundingSources = data?.listFundingSources else {
             return ListOutput.empty
@@ -553,14 +567,16 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func listProvisionalFundingSources(
-        withFilter filter: ProvisionalFundingSourceFilterInput?,
-        limit: Int?,
-        nextToken: String?,
+        withFilter filter: ProvisionalFundingSourceFilterInput? = nil,
+        sortOrder: SortOrderInput? = nil,
+        limit: Int? = nil,
+        nextToken: String? = nil,
         cachePolicy: CachePolicy
     ) async throws -> ListOutput<ProvisionalFundingSource> {
         try checkUserSignedIn()
         return try await self.provisionalFundingSourceService.listProvisionalFundingSources(
             withFilter: filter,
+            sortOrder: sortOrder,
             limit: limit,
             nextToken: nextToken,
             cachePolicy: cachePolicy

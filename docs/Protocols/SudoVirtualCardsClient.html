@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCards 25.0.0 Docs
+          SudoVirtualCards 26.0.0 Docs
         </a>
         
       </p>
@@ -69,6 +69,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/FundingSource.html">FundingSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FundingSourceFilterInput.html">FundingSourceFilterInput</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards18FundingSourceFlagsO">FundingSourceFlags</a>
@@ -120,6 +123,9 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums.html#/s:16SudoVirtualCards15TransactionTypeO">TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/VirtualCardFilterInput.html">VirtualCardFilterInput</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/VirtualCardState.html">VirtualCardState</a>
@@ -1331,9 +1337,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP04listbC09withLimit9nextToken11cachePolicyAA13ListAPIResultOyAA0B4CardVAA07PartialbN0VGSiSg_SSSgAA05CacheK0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listVirtualCards(withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP04listbC09withLimit9nextToken11cachePolicyAA13ListAPIResultOyAA0B4CardVAA07PartialbN0VGSiSg_SSSgAA05CacheK0OtYaKF">listVirtualCards(withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP04listbC010withFilter9sortOrder0F5Limit9nextToken11cachePolicyAA13ListAPIResultOyAA0B4CardVAA07PartialbQ0VGAA0bqG5InputOSg_AA04SortiS0OSgSiSgSSSgAA05CacheN0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listVirtualCards(withFilter:sortOrder:withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP04listbC010withFilter9sortOrder0F5Limit9nextToken11cachePolicyAA13ListAPIResultOyAA0B4CardVAA07PartialbQ0VGAA0bqG5InputOSg_AA04SortiS0OSgSiSgSSSgAA05CacheN0OtYaKF">listVirtualCards(withFilter:<wbr>sortOrder:<wbr>withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1361,6 +1367,8 @@ remain the same must include their original data.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listVirtualCards</span><span class="p">(</span>
+    <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/VirtualCardFilterInput.html">VirtualCardFilterInput</a></span><span class="p">?,</span>
+    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
     <span class="n">withLimit</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
@@ -1375,12 +1383,37 @@ remain the same must include their original data.</p>
                             <tr>
                               <td>
                                 <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filter to be applied to the list of virtual cards to return.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>limit</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
                                   <p>Number of cards to return. If nil, the limit is 10.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sortOrder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Order in which records are returned (based on date/time at which the funding source was updated).
+                   The default order is descending, ie, most recently updated first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1508,9 +1541,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP18listFundingSources9withLimit9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceOGSiSg_SSSgAA05CacheM0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listFundingSources(withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP18listFundingSources9withLimit9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceOGSiSg_SSSgAA05CacheM0OtYaKF">listFundingSources(withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP18listFundingSources10withFilter9sortOrder0H5Limit9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceOGAA0fsI5InputOSg_AA04SortkT0OSgSiSgSSSgAA05CacheP0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listFundingSources(withFilter:sortOrder:withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP18listFundingSources10withFilter9sortOrder0H5Limit9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceOGAA0fsI5InputOSg_AA04SortkT0OSgSiSgSSSgAA05CacheP0OtYaKF">listFundingSources(withFilter:<wbr>sortOrder:<wbr>withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1538,6 +1571,8 @@ remain the same must include their original data.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listFundingSources</span><span class="p">(</span>
+    <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/FundingSourceFilterInput.html">FundingSourceFilterInput</a></span><span class="p">?,</span>
+    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
     <span class="n">withLimit</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
@@ -1549,6 +1584,31 @@ remain the same must include their original data.</p>
                         <h4>Parameters</h4>
                         <table class="graybox">
                           <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>filter</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filter to be applied to the list of funding sources to return.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sortOrder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Order in which records are returned (based on date/time at which the funding source was updated).
+                   The default order is descending, ie, most recently updated first.</p>
+                                </div>
+                              </td>
+                            </tr>
                             <tr>
                               <td>
                                 <code>
@@ -1602,9 +1662,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_SiSgSSSgAA05CacheO0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listProvisionalFundingSources(withFilter:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_SiSgSSSgAA05CacheO0OtYaKF">listProvisionalFundingSources(withFilter:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter9sortOrder5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgtJ5InputOSg_AA04SortlU0OSgSiSgSSSgAA05CacheQ0OtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listProvisionalFundingSources(withFilter:sortOrder:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter9sortOrder5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgtJ5InputOSg_AA04SortlU0OSgSiSgSSSgAA05CacheQ0OtYaKF">listProvisionalFundingSources(withFilter:<wbr>sortOrder:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1633,6 +1693,7 @@ remain the same must include their original data.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listProvisionalFundingSources</span><span class="p">(</span>
     <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a></span><span class="p">?,</span>
+    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
@@ -1653,6 +1714,19 @@ remain the same must include their original data.</p>
                               <td>
                                 <div>
                                   <p>The filter to be applied to the list of provisional funding sources to return.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sortOrder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Order in which records are returned (based on date/time at which the funding source was updated).
+                   The default order is descending, ie, most recently updated first.</p>
                                 </div>
                               </td>
                             </tr>
@@ -2507,7 +2581,7 @@ data before calling <code>completeFundingSource</code></p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-09-04)</p>
+      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-11-13)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -208,7 +208,10 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Get a list of cards. If no cards can be found, an empty list will be returned.
     ///
+    /// - Parameter filter: The filter to be applied to the list of virtual cards to return.
     /// - Parameter limit: Number of cards to return. If nil, the limit is 10.
+    /// - Parameter sortOrder: Order in which records are returned (based on date/time at which the funding source was updated).
+    ///                        The default order is descending, ie, most recently updated first.
     /// - Parameter nextToken: Generated token by previous calls to `getCards`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
@@ -222,6 +225,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Throws:
     ///    - SudoPlatformError.
     func listVirtualCards(
+        withFilter filter: VirtualCardFilterInput?,
+        sortOrder: SortOrderInput?,
         withLimit limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
@@ -243,6 +248,9 @@ public protocol SudoVirtualCardsClient: AnyObject {
 
     /// Get a list of funding sources. If no funding sources can be found, an empty list will be returned.
     ///
+    /// - Parameter filter: The filter to be applied to the list of funding sources to return.
+    /// - Parameter sortOrder: Order in which records are returned (based on date/time at which the funding source was updated).
+    ///                        The default order is descending, ie, most recently updated first.
     /// - Parameter limit: Number of funding sources to return. If `nil`, the limit is 10.
     /// - Parameter nextToken: Generated token by previous calls to `getFundingSources`. This is used for pagination. This value should be
     ///                        pre-generated from a previous pagination call, otherwise it will throw an error.
@@ -255,6 +263,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// - Throws:
     ///   - SudoPlatformError.
     func listFundingSources(
+        withFilter filter: FundingSourceFilterInput?,
+        sortOrder: SortOrderInput?,
         withLimit limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
@@ -263,6 +273,8 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// Get a list of provisional funding sources. If no provisional funding sources can be found, an empty list will be returned.
     ///
     /// - Parameter filter: The filter to be applied to the list of provisional funding sources to return.
+    /// - Parameter sortOrder: Order in which records are returned (based on date/time at which the funding source was updated).
+    ///                        The default order is descending, ie, most recently updated first.
     /// - Parameter limit: Number of funding sources to return. If `nil`, the limit is 10.
     /// - Parameter nextToken: Generated token by previous calls to `getProvisionalFundingSources`. This is used for pagination.
     ///                        This value should be pre-generated from a previous pagination call, otherwise it will throw an error.
@@ -276,6 +288,7 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - SudoPlatformError.
     func listProvisionalFundingSources(
         withFilter filter: ProvisionalFundingSourceFilterInput?,
+        sortOrder: SortOrderInput?,
         limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy

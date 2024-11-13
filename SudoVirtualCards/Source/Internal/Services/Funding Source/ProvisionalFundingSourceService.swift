@@ -44,12 +44,14 @@ class ProvisionalFundingSourceService {
     /// - Returns: `ProvisionalFundingSource`s associated with `filter`, or empty array if no provisional funding sources can be found.
     public func listProvisionalFundingSources(
         withFilter filter: ProvisionalFundingSourceFilterInput?,
+        sortOrder: SortOrderInput?,
         limit: Int?,
         nextToken: String?,
         cachePolicy: CachePolicy
     ) async throws -> ListOutput<ProvisionalFundingSource> {
         let query = GraphQL.ListProvisionalFundingSourcesQuery(
             filter: filter?.toGraphQL(),
+            sortOrder: sortOrder?.toGraphQL(),
             limit: limit,
             nextToken: nextToken
         )

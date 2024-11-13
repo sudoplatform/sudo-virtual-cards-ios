@@ -30,4 +30,16 @@ public enum FundingSourceState: Hashable {
                 self = .unknown(state)
             }
         }
+
+        func toGraphQL() -> GraphQL.FundingSourceState {
+            switch self {
+            case .active:
+                return .active
+            case .inactive:
+                return .inactive
+            case let .unknown(state):
+                return .unknown(state)
+            }
+        }
+
     }

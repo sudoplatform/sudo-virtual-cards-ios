@@ -281,6 +281,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/gitlab-runner/builds/8z4Lxv5zc/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Filters/FundingSourceFilterInput.swift",
+      "line": 7,
+      "symbol": "FundingSourceStateFilterInput",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/gitlab-runner/builds/8z4Lxv5zc/0/platform/payments/sudo-virtual-cards-ios/sudo-virtual-cards-ios-gh/SudoVirtualCards/Source/Public/Types/FundingSource/Filters/ProvisionalFundingSourceFilterInput.swift",
       "line": 7,
       "symbol": "ProvisionalFundingSourceStateFilterInput",

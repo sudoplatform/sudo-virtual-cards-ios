@@ -107,7 +107,8 @@ class PublicKeyService {
         let data = try await GraphQLHelper.performQuery(
             graphQLClient: graphQLClient,
             query: query,
-            cachePolicy: cachePolicy,logger: logger
+            cachePolicy: cachePolicy,
+            logger: logger
         )
         guard let result = data else {
             logger.error("Failed to get key ring")

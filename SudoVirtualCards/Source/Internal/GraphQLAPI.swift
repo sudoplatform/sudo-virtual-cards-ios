@@ -934,16 +934,16 @@ internal struct SandboxSetFundingSourceToRequireRefreshRequest: GraphQLMapConver
   }
 }
 
-internal struct ProvisionalFundingSourceFilterInput: GraphQLMapConvertible {
+internal struct FundingSourceFilterInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
-  internal init(and: Optional<[ProvisionalFundingSourceFilterInput]?> = nil, id: Optional<IDFilterInput?> = nil, not: Optional<ProvisionalFundingSourceFilterInput?> = nil, or: Optional<[ProvisionalFundingSourceFilterInput]?> = nil, state: Optional<ProvisionalFundingSourceStateFilterInput?> = nil) {
+  internal init(and: Optional<[FundingSourceFilterInput]?> = nil, id: Optional<IDFilterInput?> = nil, not: Optional<FundingSourceFilterInput?> = nil, or: Optional<[FundingSourceFilterInput]?> = nil, state: Optional<FundingSourceStateFilterInput?> = nil) {
     graphQLMap = ["and": and, "id": id, "not": not, "or": or, "state": state]
   }
 
-  internal var and: Optional<[ProvisionalFundingSourceFilterInput]?> {
+  internal var and: Optional<[FundingSourceFilterInput]?> {
     get {
-      return graphQLMap["and"] as! Optional<[ProvisionalFundingSourceFilterInput]?>
+      return graphQLMap["and"] as! Optional<[FundingSourceFilterInput]?>
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "and")
@@ -959,27 +959,27 @@ internal struct ProvisionalFundingSourceFilterInput: GraphQLMapConvertible {
     }
   }
 
-  internal var not: Optional<ProvisionalFundingSourceFilterInput?> {
+  internal var not: Optional<FundingSourceFilterInput?> {
     get {
-      return graphQLMap["not"] as! Optional<ProvisionalFundingSourceFilterInput?>
+      return graphQLMap["not"] as! Optional<FundingSourceFilterInput?>
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "not")
     }
   }
 
-  internal var or: Optional<[ProvisionalFundingSourceFilterInput]?> {
+  internal var or: Optional<[FundingSourceFilterInput]?> {
     get {
-      return graphQLMap["or"] as! Optional<[ProvisionalFundingSourceFilterInput]?>
+      return graphQLMap["or"] as! Optional<[FundingSourceFilterInput]?>
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "or")
     }
   }
 
-  internal var state: Optional<ProvisionalFundingSourceStateFilterInput?> {
+  internal var state: Optional<FundingSourceStateFilterInput?> {
     get {
-      return graphQLMap["state"] as! Optional<ProvisionalFundingSourceStateFilterInput?>
+      return graphQLMap["state"] as! Optional<FundingSourceStateFilterInput?>
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "state")
@@ -1085,6 +1085,118 @@ internal struct IDFilterInput: GraphQLMapConvertible {
   }
 }
 
+internal struct FundingSourceStateFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(eq: Optional<FundingSourceState?> = nil, ne: Optional<FundingSourceState?> = nil) {
+    graphQLMap = ["eq": eq, "ne": ne]
+  }
+
+  internal var eq: Optional<FundingSourceState?> {
+    get {
+      return graphQLMap["eq"] as! Optional<FundingSourceState?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "eq")
+    }
+  }
+
+  internal var ne: Optional<FundingSourceState?> {
+    get {
+      return graphQLMap["ne"] as! Optional<FundingSourceState?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ne")
+    }
+  }
+}
+
+internal enum SortOrder: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
+  internal typealias RawValue = String
+  case asc
+  case desc
+  /// Auto generated constant for unknown enum values
+  case unknown(RawValue)
+
+  internal init?(rawValue: RawValue) {
+    switch rawValue {
+      case "ASC": self = .asc
+      case "DESC": self = .desc
+      default: self = .unknown(rawValue)
+    }
+  }
+
+  internal var rawValue: RawValue {
+    switch self {
+      case .asc: return "ASC"
+      case .desc: return "DESC"
+      case .unknown(let value): return value
+    }
+  }
+
+  internal static func == (lhs: SortOrder, rhs: SortOrder) -> Bool {
+    switch (lhs, rhs) {
+      case (.asc, .asc): return true
+      case (.desc, .desc): return true
+      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+}
+
+internal struct ProvisionalFundingSourceFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(and: Optional<[ProvisionalFundingSourceFilterInput]?> = nil, id: Optional<IDFilterInput?> = nil, not: Optional<ProvisionalFundingSourceFilterInput?> = nil, or: Optional<[ProvisionalFundingSourceFilterInput]?> = nil, state: Optional<ProvisionalFundingSourceStateFilterInput?> = nil) {
+    graphQLMap = ["and": and, "id": id, "not": not, "or": or, "state": state]
+  }
+
+  internal var and: Optional<[ProvisionalFundingSourceFilterInput]?> {
+    get {
+      return graphQLMap["and"] as! Optional<[ProvisionalFundingSourceFilterInput]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "and")
+    }
+  }
+
+  internal var id: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["id"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  internal var not: Optional<ProvisionalFundingSourceFilterInput?> {
+    get {
+      return graphQLMap["not"] as! Optional<ProvisionalFundingSourceFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "not")
+    }
+  }
+
+  internal var or: Optional<[ProvisionalFundingSourceFilterInput]?> {
+    get {
+      return graphQLMap["or"] as! Optional<[ProvisionalFundingSourceFilterInput]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "or")
+    }
+  }
+
+  internal var state: Optional<ProvisionalFundingSourceStateFilterInput?> {
+    get {
+      return graphQLMap["state"] as! Optional<ProvisionalFundingSourceStateFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "state")
+    }
+  }
+}
+
 internal struct ProvisionalFundingSourceStateFilterInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -1128,6 +1240,68 @@ internal struct ProvisionalCardFilterInput: GraphQLMapConvertible {
   }
 }
 
+internal struct CardFilterInput: GraphQLMapConvertible {
+  internal var graphQLMap: GraphQLMap
+
+  internal init(and: Optional<[CardFilterInput]?> = nil, id: Optional<IDFilterInput?> = nil, keyId: Optional<IDFilterInput?> = nil, not: Optional<CardFilterInput?> = nil, or: Optional<[CardFilterInput]?> = nil, state: Optional<IDFilterInput?> = nil) {
+    graphQLMap = ["and": and, "id": id, "keyId": keyId, "not": not, "or": or, "state": state]
+  }
+
+  internal var and: Optional<[CardFilterInput]?> {
+    get {
+      return graphQLMap["and"] as! Optional<[CardFilterInput]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "and")
+    }
+  }
+
+  internal var id: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["id"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  internal var keyId: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["keyId"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "keyId")
+    }
+  }
+
+  internal var not: Optional<CardFilterInput?> {
+    get {
+      return graphQLMap["not"] as! Optional<CardFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "not")
+    }
+  }
+
+  internal var or: Optional<[CardFilterInput]?> {
+    get {
+      return graphQLMap["or"] as! Optional<[CardFilterInput]?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "or")
+    }
+  }
+
+  internal var state: Optional<IDFilterInput?> {
+    get {
+      return graphQLMap["state"] as! Optional<IDFilterInput?>
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "state")
+    }
+  }
+}
+
 internal struct DateRangeInput: GraphQLMapConvertible {
   internal var graphQLMap: GraphQLMap
 
@@ -1150,39 +1324,6 @@ internal struct DateRangeInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "startDateEpochMs")
-    }
-  }
-}
-
-internal enum SortOrder: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
-  internal typealias RawValue = String
-  case asc
-  case desc
-  /// Auto generated constant for unknown enum values
-  case unknown(RawValue)
-
-  internal init?(rawValue: RawValue) {
-    switch rawValue {
-      case "ASC": self = .asc
-      case "DESC": self = .desc
-      default: self = .unknown(rawValue)
-    }
-  }
-
-  internal var rawValue: RawValue {
-    switch self {
-      case .asc: return "ASC"
-      case .desc: return "DESC"
-      case .unknown(let value): return value
-    }
-  }
-
-  internal static func == (lhs: SortOrder, rhs: SortOrder) -> Bool {
-    switch (lhs, rhs) {
-      case (.asc, .asc): return true
-      case (.desc, .desc): return true
-      case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
-      default: return false
     }
   }
 }
@@ -12194,27 +12335,31 @@ internal final class GetFundingSourceQuery: GraphQLQuery {
 
 internal final class ListFundingSourcesQuery: GraphQLQuery {
   internal static let operationString =
-    "query ListFundingSources($limit: Int, $nextToken: String) {\n  listFundingSources(limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ... on CreditCardFundingSource {\n        ...CreditCardFundingSource\n      }\n      ... on BankAccountFundingSource {\n        ...BankAccountFundingSource\n      }\n    }\n    nextToken\n  }\n}"
+    "query ListFundingSources($filter: FundingSourceFilterInput, $sortOrder: SortOrder, $limit: Int, $nextToken: String) {\n  listFundingSources(filter: $filter, sortOrder: $sortOrder, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ... on CreditCardFundingSource {\n        ...CreditCardFundingSource\n      }\n      ... on BankAccountFundingSource {\n        ...BankAccountFundingSource\n      }\n    }\n    nextToken\n  }\n}"
 
   internal static var requestString: String { return operationString.appending(CreditCardFundingSource.fragmentString).appending(BankAccountFundingSource.fragmentString).appending(SealedAttribute.fragmentString) }
 
+  internal var filter: FundingSourceFilterInput?
+  internal var sortOrder: SortOrder?
   internal var limit: Int?
   internal var nextToken: String?
 
-  internal init(limit: Int? = nil, nextToken: String? = nil) {
+  internal init(filter: FundingSourceFilterInput? = nil, sortOrder: SortOrder? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.filter = filter
+    self.sortOrder = sortOrder
     self.limit = limit
     self.nextToken = nextToken
   }
 
   internal var variables: GraphQLMap? {
-    return ["limit": limit, "nextToken": nextToken]
+    return ["filter": filter, "sortOrder": sortOrder, "limit": limit, "nextToken": nextToken]
   }
 
   internal struct Data: GraphQLSelectionSet {
     internal static let possibleTypes = ["Query"]
 
     internal static let selections: [GraphQLSelection] = [
-      GraphQLField("listFundingSources", arguments: ["limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListFundingSource.selections))),
+      GraphQLField("listFundingSources", arguments: ["filter": GraphQLVariable("filter"), "sortOrder": GraphQLVariable("sortOrder"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListFundingSource.selections))),
     ]
 
     internal var snapshot: Snapshot
@@ -13133,29 +13278,31 @@ internal final class ListFundingSourcesQuery: GraphQLQuery {
 
 internal final class ListProvisionalFundingSourcesQuery: GraphQLQuery {
   internal static let operationString =
-    "query ListProvisionalFundingSources($filter: ProvisionalFundingSourceFilterInput, $limit: Int, $nextToken: String) {\n  listProvisionalFundingSources(filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...ProvisionalFundingSource\n    }\n    nextToken\n  }\n}"
+    "query ListProvisionalFundingSources($filter: ProvisionalFundingSourceFilterInput, $sortOrder: SortOrder, $limit: Int, $nextToken: String) {\n  listProvisionalFundingSources(filter: $filter, sortOrder: $sortOrder, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...ProvisionalFundingSource\n    }\n    nextToken\n  }\n}"
 
   internal static var requestString: String { return operationString.appending(ProvisionalFundingSource.fragmentString) }
 
   internal var filter: ProvisionalFundingSourceFilterInput?
+  internal var sortOrder: SortOrder?
   internal var limit: Int?
   internal var nextToken: String?
 
-  internal init(filter: ProvisionalFundingSourceFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+  internal init(filter: ProvisionalFundingSourceFilterInput? = nil, sortOrder: SortOrder? = nil, limit: Int? = nil, nextToken: String? = nil) {
     self.filter = filter
+    self.sortOrder = sortOrder
     self.limit = limit
     self.nextToken = nextToken
   }
 
   internal var variables: GraphQLMap? {
-    return ["filter": filter, "limit": limit, "nextToken": nextToken]
+    return ["filter": filter, "sortOrder": sortOrder, "limit": limit, "nextToken": nextToken]
   }
 
   internal struct Data: GraphQLSelectionSet {
     internal static let possibleTypes = ["Query"]
 
     internal static let selections: [GraphQLSelection] = [
-      GraphQLField("listProvisionalFundingSources", arguments: ["filter": GraphQLVariable("filter"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListProvisionalFundingSource.selections))),
+      GraphQLField("listProvisionalFundingSources", arguments: ["filter": GraphQLVariable("filter"), "sortOrder": GraphQLVariable("sortOrder"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListProvisionalFundingSource.selections))),
     ]
 
     internal var snapshot: Snapshot
@@ -16443,27 +16590,31 @@ internal final class GetCardQuery: GraphQLQuery {
 
 internal final class ListCardsQuery: GraphQLQuery {
   internal static let operationString =
-    "query ListCards($limit: Int, $nextToken: String) {\n  listCards(limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...SealedCardWithLastTransaction\n    }\n    nextToken\n  }\n}"
+    "query ListCards($filter: CardFilterInput, $sortOrder: SortOrder, $limit: Int, $nextToken: String) {\n  listCards(filter: $filter, sortOrder: $sortOrder, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      ...SealedCardWithLastTransaction\n    }\n    nextToken\n  }\n}"
 
   internal static var requestString: String { return operationString.appending(SealedCardWithLastTransaction.fragmentString).appending(SealedCard.fragmentString).appending(Owner.fragmentString).appending(SealedAddressAttribute.fragmentString).appending(SealedExpiryAttribute.fragmentString).appending(SealedAttribute.fragmentString).appending(SealedTransaction.fragmentString).appending(SealedCurrencyAmountAttribute.fragmentString).appending(SealedTransactionDetailChargeAttribute.fragmentString).appending(SealedMarkupAttribute.fragmentString) }
 
+  internal var filter: CardFilterInput?
+  internal var sortOrder: SortOrder?
   internal var limit: Int?
   internal var nextToken: String?
 
-  internal init(limit: Int? = nil, nextToken: String? = nil) {
+  internal init(filter: CardFilterInput? = nil, sortOrder: SortOrder? = nil, limit: Int? = nil, nextToken: String? = nil) {
+    self.filter = filter
+    self.sortOrder = sortOrder
     self.limit = limit
     self.nextToken = nextToken
   }
 
   internal var variables: GraphQLMap? {
-    return ["limit": limit, "nextToken": nextToken]
+    return ["filter": filter, "sortOrder": sortOrder, "limit": limit, "nextToken": nextToken]
   }
 
   internal struct Data: GraphQLSelectionSet {
     internal static let possibleTypes = ["Query"]
 
     internal static let selections: [GraphQLSelection] = [
-      GraphQLField("listCards", arguments: ["limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListCard.selections))),
+      GraphQLField("listCards", arguments: ["filter": GraphQLVariable("filter"), "sortOrder": GraphQLVariable("sortOrder"), "limit": GraphQLVariable("limit"), "nextToken": GraphQLVariable("nextToken")], type: .nonNull(.object(ListCard.selections))),
     ]
 
     internal var snapshot: Snapshot
