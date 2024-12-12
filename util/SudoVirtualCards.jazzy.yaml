@@ -1,0 +1,28 @@
+theme: fullwidth 
+skip_undocumented: true
+readme: README.md
+documentation: Documentation/*.md
+hide_documentation_coverage: true
+modules:
+  - module: SudoVirtualCards
+    build_tool_arguments:
+      - -workspace
+      - SudoVirtualCards.xcworkspace
+      - -scheme
+      - SudoVirtualCards
+      - -destination
+      - 'platform=iOS Simulator,id=%%SIMULATOR_ID%%'
+      - -derivedDataPath
+      - DocBuild
+  - module: SudoVirtualCardsNotificationExtension
+    build_tool_arguments:
+      - -workspace
+      - SudoVirtualCards.xcworkspace
+      - -scheme
+      - SudoVirtualCardsNotificationExtension
+      - -destination
+      - 'platform=iOS Simulator,id=%%SIMULATOR_ID%%'
+      - -derivedDataPath
+      - DocBuild
+output: ../docs
+clean: true

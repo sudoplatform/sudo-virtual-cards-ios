@@ -36,5 +36,6 @@ awsconfiguration.json
 
 html/*
 Documentation/*
+DocBuild/
 
 introspection.json

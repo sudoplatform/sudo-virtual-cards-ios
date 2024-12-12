@@ -1,0 +1,7 @@
+theme: fullwidth 
+skip_undocumented: true
+readme: README.md
+documentation: Documentation/*.md
+hide_documentation_coverage: true
+output: ../docs
+clean: true

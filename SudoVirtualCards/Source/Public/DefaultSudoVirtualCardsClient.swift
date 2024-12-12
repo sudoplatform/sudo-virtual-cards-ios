@@ -88,7 +88,9 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 appSyncClient: appSyncClient
             )
         } else {
-            guard let asClient = try SudoApiClientManager.instance?.getClient(sudoUserClient: userClient) else {
+            guard let asClient = try SudoApiClientManager.instance?.getClient(
+                sudoUserClient: userClient,
+                configNamespace: Constants.serviceName) else {
                 throw SudoVirtualCardsError.invalidConfig
             }
             graphQLClient = asClient

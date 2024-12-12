@@ -35,6 +35,14 @@ target 'SudoVirtualCards' do
   end
 end
 
+target 'SudoVirtualCardsNotificationExtension' do
+  inherit! :search_paths
+  podspec :name => 'SudoVirtualCardsNotificationExtension'
+  
+  target 'SudoVirtualCardsNotificationExtensionTests'
+  target 'TestExtensionApp'
+end
+
 
 # Fix Xcode nagging warning on pod install/update
 post_install do |installer|
