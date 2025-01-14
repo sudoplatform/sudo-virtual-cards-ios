@@ -7314,6 +7314,8 @@ internal final class UpdateVirtualCardMutation: GraphQLMutation {
             GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
             GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
             GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+            GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
             GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("description", type: .nonNull(.scalar(String.self))),
             GraphQLField("state", type: .scalar(String.self)),
@@ -7325,8 +7327,8 @@ internal final class UpdateVirtualCardMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
           }
 
           internal var __typename: String {
@@ -7371,6 +7373,24 @@ internal final class UpdateVirtualCardMutation: GraphQLMutation {
             }
             set {
               snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var transactedAtEpochMs: String? {
+            get {
+              return snapshot["transactedAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+            }
+          }
+
+          internal var settledAtEpochMs: String? {
+            get {
+              return snapshot["settledAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
             }
           }
 
@@ -8768,6 +8788,8 @@ internal final class CancelVirtualCardMutation: GraphQLMutation {
             GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
             GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
             GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+            GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
             GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("description", type: .nonNull(.scalar(String.self))),
             GraphQLField("state", type: .scalar(String.self)),
@@ -8779,8 +8801,8 @@ internal final class CancelVirtualCardMutation: GraphQLMutation {
             self.snapshot = snapshot
           }
 
-          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
           }
 
           internal var __typename: String {
@@ -8825,6 +8847,24 @@ internal final class CancelVirtualCardMutation: GraphQLMutation {
             }
             set {
               snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var transactedAtEpochMs: String? {
+            get {
+              return snapshot["transactedAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+            }
+          }
+
+          internal var settledAtEpochMs: String? {
+            get {
+              return snapshot["settledAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
             }
           }
 
@@ -16184,6 +16224,8 @@ internal final class GetCardQuery: GraphQLQuery {
             GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
             GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
             GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+            GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
             GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("description", type: .nonNull(.scalar(String.self))),
             GraphQLField("state", type: .scalar(String.self)),
@@ -16195,8 +16237,8 @@ internal final class GetCardQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
           }
 
           internal var __typename: String {
@@ -16241,6 +16283,24 @@ internal final class GetCardQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var transactedAtEpochMs: String? {
+            get {
+              return snapshot["transactedAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+            }
+          }
+
+          internal var settledAtEpochMs: String? {
+            get {
+              return snapshot["settledAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
             }
           }
 
@@ -17690,6 +17750,8 @@ internal final class ListCardsQuery: GraphQLQuery {
               GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
               GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
               GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+              GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+              GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
               GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
               GraphQLField("description", type: .nonNull(.scalar(String.self))),
               GraphQLField("state", type: .scalar(String.self)),
@@ -17701,8 +17763,8 @@ internal final class ListCardsQuery: GraphQLQuery {
               self.snapshot = snapshot
             }
 
-            internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-              self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+            internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+              self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
             }
 
             internal var __typename: String {
@@ -17747,6 +17809,24 @@ internal final class ListCardsQuery: GraphQLQuery {
               }
               set {
                 snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+              }
+            }
+
+            internal var transactedAtEpochMs: String? {
+              get {
+                return snapshot["transactedAtEpochMs"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+              }
+            }
+
+            internal var settledAtEpochMs: String? {
+              get {
+                return snapshot["settledAtEpochMs"] as? String
+              }
+              set {
+                snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
               }
             }
 
@@ -18518,6 +18598,8 @@ internal final class GetTransactionQuery: GraphQLQuery {
           GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
           GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
           GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+          GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+          GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
           GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
           GraphQLField("state", type: .scalar(String.self)),
@@ -18529,8 +18611,8 @@ internal final class GetTransactionQuery: GraphQLQuery {
           self.snapshot = snapshot
         }
 
-        internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-          self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+        internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+          self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
         }
 
         internal var __typename: String {
@@ -18575,6 +18657,24 @@ internal final class GetTransactionQuery: GraphQLQuery {
           }
           set {
             snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+          }
+        }
+
+        internal var transactedAtEpochMs: String? {
+          get {
+            return snapshot["transactedAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+          }
+        }
+
+        internal var settledAtEpochMs: String? {
+          get {
+            return snapshot["settledAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
           }
         }
 
@@ -19394,6 +19494,8 @@ internal final class ListTransactionsQuery: GraphQLQuery {
             GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
             GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
             GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+            GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
             GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("description", type: .nonNull(.scalar(String.self))),
             GraphQLField("state", type: .scalar(String.self)),
@@ -19405,8 +19507,8 @@ internal final class ListTransactionsQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
           }
 
           internal var __typename: String {
@@ -19451,6 +19553,24 @@ internal final class ListTransactionsQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var transactedAtEpochMs: String? {
+            get {
+              return snapshot["transactedAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+            }
+          }
+
+          internal var settledAtEpochMs: String? {
+            get {
+              return snapshot["settledAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
             }
           }
 
@@ -20273,6 +20393,8 @@ internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
             GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
             GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
             GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+            GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
             GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("description", type: .nonNull(.scalar(String.self))),
             GraphQLField("state", type: .scalar(String.self)),
@@ -20284,8 +20406,8 @@ internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
           }
 
           internal var __typename: String {
@@ -20330,6 +20452,24 @@ internal final class ListTransactionsByCardIdQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var transactedAtEpochMs: String? {
+            get {
+              return snapshot["transactedAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+            }
+          }
+
+          internal var settledAtEpochMs: String? {
+            get {
+              return snapshot["settledAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
             }
           }
 
@@ -21150,6 +21290,8 @@ internal final class ListTransactionsByCardIdAndTypeQuery: GraphQLQuery {
             GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
             GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
             GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+            GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+            GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
             GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLField("description", type: .nonNull(.scalar(String.self))),
             GraphQLField("state", type: .scalar(String.self)),
@@ -21161,8 +21303,8 @@ internal final class ListTransactionsByCardIdAndTypeQuery: GraphQLQuery {
             self.snapshot = snapshot
           }
 
-          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+          internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+            self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
           }
 
           internal var __typename: String {
@@ -21207,6 +21349,24 @@ internal final class ListTransactionsByCardIdAndTypeQuery: GraphQLQuery {
             }
             set {
               snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+            }
+          }
+
+          internal var transactedAtEpochMs: String? {
+            get {
+              return snapshot["transactedAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+            }
+          }
+
+          internal var settledAtEpochMs: String? {
+            get {
+              return snapshot["settledAtEpochMs"] as? String
+            }
+            set {
+              snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
             }
           }
 
@@ -22121,6 +22281,8 @@ internal final class OnTransactionUpdateSubscription: GraphQLSubscription {
           GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
           GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
           GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+          GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+          GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
           GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
           GraphQLField("state", type: .scalar(String.self)),
@@ -22132,8 +22294,8 @@ internal final class OnTransactionUpdateSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-          self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+        internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+          self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
         }
 
         internal var __typename: String {
@@ -22178,6 +22340,24 @@ internal final class OnTransactionUpdateSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+          }
+        }
+
+        internal var transactedAtEpochMs: String? {
+          get {
+            return snapshot["transactedAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+          }
+        }
+
+        internal var settledAtEpochMs: String? {
+          get {
+            return snapshot["settledAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
           }
         }
 
@@ -22945,6 +23125,8 @@ internal final class OnTransactionDeleteSubscription: GraphQLSubscription {
           GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
           GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
           GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+          GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+          GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
           GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("description", type: .nonNull(.scalar(String.self))),
           GraphQLField("state", type: .scalar(String.self)),
@@ -22956,8 +23138,8 @@ internal final class OnTransactionDeleteSubscription: GraphQLSubscription {
           self.snapshot = snapshot
         }
 
-        internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-          self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+        internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+          self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
         }
 
         internal var __typename: String {
@@ -23002,6 +23184,24 @@ internal final class OnTransactionDeleteSubscription: GraphQLSubscription {
           }
           set {
             snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+          }
+        }
+
+        internal var transactedAtEpochMs: String? {
+          get {
+            return snapshot["transactedAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+          }
+        }
+
+        internal var settledAtEpochMs: String? {
+          get {
+            return snapshot["settledAtEpochMs"] as? String
+          }
+          set {
+            snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
           }
         }
 
@@ -28793,6 +28993,8 @@ internal struct SealedCardWithLastTransaction: GraphQLFragment {
         GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
         GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
         GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+        GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+        GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
         GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("description", type: .nonNull(.scalar(String.self))),
         GraphQLField("state", type: .scalar(String.self)),
@@ -28804,8 +29006,8 @@ internal struct SealedCardWithLastTransaction: GraphQLFragment {
         self.snapshot = snapshot
       }
 
-      internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-        self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+      internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+        self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
       }
 
       internal var __typename: String {
@@ -28850,6 +29052,24 @@ internal struct SealedCardWithLastTransaction: GraphQLFragment {
         }
         set {
           snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+        }
+      }
+
+      internal var transactedAtEpochMs: String? {
+        get {
+          return snapshot["transactedAtEpochMs"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+        }
+      }
+
+      internal var settledAtEpochMs: String? {
+        get {
+          return snapshot["settledAtEpochMs"] as? String
+        }
+        set {
+          snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
         }
       }
 
@@ -29307,7 +29527,7 @@ internal struct SealedMarkupAttribute: GraphQLFragment {
 
 internal struct SealedTransactionDetailChargeAttribute: GraphQLFragment {
   internal static let fragmentString =
-    "fragment SealedTransactionDetailChargeAttribute on SealedTransactionDetailChargeAttribute {\n  __typename\n  virtualCardAmount {\n    __typename\n    ...SealedCurrencyAmountAttribute\n  }\n  markup {\n    __typename\n    ...SealedMarkupAttribute\n  }\n  markupAmount {\n    __typename\n    ...SealedCurrencyAmountAttribute\n  }\n  fundingSourceAmount {\n    __typename\n    ...SealedCurrencyAmountAttribute\n  }\n  fundingSourceId\n  description\n  state\n}"
+    "fragment SealedTransactionDetailChargeAttribute on SealedTransactionDetailChargeAttribute {\n  __typename\n  virtualCardAmount {\n    __typename\n    ...SealedCurrencyAmountAttribute\n  }\n  markup {\n    __typename\n    ...SealedMarkupAttribute\n  }\n  markupAmount {\n    __typename\n    ...SealedCurrencyAmountAttribute\n  }\n  fundingSourceAmount {\n    __typename\n    ...SealedCurrencyAmountAttribute\n  }\n  transactedAtEpochMs\n  settledAtEpochMs\n  fundingSourceId\n  description\n  state\n}"
 
   internal static let possibleTypes = ["SealedTransactionDetailChargeAttribute"]
 
@@ -29317,6 +29537,8 @@ internal struct SealedTransactionDetailChargeAttribute: GraphQLFragment {
     GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
     GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
     GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+    GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+    GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
     GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("description", type: .nonNull(.scalar(String.self))),
     GraphQLField("state", type: .scalar(String.self)),
@@ -29328,8 +29550,8 @@ internal struct SealedTransactionDetailChargeAttribute: GraphQLFragment {
     self.snapshot = snapshot
   }
 
-  internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-    self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+  internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+    self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
   }
 
   internal var __typename: String {
@@ -29374,6 +29596,24 @@ internal struct SealedTransactionDetailChargeAttribute: GraphQLFragment {
     }
     set {
       snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+    }
+  }
+
+  internal var transactedAtEpochMs: String? {
+    get {
+      return snapshot["transactedAtEpochMs"] as? String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+    }
+  }
+
+  internal var settledAtEpochMs: String? {
+    get {
+      return snapshot["settledAtEpochMs"] as? String
+    }
+    set {
+      snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
     }
   }
 
@@ -30054,6 +30294,8 @@ internal struct SealedTransaction: GraphQLFragment {
       GraphQLField("markup", type: .nonNull(.object(Markup.selections))),
       GraphQLField("markupAmount", type: .nonNull(.object(MarkupAmount.selections))),
       GraphQLField("fundingSourceAmount", type: .nonNull(.object(FundingSourceAmount.selections))),
+      GraphQLField("transactedAtEpochMs", type: .scalar(String.self)),
+      GraphQLField("settledAtEpochMs", type: .scalar(String.self)),
       GraphQLField("fundingSourceId", type: .nonNull(.scalar(GraphQLID.self))),
       GraphQLField("description", type: .nonNull(.scalar(String.self))),
       GraphQLField("state", type: .scalar(String.self)),
@@ -30065,8 +30307,8 @@ internal struct SealedTransaction: GraphQLFragment {
       self.snapshot = snapshot
     }
 
-    internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
-      self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "fundingSourceId": fundingSourceId, "description": description, "state": state])
+    internal init(virtualCardAmount: VirtualCardAmount, markup: Markup, markupAmount: MarkupAmount, fundingSourceAmount: FundingSourceAmount, transactedAtEpochMs: String? = nil, settledAtEpochMs: String? = nil, fundingSourceId: GraphQLID, description: String, state: String? = nil) {
+      self.init(snapshot: ["__typename": "SealedTransactionDetailChargeAttribute", "virtualCardAmount": virtualCardAmount.snapshot, "markup": markup.snapshot, "markupAmount": markupAmount.snapshot, "fundingSourceAmount": fundingSourceAmount.snapshot, "transactedAtEpochMs": transactedAtEpochMs, "settledAtEpochMs": settledAtEpochMs, "fundingSourceId": fundingSourceId, "description": description, "state": state])
     }
 
     internal var __typename: String {
@@ -30111,6 +30353,24 @@ internal struct SealedTransaction: GraphQLFragment {
       }
       set {
         snapshot.updateValue(newValue.snapshot, forKey: "fundingSourceAmount")
+      }
+    }
+
+    internal var transactedAtEpochMs: String? {
+      get {
+        return snapshot["transactedAtEpochMs"] as? String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "transactedAtEpochMs")
+      }
+    }
+
+    internal var settledAtEpochMs: String? {
+      get {
+        return snapshot["settledAtEpochMs"] as? String
+      }
+      set {
+        snapshot.updateValue(newValue, forKey: "settledAtEpochMs")
       }
     }
 

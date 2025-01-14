@@ -104,6 +104,12 @@ public struct TransactionDetailChargeAttribute: Hashable {
     /// Amount charged to funding source.
     public let fundingSourceAmount: CurrencyAmount
 
+    /// Timestamp at which the transaction was initiated with the funding source if any
+    public let transactedAt: Date?
+
+    /// Timestamp at which the transaction was completed with the funding source, if any
+    public let settledAt: Date?
+
     /// ID of funding source that funded this item.
     public let fundingSourceId: String
 
@@ -121,6 +127,8 @@ public struct TransactionDetailChargeAttribute: Hashable {
         markup: Markup,
         markupAmount: CurrencyAmount,
         fundingSourceAmount: CurrencyAmount,
+        transactedAt: Date?,
+        settledAt: Date?,
         fundingSourceId: String,
         description: String,
         state: ChargeDetailState
@@ -129,6 +137,8 @@ public struct TransactionDetailChargeAttribute: Hashable {
         self.markup = markup
         self.markupAmount = markupAmount
         self.fundingSourceAmount = fundingSourceAmount
+        self.transactedAt = transactedAt
+        self.settledAt = settledAt
         self.fundingSourceId = fundingSourceId
         self.description = description
         self.state = state

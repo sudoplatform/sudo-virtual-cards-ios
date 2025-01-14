@@ -21,7 +21,7 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
-          SudoVirtualCardsNotificationExtension 26.1.0 Docs
+          SudoVirtualCardsNotificationExtension 26.2.0 Docs
         </a>
         
       </p>
@@ -679,6 +679,60 @@ can take some time to resolve so will begin as <code>PENDING</code> and may resu
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV12transactedAt10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/transactedAt" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV12transactedAt10Foundation4DateVSgvp">transactedAt</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Timestamp at which the transaction was initiated with the funding source if any</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">transactedAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV9settledAt10Foundation4DateVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/settledAt" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV9settledAt10Foundation4DateVSgvp">settledAt</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Timestamp at which the transaction was completed with the funding source, if any</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">settledAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV15fundingSourceIdSSvp"></a>
                     <a name="//apple_ref/swift/Property/fundingSourceId" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV15fundingSourceIdSSvp">fundingSourceId</a>
@@ -773,9 +827,9 @@ can take some time to resolve so will begin as <code>PENDING</code> and may resu
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV17virtualCardAmount6markup0kJ0013fundingSourceJ00lM2Id11description5stateAcA08CurrencyJ0V_AC6MarkupVA2LS2SAC0fE5StateOtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(virtualCardAmount:markup:markupAmount:fundingSourceAmount:fundingSourceId:description:state:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV17virtualCardAmount6markup0kJ0013fundingSourceJ00lM2Id11description5stateAcA08CurrencyJ0V_AC6MarkupVA2LS2SAC0fE5StateOtcfc">init(virtualCardAmount:<wbr>markup:<wbr>markupAmount:<wbr>fundingSourceAmount:<wbr>fundingSourceId:<wbr>description:<wbr>state:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards32TransactionDetailChargeAttributeV17virtualCardAmount6markup0kJ0013fundingSourceJ012transactedAt07settledO00lM2Id11description5stateAcA08CurrencyJ0V_AC6MarkupVA2N10Foundation4DateVSgATS2SAC0fE5StateOtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(virtualCardAmount:markup:markupAmount:fundingSourceAmount:transactedAt:settledAt:fundingSourceId:description:state:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards32TransactionDetailChargeAttributeV17virtualCardAmount6markup0kJ0013fundingSourceJ012transactedAt07settledO00lM2Id11description5stateAcA08CurrencyJ0V_AC6MarkupVA2N10Foundation4DateVSgATS2SAC0fE5StateOtcfc">init(virtualCardAmount:<wbr>markup:<wbr>markupAmount:<wbr>fundingSourceAmount:<wbr>transactedAt:<wbr>settledAt:<wbr>fundingSourceId:<wbr>description:<wbr>state:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -795,6 +849,8 @@ can take some time to resolve so will begin as <code>PENDING</code> and may resu
     <span class="nv">markup</span><span class="p">:</span> <span class="kt"><a href="../Structs/TransactionDetailChargeAttribute/Markup.html">Markup</a></span><span class="p">,</span>
     <span class="nv">markupAmount</span><span class="p">:</span> <span class="kt"><a href="../Structs/CurrencyAmount.html">CurrencyAmount</a></span><span class="p">,</span>
     <span class="nv">fundingSourceAmount</span><span class="p">:</span> <span class="kt"><a href="../Structs/CurrencyAmount.html">CurrencyAmount</a></span><span class="p">,</span>
+    <span class="nv">transactedAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?,</span>
+    <span class="nv">settledAt</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?,</span>
     <span class="nv">fundingSourceId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Structs/TransactionDetailChargeAttribute/ChargeDetailState.html">ChargeDetailState</a></span>
@@ -813,7 +869,7 @@ can take some time to resolve so will begin as <code>PENDING</code> and may resu
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2024 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2024-12-12)</p>
+      <p>&copy; 2025 <a class="link" href="https://sudoplatform.com" target="_blank" rel="external noopener">Sudo Platform Engineering</a>. All rights reserved. (Last updated: 2025-01-14)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

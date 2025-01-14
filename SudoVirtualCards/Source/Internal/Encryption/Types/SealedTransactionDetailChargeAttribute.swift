@@ -25,6 +25,12 @@ struct SealedTransactionDetailChargeAttribute: Equatable {
     /// Sealed amount charged to funding source.
     var fundingSourceAmount: SealedCurrencyAmount
 
+    /// Sealed timestamp at which transaction occurred with funding source
+    var transactedAtEpochMs: SealedDate?
+
+    /// Sealed timestamp at which transaction was completed with funding source
+    var settledAtEpochMs: SealedDate?
+
     /// Sealed description that will show on the real funding source statement.
     var description: SealedString
 
@@ -41,6 +47,8 @@ extension SealedTransactionDetailChargeAttribute {
         self.markup = .init(fragment.markup.fragments.sealedMarkupAttribute)
         self.markupAmount = .init(fragment.markupAmount.fragments.sealedCurrencyAmountAttribute)
         self.fundingSourceAmount = .init(fragment.fundingSourceAmount.fragments.sealedCurrencyAmountAttribute)
+        self.transactedAtEpochMs = fragment.transactedAtEpochMs
+        self.settledAtEpochMs = fragment.settledAtEpochMs
         self.description = fragment.description
         self.state = fragment.state
     }

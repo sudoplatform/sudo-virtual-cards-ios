@@ -195,7 +195,7 @@ public extension NotificationConfiguration {
 
         return NotificationConfiguration(configs: newRules)
     }
-    
+
     internal func isRuleMatchingSingleMeta(rule: String?, metaName: String, metaValue: String) -> Bool {
         guard let rule = rule?.data(using: .utf8) else {
             return false

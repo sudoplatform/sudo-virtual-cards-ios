@@ -481,6 +481,14 @@ class DefaultUnsealer: Unsealer {
         let markup = try unsealMarkup(attribute.markup, withKeyInfo: keyInfo)
         let markupAmount = try unsealCurrencyAmount(attribute.markupAmount, withKeyInfo: keyInfo)
         let fundingSourceAmount = try unsealCurrencyAmount(attribute.fundingSourceAmount, withKeyInfo: keyInfo)
+        var transactedAt: Date?
+        if let transactedAtEpochMs = attribute.transactedAtEpochMs {
+            transactedAt = try worker.unsealDate(transactedAtEpochMs, withKeyInfo: keyInfo)
+        }
+        var settledAt: Date?
+        if let settledAtEpochMs = attribute.settledAtEpochMs {
+            settledAt = try worker.unsealDate(settledAtEpochMs, withKeyInfo: keyInfo)
+        }
         let description = try worker.unsealString(attribute.description, withKeyInfo: keyInfo)
         // Remain backwards compatible by defaulting the state to CLEARED
         var state: TransactionDetailChargeAttribute.ChargeDetailState = .cleared
@@ -492,6 +500,8 @@ class DefaultUnsealer: Unsealer {
             markup: markup,
             markupAmount: markupAmount,
             fundingSourceAmount: fundingSourceAmount,
+            transactedAt: transactedAt,
+            settledAt: settledAt,
             fundingSourceId: attribute.fundingSourceId,
             description: description,
             state: state
