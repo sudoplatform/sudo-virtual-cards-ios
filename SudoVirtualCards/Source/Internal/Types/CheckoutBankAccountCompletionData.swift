@@ -39,6 +39,7 @@ struct CheckoutBankAccountCompletionData: FundingSourceProviderData, Hashable {
 
 /// Data required to complete the bank account funding source creation.
 struct SerializedCheckoutBankAccountCompletionData: FundingSourceProviderData, Encodable, Hashable {
+    // swiftlint:disable:previous type_name
 
     // MARK: - Properties
 

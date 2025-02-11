@@ -198,8 +198,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         switch input.completionData {
         case .stripeCard(let data):
             completionData = FundingSourceCompletionData.stripeCard(StripeCardCompletionData(paymentMethod: data.paymentMethodId))
-        case .checkoutCard(let data):
-            completionData = FundingSourceCompletionData.checkoutCard(CheckoutCardCompletionData(paymentToken: data.paymentToken))
         case .checkoutBankAccount(let data):
             completionData = FundingSourceCompletionData.checkoutBankAccount(
                 CheckoutBankAccountCompletionData(
@@ -354,8 +352,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             switch $0 {
             case let .stripeCard(config):
                 return .stripeCard(StripeCardClientConfiguration(apiKey: config.apiKey))
-            case let .checkoutCard(config):
-                return .checkoutCard(CheckoutCardClientConfiguration(apiKey: config.apiKey))
             case let .checkoutBankAccount(config):
                 return .checkoutBankAccount(CheckoutBankAccountClientConfiguration(apiKey: config.apiKey))
             case let .unknown(config):

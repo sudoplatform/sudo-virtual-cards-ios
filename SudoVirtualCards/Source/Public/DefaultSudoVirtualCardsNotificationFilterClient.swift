@@ -8,6 +8,7 @@ import Foundation
 import SudoNotification
 
 public class DefaultSudoVirtualCardsNotificationFilterClient: SudoNotificationFilterClient {
+    // swiftlint:disable:previous type_name
 
     public let serviceName = Constants.serviceName
 

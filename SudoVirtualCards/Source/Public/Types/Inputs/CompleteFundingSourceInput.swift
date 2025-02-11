@@ -31,29 +31,6 @@ public struct StripeCardCompletionDataInput: Hashable, FundingSourceProviderData
 typealias StripeCompletionDataInput = StripeCardCompletionDataInput
 
 /// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct CheckoutCardCompletionDataInput: Hashable, FundingSourceProviderData {
-
-    // MARK: - Properties
-
-    /// Specifies payment token being setup or nil if calling back after completing
-    /// required user interaction
-    public let paymentToken: String?
-
-    /// Provider used to save the funding source information.
-    public let provider: String = "checkout"
-
-    public let version: Int = 1
-
-    public let type: FundingSourceType = .creditCard
-
-    // MARK: - Lifecycle
-
-    public init(paymentToken: String?) {
-        self.paymentToken = paymentToken
-    }
-}
-
-/// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
 public struct CheckoutBankAccountCompletionDataInput: Hashable, FundingSourceProviderData {
 
     // MARK: - Properties
@@ -86,7 +63,6 @@ public struct CheckoutBankAccountCompletionDataInput: Hashable, FundingSourcePro
 
 public enum CompletionDataInput: Hashable, FundingSourceProviderData {
     case stripeCard(StripeCardCompletionDataInput)
-    case checkoutCard(CheckoutCardCompletionDataInput)
     case checkoutBankAccount(CheckoutBankAccountCompletionDataInput)
 
     // MARK: - Properties
@@ -94,7 +70,6 @@ public enum CompletionDataInput: Hashable, FundingSourceProviderData {
     public var provider: String {
         switch self {
         case .stripeCard(let input): return input.provider
-        case .checkoutCard(let input): return input.provider
         case .checkoutBankAccount(let input): return input.provider
         }
     }
@@ -102,7 +77,6 @@ public enum CompletionDataInput: Hashable, FundingSourceProviderData {
     public var type: FundingSourceType {
         switch self {
         case .stripeCard(let input): return input.type
-        case .checkoutCard(let input): return input.type
         case .checkoutBankAccount(let input): return input.type
         }
     }
@@ -110,7 +84,6 @@ public enum CompletionDataInput: Hashable, FundingSourceProviderData {
     public var version: Int {
         switch self {
         case .stripeCard(let input): return input.version
-        case .checkoutCard(let input): return input.version
         case .checkoutBankAccount(let input): return input.version
         }
     }

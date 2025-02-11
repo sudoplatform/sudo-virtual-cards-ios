@@ -34,14 +34,6 @@ public struct PlaidApplicationConfiguration: Codable, Equatable {
         try container.encode(redirectUri, forKey: .redirectUri)
         try container.encode(appIdAssociation, forKey: .appIdAssociation)
     }
-
-    // MARK: - Lifecycle
-
-    init(clientName: String, redirectUri: String, appIdAssociation: String) {
-        self.clientName = clientName
-        self.redirectUri = redirectUri
-        self.appIdAssociation = appIdAssociation
-    }
 }
 
 /// The funding source provider configuration.
@@ -59,12 +51,6 @@ public struct FundingSourceProviders: Codable, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(plaid, forKey: .plaid)
     }
-
-    // MARK: - Lifecycle
-
-    init(plaid: PlaidApplicationConfiguration) {
-        self.plaid = plaid
-    }
 }
 
 /// The client application configuration containing information associated with Android client applications.
@@ -81,11 +67,5 @@ public struct ClientApplicationConfiguration: Codable, Equatable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(fundingSourceProviders, forKey: .fundingSourceProviders)
-    }
-
-    // MARK: - Lifecycle
-
-    init(fundingSourceProviders: FundingSourceProviders) {
-        self.fundingSourceProviders = fundingSourceProviders
     }
 }

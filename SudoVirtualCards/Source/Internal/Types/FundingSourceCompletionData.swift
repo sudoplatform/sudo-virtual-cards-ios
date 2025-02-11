@@ -8,7 +8,6 @@ import Foundation
 
 enum FundingSourceCompletionData: Hashable, Encodable {
     case stripeCard(StripeCardCompletionData)
-    case checkoutCard(CheckoutCardCompletionData)
     case checkoutBankAccount(CheckoutBankAccountCompletionData)
 
     func encode(to encoder: Encoder) throws {
@@ -16,8 +15,6 @@ enum FundingSourceCompletionData: Hashable, Encodable {
 
         switch self {
         case .stripeCard(let data):
-            try container.encode(data)
-        case .checkoutCard(let data):
             try container.encode(data)
         default:
             throw SudoVirtualCardsError.fatalError(description: "Unsupported provider completion data")

@@ -103,8 +103,6 @@ internal func decodeFundingSourceClientConfiguration(configData: String) throws 
         switch $0 {
         case let .stripeCard(config):
             return .stripeCard(StripeCardClientConfiguration(apiKey: config.apiKey))
-        case let .checkoutCard(config):
-            return .checkoutCard(CheckoutCardClientConfiguration(apiKey: config.apiKey))
         case let .checkoutBankAccount(config):
             return .checkoutBankAccount(CheckoutBankAccountClientConfiguration(apiKey: config.apiKey))
         case let .unknown(config):

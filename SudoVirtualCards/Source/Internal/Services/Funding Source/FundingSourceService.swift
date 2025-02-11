@@ -104,7 +104,7 @@ class FundingSourceService {
     func complete(clientId: String, completionData: FundingSourceCompletionData) async throws -> FundingSource {
         let encodedCompletionString: String
         switch completionData {
-        case .stripeCard, .checkoutCard:
+        case .stripeCard:
             do {
                 let data = try encoder.encode(completionData)
                 encodedCompletionString = data.base64EncodedString()

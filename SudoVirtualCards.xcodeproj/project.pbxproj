@@ -33,7 +33,6 @@
 		5D6148AF26C0EDCC009FB037 /* SimulateRefundIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6148A826C0EDCC009FB037 /* SimulateRefundIntegrationTests.swift */; };
 		5D6148B026C0EDCC009FB037 /* SimulateReversalIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6148A926C0EDCC009FB037 /* SimulateReversalIntegrationTests.swift */; };
 		5D6148B426C0F02C009FB037 /* SSMParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6148B326C0F02C009FB037 /* SSMParameters.swift */; };
-		5D795DB128FDFA3300A74559 /* CheckoutCardProviderDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DB028FDFA3300A74559 /* CheckoutCardProviderDataTests.swift */; };
 		5D795DB328FE254800A74559 /* TestCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DB228FE254800A74559 /* TestCards.swift */; };
 		5D795DB528FE2C0B00A74559 /* ProviderAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DB428FE2C0B00A74559 /* ProviderAPIs.swift */; };
 		5D795DB728FE4CE500A74559 /* TestIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D795DB628FE4CE500A74559 /* TestIdentity.swift */; };
@@ -398,7 +397,6 @@
 		5D6148A826C0EDCC009FB037 /* SimulateRefundIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulateRefundIntegrationTests.swift; sourceTree = "<group>"; };
 		5D6148A926C0EDCC009FB037 /* SimulateReversalIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulateReversalIntegrationTests.swift; sourceTree = "<group>"; };
 		5D6148B326C0F02C009FB037 /* SSMParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSMParameters.swift; sourceTree = "<group>"; };
-		5D795DB028FDFA3300A74559 /* CheckoutCardProviderDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutCardProviderDataTests.swift; sourceTree = "<group>"; };
 		5D795DB228FE254800A74559 /* TestCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCards.swift; sourceTree = "<group>"; };
 		5D795DB428FE2C0B00A74559 /* ProviderAPIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderAPIs.swift; sourceTree = "<group>"; };
 		5D795DB628FE4CE500A74559 /* TestIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestIdentity.swift; sourceTree = "<group>"; };
@@ -920,7 +918,6 @@
 			isa = PBXGroup;
 			children = (
 				0CCE83D029075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift */,
-				5D795DB028FDFA3300A74559 /* CheckoutCardProviderDataTests.swift */,
 				84269C57233C878D00BF13D6 /* Date+MillisecondsSinceEpochTests.swift */,
 				954E67812C34C7BD009ACD18 /* ProvisioningDataTests.swift */,
 				8407BD1E23E135DB0018ABEA /* PublicKeyEncryptionAlgorithm+StringInitializableTests.swift */,
@@ -2330,7 +2327,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint > /dev/null; then\n    swiftlint --path ${PROJECT_DIR}\nelse\n    echo \"Warning: SwiftLint not installed, run 'brew install swiftlint'\"\nfi\n";
+			shellScript = "if which swiftlint > /dev/null; then\n    swiftlint\nelse\n    echo \"Warning: SwiftLint not installed, run 'brew install swiftlint'\"\nfi\n";
 		};
 		84CFF8C523D7F52500C6BC46 /* Copy Config To Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2662,7 +2659,6 @@
 				847BDB90239A2C2600293C1B /* CardProvisioningStateTests.swift in Sources */,
 				5DE83277291C6D0A006C6FBA /* CardTypeTests.swift in Sources */,
 				0CCE83D129075DA500F1538F /* CheckoutBankAccountProviderDataTests.swift in Sources */,
-				5D795DB128FDFA3300A74559 /* CheckoutCardProviderDataTests.swift in Sources */,
 				843882AF27C607C300FC7577 /* CompleteFundingSourceTests.swift in Sources */,
 				D9EE6F6427B24D5D00BFC149 /* Data+Utility.swift in Sources */,
 				8416FB9D23D6A583003DF0BF /* Data.swift in Sources */,
