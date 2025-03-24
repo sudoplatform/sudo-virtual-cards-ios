@@ -6,6 +6,7 @@
 
 import Foundation
 import SudoLogging
+@_exported import SudoVirtualCardsCommon
 import SudoNotificationExtension
 
 /// SudoNoitifiableClient implementation for decoding Sudo Platform VirtualCards service push notifications in a Notification Service Extension

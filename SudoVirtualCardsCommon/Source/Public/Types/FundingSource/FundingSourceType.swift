@@ -19,7 +19,7 @@ public enum FundingSourceType: Decodable, Encodable, Hashable {
     }
 
     /// Initialize an instance of `FundingSourceType from String
-    init(_ type: String) {
+    public init(_ type: String) {
         switch type {
         case "CREDIT_CARD":
             self = .creditCard

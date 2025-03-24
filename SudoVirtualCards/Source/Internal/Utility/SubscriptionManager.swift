@@ -3,6 +3,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 //
+import Foundation
 
 /// Utility class for mananging subscription in the SDK to the service.
 protocol SubscriptionManager: AnyObject {

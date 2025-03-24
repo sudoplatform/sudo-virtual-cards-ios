@@ -5,6 +5,7 @@
 //
 
 import Foundation
+@_exported import SudoVirtualCardsCommon
 
 struct BaseClientConfiguration: BaseFundingSourceClientConfiguration, Decodable, Equatable {
     // MARK: - Properties

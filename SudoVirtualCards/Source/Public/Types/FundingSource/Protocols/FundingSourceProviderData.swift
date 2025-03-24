@@ -5,6 +5,7 @@
 //
 
 import Foundation
+@_exported import SudoVirtualCardsCommon
 
 public protocol FundingSourceProviderData {
 

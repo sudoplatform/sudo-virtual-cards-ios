@@ -8,6 +8,7 @@ import AWSAppSync
 import SudoUser
 import SudoLogging
 import SudoApiClient
+import Foundation
 
 /// Default Client API Endpoint for interacting with the Virtual Cards Service.
 public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {

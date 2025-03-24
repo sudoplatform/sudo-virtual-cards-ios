@@ -18,7 +18,7 @@ public enum FundingSourceState: Encodable, Decodable, Hashable {
         // MARK: - Lifecycle
 
         /// Initialize an instance of `FundingSource.State`.
-        init(_ state: String) {
+        public init(_ state: String) {
             switch state {
             case "ACTIVE":
                 self = .active

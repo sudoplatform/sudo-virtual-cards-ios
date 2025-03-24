@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "84783B29231C916200CCBC27"
-               BuildableName = "SudoVirtualCards.framework"
+               BlueprintIdentifier = "SudoVirtualCards"
+               BuildableName = "SudoVirtualCards"
                BlueprintName = "SudoVirtualCards"
-               ReferencedContainer = "container:SudoVirtualCards.xcodeproj">
+               ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,15 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "84783B29231C916200CCBC27"
-            BuildableName = "SudoVirtualCards.framework"
-            BlueprintName = "SudoVirtualCards"
-            ReferencedContainer = "container:SudoVirtualCards.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -60,15 +51,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "84783B29231C916200CCBC27"
-            BuildableName = "SudoVirtualCards.framework"
-            BlueprintName = "SudoVirtualCards"
-            ReferencedContainer = "container:SudoVirtualCards.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -79,10 +61,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "84783B29231C916200CCBC27"
-            BuildableName = "SudoVirtualCards.framework"
+            BlueprintIdentifier = "SudoVirtualCards"
+            BuildableName = "SudoVirtualCards"
             BlueprintName = "SudoVirtualCards"
-            ReferencedContainer = "container:SudoVirtualCards.xcodeproj">
+            ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
