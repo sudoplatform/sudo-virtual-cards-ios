@@ -68,9 +68,6 @@
                 <a class="nav-group-task-link" href="../Enums/BankAccountType.html">BankAccountType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/CachePolicy.html">CachePolicy</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CardType.html">CardType</a>
               </li>
               <li class="nav-group-task">
@@ -110,9 +107,6 @@
                 <a class="nav-group-task-link" href="../Enums/Nullish.html">Nullish</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/PlatformSubscriptionStatus.html">PlatformSubscriptionStatus</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ProvisionalCardState.html">ProvisionalCardState</a>
               </li>
               <li class="nav-group-task">
@@ -140,6 +134,15 @@
                 <a class="nav-group-task-link" href="../Enums/SortOrderInput.html">SortOrderInput</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionConnectionState.html">SubscriptionConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionNotification.html">SubscriptionNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionNotificationType.html">SubscriptionNotificationType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
               </li>
               <li class="nav-group-task">
@@ -160,9 +163,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/AWSRegionType.html">AWSRegionType</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/GraphQL.html">GraphQL</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +170,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/GraphQL/CancelVirtualCardMutation.html">– CancelVirtualCardMutation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/GraphQL.html#/OnTransactionDeleteSubscription">– OnTransactionDeleteSubscription</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/GraphQL.html#/OnTransactionUpdateSubscription">– OnTransactionUpdateSubscription</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/NotificationConfiguration.html">NotificationConfiguration</a>
@@ -195,16 +201,13 @@
                 <a class="nav-group-task-link" href="../Protocols/FundingSourceProviderData.html">FundingSourceProviderData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/ProvisionVirtualCardObservable.html">ProvisionVirtualCardObservable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ProvisionalCardAttributes.html">ProvisionalCardAttributes</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ProvisionalCardSealedAttributes.html">ProvisionalCardSealedAttributes</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/SubscriptionToken.html">SubscriptionToken</a>
+                <a class="nav-group-task-link" href="../Protocols/Subscriber.html">Subscriber</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SudoVirtualCardsClient.html">SudoVirtualCardsClient</a>
@@ -423,9 +426,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -457,10 +457,13 @@ the implementation class is only meant to be used for initializing an instance o
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP5resetyyKF"></a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP5resetyyYaKF"></a>
                     <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP5resetyyKF">reset()</a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP5resetyyYaKF">reset()</a>
                     </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
@@ -477,7 +480,7 @@ sudo services.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">reset</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -722,9 +725,9 @@ sudo services.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP09provisionB4Card9withInput8observerAA011ProvisionalF5StateOAA09ProvisionbfH0V_AA0lbF10Observable_pSgtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/provisionVirtualCard(withInput:observer:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP09provisionB4Card9withInput8observerAA011ProvisionalF5StateOAA09ProvisionbfH0V_AA0lbF10Observable_pSgtYaKF">provisionVirtualCard(withInput:<wbr>observer:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP09provisionB4Card9withInputAA0bF0VAA09ProvisionbfH0V_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/provisionVirtualCard(withInput:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP09provisionB4Card9withInputAA0bF0VAA09ProvisionbfH0V_tYaKF">provisionVirtualCard(withInput:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -750,7 +753,7 @@ sudo services.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionVirtualCard</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProvisionVirtualCardInput.html">ProvisionVirtualCardInput</a></span><span class="p">,</span> <span class="nv">observer</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ProvisionVirtualCardObservable.html">ProvisionVirtualCardObservable</a></span><span class="p">?)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ProvisionalCardState.html">ProvisionalCardState</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisionVirtualCard</span><span class="p">(</span><span class="n">withInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Structs/ProvisionVirtualCardInput.html">ProvisionVirtualCardInput</a></span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/VirtualCard.html">VirtualCard</a></span></code></pre>
 
                         </div>
                       </div>
@@ -770,24 +773,12 @@ sudo services.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>observer</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Observable for Provision Virtual Card API events.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The newly provisioned card information.</p>
+                        <p>The newly provisioned Virtual Card.</p>
                       </div>
                     </section>
                   </div>
@@ -1148,44 +1139,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP016getFundingSourceD13ConfigurationSayAA0fgdH0OGyYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getFundingSourceClientConfiguration()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP016getFundingSourceD13ConfigurationSayAA0fgdH0OGyYaKF">getFundingSourceClientConfiguration()</a>
-                    </code>
-                      <span class="declaration-note">
-                        Asynchronous
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Get the funding source client configuration.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(*, deprecated, message: "Use getVirtualCardsConfig instead to retrieve the FundingSourceClientConfiguration")</span>
-<span class="kd">func</span> <span class="nf">getFundingSourceClientConfiguration</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Enums/FundingSourceClientConfiguration.html">FundingSourceClientConfiguration</a></span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The configuration of the client funding source data.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP18getProvisionalCard6withId11cachePolicyAA0fG0VSgSS_AA05CacheK0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getProvisionalCard(withId:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP18getProvisionalCard6withId11cachePolicyAA0fG0VSgSS_AA05CacheK0OtYaKF">getProvisionalCard(withId:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP18getProvisionalCard6withIdAA0fG0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getProvisionalCard(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP18getProvisionalCard6withIdAA0fG0VSgSS_tYaKF">getProvisionalCard(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1197,30 +1153,43 @@ remain the same must include their original data.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Get a provisional card using the <code>id</code> parameter. If the card cannot be found, <code>nil</code> will be returned.</p>
-
-<ul>
-<li><p>Parameters</p>
-
-<ul>
-<li>id: ID of the card to be retrieved.</li>
-<li>cachePolicy: Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-           will only return cached results of identical API calls.</li>
-</ul></li>
-<li><p>Throws</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    Throws
 
 <ul>
 <li>SudoPlatformError.</li>
-</ul></li>
 </ul>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getProvisionalCard</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getProvisionalCard</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of the card to be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
@@ -1232,9 +1201,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP015listProvisionalC09withLimit9nextToken11cachePolicyAA13ListAPIResultOyAA0F4CardVAA07PartialfO0VGSiSg_SSSgAA05CacheL0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listProvisionalCards(withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP015listProvisionalC09withLimit9nextToken11cachePolicyAA13ListAPIResultOyAA0F4CardVAA07PartialfO0VGSiSg_SSSgAA05CacheL0OtYaKF">listProvisionalCards(withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP015listProvisionalC09withLimit9nextTokenAA13ListAPIResultOyAA0F4CardVAA07PartialfM0VGSiSg_SSSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listProvisionalCards(withLimit:nextToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP015listProvisionalC09withLimit9nextTokenAA13ListAPIResultOyAA0F4CardVAA07PartialfM0VGSiSg_SSSgtYaKF">listProvisionalCards(withLimit:<wbr>nextToken:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1248,9 +1217,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of provisional cards. If no cards can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1263,8 +1230,7 @@ remain the same must include their original data.</p>
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">listProvisionalCards</span><span class="p">(</span>
     <span class="n">withLimit</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
-    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ListAPIResult.html">ListAPIResult</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalCard.html">ProvisionalCard</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/PartialProvisionalCard.html">PartialProvisionalCard</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1300,30 +1266,15 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-               will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p></p>
-
-<ul>
+                        <p><ul>
 <li>Success: Cards associated with user, or empty array if no card can be found.</li>
 <li>Partial: Mix of success and partial cards associated with user.</li>
-</ul>
+</ul></p>
                       </div>
                     </section>
                   </div>
@@ -1331,9 +1282,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP03getB4Card6withId11cachePolicyAA0bF0VSgSS_AA05CacheJ0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getVirtualCard(withId:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP03getB4Card6withId11cachePolicyAA0bF0VSgSS_AA05CacheJ0OtYaKF">getVirtualCard(withId:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP03getB4Card6withIdAA0bF0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getVirtualCard(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP03getB4Card6withIdAA0bF0VSgSS_tYaKF">getVirtualCard(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1345,20 +1296,9 @@ remain the same must include their original data.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Get a card using the <code>id</code> parameter. If the card cannot be found, <code>nil</code> will be returned.</p>
-
-<ul>
-<li><p>Parameters</p>
-
-<ul>
-<li>id: ID of the card to be retrieved.</li>
-<li>cachePolicy: Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-           will only return cached results of identical API calls.</li>
-</ul></li>
-</ul><div class="aside aside-throws">
+<div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1369,12 +1309,28 @@ remain the same must include their original data.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getVirtualCard</span><span class="p">(</span>
-    <span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
-<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/VirtualCard.html">VirtualCard</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getVirtualCard</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/VirtualCard.html">VirtualCard</a></span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>ID of the card to be retrieved.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
@@ -1386,9 +1342,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP03getbC6Config11cachePolicyAA0bcF0VSgAA05CacheH0O_tYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getVirtualCardsConfig(cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP03getbC6Config11cachePolicyAA0bcF0VSgAA05CacheH0O_tYaKF">getVirtualCardsConfig(cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP03getbC6ConfigAA0bcF0VyYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getVirtualCardsConfig()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP03getbC6ConfigAA0bcF0VyYaKF">getVirtualCardsConfig()</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1399,20 +1355,10 @@ remain the same must include their original data.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Get the current <code><a href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a></code>. If the config cannot be found, <code>nil</code> will be returned.</p>
-
-<ul>
-<li><p>Parameters</p>
-
-<ul>
-<li>cachePolicy: Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-           will only return cached results of identical API calls.</li>
-</ul></li>
-</ul><div class="aside aside-throws">
+                        <p>Get the current <code><a href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a></code>.</p>
+<div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1423,15 +1369,13 @@ remain the same must include their original data.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getVirtualCardsConfig</span><span class="p">(</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
-<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getVirtualCardsConfig</span><span class="p">()</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/VirtualCardsConfig.html">VirtualCardsConfig</a></span></code></pre>
 
                         </div>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Virtual card config associated with account, or <code>nil</code> if the coinfig cannot be found.</p>
+                        <p>Virtual card config associated with account.</p>
                       </div>
                     </section>
                   </div>
@@ -1439,9 +1383,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP04listbC010withFilter9sortOrder0F5Limit9nextToken11cachePolicyAA13ListAPIResultOyAA0B4CardVAA07PartialbQ0VGAA0bqG5InputOSg_AA04SortiS0OSgSiSgSSSgAA05CacheN0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listVirtualCards(withFilter:sortOrder:withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP04listbC010withFilter9sortOrder0F5Limit9nextToken11cachePolicyAA13ListAPIResultOyAA0B4CardVAA07PartialbQ0VGAA0bqG5InputOSg_AA04SortiS0OSgSiSgSSSgAA05CacheN0OtYaKF">listVirtualCards(withFilter:<wbr>sortOrder:<wbr>withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP04listbC010withFilter9sortOrder0F5Limit9nextTokenAA13ListAPIResultOyAA0B4CardVAA07PartialbO0VGAA0boG5InputOSg_AA04SortiQ0OSgSiSgSSSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listVirtualCards(withFilter:sortOrder:withLimit:nextToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP04listbC010withFilter9sortOrder0F5Limit9nextTokenAA13ListAPIResultOyAA0B4CardVAA07PartialbO0VGAA0boG5InputOSg_AA04SortiQ0OSgSiSgSSSgtYaKF">listVirtualCards(withFilter:<wbr>sortOrder:<wbr>withLimit:<wbr>nextToken:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1455,9 +1399,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of cards. If no cards can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1472,8 +1414,7 @@ remain the same must include their original data.</p>
     <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/VirtualCardFilterInput.html">VirtualCardFilterInput</a></span><span class="p">?,</span>
     <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
     <span class="n">withLimit</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
-    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ListAPIResult.html">ListAPIResult</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/VirtualCard.html">VirtualCard</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/PartialVirtualCard.html">PartialVirtualCard</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1534,30 +1475,15 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p></p>
-
-<ul>
+                        <p><ul>
 <li>Success: Cards associated with user, or empty array if no card can be found.</li>
 <li>Partial: Mix of success and partial cards associated with user.</li>
-</ul>
+</ul></p>
                       </div>
                     </section>
                   </div>
@@ -1565,9 +1491,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP16getFundingSource6withId11cachePolicyAA0fG0OSgSS_AA05CacheK0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getFundingSource(withId:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16getFundingSource6withId11cachePolicyAA0fG0OSgSS_AA05CacheK0OtYaKF">getFundingSource(withId:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP16getFundingSource6withIdAA0fG0OSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getFundingSource(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16getFundingSource6withIdAA0fG0OSgSS_tYaKF">getFundingSource(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1581,9 +1507,7 @@ remain the same must include their original data.</p>
                         <p>Get a funding source using the <code>id</code> parameter. If the funding source cannot be found, <code>nil</code> will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1594,10 +1518,7 @@ remain the same must include their original data.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getFundingSource</span><span class="p">(</span>
-    <span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
-<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/FundingSource.html">FundingSource</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getFundingSource</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/FundingSource.html">FundingSource</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1617,19 +1538,6 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1643,9 +1551,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP18listFundingSources10withFilter9sortOrder0H5Limit9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceOGAA0fsI5InputOSg_AA04SortkT0OSgSiSgSSSgAA05CacheP0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listFundingSources(withFilter:sortOrder:withLimit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP18listFundingSources10withFilter9sortOrder0H5Limit9nextToken11cachePolicyAA10ListOutputVyAA0F6SourceOGAA0fsI5InputOSg_AA04SortkT0OSgSiSgSSSgAA05CacheP0OtYaKF">listFundingSources(withFilter:<wbr>sortOrder:<wbr>withLimit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP18listFundingSources10withFilter9sortOrder0H5Limit9nextTokenAA10ListOutputVyAA0F6SourceOGAA0fqI5InputOSg_AA04SortkR0OSgSiSgSSSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listFundingSources(withFilter:sortOrder:withLimit:nextToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP18listFundingSources10withFilter9sortOrder0H5Limit9nextTokenAA10ListOutputVyAA0F6SourceOGAA0fqI5InputOSg_AA04SortkR0OSgSiSgSSSgtYaKF">listFundingSources(withFilter:<wbr>sortOrder:<wbr>withLimit:<wbr>nextToken:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1659,9 +1567,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of funding sources. If no funding sources can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1676,8 +1582,7 @@ remain the same must include their original data.</p>
     <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/FundingSourceFilterInput.html">FundingSourceFilterInput</a></span><span class="p">?,</span>
     <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
     <span class="n">withLimit</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
-    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Enums/FundingSource.html">FundingSource</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1738,19 +1643,6 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1764,9 +1656,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter9sortOrder5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgtJ5InputOSg_AA04SortlU0OSgSiSgSSSgAA05CacheQ0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listProvisionalFundingSources(withFilter:sortOrder:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter9sortOrder5limit9nextToken11cachePolicyAA10ListOutputVyAA0fG6SourceVGAA0fgtJ5InputOSg_AA04SortlU0OSgSiSgSSSgAA05CacheQ0OtYaKF">listProvisionalFundingSources(withFilter:<wbr>sortOrder:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter9sortOrder5limit9nextTokenAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_AA04SortlS0OSgSiSgSSSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listProvisionalFundingSources(withFilter:sortOrder:limit:nextToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29listProvisionalFundingSources10withFilter9sortOrder5limit9nextTokenAA10ListOutputVyAA0fG6SourceVGAA0fgrJ5InputOSg_AA04SortlS0OSgSiSgSSSgtYaKF">listProvisionalFundingSources(withFilter:<wbr>sortOrder:<wbr>limit:<wbr>nextToken:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1780,9 +1672,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of provisional funding sources. If no provisional funding sources can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1797,8 +1687,7 @@ remain the same must include their original data.</p>
     <span class="n">withFilter</span> <span class="nv">filter</span><span class="p">:</span> <span class="kt"><a href="../Enums/ProvisionalFundingSourceFilterInput.html">ProvisionalFundingSourceFilterInput</a></span><span class="p">?,</span>
     <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
-    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ListOutput.html">ListOutput</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/ProvisionalFundingSource.html">ProvisionalFundingSource</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -1859,19 +1748,6 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1929,9 +1805,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP14getTransaction6withId11cachePolicyAA0F0VSgSS_AA05CacheJ0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/getTransaction(withId:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP14getTransaction6withId11cachePolicyAA0F0VSgSS_AA05CacheJ0OtYaKF">getTransaction(withId:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP14getTransaction6withIdAA0F0VSgSS_tYaKF"></a>
+                    <a name="//apple_ref/swift/Method/getTransaction(withId:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP14getTransaction6withIdAA0F0VSgSS_tYaKF">getTransaction(withId:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -1945,9 +1821,7 @@ remain the same must include their original data.</p>
                         <p>Get a transaction using the <code>id</code> parameter. If the transaction cannot be found, <code>nil</code> will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -1958,10 +1832,7 @@ remain the same must include their original data.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getTransaction</span><span class="p">(</span>
-    <span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
-<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getTransaction</span><span class="p">(</span><span class="n">withId</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -1981,19 +1852,6 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -2007,9 +1865,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId5limit9nextToken9dateRange9sortOrder11cachePolicyAA13ListAPIResultOyAA11TransactionVAA07PartialU0VGSS_SiSgSSSgAA04DateN5InputVSgAA04SortpX0OSgAA05CacheR0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listTransactions(withCardId:limit:nextToken:dateRange:sortOrder:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId5limit9nextToken9dateRange9sortOrder11cachePolicyAA13ListAPIResultOyAA11TransactionVAA07PartialU0VGSS_SiSgSSSgAA04DateN5InputVSgAA04SortpX0OSgAA05CacheR0OtYaKF">listTransactions(withCardId:<wbr>limit:<wbr>nextToken:<wbr>dateRange:<wbr>sortOrder:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId5limit9nextToken9dateRange9sortOrderAA13ListAPIResultOyAA11TransactionVAA07PartialS0VGSS_SiSgSSSgAA04DateN5InputVSgAA04SortpV0OSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listTransactions(withCardId:limit:nextToken:dateRange:sortOrder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId5limit9nextToken9dateRange9sortOrderAA13ListAPIResultOyAA11TransactionVAA07PartialS0VGSS_SiSgSSSgAA04DateN5InputVSgAA04SortpV0OSgtYaKF">listTransactions(withCardId:<wbr>limit:<wbr>nextToken:<wbr>dateRange:<wbr>sortOrder:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -2023,9 +1881,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of transactions by card id. If no transactions can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -2041,8 +1897,7 @@ remain the same must include their original data.</p>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">dateRange</span><span class="p">:</span> <span class="kt"><a href="../Structs/DateRangeInput.html">DateRangeInput</a></span><span class="p">?,</span>
-    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ListAPIResult.html">ListAPIResult</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/PartialTransaction.html">PartialTransaction</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -2112,30 +1967,15 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p></p>
-
-<ul>
+                        <p><ul>
 <li>Success: Transactions associated with the virtual card, or empty array if no transaction can be found.</li>
 <li>Partial: Mix of complete and partial Transactions associated with the virtual card.</li>
-</ul>
+</ul></p>
                       </div>
                     </section>
                   </div>
@@ -2143,9 +1983,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId0G15TransactionType5limit9nextToken11cachePolicyAA13ListAPIResultOyAA0J0VAA07PartialJ0VGSS_AA0jK0OSiSgSSSgAA05CacheP0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listTransactions(withCardId:withTransactionType:limit:nextToken:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId0G15TransactionType5limit9nextToken11cachePolicyAA13ListAPIResultOyAA0J0VAA07PartialJ0VGSS_AA0jK0OSiSgSSSgAA05CacheP0OtYaKF">listTransactions(withCardId:<wbr>withTransactionType:<wbr>limit:<wbr>nextToken:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId0G15TransactionType5limit9nextTokenAA13ListAPIResultOyAA0J0VAA07PartialJ0VGSS_AA0jK0OSiSgSSSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listTransactions(withCardId:withTransactionType:limit:nextToken:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16listTransactions10withCardId0G15TransactionType5limit9nextTokenAA13ListAPIResultOyAA0J0VAA07PartialJ0VGSS_AA0jK0OSiSgSSSgtYaKF">listTransactions(withCardId:<wbr>withTransactionType:<wbr>limit:<wbr>nextToken:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -2159,9 +1999,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of transactions by card id and transaction type. If no transactions can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -2176,8 +2014,7 @@ remain the same must include their original data.</p>
     <span class="n">withCardId</span> <span class="nv">cardId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="n">withTransactionType</span> <span class="nv">transactionType</span><span class="p">:</span> <span class="kt"><a href="../Enums/TransactionType.html">TransactionType</a></span><span class="p">,</span>
     <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
-    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ListAPIResult.html">ListAPIResult</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/PartialTransaction.html">PartialTransaction</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -2235,30 +2072,15 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p></p>
-
-<ul>
+                        <p><ul>
 <li>Success: Transactions of specific type associated with the virtual card, or empty array if no transaction can be found.</li>
 <li>Partial: Mix of complete and partial Transactions associated with the virtual card.</li>
-</ul>
+</ul></p>
                       </div>
                     </section>
                   </div>
@@ -2266,9 +2088,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP16listTransactions9withLimit9nextToken9dateRange9sortOrder11cachePolicyAA13ListAPIResultOyAA11TransactionVAA07PartialS0VGSiSg_SSSgAA04DateL5InputVSgAA04SortnV0OSgAA05CacheP0OtYaKF"></a>
-                    <a name="//apple_ref/swift/Method/listTransactions(withLimit:nextToken:dateRange:sortOrder:cachePolicy:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16listTransactions9withLimit9nextToken9dateRange9sortOrder11cachePolicyAA13ListAPIResultOyAA11TransactionVAA07PartialS0VGSiSg_SSSgAA04DateL5InputVSgAA04SortnV0OSgAA05CacheP0OtYaKF">listTransactions(withLimit:<wbr>nextToken:<wbr>dateRange:<wbr>sortOrder:<wbr>cachePolicy:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP16listTransactions9withLimit9nextToken9dateRange9sortOrderAA13ListAPIResultOyAA11TransactionVAA07PartialQ0VGSiSg_SSSgAA04DateL5InputVSgAA04SortnT0OSgtYaKF"></a>
+                    <a name="//apple_ref/swift/Method/listTransactions(withLimit:nextToken:dateRange:sortOrder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP16listTransactions9withLimit9nextToken9dateRange9sortOrderAA13ListAPIResultOyAA11TransactionVAA07PartialQ0VGSiSg_SSSgAA04DateL5InputVSgAA04SortnT0OSgtYaKF">listTransactions(withLimit:<wbr>nextToken:<wbr>dateRange:<wbr>sortOrder:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -2282,9 +2104,7 @@ remain the same must include their original data.</p>
                         <p>Get a list of transactions. If no transactions can be found, an empty list will be returned.</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>Throws:</p>
-
-<ul>
+    <ul>
 <li>SudoPlatformError.</li>
 </ul>
 
@@ -2299,8 +2119,7 @@ remain the same must include their original data.</p>
     <span class="n">withLimit</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?,</span>
     <span class="nv">nextToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span>
     <span class="nv">dateRange</span><span class="p">:</span> <span class="kt"><a href="../Structs/DateRangeInput.html">DateRangeInput</a></span><span class="p">?,</span>
-    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?,</span>
-    <span class="nv">cachePolicy</span><span class="p">:</span> <span class="kt"><a href="../Enums/CachePolicy.html">CachePolicy</a></span>
+    <span class="nv">sortOrder</span><span class="p">:</span> <span class="kt"><a href="../Enums/SortOrderInput.html">SortOrderInput</a></span><span class="p">?</span>
 <span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ListAPIResult.html">ListAPIResult</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">,</span> <span class="kt"><a href="../Structs/PartialTransaction.html">PartialTransaction</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -2358,30 +2177,15 @@ remain the same must include their original data.</p>
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>cachePolicy</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Determines how the data is fetched. When using <code>cacheOnly</code>, please be aware that this
-                     will only return cached results of identical API calls.</p>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p></p>
-
-<ul>
+                        <p><ul>
 <li>Success: Transactions associated with user, or empty array if no transaction can be found.</li>
 <li>Partial: Mix of complete and partial Transactions associated with user.</li>
-</ul>
+</ul></p>
                       </div>
                     </section>
                   </div>
@@ -2402,9 +2206,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdated19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctYaKF"></a>
-                    <a name="//apple_ref/swift/Method/subscribeToTransactionUpdated(statusChangeHandler:resultHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionUpdated19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctYaKF">subscribeToTransactionUpdated(statusChangeHandler:<wbr>resultHandler:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP9subscribe2id16notificationType10subscriberySS_AA024SubscriptionNotificationH0OAA10Subscriber_ptYaKF"></a>
+                    <a name="//apple_ref/swift/Method/subscribe(id:notificationType:subscriber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP9subscribe2id16notificationType10subscriberySS_AA024SubscriptionNotificationH0OAA10Subscriber_ptYaKF">subscribe(id:<wbr>notificationType:<wbr>subscriber:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -2415,18 +2219,14 @@ remain the same must include their original data.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Subscribe to transaction update events. This includes creation of new transactions.</p>
+                        <p>Subscribes to be notified of changes to distributed vaults and members.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">func</span> <span class="nf">subscribeToTransactionUpdated</span><span class="p">(</span>
-    <span class="nv">statusChangeHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a></span><span class="p">?,</span>
-    <span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">subscribe</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">notificationType</span><span class="p">:</span> <span class="kt"><a href="../Enums/SubscriptionNotificationType.html">SubscriptionNotificationType</a></span><span class="p">,</span> <span class="nv">subscriber</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Subscriber.html">Subscriber</a></span><span class="p">)</span> <span class="n">async</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -2437,33 +2237,41 @@ remain the same must include their original data.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>statusChangeHandler</em>
+                                <em>id</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>Connection status change.</p>
+                                  <p>Unique ID to be associated with the subscriber.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>resultHandler</em>
+                                <em>notificationType</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>Updated transaction event.</p>
+                                  <p>Notification type to subscribe to.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>subscriber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Subscriber to notify.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></code> object to cancel the subscription.</p>
                       </div>
                     </section>
                   </div>
@@ -2471,9 +2279,9 @@ remain the same must include their original data.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionDeleted19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctYaKF"></a>
-                    <a name="//apple_ref/swift/Method/subscribeToTransactionDeleted(statusChangeHandler:resultHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP29subscribeToTransactionDeleted19statusChangeHandler06resultK0AA17SubscriptionToken_pSgyAA08PlatformM6StatusOcSg_ys6ResultOyAA0G0Vs5Error_pGctYaKF">subscribeToTransactionDeleted(statusChangeHandler:<wbr>resultHandler:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP11unsubscribe2idySS_tYaF"></a>
+                    <a name="//apple_ref/swift/Method/unsubscribe(id:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP11unsubscribe2idySS_tYaF">unsubscribe(id:<wbr>)</a>
                     </code>
                       <span class="declaration-note">
                         Asynchronous
@@ -2484,18 +2292,14 @@ remain the same must include their original data.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Subscribe to transaction delete events.</p>
+                        <p>Unsubscribes the specified subscriber so that it no longer receives change notifications.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">func</span> <span class="nf">subscribeToTransactionDeleted</span><span class="p">(</span>
-    <span class="nv">statusChangeHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a></span><span class="p">?,</span>
-    <span class="nv">resultHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a></span><span class="o">&lt;</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="o">&gt;</span>
-<span class="p">)</span> <span class="n">async</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unsubscribe</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="n">async</span></code></pre>
 
                         </div>
                       </div>
@@ -2506,33 +2310,47 @@ remain the same must include their original data.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>statusChangeHandler</em>
+                                <em>id</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>Connection status change.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>resultHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Deleted transaction event.</p>
+                                  <p>Unique ID associated with the subscriber to unsubscribe.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code><a href="../Protocols/SubscriptionToken.html">SubscriptionToken</a></code> object to cancel the subscription.</p>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards0abC6ClientP14unsubscribeAllyyYaF"></a>
+                    <a name="//apple_ref/swift/Method/unsubscribeAll()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards0abC6ClientP14unsubscribeAllyyYaF">unsubscribeAll()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unsubscribe all subscribers from receiving notifications about changes to distributed vaults and members.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">unsubscribeAll</span><span class="p">()</span> <span class="n">async</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -2683,7 +2501,7 @@ data before calling <code>completeFundingSource</code></p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-03-25)</p>
+      <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-04-14)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -38,16 +38,12 @@ class ProvisionalFundingSourceService {
     ///                This value should be pre-generated from a previous pagination call, otherwise it will throw an error.
     ///                It is important to note that the same structured API call should be used if using a previously
     ///                generated `nextToken`.
-    ///   - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                  will only return cached results of identical API calls.
-    ///
     /// - Returns: `ProvisionalFundingSource`s associated with `filter`, or empty array if no provisional funding sources can be found.
     public func listProvisionalFundingSources(
         withFilter filter: ProvisionalFundingSourceFilterInput?,
         sortOrder: SortOrderInput?,
         limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy
+        nextToken: String?
     ) async throws -> ListOutput<ProvisionalFundingSource> {
         let query = GraphQL.ListProvisionalFundingSourcesQuery(
             filter: filter?.toGraphQL(),
@@ -55,23 +51,21 @@ class ProvisionalFundingSourceService {
             limit: limit,
             nextToken: nextToken
         )
-        let data = try await GraphQLHelper.performQuery(
-            graphQLClient: graphQLClient,
-            query: query,
-            cachePolicy: cachePolicy,
-            logger: logger
-        )
-        guard let listProvisionalFundingSources = data?.listProvisionalFundingSources else {
-            return ListOutput.empty
+        let data: GraphQL.ListProvisionalFundingSourcesQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listProvisionalFundingSources = data.listProvisionalFundingSources
         let provisionalFundingSources: [ProvisionalFundingSource] =
         try listProvisionalFundingSources.items.map {
             ProvisionalFundingSource(
                 id: $0.id,
                 owner: $0.owner,
                 version: $0.version,
-                state: ProvisionalFundingSourceState($0.state),
-                type: FundingSourceType($0.type),
+                state: ProvisionalFundingSourceState($0.getProvisionalFundingSourceState()),
+                type: FundingSourceType($0.getFundingSourceType()),
                 last4: $0.last4 ?? "",
                 createdAt: Date(millisecondsSince1970: $0.createdAtEpochMs),
                 updatedAt: Date(millisecondsSince1970: $0.updatedAtEpochMs),
@@ -94,24 +88,25 @@ class ProvisionalFundingSourceService {
     public func cancelProvisionalFundingSource(withId id: String) async throws -> ProvisionalFundingSource {
         let mutationInput = GraphQL.IdInput(id: id)
         let mutation = GraphQL.CancelProvisionalFundingSourceMutation(input: mutationInput)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
+        let data: GraphQL.CancelProvisionalFundingSourceMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
         let provisionalFundingSource = data.cancelProvisionalFundingSource
         return ProvisionalFundingSource(
             id: provisionalFundingSource.id,
             owner: provisionalFundingSource.owner,
             version: provisionalFundingSource.version,
-            state: ProvisionalFundingSourceState(provisionalFundingSource.state),
-            type: FundingSourceType(provisionalFundingSource.type),
+            state: ProvisionalFundingSourceState(provisionalFundingSource.getProvisionalFundingSourceState()),
+            type: FundingSourceType(provisionalFundingSource.getFundingSourceType()),
             last4: provisionalFundingSource.last4 ?? "",
             createdAt: Date(millisecondsSince1970: provisionalFundingSource.createdAtEpochMs),
             updatedAt: Date(millisecondsSince1970: provisionalFundingSource.updatedAtEpochMs),
             provisioningData: try ProvisioningData(
                 encodedProvisioningData: provisionalFundingSource.provisioningData
-            ))
+            )
+        )
     }
 }

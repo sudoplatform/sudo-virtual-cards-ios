@@ -10,7 +10,7 @@ extension PartialResult where P == PartialVirtualCard {
 
     init(card: GraphQL.SealedCardWithLastTransaction, error: Error) {
         let owners = card.owners.map { Owner(id: $0.id, issuer: $0.issuer) }
-        let state = VirtualCardState(card.state)
+        let state = VirtualCardState(card.getCardState())
         let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
         let activeTo = Date(millisecondsSince1970: card.activeToEpochMs)

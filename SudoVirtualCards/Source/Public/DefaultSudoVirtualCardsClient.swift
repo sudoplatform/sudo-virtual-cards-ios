@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import AWSAppSync
 import SudoUser
 import SudoLogging
 import SudoApiClient
@@ -73,25 +72,18 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         userClient: SudoUserClient
     ) throws {
         let graphQLClient: SudoApiClient
-        if let config = config {
-            let authProvider = GraphQLAuthProvider(client: userClient)
-            let cacheConfiguration = try AWSAppSyncCacheConfiguration()
-            let appSyncConfig = try AWSAppSyncClientConfiguration(
-                appSyncServiceConfig: config,
-                userPoolsAuthProvider: authProvider,
-                cacheConfiguration: cacheConfiguration
+        if let config {
+            let apiClientConfig = SudoApiClientConfig(
+                apiName: Constants.serviceName,
+                apiUrl: config.endpoint,
+                region: config.region
             )
-            let appSyncClient = try AWSAppSyncClient(appSyncConfig: appSyncConfig)
-            try graphQLClient = SudoApiClient(
-                configProvider: config,
-                sudoUserClient: userClient,
-                logger: Logger.sudoApiClientLogger,
-                appSyncClient: appSyncClient
-            )
+            try graphQLClient = DefaultSudoApiClient(config: apiClientConfig, sudoUserClient: userClient)
         } else {
             guard let asClient = try SudoApiClientManager.instance?.getClient(
                 sudoUserClient: userClient,
-                configNamespace: Constants.serviceName) else {
+                configNamespace: Constants.serviceName
+            ) else {
                 throw SudoVirtualCardsError.invalidConfig
             }
             graphQLClient = asClient
@@ -103,11 +95,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             logger: Logger.platformUtilitySDK
         )
         let unsealer = DefaultUnsealer(platformKeyManager: platformKeyManager)
+        let subscriptionManager = DefaultSubscriptionManager(graphQLClient: graphQLClient, unsealer: unsealer)
         self.init(
             userClient: userClient,
             graphQLClient: graphQLClient,
             platformKeyManager: platformKeyManager,
-            unsealer: unsealer
+            unsealer: unsealer,
+            subscriptionManager: subscriptionManager
         )
     }
 
@@ -118,12 +112,12 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     /// - Parameters:
     ///   - graphQLClient: Client used to interface with the virtualCards app sync service.
     ///   - logger: Logging object.
-    internal init(
+    init(
         userClient: SudoUserClient,
         graphQLClient: SudoApiClient,
         platformKeyManager: PlatformKeyManager,
         unsealer: Unsealer,
-        subscriptionManager: SubscriptionManager = DefaultSubscriptionManager(),
+        subscriptionManager: SubscriptionManager,
         logger: Logger = Logger.virtualCardsSDKLogger
     ) {
         self.userClient = userClient
@@ -156,14 +150,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         )
     }
 
-    public func reset() throws {
+    public func reset() async throws {
         logger.info("Resetting client state.")
-
-        try self.graphQLClient.clearCaches(options: .init(clearQueries: true, clearMutations: true, clearSubscriptions: true))
-        virtualCardService.clearSubscriptions()
-        transactionService.clearSubscriptions()
         try platformKeyManager.removeAllKeys()
-        subscriptionManager.removeAllSubscriptions()
+        await subscriptionManager.unsubscribeAll()
     }
 
     public func createKeysIfAbsent() async throws -> CreateKeysIfAbsentResult {
@@ -189,12 +179,12 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     // MARK: - Methods
 
     public func setupFundingSource(withInput input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         return try await fundingSourceService.setup(input: input)
     }
 
     public func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let completionData: FundingSourceCompletionData
         switch input.completionData {
         case .stripeCard(let data):
@@ -217,7 +207,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func refreshFundingSource(withInput input: RefreshFundingSourceInput) async throws -> FundingSource {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
 
         return try await fundingSourceService.refresh(
             clientId: input.id,
@@ -227,51 +217,24 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         )
     }
 
-    public func provisionVirtualCard(
-        withInput input: ProvisionVirtualCardInput,
-        observer: ProvisionVirtualCardObservable?
-    ) async throws -> ProvisionalCardState {
-        let clientRefId = UUID().uuidString
-        return try await provisionVirtualCard(
-            withClientRefId: clientRefId,
-            input: input,
-            observer: observer
-        )
-    }
-
-    /// This API call is made up of 2 distinct different operation:
-    /// - `GetOwnershipProofOperation`,
-    /// - `ProvisionCardOperation`.
-    ///
-    /// `GetOwnershipProofOperation` is responsible for generating an ownership proof on the sudo's profile to associate with the sudo.
-    /// `ProvisionCardOperation` is responsible for calling the create card mutation and watching for the result.
-    func provisionVirtualCard(
-        withClientRefId clientRefId: String,
-        input: ProvisionVirtualCardInput,
-        observer: ProvisionVirtualCardObservable?
-    ) async throws -> ProvisionalCardState {
+    public func provisionVirtualCard(withInput input: ProvisionVirtualCardInput) async throws -> VirtualCard {
+        let clientRefId = UUID().uuidString        
+        // Get the owner identifier, or fail.
+        guard let owner = try? await userClient.getSubject() else {
+            throw SudoVirtualCardsError.notSignedIn
+        }
         // Get keyPair or fail.
         let keyPair: KeyPair
         do {
-            let keyPairResult = publicKeyService.getCurrentKeyPair()
+            let keyPairResult = await publicKeyService.getCurrentKeyPair()
             keyPair = try keyPairResult.get()
         } catch {
             let error = convertToSudoVirtualCardsError(error)
             throw error
         }
-        // Get the owner identifier, or fail.
-        guard let owner = try? userClient.getSubject() else {
-            throw SudoVirtualCardsError.notSignedIn
-        }
-
-        // Add observer, if it has been passed in.
-        if let observer = observer {
-            virtualCardService.addProvisionObserver(observer, clientRefId: clientRefId)
-        }
-
         // Check if Key exists on service, else create.
         let publicKey: PublicKey
-        if let fetchedPublicKey = try await self.getPublicKeyWithId(keyPair.keyId, cachePolicy: .remoteOnly) {
+        if let fetchedPublicKey = try await self.getPublicKeyWithId(keyPair.keyId) {
             publicKey = fetchedPublicKey
         } else {
             publicKey = try await publicKeyService.create(withKeyPair: keyPair)
@@ -287,23 +250,23 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func cancelFundingSource(withId id: String) async throws -> FundingSource {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         return try await fundingSourceService.cancel(id: id)
     }
 
     public func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         return try await fundingSourceService.reviewUnfunded(id: id)
     }
 
     public func cancelProvisionalFundingSource(withId id: String) async throws -> ProvisionalFundingSource {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         return try await provisionalFundingSourceService.cancelProvisionalFundingSource(withId: id)
     }
 
     public func updateVirtualCard(withInput input: UpdateVirtualCardInput) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard> {
-        try checkUserSignedIn()
-        let keyPairResult = publicKeyService.getCurrentKeyPair()
+        try await checkUserSignedIn()
+        let keyPairResult = await publicKeyService.getCurrentKeyPair()
         let keyPair: KeyPair
         switch keyPairResult {
         case let .success(kp):
@@ -316,10 +279,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func cancelVirtualCard(withId id: String) async throws -> SingleAPIResult<VirtualCard, PartialVirtualCard> {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let keyPair: KeyPair
         do {
-            let keyPairResult = publicKeyService.getCurrentKeyPair()
+            let keyPairResult = await publicKeyService.getCurrentKeyPair()
             keyPair = try keyPairResult.get()
         } catch {
             let error = convertToSudoVirtualCardsError(error)
@@ -327,12 +290,12 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
         let input = GraphQL.CardCancelRequest(id: id, keyId: keyPair.keyId)
         let mutation = GraphQL.CancelVirtualCardMutation(input: input)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
+        let data: GraphQL.CancelVirtualCardMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
         do {
             let result = try unsealer.unseal(data.cancelCard.fragments.sealedCardWithLastTransaction)
             return .success(result)
@@ -342,48 +305,39 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         }
     }
 
-    @available(*, deprecated, message: "Use getVirtualCardsConfig instead to retrieve the FundingSourceClientConfiguration")
-    public func getFundingSourceClientConfiguration() async throws -> [FundingSourceClientConfiguration] {
-        let configs = try await fundingSourceService.getConfig(cachePolicy: .remoteOnly)
-        if configs.fundingSourceTypes.isEmpty {
-            throw SudoVirtualCardsError.internalError("No configuration found")
-        }
-
-        return configs.fundingSourceTypes.map {
-            switch $0 {
-            case let .stripeCard(config):
-                return .stripeCard(StripeCardClientConfiguration(apiKey: config.apiKey))
-            case let .checkoutBankAccount(config):
-                return .checkoutBankAccount(CheckoutBankAccountClientConfiguration(apiKey: config.apiKey))
-            case let .unknown(config):
-                return .unknown(config)
-            }
-        }
-    }
-
-    public func getProvisionalCard(withId id: String, cachePolicy: CachePolicy) async throws -> ProvisionalCard? {
-        try checkUserSignedIn()
+    public func getProvisionalCard(withId id: String) async throws -> ProvisionalCard? {
+        try await checkUserSignedIn()
         let query = GraphQL.GetProvisionalCardQuery(id: id)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let result = data?.getProvisionalCard else {
+        let data: GraphQL.GetProvisionalCardQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
+        guard let result = data.getProvisionalCard else {
             return nil
         }
         var card: VirtualCard?
         if let resultCard = result.card {
             let sealedCards = resultCard.map { $0.fragments.sealedCard }
-            guard let cardToUnseal = try sealedCards.first(where: {
-                try platformKeyManager.getKeyPairWithId($0.keyId) != nil
-            }) else {
+            var cardToUnseal: GraphQL.SealedCard?
+            for sealedCard in sealedCards {
+                if try await platformKeyManager.getKeyPairWithId(sealedCard.keyId) != nil {
+                    cardToUnseal = sealedCard
+                    break
+                }
+            }
+            guard let cardToUnseal else {
                 throw UnsealingError.keyNotFound
             }
-            card = try self.unsealer.unseal(cardToUnseal)
+            card = try unsealer.unseal(cardToUnseal)
         }
         let provisionalCard = ProvisionalCard(
             id: result.id,
             createdAtEpochMs: result.createdAtEpochMs,
             updatedAtEpochMs: result.updatedAtEpochMs,
             clientRefId: result.clientRefId,
-            provisioningState: result.provisioningState,
+            provisioningState: result.getProvisioningState(),
             card: card
         )
         return provisionalCard
@@ -391,15 +345,17 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     public func listProvisionalCards(
         withLimit limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy
+        nextToken: String?
     ) async throws -> ListAPIResult<ProvisionalCard, PartialProvisionalCard> {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let query = GraphQL.ListProvisionalCardsQuery(limit: limit, nextToken: nextToken)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listCards = data?.listProvisionalCards else {
-            return ListAPIResult.empty
+        let data: GraphQL.ListProvisionalCardsQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listCards = data.listProvisionalCards
         let nextToken = listCards.nextToken
 
         typealias UnsealedCardPairs = (provisionalCard: GraphQL.ListProvisionalCardsQuery.Data.ListProvisionalCard.Item, unsealedCard: VirtualCard?)
@@ -411,14 +367,19 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
                 createdAtEpochMs: sealedProvisionalCard.createdAtEpochMs,
                 updatedAtEpochMs: sealedProvisionalCard.updatedAtEpochMs,
                 clientRefId: sealedProvisionalCard.clientRefId,
-                provisioningState: sealedProvisionalCard.provisioningState
+                provisioningState: sealedProvisionalCard.getProvisioningState()
             )
             if let sealedCard = sealedProvisionalCard.card {
                 do {
                     let sealedCards = sealedCard.map { $0.fragments.sealedCard }
-                    guard let cardToUnseal = try sealedCards.first(where: {
-                        try platformKeyManager.getKeyPairWithId($0.keyId) != nil
-                    }) else {
+                    var cardToUnseal: GraphQL.SealedCard?
+                    for sealedCard in sealedCards {
+                        if try await platformKeyManager.getKeyPairWithId(sealedCard.keyId) != nil {
+                            cardToUnseal = sealedCard
+                            break
+                        }
+                    }
+                    guard let cardToUnseal else {
                         throw UnsealingError.keyNotFound
                     }
                     let unsealedCard = try unsealer.unseal(cardToUnseal)
@@ -436,30 +397,38 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         return .success(.init(items: success, nextToken: nextToken))
     }
 
-    public func getVirtualCard(withId id: String, cachePolicy: CachePolicy) async throws -> VirtualCard? {
-        try checkUserSignedIn()
+    public func getVirtualCard(withId id: String) async throws -> VirtualCard? {
+        try await checkUserSignedIn()
         let keyPair: KeyPair
         do {
-            let keyPairResult = publicKeyService.getCurrentKeyPair()
+            let keyPairResult = await publicKeyService.getCurrentKeyPair()
             keyPair = try keyPairResult.get()
         } catch {
             let error = convertToSudoVirtualCardsError(error)
             throw error
         }
         let query = GraphQL.GetCardQuery(id: id, keyId: keyPair.keyId)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let sealedCard = data?.getCard else {
+        let data: GraphQL.GetCardQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
+        guard let sealedCard = data.getCard else {
             return nil
         }
         return try self.unsealer.unseal(sealedCard.fragments.sealedCardWithLastTransaction)
     }
 
-    public func getVirtualCardsConfig(cachePolicy: CachePolicy) async throws -> VirtualCardsConfig? {
+    public func getVirtualCardsConfig() async throws -> VirtualCardsConfig {
         let query = GraphQL.GetVirtualCardsConfigQuery()
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let virtualCardsConfig = data?.getVirtualCardsConfig else {
-            return nil
+        let data: GraphQL.GetVirtualCardsConfigQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let virtualCardsConfig = data.getVirtualCardsConfig
         return VirtualCardsConfig(fragment: virtualCardsConfig)
     }
 
@@ -467,20 +436,22 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         withFilter filter: VirtualCardFilterInput? = nil,
         sortOrder: SortOrderInput? = nil,
         withLimit limit: Int? = nil,
-        nextToken: String? = nil,
-        cachePolicy: CachePolicy
+        nextToken: String? = nil
     ) async throws -> ListAPIResult<VirtualCard, PartialVirtualCard> {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let query = GraphQL.ListCardsQuery(
             filter: filter?.toGraphQL(),
             sortOrder: sortOrder?.toGraphQL(),
             limit: limit,
             nextToken: nextToken
         )
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listCards = data?.listCards else {
-            return ListAPIResult.empty
+        let data: GraphQL.ListCardsQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listCards = data.listCards
         let nextToken = listCards.nextToken
         var success: [VirtualCard] = []
         var partials: [PartialResult<PartialVirtualCard>] = []
@@ -496,11 +467,16 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         return deduplicateVirtualCardListResult(success: success, partials: partials, nextToken: nextToken)
     }
 
-    public func getFundingSource(withId id: String, cachePolicy: CachePolicy) async throws -> FundingSource? {
-        try checkUserSignedIn()
+    public func getFundingSource(withId id: String) async throws -> FundingSource? {
+        try await checkUserSignedIn()
         let query = GraphQL.GetFundingSourceQuery(id: id)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let getFundingSource = data?.getFundingSource else {
+        let data: GraphQL.GetFundingSourceQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
+        guard let getFundingSource = data.getFundingSource else {
             return nil
         }
         if getFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
@@ -526,20 +502,22 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         withFilter filter: FundingSourceFilterInput? = nil,
         sortOrder: SortOrderInput? = nil,
         withLimit limit: Int? = nil,
-        nextToken: String? = nil,
-        cachePolicy: CachePolicy
+        nextToken: String? = nil
     ) async throws -> ListOutput<FundingSource> {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let query = GraphQL.ListFundingSourcesQuery(
             filter: filter?.toGraphQL(),
             sortOrder: sortOrder?.toGraphQL(),
             limit: limit,
             nextToken: nextToken
-            )
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listFundingSources = data?.listFundingSources else {
-            return ListOutput.empty
+        )
+        let data: GraphQL.ListFundingSourcesQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listFundingSources = data.listFundingSources
         let fundingSources: [FundingSource] = try listFundingSources.items
             .map {
                 if $0.__typename == CreditCardFundingSource.Constants.TypeName {
@@ -569,16 +547,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         withFilter filter: ProvisionalFundingSourceFilterInput? = nil,
         sortOrder: SortOrderInput? = nil,
         limit: Int? = nil,
-        nextToken: String? = nil,
-        cachePolicy: CachePolicy
+        nextToken: String? = nil
     ) async throws -> ListOutput<ProvisionalFundingSource> {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         return try await self.provisionalFundingSourceService.listProvisionalFundingSources(
             withFilter: filter,
             sortOrder: sortOrder,
             limit: limit,
-            nextToken: nextToken,
-            cachePolicy: cachePolicy
+            nextToken: nextToken
         )
     }
 
@@ -595,17 +571,17 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     // MARK: - Transactions
 
-    public func getTransaction(withId id: String, cachePolicy: CachePolicy) async throws -> Transaction? {
-        try checkUserSignedIn()
+    public func getTransaction(withId id: String) async throws -> Transaction? {
+        try await checkUserSignedIn()
         let keyPair: KeyPair
         do {
-            let keyPairResult = publicKeyService.getCurrentKeyPair()
+            let keyPairResult = await publicKeyService.getCurrentKeyPair()
             keyPair = try keyPairResult.get()
         } catch {
             let error = convertToSudoVirtualCardsError(error)
             throw error
         }
-        return try await transactionService.get(withId: id, cachePolicy: cachePolicy, keyPair: keyPair)
+        return try await transactionService.get(withId: id, keyPair: keyPair)
     }
 
     public func listTransactions(
@@ -613,16 +589,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         limit: Int?,
         nextToken: String?,
         dateRange: DateRangeInput?,
-        sortOrder: SortOrderInput?,
-        cachePolicy: CachePolicy
+        sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         return try await transactionService.list(
             withCardId: cardId,
             limit: limit,
             nextToken: nextToken,
             dateRange: dateRange,
-            sortOrder: sortOrder,
-            cachePolicy: cachePolicy
+            sortOrder: sortOrder
         )
     }
 
@@ -630,15 +604,13 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         withCardId cardId: String,
         withTransactionType transactionType: TransactionType,
         limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy
+        nextToken: String?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         return try await transactionService.list(
             withCardId: cardId,
             withTransactionType: transactionType,
             limit: limit,
-            nextToken: nextToken,
-            cachePolicy: cachePolicy
+            nextToken: nextToken
         )
     }
 
@@ -646,94 +618,43 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         withLimit limit: Int?,
         nextToken: String?,
         dateRange: DateRangeInput?,
-        sortOrder: SortOrderInput?,
-        cachePolicy: CachePolicy
+        sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         return try await transactionService.list(
             withLimit: limit,
             nextToken: nextToken,
             dateRange: dateRange,
-            sortOrder: sortOrder,
-            cachePolicy: cachePolicy
+            sortOrder: sortOrder
         )
     }
 
-    @discardableResult
-    public func subscribeToTransactionUpdated(
-        statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
-        resultHandler: @escaping ClientCompletion<Transaction>
-    ) async throws -> SubscriptionToken? {
-        let subscriptionId = UUID().uuidString
-        let c = try await transactionService.subscribeToUpdated(
-            withStatusChangeHandler: { [weak self] status in
-                switch status {
-                case .disconnected:
-                    self?.subscriptionManager.removeSubscription(withId: subscriptionId)
-                    fallthrough
-                default:
-                    statusChangeHandler?(status)
-                }
-            },
-            resultHandler: { [weak self] result in
-                guard let weakSelf = self else { return }
-                if var error = result.error {
-                    error = weakSelf.convertToSudoVirtualCardsError(error)
-                    resultHandler(.failure(error))
-                    return
-                }
-                resultHandler(result)
-            }
-        )
-        guard let cancellable = c else {
-            return nil
+    public func subscribe(id: String, notificationType: SubscriptionNotificationType, subscriber: Subscriber) async throws {
+        guard let owner = try? await userClient.getSubject() else {
+            throw SudoVirtualCardsError.notSignedIn
         }
-        return VirtualCardsSubscriptionToken(id: subscriptionId, cancellable: cancellable, manager: subscriptionManager)
+        await subscriptionManager.subscribe(id: id, notificationType: notificationType, subscriber: subscriber, owner: owner)
     }
 
-    @discardableResult
-    public func subscribeToTransactionDeleted(
-        statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
-        resultHandler: @escaping ClientCompletion<Transaction>
-    ) async throws -> SubscriptionToken? {
-        let subscriptionId = UUID().uuidString
-        let c = try await transactionService.subscribeToDeleted(
-            withStatusChangeHandler: { [weak self] status in
-                switch status {
-                case .disconnected:
-                    self?.subscriptionManager.removeSubscription(withId: subscriptionId)
-                    fallthrough
-                default:
-                    statusChangeHandler?(status)
-                }
-            },
-            resultHandler: { [weak self] result in
-                guard let weakSelf = self else { return }
-                if var error = result.error {
-                    error = weakSelf.convertToSudoVirtualCardsError(error)
-                    resultHandler(.failure(error))
-                    return
-                }
-                resultHandler(result)
-            }
-        )
-        guard let cancellable = c else {
-            return nil
-        }
-        return VirtualCardsSubscriptionToken(id: subscriptionId, cancellable: cancellable, manager: subscriptionManager)
+    public func unsubscribe(id: String) async {
+        await subscriptionManager.unsubscribe(id: id)
+    }
+
+    public func unsubscribeAll() async {
+        await subscriptionManager.unsubscribeAll()
     }
 
     // MARK: - Sandbox APIs
 
     public func sandboxGetPlaidData(institutionId: String, plaidUsername: String) async throws -> SandboxPlaidData {
-        try checkUserSignedIn()
-
+        try await checkUserSignedIn()
         let query = GraphQL.SandboxGetPlaidDataQuery(input: .init(institutionId: institutionId, username: plaidUsername))
-
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: .remoteOnly, logger: logger)
-        guard let sandboxPlaidData = data?.sandboxGetPlaidData else {
-            throw SudoVirtualCardsError.internalError("No sandbox Plaid data returned")
+        let data: GraphQL.SandboxGetPlaidDataQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
-
+        let sandboxPlaidData = data.sandboxGetPlaidData
         return .init(
             accountMetadata: sandboxPlaidData.accountMetadata.map {
                 .init(
@@ -748,17 +669,14 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func sandboxSetFundingSourceToRequireRefresh(
         fundingSourceId: String
     ) async throws -> FundingSource {
-        try checkUserSignedIn()
-
+        try await checkUserSignedIn()
         let mutation = GraphQL.SandboxSetFundingSourceToRequireRefreshMutation(input: .init(fundingSourceId: fundingSourceId))
-
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
-
+        let data: GraphQL.SandboxSetFundingSourceToRequireRefreshMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
         let fundingSource = data.sandboxSetFundingSourceToRequireRefresh
         if fundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
             guard let fundingSource = fundingSource.asCreditCardFundingSource else {
@@ -794,7 +712,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///         - SudoPlatformError.
     ///         - PublicKeyError.
     func registerPublicKeyWithInput(_ input: RegisterPublicKeyInput) async throws -> PublicKey {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let mutationInput = GraphQL.CreatePublicKeyInput(
             algorithm: input.algorithm.toString(),
             keyId: input.keyId,
@@ -802,27 +720,24 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             publicKey: input.publicKey
         )
         let mutation = GraphQL.CreatePublicKeyMutation(input: mutationInput)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
-        return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
+        do {
+            let data = try await graphQLClient.perform(mutation: mutation)
+            return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
     }
 
     /// Get the public key associated with the registered public key on the virtual cards service.
     ///
     /// - Parameter id: Id associated with the public key.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey` associated with `id`, or `nil` if the public key cannot be found.
     ///     - Failure:
     ///         - SudoPlatformError.
-    func getPublicKeyWithId(_ id: String, cachePolicy: CachePolicy) async throws -> PublicKey? {
-        try checkUserSignedIn()
-        return try await publicKeyService.getPublicKeyWithId(id, cachePolicy: cachePolicy)
+    func getPublicKeyWithId(_ id: String) async throws -> PublicKey? {
+        try await checkUserSignedIn()
+        return try await publicKeyService.getPublicKeyWithId(id)
     }
 
     /// Get a list of public keys. If no public keys can be found, an empty list will be returned.
@@ -833,26 +748,22 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///                        otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey`s associated with the user, or empty array if no public keys can be found.
     ///     - Failure:
     ///         - SudoPlatformError.
-    func getPublicKeys(
-        withLimit limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy
-    ) async throws -> ListOutput<PublicKey> {
-        try checkUserSignedIn()
+    func getPublicKeys(withLimit limit: Int?, nextToken: String?) async throws -> ListOutput<PublicKey> {
+        try await checkUserSignedIn()
         let query = GraphQL.GetPublicKeysQuery(limit: limit, nextToken: nextToken)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let getPublicKeys = data?.getPublicKeysForVirtualCards else {
-            return ListOutput.empty
+        do {
+            let data = try await graphQLClient.fetch(query: query)
+            let getPublicKeys = data.getPublicKeysForVirtualCards
+            let publicKeys = getPublicKeys.items.map(PublicKey.init)
+            let nextToken = getPublicKeys.nextToken
+            return ListOutput(items: publicKeys, nextToken: nextToken)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
-        let publicKeys = getPublicKeys.items.map(PublicKey.init)
-        let nextToken = getPublicKeys.nextToken
-        return ListOutput(items: publicKeys, nextToken: nextToken)
     }
 
     /// Get a list of public keys associated with the key ring id generated by `registerPublicKeyWithId(_:completion:)`.
@@ -865,8 +776,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ///                        otherwise it will throw an error.
     ///                        It is important to note that the same structured API call should be used if using a previously
     ///                        generated `nextToken`.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey`s associated with the `keyRingId`, or empty array if no public keys can be found.
     ///     - Failure:
@@ -874,24 +783,25 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     func getPublicKeys(
         withKeyRingId keyRingId: String,
         limit: Int? = nil,
-        nextToken: String? = nil,
-        cachePolicy: CachePolicy
+        nextToken: String? = nil
     ) async throws -> ListOutput<PublicKey> {
-        try checkUserSignedIn()
+        try await checkUserSignedIn()
         let query = GraphQL.GetKeyRingQuery(keyRingId: keyRingId, limit: limit, nextToken: nextToken, keyFormats: nil)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let getPublicKeys = data?.getKeyRingForVirtualCards else {
-            return ListOutput.empty
+        do {
+            let data = try await graphQLClient.fetch(query: query)
+            let getPublicKeys = data.getKeyRingForVirtualCards
+            let publicKeys = getPublicKeys.items.map(PublicKey.init)
+            let nextToken = getPublicKeys.nextToken
+            return ListOutput(items: publicKeys, nextToken: nextToken)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
-        let publicKeys = getPublicKeys.items.map(PublicKey.init)
-        let nextToken = getPublicKeys.nextToken
-        return ListOutput(items: publicKeys, nextToken: nextToken)
     }
 
     // MARK: Internal - Utility
 
-    func checkUserSignedIn() throws {
-        guard (try? userClient.getSubject()) != nil else {
+    func checkUserSignedIn() async throws {
+        guard (try? await userClient.getSubject()) != nil else {
             throw SudoVirtualCardsError.notSignedIn
         }
     }

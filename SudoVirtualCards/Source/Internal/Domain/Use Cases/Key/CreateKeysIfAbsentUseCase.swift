@@ -52,13 +52,13 @@ class CreateKeysIfAbsentUseCase: SudoVirtualCardsOperation {
     }
 
     func createAndRegisterKeyPairIfAbsent() async throws -> CreateKeysIfAbsentResult.KeyResult {
-        if let currentKeyPair = try platformKeyManager.getCurrentKeyPair() {
-            if (try await self.publicKeyService.getPublicKeyWithId(currentKeyPair.keyId, cachePolicy: .remoteOnly)) == nil {
+        if let currentKeyPair = try await platformKeyManager.getCurrentKeyPair() {
+            if (try await self.publicKeyService.getPublicKeyWithId(currentKeyPair.keyId)) == nil {
                 _ = try await self.publicKeyService.create(withKeyPair: currentKeyPair)
             }
             return .init(created: false, keyId: currentKeyPair.keyId)
         } else {
-            let keyPair = try platformKeyManager.generateNewCurrentKeyPair()
+            let keyPair = try await platformKeyManager.generateNewCurrentKeyPair()
             _ = try await publicKeyService.create(withKeyPair: keyPair)
             return .init(created: true, keyId: keyPair.keyId)
         }

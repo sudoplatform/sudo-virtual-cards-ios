@@ -68,9 +68,6 @@
                 <a class="nav-group-task-link" href="Enums/BankAccountType.html">BankAccountType</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/CachePolicy.html">CachePolicy</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/CardType.html">CardType</a>
               </li>
               <li class="nav-group-task">
@@ -110,9 +107,6 @@
                 <a class="nav-group-task-link" href="Enums/Nullish.html">Nullish</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/PlatformSubscriptionStatus.html">PlatformSubscriptionStatus</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/ProvisionalCardState.html">ProvisionalCardState</a>
               </li>
               <li class="nav-group-task">
@@ -140,6 +134,15 @@
                 <a class="nav-group-task-link" href="Enums/SortOrderInput.html">SortOrderInput</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/SubscriptionConnectionState.html">SubscriptionConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/SubscriptionNotification.html">SubscriptionNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/SubscriptionNotificationType.html">SubscriptionNotificationType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
               </li>
               <li class="nav-group-task">
@@ -160,9 +163,6 @@
             <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Extensions/AWSRegionType.html">AWSRegionType</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/GraphQL.html">GraphQL</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +170,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/GraphQL/CancelVirtualCardMutation.html">– CancelVirtualCardMutation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/GraphQL.html#/OnTransactionDeleteSubscription">– OnTransactionDeleteSubscription</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/GraphQL.html#/OnTransactionUpdateSubscription">– OnTransactionUpdateSubscription</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Extensions/NotificationConfiguration.html">NotificationConfiguration</a>
@@ -195,16 +201,13 @@
                 <a class="nav-group-task-link" href="Protocols/FundingSourceProviderData.html">FundingSourceProviderData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/ProvisionVirtualCardObservable.html">ProvisionVirtualCardObservable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ProvisionalCardAttributes.html">ProvisionalCardAttributes</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/ProvisionalCardSealedAttributes.html">ProvisionalCardSealedAttributes</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/SubscriptionToken.html">SubscriptionToken</a>
+                <a class="nav-group-task-link" href="Protocols/Subscriber.html">Subscriber</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/SudoVirtualCardsClient.html">SudoVirtualCardsClient</a>
@@ -423,9 +426,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -444,34 +444,6 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards26PlatformSubscriptionStatusO"></a>
-                    <a name="//apple_ref/swift/Enum/PlatformSubscriptionStatus" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards26PlatformSubscriptionStatusO">PlatformSubscriptionStatus</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Status of a <code>PlatformSubscriptionStatus</code>.</p>
-
-                        <a href="Enums/PlatformSubscriptionStatus.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PlatformSubscriptionStatus</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -607,35 +579,6 @@ Platform Virtual Cards SDK.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">BankAccountType</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:16SudoVirtualCards11CachePolicyO"></a>
-                    <a name="//apple_ref/swift/Enum/CachePolicy" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards11CachePolicyO">CachePolicy</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Cache policy that determines how data is accessed when performing a query method from
-the Virtual Cards Service.</p>
-
-                        <a href="Enums/CachePolicy.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CachePolicy</span></code></pre>
 
                         </div>
                       </div>
@@ -1141,6 +1084,90 @@ required to carry out that user interfaction.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:16SudoVirtualCards27SubscriptionConnectionStateO"></a>
+                    <a name="//apple_ref/swift/Enum/SubscriptionConnectionState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards27SubscriptionConnectionStateO">SubscriptionConnectionState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The different states that a <code>Subscription</code> can be in.</p>
+
+                        <a href="Enums/SubscriptionConnectionState.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SubscriptionConnectionState</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards24SubscriptionNotificationO"></a>
+                    <a name="//apple_ref/swift/Enum/SubscriptionNotification" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24SubscriptionNotificationO">SubscriptionNotification</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The types of notifications that can be sent to <code><a href="Protocols/Subscriber.html">Subscriber</a></code> instances.</p>
+
+                        <a href="Enums/SubscriptionNotification.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SubscriptionNotification</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:16SudoVirtualCards28SubscriptionNotificationTypeO"></a>
+                    <a name="//apple_ref/swift/Enum/SubscriptionNotificationType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards28SubscriptionNotificationTypeO">SubscriptionNotificationType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The types of notifications that <code><a href="Protocols/Subscriber.html">Subscriber</a></code> instances can subscribe to.</p>
+
+                        <a href="Enums/SubscriptionNotificationType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SubscriptionNotificationType</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:16SudoVirtualCards24TransactionDeclineReasonO"></a>
                     <a name="//apple_ref/swift/Enum/TransactionDeclineReason" class="dashAnchor"></a>
                     <a class="token" href="#/s:16SudoVirtualCards24TransactionDeclineReasonO">TransactionDeclineReason</a>
@@ -1265,7 +1292,7 @@ required to carry out that user interfaction.</p>
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-03-25)</p>
+      <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-04-14)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

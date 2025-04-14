@@ -4,9 +4,10 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
+import struct Amplify.GraphQLError
+import enum Amplify.JSONValue
 import Foundation
 import SudoApiClient
-import AWSAppSync
 
 /// Errors that occur in SudoVirtualCards.
 public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
@@ -160,7 +161,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
     ///
     /// If the GraphQLError is unsupported, `nil` will be returned instead.
     init(graphQLError error: GraphQLError) { // swiftlint:disable:this cyclomatic_complexity
-        guard let errorType = error["errorType"] as? String else {
+        guard let errorType = error.extensions?["errorType"]?.stringValue else {
             self = .internalError(error.message)
             return
         }
@@ -200,7 +201,7 @@ public enum SudoVirtualCardsError: Error, Equatable, LocalizedError {
         case "sudoplatform.virtual-cards.UnacceptableFundingSourceError":
             self = .unacceptableFundingSource
         case "sudoplatform.virtual-cards.FundingSourceRequiresUserInteractionError":
-            let result = decodeProvisionalFundingSourceInteractionData(error["errorInfo"])
+            let result = decodeProvisionalFundingSourceInteractionData(error.extensions?["errorInfo"])
             switch result {
             case .success(let interactionData):
                 self = .fundingSourceRequiresUserInteraction(interactionData)
@@ -411,6 +412,9 @@ extension SudoVirtualCardsError {
     }
 
     static func fromApiOperationError(error: Error) -> SudoVirtualCardsError {
+        if let virtualCardsError = error as? SudoVirtualCardsError {
+            return virtualCardsError
+        }
         switch error {
         case ApiOperationError.accountLocked:
             return .accountLocked
@@ -430,12 +434,15 @@ extension SudoVirtualCardsError {
             return .versionMismatch
         case ApiOperationError.rateLimitExceeded:
             return .rateLimitExceeded
-        case ApiOperationError.graphQLError(let cause):
-            return .graphQLError(description: "Unexpected GraphQL error: \(cause)")
+        case ApiOperationError.graphQLError(let underlyingError):
+            if let graphQLError = underlyingError as? GraphQLError {
+                return SudoVirtualCardsError(graphQLError: graphQLError)
+            }
+            return .graphQLError(description: "Unexpected GraphQL error: \(underlyingError.localizedDescription)")
         case ApiOperationError.requestFailed(let response, let cause):
             return .requestFailed(response: response, cause: cause)
         default:
-            return .fatalError(description: "Unexpected API operation error: \(error)")
+            return .fatalError(description: "Unexpected API operation error: \(error.localizedDescription)")
         }
     }
 }
@@ -453,22 +460,20 @@ public enum PublicKeyError: Error, Equatable {
 }
 
 /// Decode errorInfo from GraphQL error as provisional funding source interaction data
-func decodeProvisionalFundingSourceInteractionData(_ errorInfo: Any?) -> Swift.Result<FundingSourceInteractionData, SudoVirtualCardsError> {
-
+func decodeProvisionalFundingSourceInteractionData(
+    _ errorInfo: Amplify.JSONValue?
+) -> Swift.Result<FundingSourceInteractionData, SudoVirtualCardsError> {
     let msg = "Error info cannot be decoded as funding source interaction data"
-    guard let errorInfo = errorInfo as? JSONObject else {
+    guard let errorInfoDict = errorInfo?.asObject else {
         return .failure(SudoVirtualCardsError.internalError("\(msg): \(String(describing: errorInfo)) is not a JSONObject"))
     }
-
-    let base64ProvisioningData = errorInfo["provisioningData"]
-    guard let base64ProvisioningData = base64ProvisioningData as? String else {
+    let base64ProvisioningData = errorInfoDict["provisioningData"]?.stringValue
+    guard let base64ProvisioningData else {
         return .failure(SudoVirtualCardsError.internalError("\(msg): \(String(describing: base64ProvisioningData)) is not a String"))
     }
-
     guard let encodedProvisioningData = Data(base64Encoded: base64ProvisioningData) else {
         return .failure(SudoVirtualCardsError.internalError("\(msg): \(String(describing: base64ProvisioningData)) is not Base64 encoded"))
     }
-
     do {
         let decoder: JSONDecoder = JSONDecoder()
         let baseProvisioningData = try decoder.decode(BaseProvisioningData.self, from: encodedProvisioningData)
@@ -485,7 +490,8 @@ func decodeProvisionalFundingSourceInteractionData(_ errorInfo: Any?) -> Swift.R
         let data = String(decoding: encodedProvisioningData, as: UTF8.self)
         return .failure(
             SudoVirtualCardsError.internalError(
-                "\(msg): \(data) is not expected format for FundingSourceInteractionData: \(String(describing: error))"))
+                "\(msg): \(data) is not expected format for FundingSourceInteractionData: \(String(describing: error))")
+        )
 
     }
 }

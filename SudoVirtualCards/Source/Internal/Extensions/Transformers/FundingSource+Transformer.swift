@@ -13,8 +13,8 @@ extension CreditCardFundingSource {
         self.version =  fragment.version
         self.createdAt =  Date(millisecondsSince1970: fragment.createdAtEpochMs)
         self.updatedAt =  Date(millisecondsSince1970: fragment.updatedAtEpochMs)
-        self.state = FundingSourceState(fragment.state)
-        self.flags = fragment.flags.map {FundingSourceFlags($0)}
+        self.state = FundingSourceState(fragment.getFundingSourceState())
+        self.flags = fragment.getFundingSourceFlags().map { FundingSourceFlags($0) }
         self.currency = fragment.currency
         self.transactionVelocity = fragment.transactionVelocity?.maximum == nil && fragment.transactionVelocity?.velocity == nil
             ? nil
@@ -22,7 +22,7 @@ extension CreditCardFundingSource {
                 maximum: fragment.transactionVelocity?.maximum,
                 velocity: fragment.transactionVelocity?.velocity)
         self.last4 = fragment.last4
-        self.network = Network(fragment.network)
-        self.cardType = CardType(fragment.cardType)
+        self.network = Network(fragment.getCreditCardNetwork())
+        self.cardType = CardType(fragment.getCardType())
     }
 }

@@ -5,7 +5,6 @@
 //
 
 import Foundation
-import AWSAppSync
 
 extension VirtualCardsConfig {
     init(fragment: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig) {
@@ -60,7 +59,7 @@ extension FundingSourceSupportInfo {
 
 extension FundingSourceSupportDetail {
     init(fragment: GraphQL.GetVirtualCardsConfigQuery.Data.GetVirtualCardsConfig.FundingSourceSupportInfo.Detail) {
-        self.cardType = CardType(fragment.cardType)
+        self.cardType = CardType(fragment.getCardType())
     }
 }
 

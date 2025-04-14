@@ -27,18 +27,18 @@ protocol PlatformKeyManager: AnyObject {
 
     /// Get the key ring id associated with the owners service.
     /// Throws: `PlatformKeyManagerError.noUserId` if the user Id cannot be found.
-    func getKeyRingId() throws -> String
+    func getKeyRingId() async throws -> String
 
     /// Returns the current key pair that is being used by this service.
     /// If no key pair has been previously generated, will return `nil`, and require the caller
     /// to call `generateNewCurrentKeyPair()` if they require a current key pair.
-    func getCurrentKeyPair() throws -> KeyPair?
+    func getCurrentKeyPair() async throws -> KeyPair?
 
     /// Get the Key Pair associated with the id if it exists.
-    func getKeyPairWithId(_ id: String) throws -> KeyPair?
+    func getKeyPairWithId(_ id: String) async throws -> KeyPair?
 
     /// Generate a new current key pair.
-    func generateNewCurrentKeyPair() throws -> KeyPair
+    func generateNewCurrentKeyPair() async throws -> KeyPair
 
     func generateNewCurrentSymmetricKey() throws -> String
 
@@ -140,14 +140,14 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
 
     // MARK: - Methods
 
-    func getKeyRingId() throws -> String {
-        guard let userId = try userClient.getSubject() else {
+    func getKeyRingId() async throws -> String {
+        guard let userId = try await userClient.getSubject() else {
             throw PlatformKeyManagerError.noUserId
         }
         return "\(keyRingServiceName).\(userId)"
     }
 
-    func getCurrentKeyPair() throws -> KeyPair? {
+    func getCurrentKeyPair() async throws -> KeyPair? {
         guard let currentKeyIdData = try keyManager.getPassword(Constants.currentKeyIdPointerName),
             let currentKeyId = String(data: currentKeyIdData, encoding: .utf8),
             let publicKey = try keyManager.getPublicKey(currentKeyId),
@@ -155,7 +155,7 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
         else {
             return nil
         }
-        let keyRingId = try getKeyRingId()
+        let keyRingId = try await getKeyRingId()
         return KeyPair(
             keyId: currentKeyId,
             keyRingId: keyRingId,
@@ -163,13 +163,13 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
             privateKey: privateKey)
     }
 
-    func getKeyPairWithId(_ id: String) throws -> KeyPair? {
+    func getKeyPairWithId(_ id: String) async throws -> KeyPair? {
         guard let publicKey = try keyManager.getPublicKey(id),
             let privateKey = try keyManager.getPrivateKey(id)
         else {
             return nil
         }
-        let keyRingId = try getKeyRingId()
+        let keyRingId = try await getKeyRingId()
         return KeyPair(
             keyId: id,
             keyRingId: keyRingId,
@@ -177,7 +177,7 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
             privateKey: privateKey)
     }
 
-    func generateNewCurrentKeyPair() throws -> KeyPair {
+    func generateNewCurrentKeyPair() async throws -> KeyPair {
         let keyPairId = try keyManager.generateKeyId()
         guard let keyPairIdDataEncoded = keyPairId.data(using: .utf8) else {
             logger.error("Failed to encode keyPairId: \(keyPairId)")
@@ -211,7 +211,7 @@ class DefaultPlatformKeyManager: PlatformKeyManager {
             try keyManager.deleteKeyPair(keyPairId)
             throw PlatformKeyManagerError.getKeyPairFailed
         }
-        let keyRingId = try getKeyRingId()
+        let keyRingId = try await getKeyRingId()
         return KeyPair(
             keyId: keyPairId,
             keyRingId: keyRingId,

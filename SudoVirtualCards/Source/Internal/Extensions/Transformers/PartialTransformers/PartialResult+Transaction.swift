@@ -9,7 +9,7 @@ import Foundation
 extension PartialResult where P == PartialTransaction {
 
     init(transaction: GraphQL.SealedTransaction, error: Error) {
-        let transactionType = TransactionType(type: transaction.type)
+        let transactionType = TransactionType(type: transaction.getTransactionType())
         let createdAt = Date(millisecondsSince1970: transaction.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
         let sortDate = Date(millisecondsSince1970: transaction.sortDateEpochMs)

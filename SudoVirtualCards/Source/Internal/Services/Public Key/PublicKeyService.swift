@@ -6,7 +6,6 @@
 
 import Foundation
 import SudoLogging
-import AWSAppSync
 import SudoApiClient
 import SudoKeyManager
 
@@ -57,14 +56,14 @@ class PublicKeyService {
 
     /// Get the current key pair from the keychain.
     /// - Parameter generateKeyIfNotFound: If true, if the key pair could not be found, a new keypair will be generated.
-    func getCurrentKeyPair(generateKeyIfNotFound: Bool = false) -> GetCurrentKeyPairResult {
+    func getCurrentKeyPair(generateKeyIfNotFound: Bool = false) async -> GetCurrentKeyPairResult {
         do {
-            let currentKeyPair = try platformKeyManager.getCurrentKeyPair()
+            let currentKeyPair = try await platformKeyManager.getCurrentKeyPair()
             if let currentKeyPair = currentKeyPair {
                 return .success(currentKeyPair)
             }
             if generateKeyIfNotFound {
-                let keyPair = try platformKeyManager.generateNewCurrentKeyPair()
+                let keyPair = try await platformKeyManager.generateNewCurrentKeyPair()
                 return .success(keyPair)
             } else {
                 return .failure(PublicKeyError.publicKeyNotFound)
@@ -86,35 +85,31 @@ class PublicKeyService {
     /// Get the public key associated with the registered public key on the virtual cards service.
     ///
     /// - Parameter id: Id associated with the public key.
-    /// - Parameter cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this
-    ///                          will only return cached results of similar exact API calls.
     /// - Returns:
     ///     - Success: `PublicKey` associated with `id`, or `nil` if the public key cannot be found.
     ///     - Failure:
     ///         - SudoPlatformError.
-    func getPublicKeyWithId(_ id: String, cachePolicy: CachePolicy) async throws -> PublicKey? {
+    func getPublicKeyWithId(_ id: String) async throws -> PublicKey? {
         let query = GraphQL.GetPublicKeyQuery(keyId: id, keyFormats: nil)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let key = data?.getPublicKeyForVirtualCards else {
-            return nil
+        do {
+            let data = try await graphQLClient.fetch(query: query)
+            guard let key = data.getPublicKeyForVirtualCards else {
+                return nil
+            }
+            return PublicKey(getPublicKeyForVirtualCards: key)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
-        return PublicKey(getPublicKeyForVirtualCards: key)
     }
 
     /// Get the key ring.
-    func getKeyRing(forKeyRingId keyRingId: String, cachePolicy: CachePolicy) async throws -> GetKeyRingQuery.Data {
+    func getKeyRing(forKeyRingId keyRingId: String) async throws -> GetKeyRingQuery.Data {
         let query = GetKeyRingQuery(keyRingId: keyRingId, keyFormats: nil)
-        let data = try await GraphQLHelper.performQuery(
-            graphQLClient: graphQLClient,
-            query: query,
-            cachePolicy: cachePolicy,
-            logger: logger
-        )
-        guard let result = data else {
-            logger.error("Failed to get key ring")
-            throw SudoVirtualCardsError.getFailed
+        do {
+            return try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
-        return result
     }
 
     /// Create/Register a new public key.
@@ -129,7 +124,11 @@ class PublicKeyService {
             publicKey: publicKeyString
         )
         let mutation = GraphQL.CreatePublicKeyMutation(input: input)
-        let data = try await GraphQLHelper.performMutation(graphQLClient: graphQLClient, mutation: mutation, logger: logger)
-        return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
+        do {
+            let data = try await graphQLClient.perform(mutation: mutation)
+            return PublicKey(createPublicKeyForVirtualCards: data.createPublicKeyForVirtualCards)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
     }
 }

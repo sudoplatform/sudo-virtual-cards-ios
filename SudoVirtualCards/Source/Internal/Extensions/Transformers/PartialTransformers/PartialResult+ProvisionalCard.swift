@@ -9,7 +9,7 @@ import Foundation
 extension PartialResult where P == PartialProvisionalCard {
 
     init(provisionalCard: GraphQL.ProvisionalCard, error: Error) {
-        let state = ProvisionalCardState(provisionalCard.provisioningState)
+        let state = ProvisionalCardState(provisionalCard.getProvisioningState())
         let createdAt = Date(millisecondsSince1970: provisionalCard.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: provisionalCard.updatedAtEpochMs)
         let partial = PartialProvisionalCard(

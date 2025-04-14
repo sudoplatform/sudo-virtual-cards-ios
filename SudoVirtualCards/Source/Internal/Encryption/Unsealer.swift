@@ -46,6 +46,14 @@ protocol Unsealer: AnyObject {
     ///     - KeyManagerError.
     func unseal(_ card: GraphQL.SealedCard) throws -> VirtualCard
 
+    /// Attempt to unseal a newly provisioned card.
+    ///
+    /// Returns: Card that is unsealed using the input `card`'s `keyId`.
+    /// Throws:
+    ///     - UnsealingError.
+    ///     - KeyManagerError.
+    func unseal(_ card: GraphQL.ProvisionalCard.Card) throws -> VirtualCard
+
     // MARK: - Methods: Unseal Transactions
 
     /// Attempt to unseal a transaction received from a `GraphQL.GetTransactionQuery`.
@@ -110,7 +118,57 @@ class DefaultUnsealer: Unsealer {
     }
 
     func unseal(_ card: GraphQL.SealedCard) throws -> VirtualCard {
-        let state = VirtualCardState(card.state)
+        let state = VirtualCardState(card.getCardState())
+        let billingAddress: SealedBillingAddress?
+        if let address = card.billingAddress?.fragments.sealedAddressAttribute {
+            billingAddress = SealedBillingAddress(fragment: address)
+        } else {
+            billingAddress = nil
+        }
+        let expiry = SealedExpiry(fragment: card.expiry.fragments.sealedExpiryAttribute)
+        let activeTo = Date(millisecondsSince1970: card.activeToEpochMs)
+        var cancelledAt: Date?
+        if let cancelledAtEpochMs = card.cancelledAtEpochMs {
+            cancelledAt = Date(millisecondsSince1970: cancelledAtEpochMs)
+        }
+        let createdAt = Date(millisecondsSince1970: card.createdAtEpochMs)
+        let updatedAt = Date(millisecondsSince1970: card.updatedAtEpochMs)
+        let owners = card.owners.map { Owner(id: $0.id, issuer: $0.issuer) }
+
+        var metadata: JSONValue?
+        if let md = card.metadata?.fragments.sealedAttribute {
+            metadata = try unseal(metadata: md)
+        }
+
+        let keyInfo = KeyInfo(keyId: card.keyId, keyType: .privateKey, algorithm: card.algorithm)
+
+        return try unsealCard(
+            id: card.id,
+            owner: card.owner,
+            owners: owners,
+            version: card.version,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            fundingSourceId: card.fundingSourceId,
+            currency: card.currency,
+            state: state,
+            activeTo: activeTo,
+            cancelledAt: cancelledAt,
+            last4: card.last4,
+            lastTransaction: nil,
+            metadata: metadata,
+            alias: card.alias,
+            cardHolder: card.cardHolder,
+            pan: card.pan,
+            csc: card.csc,
+            billingAddress: billingAddress,
+            expiry: expiry,
+            withKeyInfo: keyInfo
+        )
+    }
+
+    func unseal(_ card: GraphQL.ProvisionalCard.Card) throws -> VirtualCard {
+        let state = VirtualCardState(card.getCardState())
         let billingAddress: SealedBillingAddress?
         if let address = card.billingAddress?.fragments.sealedAddressAttribute {
             billingAddress = SealedBillingAddress(fragment: address)
@@ -160,7 +218,7 @@ class DefaultUnsealer: Unsealer {
     }
 
     func unseal(_ transaction: GraphQL.SealedTransaction) throws -> Transaction {
-        let type = TransactionType(type: transaction.type)
+        let type = TransactionType(type: transaction.getTransactionType())
         let createdAt = Date(millisecondsSince1970: transaction.createdAtEpochMs)
         let updatedAt = Date(millisecondsSince1970: transaction.updatedAtEpochMs)
         let sortDate = Date(millisecondsSince1970: transaction.sortDateEpochMs)
@@ -208,15 +266,15 @@ class DefaultUnsealer: Unsealer {
             version: fundingSource.version,
             createdAt: Date(millisecondsSince1970: fundingSource.createdAtEpochMs),
             updatedAt: Date(millisecondsSince1970: fundingSource.updatedAtEpochMs),
-            state: FundingSourceState(fundingSource.state),
-            flags: fundingSource.flags.map {FundingSourceFlags($0)},
+            state: FundingSourceState(fundingSource.getFundingSourceState()),
+            flags: fundingSource.getFundingSourceFlags().map { FundingSourceFlags($0) },
             currency: fundingSource.currency,
             transactionVelocity: TransactionVelocity(
                 maximum: fundingSource.transactionVelocity?.maximum,
                 velocity: fundingSource.transactionVelocity?.velocity
             ),
             last4: fundingSource.last4,
-            bankAccountType: BankAccountType(fundingSource.bankAccountType),
+            bankAccountType: BankAccountType(fundingSource.getBankAccountType()),
             institutionName: institutionName,
             institutionLogo: optionalLogo,
             unfundedAmount: optionalUnfundedAmount

@@ -5,7 +5,6 @@
 //
 
 import Foundation
-import AWSAppSync
 import SudoUser
 import SudoLogging
 import SudoApiClient
@@ -28,9 +27,6 @@ class TransactionService {
     /// Logs errors and diagnostic information.
     private let logger: Logger
 
-    /// Weak reference to existing subscriptions.
-    var subscriptions: [WeakCancellable] = []
-
     // MARK: - Lifecycle
 
     /// Initialize an instance of `TransactionService`.
@@ -46,28 +42,24 @@ class TransactionService {
         self.logger = logger
     }
 
-    /// Clear all existing subscriptions created by `subscribe(withStatusChangeHandler:resultHandler:)`.
-    func clearSubscriptions() {
-        subscriptions.forEach { $0.value?.cancel() }
-        subscriptions.removeAll()
-    }
-
     // MARK: - TransactionService
 
     /// Get a singular transaction.
-    ///
     /// - Parameters:
     ///   - id: ID of the transaction to be retrieved.
-    ///   - cachePolicy: Determines how the data is fetched. When using `cacheOnly`, please be aware that this will only return cached results of similar exact
-    ///         API calls.
     ///   - keyPair: Key used to decrypt the payload.
     /// - Returns:
     ///    - Success: Transaction associated with `id`, or `nil` if the card cannot be found.
     ///    - Failure: `Error` that occurred.
-    func get(withId id: String, cachePolicy: CachePolicy, keyPair: KeyPair) async throws -> Transaction? {
+    func get(withId id: String, keyPair: KeyPair) async throws -> Transaction? {
         let query = GraphQL.GetTransactionQuery(id: id, keyId: keyPair.keyId)
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let result = data?.getTransaction else {
+        let data: GraphQL.GetTransactionQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
+        guard let result = data.getTransaction else {
             return nil
         }
         do {
@@ -86,7 +78,6 @@ class TransactionService {
     ///         pagination call, otherwise it will throw an error.
     ///   - dateRange: Range of upper and lower date limits for records.
     ///   - sortOrder: Order in which records are returned (based on date).
-    ///   - cachePolicy: Determines how the data is fetched.
     /// - Returns:
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure: `Error` that occurred.
@@ -95,8 +86,7 @@ class TransactionService {
         limit: Int?,
         nextToken: String?,
         dateRange: DateRangeInput?,
-        sortOrder: SortOrderInput?,
-        cachePolicy: CachePolicy
+        sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         let query = GraphQL.ListTransactionsByCardIdQuery(
             cardId: cardId,
@@ -105,10 +95,13 @@ class TransactionService {
             dateRange: dateRange?.toGraphQL(),
             sortOrder: sortOrder?.toGraphQL()
         )
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listTransactions = data?.listTransactionsByCardId2 else {
-            return .empty
+        let data: GraphQL.ListTransactionsByCardIdQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listTransactions = data.listTransactionsByCardId2
         let nextToken = listTransactions.nextToken
         var success: [Transaction] = []
         var partials: [PartialResult<PartialTransaction>] = []
@@ -131,7 +124,6 @@ class TransactionService {
     ///   - limit: Number of transaction to return. If nil, the limit is 10.
     ///   - nextToken: Generated token by previous calls to `list`. This is used for pagination. This value should be pre-generated from a previous
     ///         pagination call, otherwise it will throw an error.
-    ///   - cachePolicy: Determines how the data is fetched.
     /// - Returns:
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure: `Error` that occurred.
@@ -139,8 +131,7 @@ class TransactionService {
         withCardId cardId: String,
         withTransactionType transactionType: TransactionType,
         limit: Int?,
-        nextToken: String?,
-        cachePolicy: CachePolicy
+        nextToken: String?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         if transactionType.toGraphQL() == nil {
             throw SudoVirtualCardsError.unrecognizedTransactionType
@@ -151,10 +142,13 @@ class TransactionService {
             limit: limit,
             nextToken: nextToken
         )
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listTransactions = data?.listTransactionsByCardIdAndType else {
-            return .empty
+        let data: GraphQL.ListTransactionsByCardIdAndTypeQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listTransactions = data.listTransactionsByCardIdAndType
         let nextToken = listTransactions.nextToken
         var success: [Transaction] = []
         var partials: [PartialResult<PartialTransaction>] = []
@@ -171,7 +165,6 @@ class TransactionService {
     }
 
     /// Get a list of transactions. If no transactions can be found, an empty list will be returned.
-    ///
     /// - Parameters:
     ///     - filter: Filter to be applied to results of query.
     ///     - limit: Number of transaction to return. If nil, the limit is 10.
@@ -179,8 +172,6 @@ class TransactionService {
     ///     - sortOrder: Order in which records are returned (based on date).
     ///     - nextToken: Generated token by previous calls to `list`. This is used for pagination. This value should be pre-generated from a previous
     ///         pagination call, otherwise it will throw an error.
-    /// - Parameter cachePolicy: Determines how the data is fetched.
-    ///
     /// - Returns:
     ///    - Success: Transactions associated with user, or empty array if no transaction can be found.
     ///    - Failure: `Error` that occurred.
@@ -188,8 +179,7 @@ class TransactionService {
         withLimit limit: Int?,
         nextToken: String?,
         dateRange: DateRangeInput?,
-        sortOrder: SortOrderInput?,
-        cachePolicy: CachePolicy
+        sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
         // sequenceId has no affect on this, but we still want to honor other filters.
         let query = GraphQL.ListTransactionsQuery(
@@ -198,10 +188,13 @@ class TransactionService {
             dateRange: dateRange?.toGraphQL(),
             sortOrder: sortOrder?.toGraphQL()
         )
-        let data = try await GraphQLHelper.performQuery(graphQLClient: graphQLClient, query: query, cachePolicy: cachePolicy, logger: logger)
-        guard let listTransactions = data?.listTransactions2 else {
-            return .empty
+        let data: GraphQL.ListTransactionsQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
         }
+        let listTransactions = data.listTransactions2
         let nextToken = listTransactions.nextToken
         var success: [Transaction] = []
         var partials: [PartialResult<PartialTransaction>] = []
@@ -215,122 +208,6 @@ class TransactionService {
             }
         }
         return deduplicateTransactionListResult(success: success, partials: partials, nextToken: nextToken)
-    }
-
-    /// Subscribe to transaction update events. This includes creation of new transactions.
-    ///
-    /// - Parameter statusChangeHandler: Connection status change.
-    /// - Parameter resultHandler: Updated transaction event.
-    ///
-    /// - Returns: `Cancellable` object to cancel the subscription.
-    func subscribeToUpdated(
-        withStatusChangeHandler statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
-        resultHandler: @escaping ClientCompletion<Transaction>
-    ) async throws -> Cancellable? {
-        guard let owner = try? userClient.getSubject() else {
-            throw SudoVirtualCardsError.notSignedIn
-        }
-        let subscription = GraphQL.OnTransactionUpdateSubscription(owner: owner)
-
-        let discard = try? await graphQLClient.subscribe(
-            subscription: subscription,
-            statusChangeHandler: { status in
-                let platformStatus = PlatformSubscriptionStatus(status: status)
-                statusChangeHandler?(platformStatus)
-            },
-            resultHandler: { (result, _, error) in
-                if let error = error {
-                    resultHandler(.failure(error))
-                    return
-                }
-                guard let result = result else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError("Error and result cannot both be nil.")))
-                    return
-                }
-                if let errors = result.errors, let error = errors.first {
-                    resultHandler(.failure(SudoVirtualCardsError(graphQLError: error)))
-                    return
-                }
-                guard let data = result.data else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError("GraphQL error and data cannot be nil")))
-                    return
-                }
-                guard let onTransactionUpdate = data.onTransactionUpdate else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError("Failed to get transaction.")))
-                    return
-                }
-                do {
-                    let transaction = try self.unsealer.unseal(onTransactionUpdate.fragments.sealedTransaction)
-                    resultHandler(.success(transaction))
-                } catch {
-                    self.logger.error("Failed to decode transaction: \(error)")
-                    resultHandler(.failure(error))
-                    return
-                }
-        })
-        guard let cancellable = discard else {
-            return nil
-        }
-        subscriptions.append(WeakCancellable(value: cancellable))
-        return cancellable
-    }
-
-    /// Subscribe to transaction delete events. This includes creation of new transactions.
-    ///
-    /// - Parameter statusChangeHandler: Connection status change.
-    /// - Parameter resultHandler: Deleted transaction event.
-    ///
-    /// - Returns: `Cancellable` object to cancel the subscription.
-    func subscribeToDeleted(
-        withStatusChangeHandler statusChangeHandler: SudoSubscriptionStatusChangeHandler?,
-        resultHandler: @escaping ClientCompletion<Transaction>
-    ) async throws -> Cancellable? {
-        guard let owner = try? userClient.getSubject() else {
-            throw SudoVirtualCardsError.notSignedIn
-        }
-        let subscription = GraphQL.OnTransactionDeleteSubscription(owner: owner)
-
-        let discard = try? await graphQLClient.subscribe(
-            subscription: subscription,
-            statusChangeHandler: { status in
-                let platformStatus = PlatformSubscriptionStatus(status: status)
-                statusChangeHandler?(platformStatus)
-            },
-            resultHandler: { (result, _, error) in
-                if let error = error {
-                    resultHandler(.failure(error))
-                    return
-                }
-                guard let result = result else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError("Error and result cannot both be nil.")))
-                    return
-                }
-                if let errors = result.errors, let error = errors.first {
-                    resultHandler(.failure(SudoVirtualCardsError(graphQLError: error)))
-                    return
-                }
-                guard let data = result.data else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError("GraphQL error and data cannot be nil")))
-                    return
-                }
-                guard let onTransactionDelete = data.onTransactionDelete else {
-                    resultHandler(.failure(SudoVirtualCardsError.internalError("Failed to get transaction.")))
-                    return
-                }
-                do {
-                    let transaction = try self.unsealer.unseal(onTransactionDelete.fragments.sealedTransaction)
-                    resultHandler(.success(transaction))
-                } catch {
-                    self.logger.error("Failed to decode transaction: \(error)")
-                    resultHandler(.failure(error))
-                    return
-                }
-        })
-        guard let cancellable = discard else {
-            return nil
-        }
-        subscriptions.append(WeakCancellable(value: cancellable))
-        return cancellable
     }
 
     /// Removes duplicate unsealed transactions from success and partial results based on identifier, favouring unsealed transactions in

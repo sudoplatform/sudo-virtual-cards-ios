@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ProvisionVirtualCardObservable Protocol Reference</title>
+    <title>SubscriptionNotification Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Protocol/ProvisionVirtualCardObservable" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/SubscriptionNotification" class="dashAnchor"></a>
 
-    <a title="ProvisionVirtualCardObservable Protocol Reference"></a>
+    <a title="SubscriptionNotification Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -38,7 +38,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html"> Reference</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      ProvisionVirtualCardObservable Protocol Reference
+      SubscriptionNotification Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -66,9 +66,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/BankAccountType.html">BankAccountType</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/CachePolicy.html">CachePolicy</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/CardType.html">CardType</a>
@@ -110,9 +107,6 @@
                 <a class="nav-group-task-link" href="../Enums/Nullish.html">Nullish</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/PlatformSubscriptionStatus.html">PlatformSubscriptionStatus</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/ProvisionalCardState.html">ProvisionalCardState</a>
               </li>
               <li class="nav-group-task">
@@ -140,6 +134,15 @@
                 <a class="nav-group-task-link" href="../Enums/SortOrderInput.html">SortOrderInput</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionConnectionState.html">SubscriptionConnectionState</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionNotification.html">SubscriptionNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/SubscriptionNotificationType.html">SubscriptionNotificationType</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/SudoVirtualCardsError.html">SudoVirtualCardsError</a>
               </li>
               <li class="nav-group-task">
@@ -160,9 +163,6 @@
             <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/AWSRegionType.html">AWSRegionType</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/GraphQL.html">GraphQL</a>
               </li>
               <li class="nav-group-task">
@@ -170,6 +170,12 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/GraphQL/CancelVirtualCardMutation.html">– CancelVirtualCardMutation</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/GraphQL.html#/OnTransactionDeleteSubscription">– OnTransactionDeleteSubscription</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/GraphQL.html#/OnTransactionUpdateSubscription">– OnTransactionUpdateSubscription</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/NotificationConfiguration.html">NotificationConfiguration</a>
@@ -195,16 +201,13 @@
                 <a class="nav-group-task-link" href="../Protocols/FundingSourceProviderData.html">FundingSourceProviderData</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/ProvisionVirtualCardObservable.html">ProvisionVirtualCardObservable</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ProvisionalCardAttributes.html">ProvisionalCardAttributes</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/ProvisionalCardSealedAttributes.html">ProvisionalCardSealedAttributes</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/SubscriptionToken.html">SubscriptionToken</a>
+                <a class="nav-group-task-link" href="../Protocols/Subscriber.html">Subscriber</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/SudoVirtualCardsClient.html">SudoVirtualCardsClient</a>
@@ -423,9 +426,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:16SudoVirtualCards16ClientCompletiona">ClientCompletion</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/s:16SudoVirtualCards0A31SubscriptionStatusChangeHandlera">SudoSubscriptionStatusChangeHandler</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -434,15 +434,15 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>ProvisionVirtualCardObservable</h1>
+            <h1>SubscriptionNotification</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ProvisionVirtualCardObservable</span> <span class="p">:</span> <span class="kt">AnyObject</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SubscriptionNotification</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            <p>Observable to define behavior for Provision Card API events.</p>
+            <p>The types of notifications that can be sent to <code><a href="../Protocols/Subscriber.html">Subscriber</a></code> instances.</p>
 
           </div>
         </section>
@@ -454,9 +454,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards09ProvisionB14CardObservableP26provisioningStateDidChange_4cardyAA011ProvisionaleH0O_AA0bE0VSgtF"></a>
-                    <a name="//apple_ref/swift/Method/provisioningStateDidChange(_:card:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards09ProvisionB14CardObservableP26provisioningStateDidChange_4cardyAA011ProvisionaleH0O_AA0bE0VSgtF">provisioningStateDidChange(_:<wbr>card:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards24SubscriptionNotificationO18transactionUpdatedyAcA11TransactionVcACmF"></a>
+                    <a name="//apple_ref/swift/Element/transactionUpdated(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24SubscriptionNotificationO18transactionUpdatedyAcA11TransactionVcACmF">transactionUpdated(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -464,14 +464,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Card Provision state has changed.</p>
+                        <p>A transaction has been updated.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">provisioningStateDidChange</span><span class="p">(</span><span class="n">_</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums/ProvisionalCardState.html">ProvisionalCardState</a></span><span class="p">,</span> <span class="nv">card</span><span class="p">:</span> <span class="kt"><a href="../Structs/VirtualCard.html">VirtualCard</a></span><span class="p">?)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">transactionUpdated</span><span class="p">(</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -481,9 +481,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:16SudoVirtualCards09ProvisionB14CardObservableP13errorOccurredyys5Error_pF"></a>
-                    <a name="//apple_ref/swift/Method/errorOccurred(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:16SudoVirtualCards09ProvisionB14CardObservableP13errorOccurredyys5Error_pF">errorOccurred(_:<wbr>)</a>
+                    <a name="/s:16SudoVirtualCards24SubscriptionNotificationO18transactionDeletedyAcA11TransactionVcACmF"></a>
+                    <a name="//apple_ref/swift/Element/transactionDeleted(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:16SudoVirtualCards24SubscriptionNotificationO18transactionDeletedyAcA11TransactionVcACmF">transactionDeleted(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -491,14 +491,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Error occurred while provisioning.</p>
+                        <p>A transaction has been deleted.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">errorOccurred</span><span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">transactionDeleted</span><span class="p">(</span><span class="kt"><a href="../Structs/Transaction.html">Transaction</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -513,7 +513,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-03-25)</p>
+      <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-04-14)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

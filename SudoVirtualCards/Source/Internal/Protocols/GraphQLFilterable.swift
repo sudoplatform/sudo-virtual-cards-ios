@@ -5,7 +5,7 @@
 //
 
 import Foundation
-import AWSAppSync
+import SudoApiClient
 
 /// Protocol that provides conformance for the ability to convert to a GraphQL Filter type.
 protocol GraphQLFilterable {

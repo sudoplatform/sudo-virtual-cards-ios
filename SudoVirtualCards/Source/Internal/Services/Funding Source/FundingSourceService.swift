@@ -4,7 +4,6 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-import AWSAppSync
 import Foundation
 import SudoApiClient
 import SudoLogging
@@ -72,26 +71,24 @@ class FundingSourceService {
             request.supportedProviders = input.supportedProviders
         }
         let mutation = GraphQL.SetupFundingSourceMutation(input: request)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
-
-        return ProvisionalFundingSource(
-            id: data.setupFundingSource.id,
-            owner: data.setupFundingSource.owner,
-            version: data.setupFundingSource.version,
-            state: ProvisionalFundingSourceState(data.setupFundingSource.state),
-            type: FundingSourceType(data.setupFundingSource.type),
-            last4: data.setupFundingSource.last4 ?? "",
-            createdAt: Date(millisecondsSince1970: data.setupFundingSource.createdAtEpochMs),
-            updatedAt: Date(millisecondsSince1970: data.setupFundingSource.updatedAtEpochMs),
-            provisioningData: try ProvisioningData(
-                encodedProvisioningData: data.setupFundingSource.provisioningData
+        do {
+            let data = try await graphQLClient.perform(mutation: mutation)
+            return ProvisionalFundingSource(
+                id: data.setupFundingSource.id,
+                owner: data.setupFundingSource.owner,
+                version: data.setupFundingSource.version,
+                state: ProvisionalFundingSourceState(data.setupFundingSource.getProvisionalFundingSourceState()),
+                type: FundingSourceType(data.setupFundingSource.getFundingSourceType()),
+                last4: data.setupFundingSource.last4 ?? "",
+                createdAt: Date(millisecondsSince1970: data.setupFundingSource.createdAtEpochMs),
+                updatedAt: Date(millisecondsSince1970: data.setupFundingSource.updatedAtEpochMs),
+                provisioningData: try ProvisioningData(
+                    encodedProvisioningData: data.setupFundingSource.provisioningData
+                )
             )
-        )
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
     }
 
     /// Complete a provisional funding source.
@@ -112,7 +109,7 @@ class FundingSourceService {
                 throw SudoVirtualCardsError.completionFailed
             }
         case .checkoutBankAccount(let completionData):
-            guard let currentKeys = try platformKeyManager.getCurrentKeyPair() else {
+            guard let currentKeys = try await platformKeyManager.getCurrentKeyPair() else {
                 throw SudoVirtualCardsError.localKeyPairFailure
             }
             do {
@@ -139,12 +136,12 @@ class FundingSourceService {
 
         let input = GraphQL.CompleteFundingSourceRequest(completionData: encodedCompletionString, id: clientId)
         let mutation = GraphQL.CompleteFundingSourceMutation(input: input)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
+        let data: GraphQL.CompleteFundingSourceMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
         if data.completeFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
             guard let fundingSource = data.completeFundingSource.asCreditCardFundingSource else {
                 logger.error("No data received for completeFundingSource credit card response")
@@ -182,7 +179,7 @@ class FundingSourceService {
         let encodedRefreshString: String
         switch refreshData {
         case let .checkoutBankAccount(refreshData):
-            guard let currentKeys = try platformKeyManager.getCurrentKeyPair() else {
+            guard let currentKeys = try await platformKeyManager.getCurrentKeyPair() else {
                 throw SudoVirtualCardsError.localKeyPairFailure
             }
             do {
@@ -215,12 +212,12 @@ class FundingSourceService {
 
         let input = GraphQL.RefreshFundingSourceRequest(id: clientId, language: language, refreshData: encodedRefreshString)
         let mutation = GraphQL.RefreshFundingSourceMutation(input: input)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
+        let data: GraphQL.RefreshFundingSourceMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
         if data.refreshFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
             guard let fundingSource = data.refreshFundingSource.asCreditCardFundingSource else {
                 logger.error("No data received for refreshFundingSource credit card response")
@@ -241,27 +238,21 @@ class FundingSourceService {
     }
 
     /// Get the client configuration for interacting with 3rd party partner payment processors.
-    ///
-    /// - Parameters:
-    ///   - cachePolicy: Cache policy on how to access the configuration.
     /// - Returns: Client Configurations for supported payment providers
-    ///
-    func getConfig(cachePolicy: CachePolicy) async throws -> ClientConfigurations {
+    func getConfig() async throws -> ClientConfigurations {
         let query = GraphQL.GetFundingSourceClientConfigurationQuery()
-        let data = try await GraphQLHelper.performQuery(
-            graphQLClient: graphQLClient,
-            query: query,
-            cachePolicy: cachePolicy,
-            logger: logger
-        )
-        guard
-            let encodedDataString = data?.getFundingSourceClientConfiguration.data,
-            let encodedData = Data(base64Encoded: encodedDataString)
-        else {
+        let data: GraphQL.GetFundingSourceClientConfigurationQuery.Data
+        do {
+            data = try await graphQLClient.fetch(query: query)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
+        let encodedDataString = data.getFundingSourceClientConfiguration.data
+        guard let encodedData = Data(base64Encoded: encodedDataString) else {
             throw SudoVirtualCardsError.getFailed
         }
         do {
-            return try self.decoder.decode(ClientConfigurations.self, from: encodedData)
+            return try decoder.decode(ClientConfigurations.self, from: encodedData)
         } catch {
             logger.error("Error occurred while decoding data: \(error.localizedDescription)")
             throw SudoVirtualCardsError.getFailed
@@ -269,20 +260,18 @@ class FundingSourceService {
     }
 
     /// Cancel a funding source.
-    ///
     /// - Parameters:
     ///   - id: identifier of the funding source.
     /// - Returns: Cancelled funding source.
-    ///
     func cancel(id: String) async throws -> FundingSource {
         let mutationInput = GraphQL.IdInput(id: id)
         let mutation = GraphQL.CancelFundingSourceMutation(input: mutationInput)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
+        let data: GraphQL.CancelFundingSourceMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
         if data.cancelFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
             guard let fundingSource = data.cancelFundingSource.asCreditCardFundingSource else {
                 logger.error("No data received for cancelFundingSource credit card response")
@@ -311,12 +300,13 @@ class FundingSourceService {
     func reviewUnfunded(id: String) async throws -> FundingSource {
         let mutationInput = GraphQL.IdInput(id: id)
         let mutation = GraphQL.ReviewUnfundedFundingSourceMutation(input: mutationInput)
-        let data = try await GraphQLHelper.performMutation(
-            graphQLClient: graphQLClient,
-            serviceErrorTransformations: [SudoVirtualCardsError.init(graphQLError:)],
-            mutation: mutation,
-            logger: logger
-        )
+        let data: GraphQL.ReviewUnfundedFundingSourceMutation.Data
+        do {
+            data = try await graphQLClient.perform(mutation: mutation)
+        } catch {
+            throw SudoVirtualCardsError.fromApiOperationError(error: error)
+        }
+
         if data.reviewUnfundedFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
             guard let fundingSource = data.reviewUnfundedFundingSource.asCreditCardFundingSource else {
                 logger.error("No data received for reviewUnfundedFundingSource credit card response")
