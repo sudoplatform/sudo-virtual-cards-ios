@@ -64,13 +64,6 @@ protocol Unsealer: AnyObject {
     ///     - KeyManagerError.
     func unseal(_ transaction: GraphQL.SealedTransaction) throws -> Transaction
 
-    /// Attempt to unseal a bank account funding source received from a `GraphQL.*FundingSource` query or mutation.
-    ///
-    /// Returns: BankAccount funding source that is unsealed using contained keyIds as required.
-    /// Throws:
-    ///     - UnsealingError.
-    ///     - KeyManagerError.
-    func unseal(_ fundingSource: GraphQL.BankAccountFundingSource) throws -> BankAccountFundingSource
 
     /// Attempt to unseal a sealedAttribute
     ///
@@ -249,35 +242,6 @@ class DefaultUnsealer: Unsealer {
             declineReason: transaction.declineReason,
             detail: detail,
             withKeyInfo: keyInfo
-        )
-    }
-
-    func unseal(_ fundingSource: GraphQL.BankAccountFundingSource) throws -> BankAccountFundingSource {
-        let institutionName = try unseal(fundingSource.institutionName.fragments.sealedAttribute)
-        let optionalLogo = try fundingSource.institutionLogo.map { try unseal(institutionLogo: $0.fragments.sealedAttribute) }
-        var optionalUnfundedAmount: CurrencyAmount?
-        if let unfundedAmount = fundingSource.unfundedAmount {
-            optionalUnfundedAmount = CurrencyAmount(currency: unfundedAmount.currency, amount: unfundedAmount .amount)
-        }
-
-        return BankAccountFundingSource(
-            id: fundingSource.id,
-            owner: fundingSource.owner,
-            version: fundingSource.version,
-            createdAt: Date(millisecondsSince1970: fundingSource.createdAtEpochMs),
-            updatedAt: Date(millisecondsSince1970: fundingSource.updatedAtEpochMs),
-            state: FundingSourceState(fundingSource.getFundingSourceState()),
-            flags: fundingSource.getFundingSourceFlags().map { FundingSourceFlags($0) },
-            currency: fundingSource.currency,
-            transactionVelocity: TransactionVelocity(
-                maximum: fundingSource.transactionVelocity?.maximum,
-                velocity: fundingSource.transactionVelocity?.velocity
-            ),
-            last4: fundingSource.last4,
-            bankAccountType: BankAccountType(fundingSource.getBankAccountType()),
-            institutionName: institutionName,
-            institutionLogo: optionalLogo,
-            unfundedAmount: optionalUnfundedAmount
         )
     }
 
@@ -584,23 +548,6 @@ class DefaultUnsealer: Unsealer {
             minCharge = try worker.unsealInt(markupMinCharge, withKeyInfo: keyInfo)
         }
         return .init(percent: percent, flat: flat, minCharge: minCharge)
-    }
-
-    /// Unseal a sealed institution logo.
-    ///
-    /// - Parameter institutionLogo: Attribute containing encrypted logo and key id with which it can be decrypted.
-    /// Returns: Decrypted institution logo
-    /// Throws:
-    ///     - `UnsealingError.dataDecodingFailed`:
-    ///         - If the input data cannot be encoded to a base 64 data object.
-    ///         - If The decrypted data cannot be decoded to a string.
-    ///     - `KeyManagerError` if the data cannot be decrypted.
-    func unseal(institutionLogo: GraphQL.SealedAttribute) throws -> BankAccountFundingSource.InstitutionLogo {
-        let unsealedLogoString = try unseal(institutionLogo)
-        guard let data = unsealedLogoString.data(using: .utf8) else {
-            throw UnsealingError.dataDecodingFailed
-        }
-        return try decoder.decode(BankAccountFundingSource.InstitutionLogo.self, from: data)
     }
 
     // MARK: - Helpers: Unseal Metadata

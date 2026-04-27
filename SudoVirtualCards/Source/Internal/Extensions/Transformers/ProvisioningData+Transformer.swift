@@ -25,12 +25,6 @@ extension ProvisioningData {
             let data = try decoder.decode(StripeCardProvisioningData.self, from: encodedProvisioningData)
 
             provisioningData = .stripeCard(data)
-        } else if baseProvisioningData.provider == "checkout" && baseProvisioningData.type == .bankAccount &&
-            baseProvisioningData.version == 1 {
-            let checkoutBankAccountData = try decoder.decode(CheckoutBankAccountProvisioningData.self, from:
-                encodedProvisioningData)
-
-            provisioningData = .checkoutBankAccount(checkoutBankAccountData)
         } else {
             provisioningData = .unknown(baseProvisioningData)
         }

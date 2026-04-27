@@ -31,60 +31,27 @@ public struct StripeCardCompletionDataInput: Hashable, FundingSourceProviderData
 typealias StripeCompletionDataInput = StripeCardCompletionDataInput
 
 /// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct CheckoutBankAccountCompletionDataInput: Hashable, FundingSourceProviderData {
-
-    // MARK: - Properties
-
-    /// Token to be exchanged in order to perform bank account operations.
-    public let publicToken: String
-    /// Identifier of the bank account to be used.
-    public let accountId: String
-    /// Identifier of the institution at which account to be used is held.
-    public let institutionId: String
-    /// Authorization text presented to and agreed to by the user.
-    public let authorizationText: AuthorizationText
-
-    /// Provider used to save the funding source information.
-    public let provider: String = "checkout"
-
-    public let version: Int = 1
-
-    public let type: FundingSourceType = .bankAccount
-
-    // MARK: - Lifecycle
-
-    public init(publicToken: String, accountId: String, institutionId: String, authorizationText: AuthorizationText) {
-        self.publicToken = publicToken
-        self.accountId = accountId
-        self.institutionId = institutionId
-        self.authorizationText = authorizationText
-    }
-}
 
 public enum CompletionDataInput: Hashable, FundingSourceProviderData {
     case stripeCard(StripeCardCompletionDataInput)
-    case checkoutBankAccount(CheckoutBankAccountCompletionDataInput)
 
     // MARK: - Properties
 
     public var provider: String {
         switch self {
         case .stripeCard(let input): return input.provider
-        case .checkoutBankAccount(let input): return input.provider
         }
     }
 
     public var type: FundingSourceType {
         switch self {
         case .stripeCard(let input): return input.type
-        case .checkoutBankAccount(let input): return input.type
         }
     }
 
     public var version: Int {
         switch self {
         case .stripeCard(let input): return input.version
-        case .checkoutBankAccount(let input): return input.version
         }
     }
 }

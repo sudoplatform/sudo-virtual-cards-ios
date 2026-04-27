@@ -54,16 +54,6 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///   - UnacceptableFundingSource.
     func completeFundingSource(withInput input: CompleteFundingSourceInput) async throws -> FundingSource
 
-    /// Refresh a funding source.
-    /// - Parameters:
-    ///   - input: Parameters used to refresh the funding source.
-    /// - Returns:The refreshed Funding Source.
-    /// - Throws:
-    ///     - FundingSourceCompletionDataInvalid.
-    ///     - FundingSourceNotFound.
-    ///     - UnacceptableFundingSource.
-    ///     - FundingSourceRequiresUserInteraction.
-    func refreshFundingSource(withInput input: RefreshFundingSourceInput) async throws -> FundingSource
 
     /// Provision a virtual card.
     ///
@@ -84,15 +74,6 @@ public protocol SudoVirtualCardsClient: AnyObject {
     ///  - SudoVirtualCardsError.
     func cancelFundingSource(withId id: String) async throws -> FundingSource
 
-    /// Request review of a funding source.
-    ///
-    /// - Parameter id: ID of the funding source to be reviewed.
-    ///
-    /// - Returns: Funding source that was reviewed.
-    /// - Throws:
-    ///  - SudoPlatformError.
-    ///  - SudoVirtualCardsError.
-    func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource
 
     /// Cancel a provisional funding source.
     ///
@@ -314,6 +295,19 @@ public protocol SudoVirtualCardsClient: AnyObject {
         dateRange: DateRangeInput?,
         sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction>
+    
+    // MARK: - Sign-In Delegate
+
+    /// Sets an optional delegate to handle sign-in when operations are attempted while not signed in.
+    ///
+    /// When set, all operations (except subscriptions and initialization) will check sign-in status
+    /// and invoke the delegate's `signIn()` method if the user is not signed in. The delegate should
+    /// handle the sign-in process and throw an error if sign-in fails or is cancelled. If the delegate
+    /// throws an error, that error will be propagated to the caller and the original operation will not be executed.
+    ///
+    /// - Parameter delegate: A delegate conforming to `SudoPlatformSignInDelegate`. Pass nil to disable sign-in checking.
+    ///
+    func setSignInDelegate(_ delegate: SudoPlatformSignInDelegate?) async
 
     // MARK: - Subscriptions
 
@@ -332,25 +326,4 @@ public protocol SudoVirtualCardsClient: AnyObject {
     /// Unsubscribe all subscribers from receiving notifications about changes to distributed vaults and members.
     func unsubscribeAll() async
 
-    // MARK: - Sandbox APIs
-
-    /// Sandbox API to obtain data normally returned by full Plaid Link flow. Useful for testing
-    /// ahead of full Plaid Link integration during application development.
-    ///
-    /// - Parameter institutionId: ID of Plaid sandbox institution to use
-    /// - Parameter plaidUsername: Username of Plaid sandbox user to obtain data for
-    ///
-    /// - Returns:`SandboxPlaidData` object containing sandbox Plaid data for populating completion
-    ///  data before calling `completeFundingSource`
-    func sandboxGetPlaidData(
-        institutionId: String,
-        plaidUsername: String
-    ) async throws -> SandboxPlaidData
-
-    /// Sandbox API to set a funding source to refresh state to facilitate testing
-    /// - Parameter id: ID of funding source to set to refresh state. Must identify a bank account funding source.
-    /// - Returns: `FundingSource` that has been set to refresh state
-    func sandboxSetFundingSourceToRequireRefresh(
-        fundingSourceId: String
-    ) async throws -> FundingSource
 }

@@ -15,28 +15,23 @@ public struct PricingPolicy: Codable, Equatable {
     /// The Stripe-specific pricing policy.
     public let stripe: StripePricingPolicy?
 
-    /// The Checkout-specific pricing policy.
-    public let checkout: CheckoutPricingPolicy?
 
     // MARK: - Conformance: Codable
 
     enum CodingKeys: String, CodingKey {
         case stripe
-        case checkout
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(stripe, forKey: .stripe)
-        try container.encode(checkout, forKey: .checkout)
     }
 
     // MARK: - Lifecycle
 
     /// Initialise an instance of `PricingPolicy`.
-    public init(stripe: StripePricingPolicy? = nil, checkout: CheckoutPricingPolicy? = nil) {
+    public init(stripe: StripePricingPolicy? = nil) {
         self.stripe = stripe
-        self.checkout = checkout
     }
 }
 
@@ -66,37 +61,6 @@ public struct StripePricingPolicy: Codable, Equatable {
     }
 }
 
-public struct CheckoutPricingPolicy: Codable, Equatable {
-
-    // MARK: - Properties
-
-    /// The credit card mark up data for each pricing tier.
-    public let creditCard: [String: TieredMarkupPolicy]
-
-    /// The bank account mark up data for each pricing tier.
-    public let bankAccount: [String: TieredMarkupPolicy]
-
-    // MARK: - Conformance: Codable
-
-    enum CodingKeys: String, CodingKey {
-        case creditCard = "CREDIT_CARD"
-        case bankAccount = "BANK_ACCOUNT"
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(creditCard, forKey: .creditCard)
-        try container.encode(bankAccount, forKey: .bankAccount)
-    }
-
-    // MARK: - Lifecycle
-
-    /// Initialise an instance of `CheckoutPricingPolicy`.
-    public init(creditCard: [String: TieredMarkupPolicy], bankAccount: [String: TieredMarkupPolicy]) {
-        self.creditCard = creditCard
-        self.bankAccount = bankAccount
-    }
-}
 
 public struct TieredMarkup: Codable, Equatable {
 

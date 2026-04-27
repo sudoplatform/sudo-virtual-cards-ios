@@ -7,7 +7,7 @@
 import Foundation
 
 /// The types of notifications that can be sent to `Subscriber` instances.
-public enum SubscriptionNotification: Equatable  {
+public enum SubscriptionNotification: Equatable {
     /// A transaction has been updated.
     case transactionUpdated(Transaction)
     /// A transaction has been deleted.

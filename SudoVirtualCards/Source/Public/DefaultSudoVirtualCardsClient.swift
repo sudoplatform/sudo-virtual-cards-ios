@@ -54,7 +54,11 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     /// Utility class to manage subscriptions.
     let subscriptionManager: SubscriptionManager
+    
+    // MARK: - Properties: Sign-In Guard
 
+    private let signInGuard: SignInGuard
+    
     // MARK: - Lifecycle
 
     /// Initialize a `DefaultSudoVirtualCardsClient` instance. It uses configuration parameters defined in
@@ -122,6 +126,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     ) {
         self.userClient = userClient
         self.graphQLClient = graphQLClient
+        self.signInGuard = SignInGuard(userClient: userClient)
         self.platformKeyManager = platformKeyManager
         self.unsealer = unsealer
         self.subscriptionManager = subscriptionManager
@@ -177,6 +182,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     // MARK: - Methods
+    
+    public func setSignInDelegate(_ delegate: SudoPlatformSignInDelegate?) async {
+        await signInGuard.setDelegate(delegate)
+    }
 
     public func setupFundingSource(withInput input: SetupFundingSourceInput) async throws -> ProvisionalFundingSource {
         try await checkUserSignedIn()
@@ -189,15 +198,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         switch input.completionData {
         case .stripeCard(let data):
             completionData = FundingSourceCompletionData.stripeCard(StripeCardCompletionData(paymentMethod: data.paymentMethodId))
-        case .checkoutBankAccount(let data):
-            completionData = FundingSourceCompletionData.checkoutBankAccount(
-                CheckoutBankAccountCompletionData(
-                    publicToken: data.publicToken,
-                    accountId: data.accountId,
-                    institutionId: data.institutionId,
-                    authorizationText: data.authorizationText
-                )
-            )
         }
 
         return try await fundingSourceService.complete(
@@ -206,19 +206,10 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         )
     }
 
-    public func refreshFundingSource(withInput input: RefreshFundingSourceInput) async throws -> FundingSource {
-        try await checkUserSignedIn()
-
-        return try await fundingSourceService.refresh(
-            clientId: input.id,
-            refreshData: input.refreshData,
-            applicationData: input.applicationData,
-            language: input.language
-        )
-    }
 
     public func provisionVirtualCard(withInput input: ProvisionVirtualCardInput) async throws -> VirtualCard {
-        let clientRefId = UUID().uuidString        
+        try await checkUserSignedIn()
+        let clientRefId = UUID().uuidString
         // Get the owner identifier, or fail.
         guard let owner = try? await userClient.getSubject() else {
             throw SudoVirtualCardsError.notSignedIn
@@ -252,11 +243,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     public func cancelFundingSource(withId id: String) async throws -> FundingSource {
         try await checkUserSignedIn()
         return try await fundingSourceService.cancel(id: id)
-    }
-
-    public func reviewUnfundedFundingSource(withId id: String) async throws -> FundingSource {
-        try await checkUserSignedIn()
-        return try await fundingSourceService.reviewUnfunded(id: id)
     }
 
     public func cancelProvisionalFundingSource(withId id: String) async throws -> ProvisionalFundingSource {
@@ -421,6 +407,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     }
 
     public func getVirtualCardsConfig() async throws -> VirtualCardsConfig {
+        try await checkUserSignedIn()
         let query = GraphQL.GetVirtualCardsConfigQuery()
         let data: GraphQL.GetVirtualCardsConfigQuery.Data
         do {
@@ -480,20 +467,8 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
             return nil
         }
         if getFundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
-            guard let fundingSource = getFundingSource.asCreditCardFundingSource else {
-                logger.error("No data received for getFundingSource credit card response")
-                throw SudoVirtualCardsError.internalError("No data received for getFundingSource credit card response")
-            }
-            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+            let creditCardFundingSource = CreditCardFundingSource(fragment: getFundingSource.fragments.creditCardFundingSource)
             return FundingSource.creditCardFundingSource(creditCardFundingSource)
-        }
-        if getFundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
-            guard let fundingSource = getFundingSource.asBankAccountFundingSource else {
-                logger.error("No data received for getFundingSource bank account response")
-                throw SudoVirtualCardsError.internalError("No data received for getFundingSource bank account response")
-            }
-            let bankAccountFundingSource = try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
-            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
         }
         return nil
     }
@@ -521,20 +496,8 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         let fundingSources: [FundingSource] = try listFundingSources.items
             .map {
                 if $0.__typename == CreditCardFundingSource.Constants.TypeName {
-                    guard let fundingSource = $0.asCreditCardFundingSource else {
-                        logger.error("No data received for getFundingSource credit card response")
-                        throw SudoVirtualCardsError.internalError("No data received for getFundingSource credit card response")
-                    }
-                    let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
+                    let creditCardFundingSource = CreditCardFundingSource(fragment: $0.fragments.creditCardFundingSource)
                     return FundingSource.creditCardFundingSource(creditCardFundingSource)
-                }
-                if $0.__typename == BankAccountFundingSource.Constants.TypeName {
-                    guard let fundingSource = $0.asBankAccountFundingSource else {
-                        logger.error("No data received for getFundingSource bank account response")
-                        throw SudoVirtualCardsError.internalError("No data received for getFundingSource bank account response")
-                    }
-                    let bankAccountFundingSource = try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
-                    return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
                 }
                 throw SudoVirtualCardsError.unrecognizedFundingSourceType($0.__typename)
             }
@@ -591,6 +554,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         dateRange: DateRangeInput?,
         sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
+        try await checkUserSignedIn()
         return try await transactionService.list(
             withCardId: cardId,
             limit: limit,
@@ -606,6 +570,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         limit: Int?,
         nextToken: String?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
+        try await checkUserSignedIn()
         return try await transactionService.list(
             withCardId: cardId,
             withTransactionType: transactionType,
@@ -620,6 +585,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
         dateRange: DateRangeInput?,
         sortOrder: SortOrderInput?
     ) async throws -> ListAPIResult<Transaction, PartialTransaction> {
+        try await checkUserSignedIn()
         return try await transactionService.list(
             withLimit: limit,
             nextToken: nextToken,
@@ -641,61 +607,6 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
 
     public func unsubscribeAll() async {
         await subscriptionManager.unsubscribeAll()
-    }
-
-    // MARK: - Sandbox APIs
-
-    public func sandboxGetPlaidData(institutionId: String, plaidUsername: String) async throws -> SandboxPlaidData {
-        try await checkUserSignedIn()
-        let query = GraphQL.SandboxGetPlaidDataQuery(input: .init(institutionId: institutionId, username: plaidUsername))
-        let data: GraphQL.SandboxGetPlaidDataQuery.Data
-        do {
-            data = try await graphQLClient.fetch(query: query)
-        } catch {
-            throw SudoVirtualCardsError.fromApiOperationError(error: error)
-        }
-        let sandboxPlaidData = data.sandboxGetPlaidData
-        return .init(
-            accountMetadata: sandboxPlaidData.accountMetadata.map {
-                .init(
-                    accountId: $0.accountId,
-                    subtype: .init(plaidSubType: $0.subtype ?? "unknown")
-                )
-            },
-            publicToken: sandboxPlaidData.publicToken
-        )
-    }
-
-    public func sandboxSetFundingSourceToRequireRefresh(
-        fundingSourceId: String
-    ) async throws -> FundingSource {
-        try await checkUserSignedIn()
-        let mutation = GraphQL.SandboxSetFundingSourceToRequireRefreshMutation(input: .init(fundingSourceId: fundingSourceId))
-        let data: GraphQL.SandboxSetFundingSourceToRequireRefreshMutation.Data
-        do {
-            data = try await graphQLClient.perform(mutation: mutation)
-        } catch {
-            throw SudoVirtualCardsError.fromApiOperationError(error: error)
-        }
-        let fundingSource = data.sandboxSetFundingSourceToRequireRefresh
-        if fundingSource.__typename == CreditCardFundingSource.Constants.TypeName {
-            guard let fundingSource = fundingSource.asCreditCardFundingSource else {
-                logger.error("No data received for credit card response")
-                throw SudoVirtualCardsError.internalError("No data received for credit card response")
-            }
-            let creditCardFundingSource = CreditCardFundingSource(fragment: fundingSource.fragments.creditCardFundingSource)
-            return FundingSource.creditCardFundingSource(creditCardFundingSource)
-        }
-        if fundingSource.__typename == BankAccountFundingSource.Constants.TypeName {
-            guard let fundingSource = fundingSource.asBankAccountFundingSource else {
-                logger.error("No data received for bank account response")
-                throw SudoVirtualCardsError.internalError("No data received for bank account response")
-            }
-            let bankAccountFundingSource = try self.unsealer.unseal(fundingSource.fragments.bankAccountFundingSource)
-            return FundingSource.bankAccountFundingSource(bankAccountFundingSource)
-        }
-
-        throw SudoVirtualCardsError.internalError("Unexpected funding source type \(fundingSource.__typename)")
     }
 
     // MARK: Internal - Public Key Lifecycle
@@ -801,6 +712,7 @@ public class DefaultSudoVirtualCardsClient: SudoVirtualCardsClient {
     // MARK: Internal - Utility
 
     func checkUserSignedIn() async throws {
+        try await signInGuard.ensureSignedIn()
         guard (try? await userClient.getSubject()) != nil else {
             throw SudoVirtualCardsError.notSignedIn
         }

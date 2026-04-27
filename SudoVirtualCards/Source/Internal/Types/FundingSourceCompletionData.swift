@@ -8,7 +8,6 @@ import Foundation
 
 enum FundingSourceCompletionData: Hashable, Encodable {
     case stripeCard(StripeCardCompletionData)
-    case checkoutBankAccount(CheckoutBankAccountCompletionData)
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()

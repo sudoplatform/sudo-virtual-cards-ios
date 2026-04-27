@@ -70,10 +70,6 @@ extension GraphQLSelectionSet {
         getEnumValue(GraphQL.CreditCardNetwork.self)
     }
 
-    func getBankAccountType() -> GraphQL.BankAccountType {
-        getEnumValue(GraphQL.BankAccountType.self)
-    }
-
     func getProvisioningState() -> GraphQL.ProvisioningState {
         getEnumValue(GraphQL.ProvisioningState.self)
     }
@@ -139,13 +135,6 @@ extension GraphQL.FundingSourceFlags: GraphQLEnum {
 
 extension GraphQL.CreditCardNetwork: GraphQLEnum {
     static var key: String { "network" }
-    static func getDefaultValue(from rawValue: Self.RawValue?) -> Self {
-        .unknown(rawValue ?? "")
-    }
-}
-
-extension GraphQL.BankAccountType: GraphQLEnum {
-    static var key: String { "bankAccountType" }
     static func getDefaultValue(from rawValue: Self.RawValue?) -> Self {
         .unknown(rawValue ?? "")
     }

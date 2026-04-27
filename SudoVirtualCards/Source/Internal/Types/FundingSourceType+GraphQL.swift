@@ -12,8 +12,6 @@ extension FundingSourceType {
         switch type {
         case .creditCard:
             self = .creditCard
-        case .bankAccount:
-            self = .bankAccount
         case let .unknown(type):
             self = .unknown(type)
         }

@@ -14,24 +14,16 @@ public enum ProvisioningData: Equatable, FundingSourceProviderData {
             case .stripeCard(let rhsData): return lhsData == rhsData
             default: return false
             }
-        case .checkoutBankAccount(let lhsData):
-            switch rhs {
-            case .checkoutBankAccount(let rhsData): return lhsData == rhsData
-            default: return false
-            }
         case .unknown: return false
         }
     }
 
     case stripeCard(StripeCardProvisioningData)
-    case checkoutBankAccount(CheckoutBankAccountProvisioningData)
     case unknown(any FundingSourceProviderData)
 
     public var provider: String {
         switch self {
         case .stripeCard(let data):
-            return data.provider
-        case .checkoutBankAccount(let data):
             return data.provider
         case .unknown(let data):
             return data.provider
@@ -42,8 +34,6 @@ public enum ProvisioningData: Equatable, FundingSourceProviderData {
         switch self {
         case .stripeCard(let data):
             return data.type
-        case .checkoutBankAccount(let data):
-            return data.type
         case .unknown(let data):
             return data.type
         }
@@ -52,8 +42,6 @@ public enum ProvisioningData: Equatable, FundingSourceProviderData {
     public var version: Int {
         switch self {
         case .stripeCard(let data):
-            return data.version
-        case .checkoutBankAccount(let data):
             return data.version
         case .unknown(let data):
             return data.version
