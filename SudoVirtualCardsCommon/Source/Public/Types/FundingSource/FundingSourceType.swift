@@ -6,7 +6,7 @@
 
 import Foundation
 
-public enum FundingSourceType: Decodable, Encodable, Hashable {
+public enum FundingSourceType: Sendable, Decodable, Encodable, Hashable {
     /// Credit or debit card based funding source
     case creditCard
     /// Bank account based funding source

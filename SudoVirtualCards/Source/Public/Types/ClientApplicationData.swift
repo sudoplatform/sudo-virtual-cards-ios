@@ -5,7 +5,7 @@
 //
 
 /// Information about the calling client application which equates to service-side configuration
-public struct ClientApplicationData: Equatable {
+public struct ClientApplicationData: Sendable, Equatable {
 
     // MARK: - Properties
 

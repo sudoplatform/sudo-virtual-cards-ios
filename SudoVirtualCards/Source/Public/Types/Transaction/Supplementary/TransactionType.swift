@@ -7,7 +7,7 @@
 import Foundation
 
 /// Type of a Transaction.
-public enum TransactionType: Hashable {
+public enum TransactionType: Sendable, Hashable {
     case pending
     case complete
     case refund

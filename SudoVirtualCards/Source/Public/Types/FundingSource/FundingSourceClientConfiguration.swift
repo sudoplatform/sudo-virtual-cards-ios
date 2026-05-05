@@ -7,7 +7,7 @@
 import Foundation
 
 /// The Sudo Platform SDK representation of the funding source client configuration for Stripe card provider
-public struct StripeCardClientConfiguration: BaseFundingSourceClientConfiguration, Equatable {
+public struct StripeCardClientConfiguration: BaseFundingSourceClientConfiguration, Sendable, Equatable {
 
     // MARK: - Properties
 
@@ -31,7 +31,7 @@ public struct StripeCardClientConfiguration: BaseFundingSourceClientConfiguratio
 
 }
 
-public enum FundingSourceClientConfiguration: BaseFundingSourceClientConfiguration, Equatable {
+public enum FundingSourceClientConfiguration: BaseFundingSourceClientConfiguration, Sendable, Equatable {
 
     case stripeCard(StripeCardClientConfiguration)
     case unknown(BaseFundingSourceClientConfiguration)

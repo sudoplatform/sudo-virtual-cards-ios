@@ -5,7 +5,7 @@
 //
 
 /// Input required to filter a virtual card source list.
-public indirect enum VirtualCardFilterInput {
+public indirect enum VirtualCardFilterInput: Sendable {
     /// Filter rule for `id` property.
     case id(IDFilterInput)
     /// Filter rule for `state` property.

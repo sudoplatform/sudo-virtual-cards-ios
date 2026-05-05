@@ -15,7 +15,7 @@ struct StripeDefaults {
     static let configurationType = "stripe"
 }
 
-public struct StripeCardProvisioningData: FundingSourceProviderData, Decodable, Hashable {
+public struct StripeCardProvisioningData: FundingSourceProviderData, Sendable, Decodable, Hashable {
 
     // MARK: - Properties
 
@@ -81,7 +81,7 @@ public struct StripeCardProvisioningData: FundingSourceProviderData, Decodable, 
 }
 
 /// Data received from stripe to complete provisioning a funding source.
-public struct StripeCardCompletionData: FundingSourceProviderData, Encodable, Hashable {
+public struct StripeCardCompletionData: FundingSourceProviderData, Sendable, Encodable, Hashable {
 
     // MARK: - Properties
 

@@ -6,7 +6,7 @@
 
 import Foundation
 
-public enum TransactionDeclineReason: Hashable {
+public enum TransactionDeclineReason: Sendable, Hashable {
     case insufficientFunds
     case suspicious
     case cardStopped

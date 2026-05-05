@@ -9,7 +9,7 @@ import SudoNotificationExtension
 
 /// Catch all notification in case new Sudo Platform Virtual Cards Service notifications are emitted before an application
 /// has updated its Sudo Platform Virtual Cards Notification Extension SDK
-public struct VirtualCardsUnknownNotification: SudoNotification, Equatable {
+public struct VirtualCardsUnknownNotification: SudoNotification, Sendable, Equatable {
 
     // MARK: - Conformance
 

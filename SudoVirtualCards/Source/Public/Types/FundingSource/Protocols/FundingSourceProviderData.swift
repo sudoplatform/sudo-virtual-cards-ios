@@ -7,7 +7,7 @@
 import Foundation
 @_exported import SudoVirtualCardsCommon
 
-public protocol FundingSourceProviderData {
+public protocol FundingSourceProviderData: Sendable {
 
     /// Provider String.
     var provider: String { get }

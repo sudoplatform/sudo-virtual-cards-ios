@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Virtual Card used in Platform SDK.
-public struct VirtualCard: Hashable, VirtualCardAttributes, VirtualCardSealedAttributes {
+public struct VirtualCard: Sendable, Hashable, VirtualCardAttributes, VirtualCardSealedAttributes {
 
     // MARK: - Properties
 

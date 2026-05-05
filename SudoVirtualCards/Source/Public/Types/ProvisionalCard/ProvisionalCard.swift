@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a transitory item used in the creation of a `VirtualCard` on the back-end.
-public struct ProvisionalCard: ProvisionalCardAttributes, ProvisionalCardSealedAttributes, Hashable {
+public struct ProvisionalCard: Sendable, ProvisionalCardAttributes, ProvisionalCardSealedAttributes, Hashable {
 
     // MARK: - Properties
 

@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SudoVirtualCards",
     defaultLocalization: "en",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v18)],
     products: [
         .library(
             name: "SudoVirtualCards",
@@ -16,12 +16,12 @@ let package = Package(
             targets: ["SudoVirtualCardsNotificationExtension"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/sudoplatform/sudo-api-client-ios", from: "13.0.0"),
-        .package(url: "https://github.com/sudoplatform/sudo-config-manager-ios", from: "5.0.0"),
-        .package(url: "https://github.com/sudoplatform/sudo-key-manager-ios", from: "4.0.0"),
-        .package(url: "https://github.com/sudoplatform/sudo-logging-ios", from: "2.0.0"),
-        .package(url: "https://github.com/sudoplatform/sudo-notification-ios", from: "5.0.1"),
-        .package(url: "https://github.com/sudoplatform/sudo-user-ios", from: "18.3.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-api-client-ios", from: "14.0.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-config-manager-ios", from: "6.0.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-key-manager-ios", from: "5.0.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-logging-ios", from: "3.0.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-notification-ios", from: "6.0.0"),
+        .package(url: "https://github.com/sudoplatform/sudo-user-ios", from: "19.0.0"),
         .package(url: "https://github.com/aws-amplify/amplify-swift", from: "2.49.1"),
     ],
     targets: [
@@ -39,7 +39,8 @@ let package = Package(
                 .product(name: "SudoNotification", package: "sudo-notification-ios"),
                 .product(name: "SudoUser", package: "sudo-user-ios"),
             ],
-            path: "SudoVirtualCardsCommon/"),
+            path: "SudoVirtualCardsCommon/",
+            swiftSettings: [.swiftLanguageMode(.v5)]),
         .target(
             name: "SudoVirtualCards",
             dependencies: [
@@ -54,7 +55,8 @@ let package = Package(
                 .product(name: "SudoNotification", package: "sudo-notification-ios"),
                 .target(name: "SudoVirtualCardsCommon"),
             ],
-            path: "SudoVirtualCards/"),
+            path: "SudoVirtualCards/",
+            swiftSettings: [.swiftLanguageMode(.v5)]),
         .target(
             name: "SudoVirtualCardsNotificationExtension",
             dependencies: [
@@ -62,7 +64,8 @@ let package = Package(
                 .product(name: "SudoNotificationExtension", package: "sudo-notification-ios"),
                 .target(name: "SudoVirtualCardsCommon"),
             ],
-            path: "SudoVirtualCardsNotificationExtension/"),
+            path: "SudoVirtualCardsNotificationExtension/",
+            swiftSettings: [.swiftLanguageMode(.v5)]),
     ]
 )
 

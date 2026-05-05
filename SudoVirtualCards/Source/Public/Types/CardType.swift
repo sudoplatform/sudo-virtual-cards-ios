@@ -9,7 +9,7 @@ import Foundation
 ///  Representation of an enumeration depicting the card type of a [CreditCardFundingSource], in the Sudo
 ///  Platform Virtual Cards SDK.
 ///
-public enum CardType: Hashable {
+public enum CardType: Sendable, Hashable {
     /// Credit Card funding source
     case CREDIT
     /// Debit Card funding source

@@ -7,7 +7,7 @@
 import Foundation
 
 /// `Subscriber` conforming objects can be notified of subscription notifications and status changes.
-public protocol Subscriber: AnyObject {
+public protocol Subscriber: AnyObject, Sendable {
 
     /// Notifies the subscriber of a change.
     /// - Parameter notification: Change notification.

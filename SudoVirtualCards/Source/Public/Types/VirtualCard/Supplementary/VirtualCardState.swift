@@ -12,7 +12,7 @@ import Foundation
 /// - closed: Card has been closed.
 /// - suspended: Card has been suspended.
 /// - unknown: API Evolution - if this occurs, it may mean you need to update the library.
-public enum VirtualCardState: Hashable, CustomStringConvertible {
+public enum VirtualCardState: Sendable, Hashable, CustomStringConvertible {
     case issued
     case failed
     case closed

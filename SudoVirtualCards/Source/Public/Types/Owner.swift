@@ -9,7 +9,7 @@ import Foundation
 /// Representation of an Owner object from the Virtual Cards Service.
 ///
 /// This represents the relationship of a unique identifier (`id`) with the `issuer`.
-public struct Owner: Hashable {
+public struct Owner: Sendable, Hashable {
 
     // MARK: - Properties
 

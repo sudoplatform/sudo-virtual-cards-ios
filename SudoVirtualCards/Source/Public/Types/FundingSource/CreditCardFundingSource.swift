@@ -7,13 +7,13 @@
 import Foundation
 
 /// Representation of a Credit Card Funding Source
-public struct CreditCardFundingSource: BaseFundingSource, Hashable {
+public struct CreditCardFundingSource: BaseFundingSource, Sendable, Hashable {
     struct Constants {
         static let TypeName: String = "CreditCardFundingSource"
     }
 
     /// Valid Credit Card Network options
-    public enum Network: Hashable {
+    public enum Network: Sendable, Hashable {
         case amex
         case diners
         case discover

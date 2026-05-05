@@ -7,7 +7,7 @@
 import Foundation
 
 /// Input object for a Provision Card operation, using `SudoVirtualCardsClient`.
-public struct ProvisionVirtualCardInput: Equatable {
+public struct ProvisionVirtualCardInput: Sendable, Equatable {
 
     // MARK: - Properties
 

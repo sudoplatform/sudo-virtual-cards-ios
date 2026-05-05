@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-public enum ProvisionalFundingSourceStateFilterInput {
+public enum ProvisionalFundingSourceStateFilterInput: Sendable {
     case equals(ProvisionalFundingSourceState)
     case notEquals(ProvisionalFundingSourceState)
 
@@ -19,7 +19,7 @@ public enum ProvisionalFundingSourceStateFilterInput {
 }
 
 /// Input required to filter a provisional funding source list.
-public indirect enum ProvisionalFundingSourceFilterInput {
+public indirect enum ProvisionalFundingSourceFilterInput: Sendable {
     /// Filter rule for `id` property.
     case id(IDFilterInput)
     /// Filter rule for `state` property.

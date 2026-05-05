@@ -7,7 +7,7 @@
 import Foundation
 
 /// Depiction of a JSON Value.
-public indirect enum JSONValue: Hashable {
+public indirect enum JSONValue: Sendable, Hashable {
     case string(String)
     case integer(Int)
     case double(Double)

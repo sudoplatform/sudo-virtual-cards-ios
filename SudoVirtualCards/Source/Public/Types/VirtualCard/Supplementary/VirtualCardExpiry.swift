@@ -7,7 +7,7 @@
 import Foundation
 
 /// Expiry of the card.
-public struct VirtualCardExpiry: Hashable {
+public struct VirtualCardExpiry: Sendable, Hashable {
 
     // MARK: - Properties
 

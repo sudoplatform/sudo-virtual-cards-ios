@@ -7,11 +7,11 @@
 import Foundation
 
 /// Result of `SudoVirtualCardsClient.createKeysIfAbsent` API.
-public struct CreateKeysIfAbsentResult {
+public struct CreateKeysIfAbsentResult: Sendable {
 
     // MARK: - Supplementary
 
-    public struct KeyResult {
+    public struct KeyResult: Sendable {
         /// Whether or not key needed to be created.
         public let created: Bool
 

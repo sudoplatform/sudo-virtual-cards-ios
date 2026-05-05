@@ -5,7 +5,7 @@
 //
 
 /// Input required to filter lists by id.
-public enum IDFilterInput: Equatable {
+public enum IDFilterInput: Sendable, Equatable {
     /// Filter by equality of `String`.
     case equals(String)
     /// Filter by non-equality of `String`.

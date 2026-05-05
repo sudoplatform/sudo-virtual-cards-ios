@@ -7,7 +7,7 @@
 import Foundation
 
 /// Sort order input.
-public enum SortOrderInput {
+public enum SortOrderInput: Sendable {
     /// Ascending order.
     case ascending
     /// Descending order.

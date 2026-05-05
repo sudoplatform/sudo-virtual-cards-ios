@@ -35,3 +35,6 @@ public struct ListOutput<T> {
 
 /// Ensures that ListOutput conforms to Equatable if its item T type conforms.
 extension ListOutput: Equatable where T: Equatable {}
+
+/// Ensures that ListOutput conforms to Sendable if its item T type conforms.
+extension ListOutput: Sendable where T: Sendable {}

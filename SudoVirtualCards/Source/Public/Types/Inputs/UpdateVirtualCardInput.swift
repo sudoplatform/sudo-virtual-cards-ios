@@ -7,7 +7,7 @@
 import Foundation
 
 /// Input object for a Update Card operation, using `SudoVirtualCardsClient`.
-public struct UpdateVirtualCardInput: Equatable {
+public struct UpdateVirtualCardInput: Sendable, Equatable {
 
     // MARK: - Properties
 

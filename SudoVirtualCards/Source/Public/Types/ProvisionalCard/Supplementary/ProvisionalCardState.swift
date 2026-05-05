@@ -12,7 +12,7 @@ import Foundation
 ///              by either a `getCard/s` API or via `ProvisionalCard.card` property.
 /// - failed: Card is in a failed state and needs to be rectified.
 /// - unknown: API Evolution - if this occurs, it may mean you need to update the library.
-public enum ProvisionalCardState: Hashable {
+public enum ProvisionalCardState: Sendable, Hashable {
     case provisioning
     case completed
     case failed

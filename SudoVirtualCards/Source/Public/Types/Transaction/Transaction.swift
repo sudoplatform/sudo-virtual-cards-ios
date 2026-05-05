@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Transaction object associated with a Virtual Card in Platform SDK.
-public struct Transaction: TransactionAttributes, TransactionSealedAttributes, Hashable {
+public struct Transaction: Sendable, TransactionAttributes, TransactionSealedAttributes, Hashable {
 
     // MARK: - Properties
 

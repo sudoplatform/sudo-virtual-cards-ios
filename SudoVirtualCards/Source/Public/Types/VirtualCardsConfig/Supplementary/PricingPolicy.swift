@@ -8,7 +8,7 @@ import Foundation
 
 /// Representation of the pricing policy for each funding source provicer which make up a component
 /// of the virtual cards configuration.
-public struct PricingPolicy: Codable, Equatable {
+public struct PricingPolicy: Sendable, Codable, Equatable {
 
     // MARK: - Properties
 
@@ -35,7 +35,7 @@ public struct PricingPolicy: Codable, Equatable {
     }
 }
 
-public struct StripePricingPolicy: Codable, Equatable {
+public struct StripePricingPolicy: Sendable, Codable, Equatable {
 
     // MARK: - Properties
 
@@ -62,7 +62,7 @@ public struct StripePricingPolicy: Codable, Equatable {
 }
 
 
-public struct TieredMarkup: Codable, Equatable {
+public struct TieredMarkup: Sendable, Codable, Equatable {
 
     // MARK: - Properties
 
@@ -94,7 +94,7 @@ public struct TieredMarkup: Codable, Equatable {
     }
 }
 
-public struct TieredMarkupPolicy: Codable, Equatable {
+public struct TieredMarkupPolicy: Sendable, Codable, Equatable {
 
     // MARK: - Properties
 
@@ -120,7 +120,7 @@ public struct TieredMarkupPolicy: Codable, Equatable {
     }
 }
 
-public struct Markup: Codable, Equatable {
+public struct Markup: Sendable, Codable, Equatable {
 
     // MARK: - Properties
 

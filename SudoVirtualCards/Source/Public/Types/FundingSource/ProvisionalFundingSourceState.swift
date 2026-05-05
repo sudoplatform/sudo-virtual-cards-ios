@@ -10,7 +10,7 @@ import Foundation
 /// - active: funding source is active.
 /// - inactive: funding source is inactive.
 /// - unknown: type could not be discerned - associated value is unknown and suggests that the SDK version is out of sync with the service.
-public enum ProvisionalFundingSourceState: Hashable {
+public enum ProvisionalFundingSourceState: Sendable, Hashable {
         case provisioning
         case pending
         case completed

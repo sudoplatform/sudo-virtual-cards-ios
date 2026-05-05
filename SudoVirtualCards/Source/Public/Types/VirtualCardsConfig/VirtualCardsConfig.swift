@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Virtual Card Config
-public struct VirtualCardsConfig: Equatable {
+public struct VirtualCardsConfig: Sendable, Equatable {
 
     // MARK: - Properties
 

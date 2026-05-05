@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Virtual Card without its unsealed attributes.
-public struct PartialVirtualCard: Hashable, VirtualCardAttributes {
+public struct PartialVirtualCard: Sendable, Hashable, VirtualCardAttributes {
 
     // MARK: - Properties
 

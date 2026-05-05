@@ -6,6 +6,6 @@
 
 import Foundation
 
-public enum VirtualCardsServiceNotificationType : String, Decodable, Equatable {
+public enum VirtualCardsServiceNotificationType : String, Sendable, Decodable, Equatable {
     case fundingSourceChanged
 }

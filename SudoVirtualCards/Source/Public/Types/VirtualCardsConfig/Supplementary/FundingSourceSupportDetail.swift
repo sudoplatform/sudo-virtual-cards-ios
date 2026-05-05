@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Funding Source's details
-public struct FundingSourceSupportDetail: Equatable {
+public struct FundingSourceSupportDetail: Sendable, Equatable {
 
     // MARK: - Properties
 

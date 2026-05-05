@@ -7,7 +7,7 @@
 import Foundation
 
 /// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct StripeCardCompletionDataInput: Hashable, FundingSourceProviderData {
+public struct StripeCardCompletionDataInput: Sendable, Hashable, FundingSourceProviderData {
 
     // MARK: - Properties
 
@@ -32,7 +32,7 @@ typealias StripeCompletionDataInput = StripeCardCompletionDataInput
 
 /// Input for the completion data of SudoVirtualCardsClient.completeFundingSource(withInput:).
 
-public enum CompletionDataInput: Hashable, FundingSourceProviderData {
+public enum CompletionDataInput: Sendable, Hashable, FundingSourceProviderData {
     case stripeCard(StripeCardCompletionDataInput)
 
     // MARK: - Properties
@@ -57,7 +57,7 @@ public enum CompletionDataInput: Hashable, FundingSourceProviderData {
 }
 
 /// Input for SudoVirtualCardsClient.completeFundingSource(withInput:).
-public struct CompleteFundingSourceInput: Equatable {
+public struct CompleteFundingSourceInput: Sendable, Equatable {
 
     // MARK: - Properties
 

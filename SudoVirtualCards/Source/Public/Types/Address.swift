@@ -5,7 +5,7 @@
 //
 
 /// Representation of a Mailing/Street Address used in Platform SDK.
-public struct Address: Equatable {
+public struct Address: Sendable, Equatable {
 
     // MARK: - Properties
 

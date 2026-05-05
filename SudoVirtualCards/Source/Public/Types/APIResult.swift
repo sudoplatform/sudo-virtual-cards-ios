@@ -56,3 +56,14 @@ public enum ListAPIResult<T, P> {
     /// Result is partial, returning a list of mixed success and partial results.
     case partial(ListPartialResult)
 }
+
+
+extension PartialResult: Sendable where P: Sendable {}
+
+extension SingleAPIResult: Sendable where T: Sendable, P: Sendable {}
+
+extension ListAPIResult: Sendable where T: Sendable, P: Sendable {}
+
+extension ListAPIResult.ListSuccessResult: Sendable where T: Sendable {}
+
+extension ListAPIResult.ListPartialResult: Sendable where T: Sendable, P: Sendable {}

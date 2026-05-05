@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Currency Velocity
-public struct CurrencyVelocity: Equatable {
+public struct CurrencyVelocity: Sendable, Equatable {
 
     // MARK: - Properties
 

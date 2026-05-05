@@ -10,7 +10,7 @@ import Foundation
 /// - unfunded: funding source has one or more outstanding transactions and cannot be used to transact
 /// - refresh: funding source requires refreshing and revalidation with funding source provider
 /// - unknown: value could not be discerned - associated value is unknown and suggests that the SDK version is out of sync with the service.
-public enum FundingSourceFlags: Encodable, Decodable, Hashable {
+public enum FundingSourceFlags: Sendable, Encodable, Decodable, Hashable {
     case unfunded
     case refresh
     case unknown(String)

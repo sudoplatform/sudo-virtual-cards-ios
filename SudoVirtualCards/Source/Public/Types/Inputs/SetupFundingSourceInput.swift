@@ -7,11 +7,11 @@
 import Foundation
 
 /// Input object holding information for Funding Source Setup, using `SudoVirtualCardsClient`.
-public struct SetupFundingSourceInput: Equatable {
+public struct SetupFundingSourceInput: Sendable, Equatable {
 
     // MARK: - Supplementary
 
-    public enum SetupFundingSourceType: Equatable {
+    public enum SetupFundingSourceType: Sendable, Equatable {
         case creditCard
         case unknown(String)
 

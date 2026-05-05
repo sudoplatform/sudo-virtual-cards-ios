@@ -7,7 +7,7 @@
 import Foundation
 
 /// Billing Address of the card.
-public struct VirtualCardBillingAddress: Hashable {
+public struct VirtualCardBillingAddress: Sendable, Hashable {
 
     // MARK: - Properties
 

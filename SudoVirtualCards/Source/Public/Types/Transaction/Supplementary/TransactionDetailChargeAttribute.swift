@@ -8,12 +8,12 @@ import Foundation
 
 /// Transaction detail. Depending on transaction type will detail things like fees, real credit
 /// card transaction details etc.
-public struct TransactionDetailChargeAttribute: Hashable {
+public struct TransactionDetailChargeAttribute: Sendable, Hashable {
 
     // MARK: - Supplementary
 
     /// Representation of a markup formula.
-    public struct Markup: Hashable {
+    public struct Markup: Sendable, Hashable {
 
         // MARK: - Properties
 
@@ -58,7 +58,7 @@ public struct TransactionDetailChargeAttribute: Hashable {
     /// Enum describing the state of the transaction charge detail. Historically all transaction charges would complete
     /// immediately, resulting in a `CLEARED` state, however some transactions, particularly those backed by ACH funding sources
     /// can take some time to resolve so will begin as `PENDING` and may result in failure.
-    public enum ChargeDetailState: Hashable {
+    public enum ChargeDetailState: Sendable, Hashable {
         /// Funding transaction initiated
         case pending
         /// Funding transaction cleared

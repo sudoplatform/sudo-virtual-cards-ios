@@ -6,7 +6,7 @@
 
 import Foundation
 
-public protocol BaseFundingSourceClientConfiguration {
+public protocol BaseFundingSourceClientConfiguration: Sendable {
     var type: String { get }
     var fundingSourceType: FundingSourceType { get }
     var version: Int { get }

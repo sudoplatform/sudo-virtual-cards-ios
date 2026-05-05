@@ -7,7 +7,7 @@
 import Foundation
 
 /// Configuration for connecting to the Sudo VirtualCards Service via AppSync.
-public struct SudoVirtualCardsConfig: Decodable {
+public struct SudoVirtualCardsConfig: Sendable, Decodable {
 
     // MARK: - Supplementary
 

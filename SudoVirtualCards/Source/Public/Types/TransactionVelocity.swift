@@ -8,7 +8,7 @@ import Foundation
 
 // Representation of virtual card transaction velocity
 // constraints.
-public struct TransactionVelocity: Hashable {
+public struct TransactionVelocity: Sendable, Hashable {
     // MARK: - Properties
 
     // Maximum value of any single virtual card transaction

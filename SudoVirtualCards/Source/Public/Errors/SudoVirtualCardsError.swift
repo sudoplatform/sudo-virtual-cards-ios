@@ -434,7 +434,7 @@ extension SudoVirtualCardsError {
 }
 
 /// Errors associated with the failure of Public Key Registration Lifecycle events.
-public enum PublicKeyError: Error, Equatable {
+public enum PublicKeyError: Error, Equatable, Sendable {
     /// Failed to register the Public Key to virtualcards service.
     case registerFailed
     /// Failed to delete the Public Key from virtualcards service.

@@ -6,7 +6,7 @@
 
 import Foundation
 
-public enum ProvisioningData: Equatable, FundingSourceProviderData {
+public enum ProvisioningData: Sendable, Equatable, FundingSourceProviderData {
     public static func == (lhs: ProvisioningData, rhs: ProvisioningData) -> Bool {
         switch lhs {
         case .stripeCard(let lhsData):
@@ -50,7 +50,7 @@ public enum ProvisioningData: Equatable, FundingSourceProviderData {
 }
 
 /// The Sudo Platform SDK representation of a funding source.
-public struct ProvisionalFundingSource: Equatable {
+public struct ProvisionalFundingSource: Sendable, Equatable {
 
     // MARK: - Properties
 

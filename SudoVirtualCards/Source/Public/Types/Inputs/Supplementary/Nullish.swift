@@ -7,7 +7,7 @@
 import Foundation
 
 /// Wrapped enum for types that can be null, undefined, or defined.
-public enum Nullish<Wrapped>: ExpressibleByNilLiteral {
+public enum Nullish<Wrapped>: Sendable, ExpressibleByNilLiteral where Wrapped: Sendable {
     /// Object is semantically null.
     case null
     /// Object is semantically undefined (same as `nil`).

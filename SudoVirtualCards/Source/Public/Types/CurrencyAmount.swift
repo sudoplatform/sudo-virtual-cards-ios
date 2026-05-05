@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Currency Amount object on the Virtual Cards Service.
-public struct CurrencyAmount: Hashable {
+public struct CurrencyAmount: Sendable, Hashable {
 
     // MARK: - Properties
 

@@ -8,7 +8,7 @@ import Foundation
 import SudoNotificationExtension
 
 /// Representation of a Sudo Platform Virtual Cards service fundingSourceChanged notification
-public struct VirtualCardsFundingSourceChangedNotification: SudoNotification, Equatable {
+public struct VirtualCardsFundingSourceChangedNotification: SudoNotification, Sendable, Equatable {
     public static func == (lhs: VirtualCardsFundingSourceChangedNotification, rhs: VirtualCardsFundingSourceChangedNotification) -> Bool {
         return lhs.owner == rhs.owner &&
         lhs.fundingSourceId == rhs.fundingSourceId &&

@@ -7,7 +7,7 @@
 import Foundation
 
 /// Plaid specific application configuration to support funding source creation.
-public struct PlaidApplicationConfiguration: Codable, Equatable {
+public struct PlaidApplicationConfiguration: Sendable, Codable, Equatable {
 
     // MARK: - Properties
 
@@ -37,7 +37,7 @@ public struct PlaidApplicationConfiguration: Codable, Equatable {
 }
 
 /// The funding source provider configuration.
-public struct FundingSourceProviders: Codable, Equatable {
+public struct FundingSourceProviders: Sendable, Codable, Equatable {
     /// The Plaid specific configuration.
     public let plaid: PlaidApplicationConfiguration
 
@@ -54,7 +54,7 @@ public struct FundingSourceProviders: Codable, Equatable {
 }
 
 /// The client application configuration containing information associated with Android client applications.
-public struct ClientApplicationConfiguration: Codable, Equatable {
+public struct ClientApplicationConfiguration: Sendable, Codable, Equatable {
     /// The configuration for each funding source provider.
     public let fundingSourceProviders: FundingSourceProviders
 

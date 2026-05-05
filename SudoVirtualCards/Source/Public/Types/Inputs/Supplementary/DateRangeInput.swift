@@ -7,7 +7,7 @@
 import Foundation
 
 /// Input for Date ranges.
-public struct DateRangeInput: Hashable {
+public struct DateRangeInput: Sendable, Hashable {
 
     // MARK: - Properties
 

@@ -7,7 +7,7 @@
 import Foundation
 
 /// Representation of a Funding Source used in the Sudo Platform SDK.
-public enum FundingSource {
+public enum FundingSource: Sendable {
     /// Representation of a Credit Card Funding Source.
     case creditCardFundingSource(CreditCardFundingSource)
 
