@@ -1,4 +1,5 @@
 {
+  "originHash" : "7fdce4a182b4063c1435b649184941260a88663c584ee796088a1850b6e95f82",
   "pins" : [
     {
       "identity" : "amplify-swift",
@@ -86,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-api-client-ios",
       "state" : {
-        "revision" : "19d53200bafbdffb94c5152787e2dd0036cfbaa9",
-        "version" : "13.1.0"
+        "revision" : "f87c5ffcc8a3195793ee9808b826785422543ad9",
+        "version" : "14.0.0"
       }
     },
     {
@@ -95,8 +96,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-config-manager-ios",
       "state" : {
-        "revision" : "f41f724f41956fd2dfbc61039d381fe33f683750",
-        "version" : "5.0.0"
+        "revision" : "65e3aff3779e9bfb061444a771e39c4a1c144b5c",
+        "version" : "6.0.1"
       }
     },
     {
@@ -104,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-key-manager-ios",
       "state" : {
-        "revision" : "54a7541b94adbf93047be11eaf2d65d79488db8e",
-        "version" : "4.1.3"
+        "revision" : "9a83cbd94d7da43a1acf7acb4a7bde07079aebb2",
+        "version" : "5.0.0"
       }
     },
     {
@@ -113,8 +114,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-logging-ios",
       "state" : {
-        "revision" : "c1de608ee27bc133cf9657af9c290aa17ec3f133",
-        "version" : "2.0.0"
+        "revision" : "8ef4046b2a19b4a77658c3eab85e5309d9926f40",
+        "version" : "3.0.1"
       }
     },
     {
@@ -122,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-notification-ios",
       "state" : {
-        "revision" : "1588aa621d3e6b8ab17a34de03df6e23171c20a6",
-        "version" : "5.1.0"
+        "revision" : "1e67f3c7b5a568a0aeb5b09e79d5a5fd14b889df",
+        "version" : "6.0.0"
       }
     },
     {
@@ -131,8 +132,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sudoplatform/sudo-user-ios",
       "state" : {
-        "revision" : "b371b692842279251d9bc048e3e2c5f0454e55b4",
-        "version" : "18.3.0"
+        "revision" : "730c38fd1e01b95b5e8a9ccffc79b2e85ec374e9",
+        "version" : "19.0.0"
       }
     },
     {
@@ -248,8 +249,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "558f24a4647193b5a0e2104031b71c55d31ff83a",
-        "version" : "2.97.1"
+        "revision" : "77b84ac2cd2ac9e4ac67d19f045fd5b434f56967",
+        "version" : "2.101.0"
       }
     },
     {
@@ -334,5 +335,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
